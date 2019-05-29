@@ -8,7 +8,14 @@ class Item extends Component {
     super(props);
     this.state = {};
   }
-  render() {}
+  render() {
+    const { name } = this.props;
+    return (
+      <div>
+        <div className="itemName">{name}</div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {

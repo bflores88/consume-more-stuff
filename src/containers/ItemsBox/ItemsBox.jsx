@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card from '../../components/Card';
+import Item from '../Item';
 
 class ItemsBox extends Component {
   constructor(props) {
@@ -7,6 +7,7 @@ class ItemsBox extends Component {
 
     this.state = {
       input: '',
+      items: [{ name: 'banana' }, { name: 'kiwi' }],
     };
 
     // this.handleInputChange = this.handleInputChange.bind(this);
@@ -19,24 +20,10 @@ class ItemsBox extends Component {
 
   render() {
     const input = this.state.input;
-    const cardList = this.props.cards.map((card, idx) => {
-      return (
-        <Card
-          key={idx}
-          id={card.id}
-          title={card.title}
-          body={card.body}
-          priority={card.priority}
-          priority_id={card.priority_id}
-          status={card.status}
-          status_id={card.status_id}
-          created_by={card.created_by}
-          assigned_to={card.assigned_to}
-          users={this.props.users}
-        />
-      );
+    const itemsBox = this.state.items.map((item, idx) => {
+      return <Item name={item.name} />;
     });
-    return <>{cardList}</>;
+    return <>{itemsBox}</>;
   }
 }
 
