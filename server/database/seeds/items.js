@@ -170,7 +170,7 @@ exports.seed = function(knex, Promise) {
           dimensions: '626 pages',
           viewCount: 17,
           price: 17.17,
-          description: "It's about am almost beautifyul place",
+          description: "It's about am almost beautiful place",
           approved: false,
         },
       ]);
