@@ -5,10 +5,12 @@ const session = require('express-session');
 const Redis = require('connect-redis')(session);
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs'); // for encrypting passwords in our database for data security.
+const auth = require('./routes/auth');
 require('dotenv').config();
 
+const User = require('./database/models/User');
+
 const port = process.env.EXPRESS_CONTAINER_PORT;
-const saltRounds = 12;
 
 const app = express();
 
@@ -83,57 +85,7 @@ passport.deserializeUser(function(user, done) {
   });
 });
 
-app.post('/api/register', (req, res) => {
-
-  console.log('/register post request, ', req.body);
-  bcrypt.genSalt(saltRounds, (error, salt) => {
-    if (error) { console.log('genSalt error ', error); } //return 500
-
-    bcrypt.hash(req.body.password, salt, (error, hash) => {
-      if (error) { console.log('hash error ', error); } //return 500
-
-      return new User({ // If no errors were encountered salting and hashing the password then create a new model.
-        
-        role_id: 3, // Basic User
-        active: true,
-        theme_id: 1,
-        username: req.body.username,
-        profileImageUrl: user.profileImageUrl,
-        name: req.body.name,
-        email: req.body.email,
-        password: hash,
-      })
-      .save() // Save model to database
-      .then((newUser) => {
-        return res.json(newUser); // Valid user data sends a response with no body.
-      })
-      .catch((error) => { 
-        if (error.constraint === "users_username_unique"){ // identify what caused error during save attempt
-          return res.json({ // create an object that only informs of error and doesnt expose database details
-            // element : 'username',
-            // errorMessage : 'username taken'
-          });
-        } else {
-          console.log('error ', error);
-          return res.json({ 
-            // message: 'error' 
-          });
-        }
-      });
-    });
-  });
-});
-
-app.post('/api/login', passport.authenticate('local'), (req, res) => { // req res function only happens if authenication suceeded
-  // console.log(req.user);
-  // window.localStorage.setItem('user', JSON.stringify(req.user));
-  res.json(req.user); // successful login attaches the user property to the req.
-});
-
-app.post('/api/logout', (req, res) => {
-  req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
-  res.json(null);
-});
+app.use('/api/auth', auth);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);
