@@ -17,10 +17,6 @@ class User extends bookshelf.Model {
   theme_id() {
     return this.belongsTo('Theme', 'theme_id');
   }
-
-  Cards() {
-    return this.hasMany('Card');
-  }
 }
 
 module.exports = bookshelf.model('User', User);

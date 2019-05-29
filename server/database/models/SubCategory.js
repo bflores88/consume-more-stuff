@@ -1,6 +1,7 @@
 const bookshelf = require('../bookshelf');
 
-require('./User');
+require('./Category');
+require('./Item');
 class SubCategory extends bookshelf.Model {
   get tableName() {
     return 'subCategories';
@@ -10,6 +11,9 @@ class SubCategory extends bookshelf.Model {
   }
   category_id() {
     return this.belongsTo('Category', 'category_id');
+  }
+  Items() {
+    return this.hasMany('Item');
   }
 }
 
