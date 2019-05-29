@@ -15,4 +15,4 @@ class ItemImage extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.model('itemImage', ItemImage);
+module.exports = bookshelf.model('ItemImage', ItemImage);
