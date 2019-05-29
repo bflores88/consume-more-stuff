@@ -61,3 +61,5 @@ router.route('/logout')
   req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
   res.json(null);
 });
+
+module.exports = router;

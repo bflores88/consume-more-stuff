@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import LoginComponent from './components/Login/Login';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <body>
+        <LoginComponent/>
+      </body>
     </div>
   );
 }
