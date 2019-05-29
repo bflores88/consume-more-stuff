@@ -5,12 +5,18 @@ exports.up = function(knex, Promise) {
       .integer('user_id')
       .notNull()
       .references('id')
-      .inTable('users');
+      .inTable('users')
+      .onDelete('CASCADE');
     table
       .integer('status_id')
       .notNull()
       .references('id')
       .inTable('itemStatuses');
+    table
+      .integer('condition_id')
+      .notNull()
+      .references('id')
+      .inTable('itemConditions');
     table
       .integer('category_id')
       .notNull()
@@ -21,7 +27,13 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('subCategories');
-    table.integer('tax').notNull();
+    table.string('name', 100).notNull();
+    table.integer('quantity').notNull();
+    table.string('dimensions', 100);
+    table.integer('viewCount').notNull();
+    table.integer('price').notNull();
+    table.string('description', 1000);
+    table.boolean('approved').notNull();
     table.timestamps(true, true);
   });
 };
