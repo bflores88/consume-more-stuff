@@ -21,9 +21,9 @@ router.route('/register')
         
         role_id: 3, // Basic User
         active: true,
-        theme_id: 1,
+        theme_id: 1, // Default Theme
         username: req.body.username,
-        profileImageUrl: user.profileImageUrl,
+        profileImageUrl: req.body.profileImageUrl,
         name: req.body.name,
         email: req.body.email,
         password: hash,
