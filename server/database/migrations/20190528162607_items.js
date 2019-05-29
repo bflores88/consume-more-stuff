@@ -27,7 +27,7 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('subCategories');
-    table.string('name', 100).notNull();
+    table.string('name', 255).notNull();
     table.integer('quantity').notNull();
     table.string('dimensions', 100);
     table.integer('viewCount').notNull();

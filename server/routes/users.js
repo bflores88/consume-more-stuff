@@ -6,7 +6,7 @@ const User = require('../database/models/User');
 
 router.route('/').get((req, res) => {
   new User()
-    .fetch()
+    .fetchAll()
     .then((result) => {
       // respond with all users
       return res.json(result);

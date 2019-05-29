@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
     table.string('password', 100).notNull();
     table.string('name', 100);
     table.string('email', 100);
-    table.string('profileImageUrl', 100);
+    table.string('profileImageUrl', 255);
     table.timestamps(true, true);
   });
 };
