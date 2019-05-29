@@ -22,11 +22,12 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.items);
     return (
       <div className="App">
         <h1>hello</h1>
         <h3>{this.state.title}</h3>
-        <ItemsBox />
+        <ItemsBox items={this.props.items} />
       </div>
     );
   }

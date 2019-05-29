@@ -9,7 +9,7 @@ class Item extends Component {
     this.state = {};
   }
   render() {
-    const { name } = this.props;
+    const { name, id } = this.props;
     return (
       <div>
         <div className="itemName">{name}</div>
