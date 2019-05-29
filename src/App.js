@@ -1,26 +1,55 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import { connect } from 'react-redux';
+import { loadItems } from './actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ItemsBox from './containers/ItemsBox';
+import Item from './containers/Item';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: 'test',
+    };
+  }
+
+  componentDidMount() {
+    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
+    return this.props.loadItems();
+  }
+
+  render() {
+    console.log(this.props.items);
+    return (
+      <div className="App">
+        <h1>hello</h1>
+        <h3>{this.state.title}</h3>
+        <ItemsBox items={this.props.items} />
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.itemReducer.items,
+  };
+};
+
+const mapDispatchtoProps = (dispatch) => {
+  return {
+    loadItems: () => {
+      return dispatch(loadItems());
+    },
+  };
+};
+
+App = connect(
+  mapStateToProps,
+  mapDispatchtoProps,
+)(App);
 
 export default App;
