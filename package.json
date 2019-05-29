@@ -47,5 +47,6 @@
   "main": "index.js",
   "devDependencies": {},
   "author": "cohort28",
-  "license": "ISC"
+  "license": "ISC",
+  "proxy": "http://localhost:8080"
 }
