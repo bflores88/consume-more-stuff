@@ -1,7 +1,7 @@
 const bookshelf = require('../bookshelf');
 
 require('./User');
-require('./Status');
+require('./ItemStatus');
 require('./Category');
 require('./ItemCondition');
 require('./SubCategory');
