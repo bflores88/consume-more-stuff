@@ -125,8 +125,9 @@ app.post('/api/register', (req, res) => {
 });
 
 app.post('/api/login', passport.authenticate('local'), (req, res) => { // req res function only happens if authenication suceeded
-  console.log(req.user);
-  res.json(null); // successful login attaches the user property to the req.
+  // console.log(req.user);
+  // window.localStorage.setItem('user', JSON.stringify(req.user));
+  res.json(req.user); // successful login attaches the user property to the req.
 });
 
 app.post('/api/logout', (req, res) => {
