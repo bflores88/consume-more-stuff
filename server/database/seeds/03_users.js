@@ -67,7 +67,7 @@ exports.seed = function(knex, Promise) {
           active: false,
           role_id: 3,
           theme_id: 1,
-          username: 'Moderator02',
+          username: 'User02',
           password: bcrypt.hash('password', saltRounds),
           name: 'Nuck Chorris',
           email: 'Roundhouse2daface@email.com',
