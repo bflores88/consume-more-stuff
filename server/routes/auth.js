@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 
-const User = require('../../database/models/User');
+const User = require('../database/models/User');
 
 const saltRounds = 12;
 
