@@ -9,7 +9,7 @@ class Theme extends bookshelf.Model {
     return true;
   }
 
-  Users() {
+  users() {
     return this.hasMany('User');
   }
 }
