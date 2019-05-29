@@ -3,7 +3,7 @@ const bookshelf = require('../bookshelf');
 require('./User');
 class ShippingAddress extends bookshelf.Model {
   get tableName() {
-    return 'ShippingAddress';
+    return 'shippingAddresses';
   }
   get hasTimestamps() {
     return true;
