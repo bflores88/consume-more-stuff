@@ -31,7 +31,7 @@ exports.up = function(knex, Promise) {
     table.integer('quantity').notNull();
     table.string('dimensions', 100);
     table.integer('viewCount').notNull();
-    table.integer('price').notNull();
+    table.decimal('price', 8, 2).notNull();
     table.string('description', 1000);
     table.boolean('approved').notNull();
     table.timestamps(true, true);

@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('shippingAddresses');
-    table.integer('tax').notNull();
+    table.decimal('tax', 8, 2).notNull();
     table.timestamps(true, true);
   });
 };
