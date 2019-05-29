@@ -9,7 +9,7 @@ class Role extends bookshelf.Model {
     return true;
   }
 
-  Users() {
+  users() {
     return this.hasMany('User');
   }
 }
