@@ -9,7 +9,7 @@ class ItemCondition extends bookshelf.Model {
     return true;
   }
 
-  Items() {
+  items() {
     return this.hasMany('Item');
   }
 }
