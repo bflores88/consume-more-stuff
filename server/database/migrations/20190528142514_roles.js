@@ -5,9 +5,11 @@ exports.up = function(knex, Promise) {
       .string('roleName', 30)
       .notNull()
       .unique();
-    table.string('canBuy', 100).notNull();
-    table.string('canSell', 100).notNull();
-    table.string('canModify', 100).notNull();
+    table.boolean('canBuy').notNull();
+    table.boolean('canSell').notNull();
+    table.boolean('canModify').notNull();
+    table.boolean('canApprove').notNull();
+    table.boolean('canSuspend').notNull();
     table.timestamps(true, true);
   });
 };
