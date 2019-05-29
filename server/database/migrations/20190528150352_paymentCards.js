@@ -3,13 +3,13 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('cardNumber', 20).notNull();
     table.date('expiration');
-    table.string('ccv', 3);
+    table.string('cvv', 4);
     table.string('street', 100);
-    table.string('aptSuite', 100);
-    table.string('city', 100);
-    table.string('state', 100);
-    table.string('country', 100);
-    table.string('zip', 100);
+    table.string('aptSuite', 20);
+    table.string('city', 50);
+    table.string('state', 20);
+    table.string('country', 20);
+    table.string('zip', 5);
     table
       .integer('user_id')
       .notNull()

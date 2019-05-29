@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('itemImages', (table) => {
     table.increments();
-    table.string('imageLink', 30).notNull();
+    table.string('imageLink', 255).notNull();
     table
       .integer('item_id')
       .notNull()
