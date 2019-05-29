@@ -12,7 +12,7 @@ class SubCategory extends bookshelf.Model {
   category_id() {
     return this.belongsTo('Category', 'category_id');
   }
-  Items() {
+  items() {
     return this.hasMany('Item');
   }
 }
