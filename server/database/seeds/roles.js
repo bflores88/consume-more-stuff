@@ -8,7 +8,6 @@ exports.seed = function(knex, Promise) {
         {roleName: 'Admin', canBuy: true, canSell: true, canModify: true, canApprove: true, canSuspend: true},
         {roleName: 'Moderator', canBuy:true, canSell: true, canModify: true, canApprove: true, canSuspend: false},
         {roleName: 'User', canBuy: true, canSell: true, canModify: false, canApprove: false, canSuspend: false},
-        {roleName: 'Guest', canBuy: false, canSell: false, canModify: false, canApprove: false, canSuspend: false}
       ]);
     });
 };
