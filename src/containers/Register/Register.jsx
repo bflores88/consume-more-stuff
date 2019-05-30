@@ -11,6 +11,7 @@ class Register extends Component {
       maxUsernameLength: 20,
       minPasswordLength: 6,
       maxPasswordLength: 100,
+
       username: '',
       password: '',
       name: '',
@@ -50,12 +51,11 @@ class Register extends Component {
   }
 
   handleSubmit() { // Handle Validate?
-    if (this.state.username.length < minUsernameLength) {
-      // error, name is too short or not entered.
-    } 
-    if (this.state.password.length < minPasswordLength) {
-      // error, password is too short or not entered.
-    }
+    console.log( this.state.username );
+    console.log( this.state.password );
+    console.log( this.state.email );
+    console.log( this.state.name );
+    console.log( this.state.profileImage );
   }
 
   render(){
@@ -74,17 +74,43 @@ class Register extends Component {
             />
           </div>
           <div>
-            <label>Password: </label>
-            <input type="password"></input> 
+            <label for="password">Password: </label>
+            <input 
+              type="password"
+              name="password"
+              required
+              minLength={this.state.minPasswordLength.toString()}
+              maxLength={this.state.maxPasswordLength.toString()}
+              onChange={this.handlePasswordChange}
+            /> 
           </div>
-          
-          <label>Name: </label>
-          <input type="text"></input>
-          <label>Email: </label>
-          <input type="email"></input>
-          <label>Profile Image: </label>
-          <input type="url"></input>
-          <button>Submit</button>
+          <div>
+            <label for="name">Name: </label>
+            <input 
+              type="text"
+              name="name"
+              onChange={this.handleNameChange}
+            />
+          </div>
+          <div>
+            <label for="email">Email: </label>
+            <input 
+              type="email"
+              name="email"
+              onChange={this.handleEmailChange}
+            />
+          </div>
+          <div>
+            <label for="profileImage">Profile Image URL: </label>
+            <input 
+              type="url"
+              name="profileImage"
+              onChange={this.handleProfileImageChange}
+            />
+          </div>
+          <div>
+            <button onClick={this.handleSubmit}>Submit</button>
+          </div>
         </form>
       </div>
     )

@@ -20,6 +20,9 @@ class SideBox extends Component {
           <li>
             <Link to="/AddItem">Add Item</Link>
           </li>
+          <li>
+            <Link to="/Register">Register</Link>
+          </li>
         </ul>
       </div>
     );
