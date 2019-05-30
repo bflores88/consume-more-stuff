@@ -42,9 +42,9 @@ class ItemsBox extends Component {
     // const images = this.grabImages();
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink = this.filterImages(item.id, this.props.images);
-      console.log(itemLink);
+      console.log('WETWETETWET', itemLink[0].imageLink);
 
-      return <Item name={item.name} id={item.id} price={item.price} />;
+      return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
     });
     return (
       <div>
