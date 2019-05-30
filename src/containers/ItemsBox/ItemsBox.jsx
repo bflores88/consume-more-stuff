@@ -43,11 +43,17 @@ class ItemsBox extends Component {
   }
 
   render() {
+
+    // console.log(this.props.items);
+    const input = this.state.input;
+    const itemsBox = this.props.items.map((item, idx) => {
+
     const filteredItems = this.filterItems(this.props.label, this.props.items);
     // const images = this.grabImages();
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink = this.filterImages(item.id, this.props.images);
       console.log(itemLink);
+
       return <Item name={item.name} id={item.id} price={item.price} />;
     });
     return (
