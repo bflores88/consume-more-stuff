@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item from '../Item';
+import './ItemsBox.scss';
 
 class ItemsBox extends Component {
   constructor(props) {
@@ -22,9 +23,9 @@ class ItemsBox extends Component {
     console.log(this.props.items);
     const input = this.state.input;
     const itemsBox = this.props.items.map((item, idx) => {
-      return <Item name={item.name} key={idx} />;
+      return <Item name={item.name} id={item.id} price={item.price} />;
     });
-    return <>{itemsBox}</>;
+    return <div className="itemsBox">{itemsBox}</div>;
   }
 }
 
