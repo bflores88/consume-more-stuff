@@ -52,12 +52,11 @@ export const login = (credentials) => {
   }
 }
 
-export const logout = (storedString) => {
+export const logout = () => {
   return (dispatch) => {
     // console.log('Actions logout()');
     return fetch('/api/auth/logout', {
       method: 'GET',
-      body: storedString,
       headers: { 'Content-Type' : 'application/json' }
     })
     .then((response) => {
