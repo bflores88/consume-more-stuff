@@ -16,15 +16,38 @@
     }
     .title {
       color: #222f3d;
-      color: #f5bc69;
+      // color: #f5bc69;
+      color: orange;
     }
   }
   .loginBox {
     width: 33%;
     justify-content: center;
+    justify-content: flex-end;
   }
   .searchBarBox {
     width: 33%;
     justify-content: center;
   }
+}
+
+input[type='text'] {
+  border: 2px solid orange;
+  border-radius: 4px;
+  width: 90%;
+  // height: 50%;
+}
+button {
+  // background-color: #4caf50; /* Green */
+  border: solid 1px orange;
+  border-radius: 4px;
+  color: orange;
+  // padding: 15px 32px;
+  background-color: #222f3d;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }

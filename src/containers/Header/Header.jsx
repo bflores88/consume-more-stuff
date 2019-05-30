@@ -11,6 +11,7 @@ class Header extends Component {
   render() {
     const { name, id, price } = this.props;
     // console.log(this.props.id);
+    let searchFont = <i class="fas fa-search" />;
     return (
       <div className="header">
         <div className="logoBox">
@@ -24,7 +25,10 @@ class Header extends Component {
           <form action="">
             {/* <label htmlFor="search">Search</label> */}
             <input name="search" type="text" placeholder="Search" />
-            <input type="submit" />
+
+            <button>
+              <i class="fas fa-search" />
+            </button>
           </form>
         </div>
         {/* placeholder for login button below */}
