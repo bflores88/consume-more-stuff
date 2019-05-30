@@ -16,11 +16,6 @@ class ItemsBox extends Component {
     // this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  // grabImages() {
-  //   this.props.grabItemImages();
-  //   return this.props.images;
-  // }
-
   componentDidMount() {
     // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
     return this.props.grabItemImages();
@@ -43,11 +38,6 @@ class ItemsBox extends Component {
   }
 
   render() {
-
-    // console.log(this.props.items);
-    const input = this.state.input;
-    const itemsBox = this.props.items.map((item, idx) => {
-
     const filteredItems = this.filterItems(this.props.label, this.props.items);
     // const images = this.grabImages();
     const itemsBox = filteredItems.map((item, idx) => {
@@ -66,6 +56,7 @@ class ItemsBox extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     images: state.itemReducer.images,
