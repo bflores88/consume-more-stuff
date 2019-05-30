@@ -20,7 +20,7 @@ class ItemsBox extends Component {
   // }
 
   render() {
-    console.log(this.props.items);
+    // console.log(this.props.items);
     const input = this.state.input;
     const itemsBox = this.props.items.map((item, idx) => {
       return <Item name={item.name} id={item.id} price={item.price} />;
