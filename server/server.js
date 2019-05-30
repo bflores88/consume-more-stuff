@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs'); // for encrypting passwords in our database 
 const auth = require('./routes/auth.js');
 const users = require('./routes/users.js');
 const items = require('./routes/items.js');
+const images = require('./routes/images.js');
 require('dotenv').config();
 
 const User = require('./database/models/User');
@@ -17,6 +18,11 @@ const port = process.env.EXPRESS_CONTAINER_PORT;
 const app = express();
 
 app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 app.use(express.static('public'));
 app.use(
   session({
@@ -94,6 +100,7 @@ passport.deserializeUser(function(user, done) {
 app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/items', items);
+app.use('/api/images', images);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);
