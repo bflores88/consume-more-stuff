@@ -25,7 +25,7 @@ class ItemsDetail extends Component {
   render() {
     console.log('12312312312312',this.props.item)
     return <div>
-    {this.props.item.name} |
+    {this.props.item.name}
     {this.props.item.description}
     </div>;
   }
