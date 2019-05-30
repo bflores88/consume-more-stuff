@@ -35,7 +35,7 @@ class ItemsBox extends Component {
       case 'Books':
         return items.filter((item) => item.category_id === 3);
       default:
-        return items;
+        return items.filter((item) => item.category.id === 1);
     }
   }
   filterImages(id, images) {
