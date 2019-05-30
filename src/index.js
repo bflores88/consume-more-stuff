@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
 import itemReducer from './reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';

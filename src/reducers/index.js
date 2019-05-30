@@ -1,4 +1,3 @@
-export default reducer;
 'use strict';
 import { LOAD_ITEMS } from '../actions';
 

@@ -37,19 +37,15 @@ class LoginForm extends Component {
   render(){ 
     if (this.props.enabled) {
       return (
-      <div className="login-component">
         <form>
-          <div>
-            <label>Username: </label>
+          
             <input type="text" placeholder="username" onChange={this.handleUsernameChange}/>
-          </div>
-          <div>
-            <label>Password: </label>
+          
             <input type="text" placeholder="password" onChange={this.handlePasswordChange}/>
-          </div>
+          
           <button type="submit" onClick={this.handleSubmit}>Submit</button>
         </form>
-      </div> );
+      );
     } else {
       return (
         <div className="login-component"></div>
