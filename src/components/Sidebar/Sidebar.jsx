@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import './Sidebar.scss';
 
 const Sidebar = (props) => {
-
   //need props for isLoggedIn and role
-  const { isLoggedIn, role } = props;
+  const { isLoggedIn, roleID } = props;
 
   //generate links for items by category
   const createItemCategoryLinks = () => {
@@ -23,23 +22,21 @@ const Sidebar = (props) => {
       <Link to="/items/category/electronics">
         <button>Electronics</button>
       </Link>
-    </div>
+    </div>;
   };
 
   //conditional statement to show if isLoggedIn is true or false (logged in or not) AND check the role
 
   //first if statement is for non-users
-  //second if statement is for admin and mods
-  //else is for users
+  //second if is for users
+  //else is for admins and moderators
 
   if (!isLoggedIn) {
     return (
       <div className="public-nav">
         <div className="logo">
           {/* insert logo here */}
-          <Link to="/">
-            SAVANNAH
-          </Link>
+          <Link to="/">SAVANNAH</Link>
         </div>
 
         <div className="nav-links">
@@ -48,53 +45,15 @@ const Sidebar = (props) => {
           </Link>
         </div>
 
-        <div className="cat-links">
-          {createItemCategoryLinks()}
-        </div>
+        <div className="cat-links">{createItemCategoryLinks()}</div>
       </div>
     );
-  } else if (isLoggedIn && role !== "user") {
-    return (
-      <div className="admin-nav">
-        <div className="logo">
-          {/* insert logo here */}
-          <Link to="/">
-            SAVANNAH
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/admin/items">
-            Items
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/admin/categories">
-            Categories
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/admin/settings">
-            Settings
-          </Link>
-        </div>
-
-        <div className="cat-links">
-          {createItemCategoryLinks()}
-        </div>
-
-      </div>
-    );
-  } else {
+  } else if (isLoggedIn && roleID === '3') {
     return (
       <div className="user-nav">
         <div className="logo">
           {/* insert logo here */}
-          <Link to="/">
-            SAVANNAH
-          </Link>
+          <Link to="/">SAVANNAH</Link>
         </div>
 
         <div className="nav-links">
@@ -127,14 +86,33 @@ const Sidebar = (props) => {
           </Link>
         </div>
 
-        <div className="cat-links">
-          {createItemCategoryLinks()}
+        <div className="cat-links">{createItemCategoryLinks()}</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="admin-nav">
+        <div className="logo">
+          {/* insert logo here */}
+          <Link to="/">SAVANNAH</Link>
         </div>
 
-      </div>
-    )
-  }
+        <div className="nav-links">
+          <Link to="/admin/items">Items</Link>
+        </div>
 
-}
+        <div className="nav-links">
+          <Link to="/admin/categories">Categories</Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/admin/settings">Settings</Link>
+        </div>
+
+        <div className="cat-links">{createItemCategoryLinks()}</div>
+      </div>
+    );
+  }
+};
 
 export default Sidebar;
