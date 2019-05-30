@@ -3,6 +3,7 @@
 // ACTION DEFINTION
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 
 // ACTION CREATOR
 
