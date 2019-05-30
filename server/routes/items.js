@@ -8,7 +8,7 @@ router
   .route('/')
   .get((req, res) => {
     new Item()
-      .fetch()
+      .fetchAll()
       .then((result) => {
         const items = result.toJSON();
         // respond with all items
