@@ -36,14 +36,6 @@ class Header extends Component {
         <div className="loginBox">
           <button>LOGIN</button>
         </div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/AddItem">Add Item</Link>
-          </li>
-        </ul>
       </div>
     );
   }
