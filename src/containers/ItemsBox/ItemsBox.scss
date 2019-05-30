@@ -1,4 +1,5 @@
 .itemsBox {
+  margin: 0em 0em 2em 0em;
   width: 100%;
   display: flex;
   overflow: auto;
@@ -8,4 +9,13 @@
   // padding: 0.1em 0.1em 0.1em 0.1em;
   // height: 300px;
   // background-color: yellow;
+}
+.item-box-title {
+  display: flex;
+  margin: 0.5em 0em 0.5em 0em;
+  background-color: #222f3d;
+  .title-text {
+    margin: 0em 0em 0em 0.5em;
+    color: rgb(235, 161, 25);
+  }
 }
