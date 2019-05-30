@@ -28,21 +28,16 @@ class LoginForm extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    
     const {username, password} = this.state;
-    // console.log('loginComponent.handleSubmit()');
     this.props.login({ username, password })
   }
 
   render(){ 
-    if (this.props.enabled) {
+    if (this.props.renderLoginForm) {
       return (
         <form>
-          
-            <input type="text" placeholder="username" onChange={this.handleUsernameChange}/>
-          
-            <input type="text" placeholder="password" onChange={this.handlePasswordChange}/>
-          
+          <input type="text" placeholder="username" onChange={this.handleUsernameChange}/>
+          <input type="text" placeholder="password" onChange={this.handlePasswordChange}/>
           <button type="submit" onClick={this.handleSubmit}>Submit</button>
         </form>
       );
@@ -57,7 +52,6 @@ class LoginForm extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (credentials) => {
-      // console.log('credentials ', credentials);
       const loginAction = login(credentials);
       dispatch(loginAction);
     }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import LoginComponent from '../Login';
+import LoginComponent from '../../containers/LoginForm';
 import { logout, login } from '../../actions';
 import { connect } from 'react-redux';
 
-class LoginButton extends Component {
+class LoginComponent extends Component {
   constructor (props) {
     super(props);
 

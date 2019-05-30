@@ -45,6 +45,9 @@ export const login = (credentials) => {
         type: LOGIN,
         payload: user
       });
+    })
+    .catch((error) => {
+      console.log('Error in login: ', error);
     });
   }
 }
@@ -53,7 +56,7 @@ export const logout = (storedString) => {
   return (dispatch) => {
     // console.log('Actions logout()');
     return fetch('/api/auth/logout', {
-      method: 'POST',
+      method: 'GET',
       body: storedString,
       headers: { 'Content-Type' : 'application/json' }
     })
@@ -68,6 +71,9 @@ export const logout = (storedString) => {
         type: LOGOUT,
         payload: body
       });
-    });
+    })
+    .catch((error) => {
+      console.log('Error in logout: ', error);
+    })
   }
 }

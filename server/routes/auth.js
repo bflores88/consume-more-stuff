@@ -58,8 +58,8 @@ router.route('/login').post(passport.authenticate('local'), (req, res) => { // r
   res.json(req.user); // successful login attaches the user property to the req.
 });
 
-router.route('/logout').post((req, res) => {
-  console.log('logout route hit');
+router.route('/logout').get((req, res) => {
+  // console.log('Logged Out');
   req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
   res.json(null);
 });
