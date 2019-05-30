@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.465.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bookshelf": "^0.14.2",
@@ -12,13 +13,15 @@
     "express": "^4.17.1",
     "express-session": "^1.16.1",
     "knex": "^0.13.0",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
     "node-sass": "^4.12.0",
-    "nodemon": "^1.19.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
@@ -47,7 +50,9 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
   "author": "cohort28",
   "license": "ISC",
   "proxy": "http://localhost:8080"

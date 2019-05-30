@@ -1,0 +1,56 @@
+.header {
+  // height: 8%; Disabled for the moment, until the formatting on the login component is better.
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #222f3d;
+  .logoBox {
+    width: 33%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .sunLogo {
+      // width: 30%;
+      // width: auto;
+      color: #fd5e53;
+    }
+    .title {
+      color: #222f3d;
+      // color: #f5bc69;
+      color: orange;
+    }
+  }
+  .login-box {
+    display: flex;
+    width: 33%;
+    justify-content: center;
+    justify-content: flex-end;
+    flex-direction: row;
+
+  }
+  .searchBarBox {
+    width: 33%;
+    justify-content: center;
+  }
+}
+
+input[type='text'] {
+  border: 2px solid orange;
+  border-radius: 4px;
+  width: 90%;
+  // height: 50%;
+}
+button {
+  // background-color: #4caf50; /* Green */
+  border: solid 1px orange;
+  border-radius: 4px;
+  color: orange;
+  // padding: 15px 32px;
+  background-color: #222f3d;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}

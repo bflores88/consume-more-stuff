@@ -8,7 +8,7 @@ router
   .route('/')
   .get((req, res) => {
     new Item()
-      .fetch()
+      .fetchAll()
       .then((result) => {
         const items = result.toJSON();
         // respond with all items
@@ -50,18 +50,15 @@ router
 router
   .route('/:id')
   .get((req, res) => {
-    new Contact({ id: req.params.id })
+    new Item({ id: req.params.id })
       .fetch()
       .then((result) => {
-        const contact = result.toJSON();
-        if (contact.created_by !== req.user.id) {
-          return res.status(404).send('Not authorized');
-        }
-        return res.send(contact);
+        const item = result.toJSON();
+        return res.send(item);
       })
       .catch((err) => {
         console.log('error:', err);
-        return res.status(404).send('Contact not found');
+        return res.status(404).send('Item not found');
       });
   })
   .put((req, res) => {
