@@ -6,6 +6,7 @@ import { loadItems } from './actions';
 
 import ItemsBox from './containers/ItemsBox';
 import Item from './containers/Item';
+import Header from './containers/Header';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class App extends React.Component {
     console.log(this.props.items);
     return (
       <div className="App">
-        <h1>hello</h1>
+        <Header />
         <h3>{this.state.title}</h3>
         <ItemsBox items={this.props.items} />
       </div>
