@@ -54,16 +54,14 @@ router.route('/register').post((req, res) => {
   });
 });
 
-router.route('/login').post(passport.authenticate('local'), (req, res) => {
-  // req res function only happens if authenication suceeded
-  // console.log(req.user);
-  // window.localStorage.setItem('user', JSON.stringify(req.user));
-  res.json(req.user); // successful login attaches the user property to the req.
+router.route('/login').post(passport.authenticate('local'), (req, res) => { // req res function only happens if authenication suceeded
+  return res.json(req.user); // successful login attaches the user property to the req.
 });
 
-router.route('/logout').post((req, res) => {
+router.route('/logout').get((req, res) => {
+  // console.log('Logged Out');
   req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
-  res.json(null);
+  return res.send('Logged Out');
 });
 
 module.exports = router;
