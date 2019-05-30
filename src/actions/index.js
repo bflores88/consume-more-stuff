@@ -1,8 +1,11 @@
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
-export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
+
+export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
+
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -15,6 +18,24 @@ export const loadItems = () => {
         console.log(items);
         return dispatch({
           type: LOAD_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+
+export const grabItemImages = () => {
+  return (dispatch) => {
+    return fetch(`/api/images`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        console.log(items);
+        return dispatch({
+          type: GRAB_ITEM_IMAGES,
           payload: items,
         });
       })
