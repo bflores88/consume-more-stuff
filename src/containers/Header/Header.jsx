@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './Header.scss';
@@ -35,6 +36,14 @@ class Header extends Component {
         <div className="loginBox">
           <button>LOGIN</button>
         </div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/AddItem">Add Item</Link>
+          </li>
+        </ul>
       </div>
     );
   }
