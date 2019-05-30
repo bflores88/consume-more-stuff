@@ -5,11 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import itemReducer from './reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
 const composeEnhancers =

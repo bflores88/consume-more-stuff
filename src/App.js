@@ -11,6 +11,7 @@ class App extends Component {
     return (
       <>
         <Header />
+
         <div className="main">
           <SideBox />
           <div className="page">
@@ -21,6 +22,7 @@ class App extends Component {
           </div>
         </div>
       </>
+
     );
   }
 }
