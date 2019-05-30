@@ -7,6 +7,7 @@ import { loadItems } from './actions';
 import ItemsBox from './containers/ItemsBox';
 import Item from './containers/Item';
 import Header from './containers/Header';
+import ItemDetails from './containers/ItemDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class App extends React.Component {
         <Header />
         <h3>{this.state.title}</h3>
         <ItemsBox items={this.props.items} />
+        <ItemDetails />
       </div>
     );
   }
