@@ -5,6 +5,7 @@ export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const REGISTER = "REGISTER";
 
 
 // ACTION CREATOR
@@ -91,6 +92,28 @@ export const logout = () => {
         type: LOGOUT,
         payload: body
       });
+    })
+    .catch((error) => {
+      console.log('Error in logout: ', error);
+    })
+  }
+}
+
+export const register = (accountData) => {
+  return (dispatch) => {
+    return fetch('api/auth/register', {
+      method: 'POST',
+      body: accountData,
+      headers: { 'Content-Type' : 'application/json' }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      return dispatch({
+        type: REGISTER,
+        payload: body
+      })
     })
     .catch((error) => {
       console.log('Error in logout: ', error);
