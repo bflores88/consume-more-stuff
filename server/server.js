@@ -33,23 +33,30 @@ app.use(passport.session());
 passport.use(
   new localStrategy(function(username, password, done) {
     // method of validating given data.
-    console.log('Validating with localStrategy');
+    // console.log('Validating with localStrategy');
 
     return new User({ username: username })
       .fetch()
       .then((user) => {
-        console.log('Attempting to login with ', user);
+        // console.log('Attempting to login with ', JSON.stringify(user));
 
         if (user === null || user.active === false) {
+          // console.log('username bad');
           return done(null, false, { message: 'bad username or password' });
         } else {
           user = user.toJSON();
+          // console.log('password from credentials: ', password);
+          // console.log('password from user model: ', user.password);
+          
           bcrypt.compare(password, user.password).then((res) => {
+            // console.log('bcrypt.compare() result, ', res);
             if (res) {
               // bycrypt returns boolean, that if true means user and password match with database entries.
+              // console.log('good credentials');
               return done(null, user);
             } else {
               // error route. username exists, pw not matched
+              // console.log('password bad');
               return done(null, false, { message: 'bad username or password' });
             }
           });
@@ -73,7 +80,7 @@ passport.serializeUser(function(user, done) {
 // called when user enteres any route, cookie comes in from browser and is compared session store.
 passport.deserializeUser(function(user, done) {
   console.log('deserializing');
-  console.log(user);
+  // console.log(user);
 
   return new User({ id: user.id }).fetch().then((user) => {
     user = user.toJSON();
@@ -82,7 +89,7 @@ passport.deserializeUser(function(user, done) {
       id: user.id,
       role_id: user.role_id,
       active: user.active,
-      theme_id: theme_id,
+      theme_id: user.theme_id,
       username: user.username,
       name: user.name,
       email: user.email,

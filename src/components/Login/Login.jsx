@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 
-class LoginComponent extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
   
@@ -28,44 +28,49 @@ class LoginComponent extends Component {
 
   handleSubmit(e){
     e.preventDefault();
+    
     const {username, password} = this.state;
-    this.props.login({username, password})
-    .then((user) => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-      }
-    });
+    // console.log('loginComponent.handleSubmit()');
+    this.props.login({ username, password })
   }
 
-  render() {
-    <div className="login-component">
-      <form>
-        <div>
-          <label>Username: </label>
-          <input type="text" placeholder="username"/>
-        </div>
-        <div>
-          <label>Password: </label>
-          <input type="text" placeholder="password"/>
-        </div>
-      </form>
-    </div>
+  render(){ 
+    if (this.props.enabled) {
+      return (
+      <div className="login-component">
+        <form>
+          <div>
+            <label>Username: </label>
+            <input type="text" placeholder="username" onChange={this.handleUsernameChange}/>
+          </div>
+          <div>
+            <label>Password: </label>
+            <input type="text" placeholder="password" onChange={this.handlePasswordChange}/>
+          </div>
+          <button type="submit" onClick={this.handleSubmit}>Submit</button>
+        </form>
+      </div> );
+    } else {
+      return (
+        <div className="login-component"></div>
+      );
+    }
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (credentials) => {
-      console.log('credentials ', credentials);
+      // console.log('credentials ', credentials);
       const loginAction = login(credentials);
       dispatch(loginAction);
     }
   }
 }
 
-Login = connect(
+LoginForm = connect(
   null,
   mapDispatchToProps
-)(Login);
+)(LoginForm);
 
-export default LoginComponent;
+export default LoginForm;
