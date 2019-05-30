@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './SideBox.scss';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 class SideBox extends Component {
   constructor(props) {
@@ -13,14 +14,15 @@ class SideBox extends Component {
   render() {
     return (
       <div className="side-box">
-        <ul>
+        <Sidebar />
+        {/* <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/AddItem">Add Item</Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
     );
   }

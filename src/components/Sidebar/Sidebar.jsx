@@ -8,7 +8,8 @@ const Sidebar = (props) => {
 
   //generate links for items by category
   const createItemCategoryLinks = () => {
-    <div className="category-links">
+    return (
+      <div className="category-links">
       <h3>Shop By Category</h3>
       <Link to="/">
         <button>View All</button>
@@ -22,7 +23,9 @@ const Sidebar = (props) => {
       <Link to="/">
         <button>Electronics</button>
       </Link>
-    </div>;
+    </div>
+
+    )
   };
 
   //conditional statement to show if isLoggedIn is true or false (logged in or not) AND check the role
@@ -35,8 +38,8 @@ const Sidebar = (props) => {
     return (
       <div className="public-nav">
         <div className="logo">
-          {/* insert logo here */}
-          <Link to="/">SAVANNAH</Link>
+        <i className="sunLogo" class="fas fa-sun" />
+          <Link to="/">Savannah</Link>
         </div>
 
         <div className="nav-links">
@@ -52,7 +55,7 @@ const Sidebar = (props) => {
     return (
       <div className="user-nav">
         <div className="logo">
-          {/* insert logo here */}
+        <i className="sunLogo" class="fas fa-sun" />
           <Link to="/">SAVANNAH</Link>
         </div>
 
@@ -93,7 +96,7 @@ const Sidebar = (props) => {
     return (
       <div className="admin-nav">
         <div className="logo">
-          {/* insert logo here */}
+        <i className="sunLogo" class="fas fa-sun" />
           <Link to="/">SAVANNAH</Link>
         </div>
 

@@ -1,11 +1,57 @@
 .public-nav {
   width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .admin-nav {
   width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .user-nav {
   width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+.category-links, .nav-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 1.2em;
+  
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2em;
+    &:hover {
+      color: #222f3d;
+    }
+    
+  }
+}
+
+.logo {
+  font-family: 'Fira Sans', sans-serif;
+  color: orange;
+  font-size: 1.5em;
+  font-weight: 900;
+
+  a {
+    text-decoration: none;
+    font-family: 'Fira Sans', sans-serif;
+    color: orange;
+
+  }
+}
+
+.logo :hover {
+  color: #222f3d;
+
 }
