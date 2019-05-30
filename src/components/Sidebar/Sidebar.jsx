@@ -10,16 +10,16 @@ const Sidebar = (props) => {
   const createItemCategoryLinks = () => {
     <div className="category-links">
       <h3>Shop By Category</h3>
-      <Link to="/items/category/all">
+      <Link to="/">
         <button>View All</button>
       </Link>
-      <Link to="/items/category/apparel">
+      <Link to="/">
         <button>Apparel</button>
       </Link>
-      <Link to="/items/category/books">
+      <Link to="/">
         <button>Books</button>
       </Link>
-      <Link to="/items/category/electronics">
+      <Link to="/">
         <button>Electronics</button>
       </Link>
     </div>;
@@ -40,7 +40,7 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/home">
+          <Link to="/">
             <button>Home</button>
           </Link>
         </div>
@@ -57,31 +57,31 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/home">
+          <Link to="/">
             <button>Home</button>
           </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/users/messages">
+          <Link to="/">
             <button>Messages</button>
           </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/users/settings">
+          <Link to="/">
             <button>Settings</button>
           </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/users/items/new">
-            <button>Post Items</button>
+          <Link to="/">
+            <button>Add Items</button>
           </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/users/items">
+          <Link to="/">
             <button>Edit Items</button>
           </Link>
         </div>
@@ -98,15 +98,15 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/admin/items">Items</Link>
+          <Link to="/">Items</Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/admin/categories">Categories</Link>
+          <Link to="/">Categories</Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/admin/settings">Settings</Link>
+          <Link to="/">Settings</Link>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
