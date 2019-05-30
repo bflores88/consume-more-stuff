@@ -61,7 +61,7 @@ router.route('/login').post(passport.authenticate('local'), (req, res) => { // r
 router.route('/logout').get((req, res) => {
   // console.log('Logged Out');
   req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
-  return res.send('Logged Out');
+  return res.json(null);
 });
 
 module.exports = router;
