@@ -28,7 +28,9 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <h3>{this.state.title}</h3>
-        <ItemsBox items={this.props.items} />
+        <ItemsBox items={this.props.items} label="Electronics" />
+        <ItemsBox items={this.props.items} label="Apparel" />
+        <ItemsBox items={this.props.items} label="Books" />
       </div>
     );
   }
