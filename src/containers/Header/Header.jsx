@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './Header.scss';
+
+import LoginComponent from '../LoginComponent';
 
 class Header extends Component {
   constructor(props) {
@@ -31,10 +34,7 @@ class Header extends Component {
             </button>
           </form>
         </div>
-        {/* placeholder for login button below */}
-        <div className="loginBox">
-          <button>LOGIN</button>
-        </div>
+        <LoginComponent/>
       </div>
     );
   }
