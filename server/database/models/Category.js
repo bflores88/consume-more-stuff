@@ -8,8 +8,9 @@ class Category extends bookshelf.Model {
   get hasTimestamps() {
     return true;
   }
-  Subcategories() {
-    return this.hasMany('Subcategory');
+
+  subCategories() {
+    return this.hasMany('SubCategory', 'category_id');
   }
 }
 

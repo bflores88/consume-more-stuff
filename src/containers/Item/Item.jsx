@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './Item.scss';
@@ -7,12 +8,18 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
   }
+
   render() {
     const { name, id, price, imageLink } = this.props;
+    const itemID = id;
+    const redirectTo = `/items/${itemID}`;
     // console.log(this.props.id);
+
     if (imageLink) {
       return (
+
         <div className="singleItem">
           <div className="imageBox">
             <img
@@ -28,6 +35,7 @@ class Item extends Component {
             <div className="itemPrice">Price: {price}</div>
           </div>
           <div />
+
         </div>
       );
     } else {
@@ -50,6 +58,7 @@ class Item extends Component {
         </div>
       );
     }
+
   }
 }
 

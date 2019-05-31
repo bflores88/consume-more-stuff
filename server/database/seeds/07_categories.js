@@ -7,7 +7,9 @@ exports.seed = function(knex, Promise) {
       return knex('categories').insert([
         {categoryName: 'Electronics'},
         {categoryName: 'Apparel'},
-        {categoryName: 'Books'}
+        {categoryName: 'Books'},
+        {categoryName: 'Movies'},
+        {categoryName: 'Food'}
       ]);
     });
 };

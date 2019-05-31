@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Home from './components/Home';
 import Header from './containers/Header';
 
-import ItemDetails from './containers/ItemDetail';
 
 import AddItem from './containers/AddItem';
-
 import SideBox from './containers/SideBox/SideBox';
 import EditItem from './containers/EditItem';
 import Messages from './containers/Messages';
 import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
+import ItemDetail from './containers/ItemDetail/';
 
 class App extends Component {
   render() {
@@ -22,14 +21,15 @@ class App extends Component {
         <Header />
 
         <div className="main">
-          <SideBox />
+          <SideBox currentUser={this.props.currentUser} />
           <div className="page">
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item" component={EditItem} />
               <Route path="/messages" component={Messages} />
-              <Route path="/users" component={Users} />
+              <Route path="/users/:id" component={Users} />
+              <Route path="/items/:id" component={ItemDetail} />
               <Route path="/items/category/:category" component={Category} />
             </Switch>
           </div>
