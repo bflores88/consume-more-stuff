@@ -1,21 +1,25 @@
-.itemsBox {
-  width: 70%;
-
-  display: flex;
-  overflow: auto;
-  white-space: nowrap;
-  height: 20%;
-  border: solid 1px rgb(235, 161, 25);
-  // padding: 0.1em 0.1em 0.1em 0.1em;
-  // height: 300px;
-  // background-color: yellow;
-}
-.item-box-title {
-  display: flex;
-  margin: 0.5em 0em 0.5em 0em;
-  background-color: #222f3d;
-  .title-text {
-    margin: 0em 0em 0em 0.5em;
-    color: rgb(235, 161, 25);
+.categoryBox {
+  // max-height: 400px;
+  margin: 2em 1em 4em 1em;
+  .itemsBox {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+    // height: 20%;
+    // border: solid 1px rgb(235, 161, 25);
+    // padding: 0.1em 0.1em 0.1em 0.1em;
+    // height: 300px;
+    // background-color: yellow;
+  }
+  .item-box-title {
+    display: flex;
+    margin: 0.5em 0em 0.5em 0em;
+    background-color: #222f3d;
+    .title-text {
+      margin: 0em 0em 0em 0.5em;
+      color: rgb(235, 161, 25);
+    }
   }
 }

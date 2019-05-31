@@ -47,7 +47,7 @@ class ItemsBox extends Component {
       return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
     });
     return (
-      <div>
+      <div className="categoryBox">
         <div className="item-box-title">
           <h3 className="title-text">{this.props.label}</h3>
         </div>
