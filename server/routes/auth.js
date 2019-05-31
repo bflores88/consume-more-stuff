@@ -33,7 +33,7 @@ router.route('/register').post((req, res) => {
       })
         .save() // Save model to database
         .then((newUser) => {
-          return res.json(newUser); // Valid user data sends a response with no body.
+          return res.json(newUser); // Valid user data sends a response with userData
         })
         .catch((error) => {
           if (error.constraint === 'users_username_unique') {

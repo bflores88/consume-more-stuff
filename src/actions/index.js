@@ -1,3 +1,5 @@
+// import { push } from 'react-router-redux';
+
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 
@@ -101,22 +103,25 @@ export const logout = () => {
 
 export const register = (accountData) => {
   return (dispatch) => {
+    // console.log ('accountData ', accountData);
     return fetch('api/auth/register', {
       method: 'POST',
-      body: accountData,
+      body: JSON.stringify(accountData),
       headers: { 'Content-Type' : 'application/json' }
     })
     .then((response) => {
       return response.json();
     })
-    .then((body) => {
+    .then((accountData) => {
+      console.log('Account creation successful');
+      
       return dispatch({
         type: REGISTER,
-        payload: body
+        payload: accountData,
       })
     })
     .catch((error) => {
-      console.log('Error in logout: ', error);
+      console.log('Error in registration: ', error);
     })
   }
 }

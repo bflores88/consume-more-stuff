@@ -1,6 +1,8 @@
 'use strict';
+import { combineReducers } from 'redux';
 import { LOAD_ITEMS } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
+import { REGISTER } from '../actions';
 
 const initialState = {
   items: [],
@@ -18,4 +20,19 @@ function itemReducer(state = initialState, action) {
   }
 }
 
-export default itemReducer;
+function registerReducer(state = initialState, action) {
+  console.log('register reducer');
+  switch (action.type) {
+    case REGISTER:
+      return Object.assign({}, state, { registrationSuccessful: true });
+    default: 
+      return state;
+  }
+}
+
+const savannahApp = combineReducers({
+  itemReducer,
+  registerReducer,
+})
+
+export default savannahApp;
