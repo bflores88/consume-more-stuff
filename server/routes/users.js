@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../database/models/User');
+const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 
@@ -11,6 +12,18 @@ router.route('/').get((req, res) => {
     .fetch()
     .then((result) => {
       // reply with logged in user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
+
+router.route('/items/:userId').get((req, res) => {
+  Item.where({ user_id: req.params.userId })
+    .fetchAll()
+    .then((result) => {
+      // reply with all items associated with the user
       return res.json(result);
     })
     .catch((err) => {
