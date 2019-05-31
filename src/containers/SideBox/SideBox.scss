@@ -1,5 +1,10 @@
 .side-box {
+  position: fixed;
+  z-index: 1;
+  top: 75px;
+  left: 0;
   width: 20%;
   height: auto;
   padding: 20px;
+  overflow: auto;
 }
