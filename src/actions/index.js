@@ -8,6 +8,7 @@ export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const ADD_ITEM = 'ADD_ITEM';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -128,5 +129,25 @@ export const logout = () => {
       .catch((error) => {
         console.log('Error in logout: ', error);
       });
+  };
+};
+
+export const addItem = (data) => {
+  return (dispatch) => {
+    return fetch('/api/items', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      return console.log(response.json());
+    });
+    // .then((body) => {
+    //   return dispatch({
+    //     type: ADD_ITEM,
+    //     payload: body,
+    //   });
+    // });
   };
 };

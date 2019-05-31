@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AddItem.scss';
+import { addItem } from '../../actions';
 
 class AddItem extends Component {
   constructor(props) {
@@ -37,11 +38,12 @@ class AddItem extends Component {
     data.quantity = this.state.quantity;
     data.description = this.state.description;
     data.user_id = this.props.currentUser.id;
+    data.subCategory_id = 1;
     data.approved = false;
     data.viewCount = 0;
     data.status_id = 1;
-
     console.log(data);
+    return this.props.addItem(data);
   }
   componentDidMount() {
     return console.log('94it93it349ti3', this.props.currentUser);
@@ -92,6 +94,7 @@ class AddItem extends Component {
                   <label className="input-label">Category: </label>
                   <select
                     name="category_id"
+                    className="select"
                     value={this.state.category_id}
                     onChange={this.handleInputOnChange}
                     required
@@ -108,6 +111,7 @@ class AddItem extends Component {
                   <label className="input-label">Condition: </label>
                   <select
                     name="condition_id"
+                    className="select"
                     value={this.state.condition_id}
                     onChange={this.handleInputOnChange}
                     required
@@ -179,7 +183,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    addItem: (item) => {
+      dispatch(addItem(item));
+    },
+  };
 };
 
 export default connect(
