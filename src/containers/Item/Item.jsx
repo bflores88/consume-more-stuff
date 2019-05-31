@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './Item.scss';
@@ -7,27 +8,33 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
   }
+
   render() {
     const { name, id, price, imageLink } = this.props;
+    const itemID = id;
+    const redirectTo = `/items/${itemID}`;
     // console.log(this.props.id);
     return (
-      <div className="singleItem">
-        <div className="imageBox">
-          <img
-            // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
-            src={imageLink}
-            alt=""
-            className="itemImage"
-          />
+      <Link to={redirectTo}>
+        <div className="singleItem">
+          <div className="imageBox">
+            <img
+              // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+              src={imageLink}
+              alt=""
+              className="itemImage"
+            />
+          </div>
+          <div className="itemDescriptionBox">
+            <h4 className="itemName">{name}</h4>
+            {/* <div>id={id}</div> */}
+            <div className="itemPrice">Price: {price}</div>
+          </div>
+          <div />
         </div>
-        <div className="itemDescriptionBox">
-          <h4 className="itemName">{name}</h4>
-          {/* <div>id={id}</div> */}
-          <div className="itemPrice">Price: {price}</div>
-        </div>
-        <div />
-      </div>
+      </Link>
     );
   }
 }
