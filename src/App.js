@@ -13,6 +13,8 @@ import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+
 
 class App extends Component {
   render() {
@@ -27,7 +29,8 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item" component={EditItem} />
-              <Route path="/messages" component={Messages} />
+              {/* <Route path="/messages" component={Messages} /> */}
+              <PrivateRoute path="/messages" component={Messages} />
               <Route path="/users/:id" component={Users} />
               <Route path="/items/:id" component={ItemDetail} />
               <Route path="/items/category/:category" component={Category} />
