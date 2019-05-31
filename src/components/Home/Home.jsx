@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { loadItems } from '../../actions';
 
 import ItemsBox from '../../containers/ItemsBox';
-import Item from '../../containers/Item';
 
 class Home extends React.Component {
   constructor(props) {
