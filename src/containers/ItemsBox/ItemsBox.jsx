@@ -37,7 +37,17 @@ class ItemsBox extends Component {
   render() {
     const filteredItems = this.filterItems(this.props.label, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
-      let itemLink = this.filterImages(item.id, this.props.images);
+      let itemLink;
+      if (this.props.images) {
+        itemLink = this.filterImages(item.id, this.props.images);
+      } else {
+        itemLink = [
+          {
+            imageLink:
+              'https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg',
+          },
+        ];
+      }
 
       if (itemLink[0]) {
         return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;

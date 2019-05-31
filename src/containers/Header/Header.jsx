@@ -14,7 +14,7 @@ class Header extends Component {
       <div className="header">
         <div className="logoBox">
           <h2 className="title">
-            <i className="sunLogo" class="fas fa-sun" />
+            <i className="sunLogo" className="fas fa-sun" />
             Savannah
           </h2>
         </div>
@@ -25,11 +25,11 @@ class Header extends Component {
             <input name="search" type="text" placeholder="Search" />
 
             <button>
-              <i class="fas fa-search" />
+              <i className="fas fa-search" />
             </button>
           </form>
         </div>
-        <LoginComponent/>
+        <LoginComponent />
       </div>
     );
   }

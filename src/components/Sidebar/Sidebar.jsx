@@ -41,39 +41,22 @@ const Sidebar = (props) => {
     return (
       <div className="public-nav">
         <div className="logo">
-          <i className="sunLogo" class="fas fa-sun" />
+          <i className="sunLogo" className="fas fa-sun" />
           <Link to="/">Savannah</Link>
         </div>
         <div className="wrap-links">
+          <div className="nav-links">
+            <Link to="/">
+              <button>Register</button>
+            </Link>
+          </div>
+
           <div className="nav-links">
             <Link to="/">
               <button>Home</button>
             </Link>
           </div>
 
-          <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Item - Test</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/edit-item">
-              <button>Edit Item - Test</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages - Test</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-          <Link to="/users/all">
-            <button>All Users</button>
-          </Link>
-        </div>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
@@ -103,7 +86,7 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/messages">
             <button>Messages</button>
           </Link>
         </div>
@@ -158,7 +141,7 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/items/all">
             <button>Items</button>
           </Link>
         </div>
