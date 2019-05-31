@@ -81,10 +81,23 @@ export const login = (credentials) => {
       })
       .then((user) => {
         // console.log('Actions login() user', user);
-        localStorage.setItem('user', JSON.stringify(user));
+        let userJSON = JSON.stringify(user);
+        // console.log('USERJSON', userJSON);
+        let userObj = {
+          username: user.username,
+          id: user.id,
+          active: user.active,
+          role_id: user.role_id,
+          theme_id: user.theme_id,
+          name: user.name,
+          profileImageUrl: user.profileImageUrl,
+          email: user.email,
+        };
+        console.log('USEROBJ', userObj);
+        localStorage.setItem('user', JSON.stringify(userObj));
         return dispatch({
           type: LOGIN,
-          payload: user,
+          payload: userObj,
         });
       })
       .catch((error) => {
