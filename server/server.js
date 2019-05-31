@@ -8,7 +8,8 @@ const bcrypt = require('bcryptjs'); // for encrypting passwords in our database 
 const auth = require('./routes/auth.js');
 const users = require('./routes/users.js');
 const items = require('./routes/items.js');
-const images = require('./routes/images.js');
+const itemImages = require('./routes/itemImages.js');
+const userImages = require('./routes/userImages.js');
 require('dotenv').config();
 
 const User = require('./database/models/User');
@@ -53,7 +54,7 @@ passport.use(
           user = user.toJSON();
           // console.log('password from credentials: ', password);
           // console.log('password from user model: ', user.password);
-          
+
           bcrypt.compare(password, user.password).then((res) => {
             // console.log('bcrypt.compare() result, ', res);
             if (res) {
@@ -107,7 +108,8 @@ passport.deserializeUser(function(user, done) {
 app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/items', items);
-app.use('/api/images', images);
+app.use('/api/images/items', itemImages);
+app.use('/api/images/users', userImages);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);
