@@ -5,7 +5,10 @@ import { LOAD_SPECIFIC_ITEM } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
 
+import { LOGIN } from '../actions';
+
 const initialState = {
+  currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
@@ -21,6 +24,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_ITEM_IMAGES:
       return Object.assign({}, state, { images: [...action.payload] });
+
+    case LOGIN:
+      return Object.assign({}, state, { currentUser: action.payload });
 
     default:
       return state;
