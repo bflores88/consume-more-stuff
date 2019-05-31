@@ -29,11 +29,11 @@ function itemReducer(state = initialState, action) {
       return Object.assign({}, state, { images: [...action.payload] });
 
     case LOGIN:
-      Object.assign({}, state, { loggedIn: true })
+      initialState.loggedIn = true;
       return Object.assign({}, state, { currentUser: action.payload });
     
     case LOGOUT:
-      Object.assign({}, state, { loggedIn: false })
+      initialState.loggedIn = false;
       return Object.assign({}, state, { currentUser: action.payload });
       
 

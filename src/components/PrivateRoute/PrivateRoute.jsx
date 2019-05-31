@@ -24,7 +24,7 @@ const _PrivateRoute = ({ component: Component, loggedIn, redirectUrl, ...rest })
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
-    loggedIn: state.loggedIn
+    loggedIn: state.itemReducer.loggedIn
   };
 };
 
