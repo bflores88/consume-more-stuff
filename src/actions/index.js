@@ -9,6 +9,7 @@ export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const ADD_ITEM = 'ADD_ITEM';
+export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -140,14 +141,42 @@ export const addItem = (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
-      return console.log(response.json());
-    });
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((item) => {
+        return dispatch({
+          type: ADD_ITEM,
+          payload: item,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // .then((data) => {
+    //   console.log('datatatat', data);
+    //   return data;
+    // });
     // .then((body) => {
     //   return dispatch({
     //     type: ADD_ITEM,
     //     payload: body,
     //   });
     // });
+  };
+};
+
+export const resetNewItem = () => {
+  // console.log(input);
+  // return {
+  //   type: SHOW_NEW_CARD,
+  //   payload: !input,
+  // };
+  return (dispatch) => {
+    dispatch({
+      type: RESET_NEW_ITEM,
+      payload: '',
+    });
   };
 };
