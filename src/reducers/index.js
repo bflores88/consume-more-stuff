@@ -1,4 +1,3 @@
-'use strict';
 import { LOAD_ITEMS } from '../actions';
 
 import { LOAD_SPECIFIC_ITEM } from '../actions';
