@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import './SideBox.scss';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -19,23 +18,16 @@ class SideBox extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.currentUser.id)
     const user = this.props.currentUser;
-    console.log(user);
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.currentUser)
     if (this.props.currentUser !== prevProps.currentUser) {
       const user = this.props.currentUser;
-
-      console.log(user);
     }
   }
 
 }
-
-
 
 const mapStateToProps = (state) => {
   return {
@@ -45,14 +37,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {};
-
 };
 
 SideBox = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(SideBox)
-
-
 
 export default SideBox;
