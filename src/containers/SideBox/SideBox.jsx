@@ -19,17 +19,13 @@ class SideBox extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.currentUser.id)
     const user = this.props.currentUser;
-    console.log(user);
   }
 
   componentDidUpdate(prevProps) {
     console.log(this.props.currentUser)
     if (this.props.currentUser !== prevProps.currentUser) {
       const user = this.props.currentUser;
-
-      console.log(user);
     }
   }
 
