@@ -9,7 +9,7 @@ import { LOGIN } from '../actions';
 
 
 import { LOGOUT } from '../actions';
-=======
+
 import { ADD_ITEM } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
