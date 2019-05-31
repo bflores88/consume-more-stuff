@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Users.scss';
 
 class Users extends Component {
@@ -10,6 +11,7 @@ class Users extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props.currentUser.id)
     const user = this.props.match.params.id;
     console.log(user);
   }
@@ -22,8 +24,6 @@ class Users extends Component {
     }
   }
 
-
-
   render() {
     return (
       <>
@@ -33,5 +33,23 @@ class Users extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.itemReducer.currentUser
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+
+};
+
+Users = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Users)
+
+
 
 export default Users;

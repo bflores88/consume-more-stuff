@@ -14,10 +14,28 @@ class SideBox extends Component {
   render() {
     return (
       <div className="side-box">
-        <Sidebar />
+        <Sidebar currentUser={this.props.currentUser} />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.itemReducer.currentUser
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+
+};
+
+SideBox = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SideBox)
+
+
 
 export default SideBox;

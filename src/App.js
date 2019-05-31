@@ -22,7 +22,7 @@ class App extends Component {
         <Header />
 
         <div className="main">
-          <SideBox />
+          <SideBox currentUser={this.props.currentUser} />
           <div className="page">
             <Switch>
               <Route exact path="/" component={Home} />

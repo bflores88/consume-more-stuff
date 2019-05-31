@@ -4,7 +4,7 @@ import './Sidebar.scss';
 
 const Sidebar = (props) => {
   //need props for isLoggedIn and role
-  const { isLoggedIn, roleID } = props;
+  const { id, role } = props;
 
   //generate links for items by category
   const createItemCategoryLinks = () => {
@@ -33,7 +33,7 @@ const Sidebar = (props) => {
   //second if is for users
   //else is for admins and moderators
 
-  if (!isLoggedIn) {
+  if (!props.currentUser) {
     return (
       <div className="public-nav">
         <div className="logo">
@@ -66,22 +66,17 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/users/all">
-              <button>All Users - Test</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/users/2">
-              <button>User 2 - Test</button>
-            </Link>
-          </div>
+          <Link to="/users/all">
+            <button>All Users</button>
+          </Link>
+        </div>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
       </div>
     );
-  } else if (isLoggedIn && roleID === '3') {
+  } else if (props.currentUser.role_id === 3) {
+    const userLink = `/users/${props.currentUser.id}`;
     return (
       <div className="user-nav">
         <div className="logo">
@@ -89,9 +84,17 @@ const Sidebar = (props) => {
           <Link to="/">SAVANNAH</Link>
         </div>
 
+        <div className="wrap-links">
+
         <div className="nav-links">
           <Link to="/">
             <button>Home</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to={userLink}>
+            <button>My Profile</button>
           </Link>
         </div>
 
@@ -120,9 +123,15 @@ const Sidebar = (props) => {
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
+
+
+          
+        </div>
+
       </div>
     );
   } else {
+    const userLink = `/users/${props.currentUser.id}`;
     return (
       <div className="admin-nav">
         <div className="logo">
@@ -130,19 +139,44 @@ const Sidebar = (props) => {
           <Link to="/">SAVANNAH</Link>
         </div>
 
+        <div className="wrap-links">
+
         <div className="nav-links">
-          <Link to="/">Items</Link>
+          <Link to={userLink}>
+            <button>My Profile</button>
+          </Link>
+          </div>
+          
+          <div className="nav-links">
+          <Link to="/users/all">
+            <button>All Users</button>
+          </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/">Categories</Link>
+          <Link to="/">
+            <button>Items</button>
+          </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/">Settings</Link>
+          <Link to="/">
+            <button>Categories</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/">
+            <button>Settings</button>
+          </Link>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
+
+
+        </div>
+
+        
       </div>
     );
   }
