@@ -83,15 +83,15 @@ class Registration extends Component {
 
   handleSubmit(e) { 
     e.preventDefault();
-    this.props.register(this.state.data);
+    if (!this.props.registrationSuccessful){
+        return;
+      } else {
+        this.props.register(this.state.data);
+        return this.props.history.push('/')
+      }
   }
 
   render(){
-    // console.log('registrationComponent.props.registrationSuccessful ', this.props.registrationSuccessful);
-    // if (this.props.registrationSuccessful){
-    //   return <Redirect to='/'/>
-    // }
-
     return(
       <div className="registration-form">
         {/* handleSubmit() not called if required, minLength, 

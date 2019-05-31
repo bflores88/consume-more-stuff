@@ -109,19 +109,20 @@ export const register = (accountData) => {
       body: JSON.stringify(accountData),
       headers: { 'Content-Type' : 'application/json' }
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((accountData) => {
-      console.log('Account creation successful');
+    // .then((response) => {
+    //   console.log('register action >>>>>',response);
+    //   return response.json();
+    // })
+    // .then((accountData) => {
+    //   console.log('Account creation successful');
       
-      return dispatch({
-        type: REGISTER,
-        payload: accountData,
-      })
-    })
-    .catch((error) => {
-      console.log('Error in registration: ', error);
-    })
+    //   return dispatch({
+    //     type: REGISTER,
+    //     payload: accountData,
+    //   })
+    // })
+    // .catch((error) => {
+    //   console.log('Error in registration: ', error);
+    // })
   }
 }

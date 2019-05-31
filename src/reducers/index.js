@@ -7,6 +7,7 @@ import { REGISTER } from '../actions';
 const initialState = {
   items: [],
   images: [],
+  registrationSuccessful: true,
 };
 
 function itemReducer(state = initialState, action) {

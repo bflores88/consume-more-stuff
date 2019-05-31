@@ -21,8 +21,8 @@ class App extends Component {
               <Route path="/AddItem" component={AddItem} />
               <Route 
                 path="/Register" 
-                // render={(props) => <Registration {...props} registrationSuccessful={false}/>}/>
-                component={Registration}/>
+                render={(props) => <Registration {...props} />}/>
+                {/* // component={Registration}/> */}
             </Switch>
           </div>
         </div>

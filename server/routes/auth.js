@@ -33,10 +33,12 @@ router.route('/register').post((req, res) => {
       })
         .save() // Save model to database
         .then((newUser) => {
+          console.log(JSON.stringify(newUser));
           return res.json(newUser); // Valid user data sends a response with userData
         })
         .catch((error) => {
           if (error.constraint === 'users_username_unique') {
+            console.log('name taken');
             // identify what caused error during save attempt
             return res.json({
               // create an object that only informs of error and doesnt expose database details
