@@ -12,12 +12,9 @@ class ItemsBox extends Component {
       input: '',
       items: [{ name: 'banana' }, { name: 'kiwi' }],
     };
-
-    // this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
-    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
     return this.props.grabItemImages();
   }
 
@@ -41,7 +38,6 @@ class ItemsBox extends Component {
     const filteredItems = this.filterItems(this.props.label, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink = this.filterImages(item.id, this.props.images);
-      console.log(this.props.images)
 
       if (itemLink[0]) {
         return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
