@@ -22,7 +22,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props.items);
     return (
       <div className="App">
         <ItemsBox items={this.props.items} label="Electronics" />

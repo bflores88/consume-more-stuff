@@ -9,6 +9,8 @@ const ItemImage = require('../database/models/ItemImage');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 
+// const remove = require('../services/image-delete');
+
 router.route('/').get((req, res) => {
   new ItemImage()
     .fetchAll()
@@ -42,7 +44,6 @@ router.route('/upload/:itemId').post(singleUpload, (req, res) => {
 
 // post image LINKS (not files)
 router.route('/link/:itemId').post((req, res) => {
-  console.log(req.body);
   new ItemImage()
     .save({
       imageLink: req.body.imageLink,
@@ -60,20 +61,7 @@ router.route('/link/:itemId').post((req, res) => {
     });
 });
 
-router.route('/:id').get((req, res) => {
-  // return queried image
-  new ItemImage({ id: req.params.id })
-    .fetch()
-    .then((result) => {
-      return res.json(result);
-    })
-    .catch((err) => {
-      console.log('error:', err);
-      return res.status(404).send('Item image not found');
-    });
-});
-
-router.route('/items/:itemId').get((req, res) => {
+router.route('/item/:itemId').get((req, res) => {
   // return only imageLinks for images tied to specified item
   ItemImage.where({ item_id: req.params.itemId })
     .fetchAll({ columns: ['imageLink'] })
@@ -85,5 +73,37 @@ router.route('/items/:itemId').get((req, res) => {
       return res.status(404).send('Item image not found');
     });
 });
+
+router
+  .route('/:id')
+  .get((req, res) => {
+    // return queried image
+    new ItemImage({ id: req.params.id })
+      .fetch()
+      .then((result) => {
+        return res.json(result);
+      })
+      .catch((err) => {
+        console.log('error:', err);
+        return res.status(404).send('Item image not found');
+      });
+  })
+  .delete((req, res) => {
+    ItemImage.where({ id: req.params.id })
+      .destroy()
+      .then((result) => {
+        new ItemImage()
+          .fetchAll({ columns: ['imageLink'] })
+          .then((result) => {
+            // respond with all remaining images
+            // BETTER would be to reply with all remaining images tied to item
+            return res.json(result);
+          })
+          .catch((err) => {
+            console.log('error:', err);
+            return res.status(404).send('Item not found');
+          });
+      });
+  });
 
 module.exports = router;

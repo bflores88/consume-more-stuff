@@ -5,9 +5,11 @@ export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
-
+export const ADD_IMAGE = 'ADD_IMAGE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const ADD_ITEM = 'ADD_ITEM';
+export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -48,12 +50,11 @@ export const loadSpecificItem = (id) => {
 
 export const grabItemImages = () => {
   return (dispatch) => {
-    return fetch(`/api/images`)
+    return fetch(`/api/images/items`)
       .then((response) => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: GRAB_ITEM_IMAGES,
           payload: items,
@@ -128,5 +129,69 @@ export const logout = () => {
       .catch((error) => {
         console.log('Error in logout: ', error);
       });
+  };
+};
+
+export const addItem = (data) => {
+  return (dispatch) => {
+    return fetch('/api/items', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((item) => {
+        return dispatch({
+          type: ADD_ITEM,
+          payload: item,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const addImage = (id, data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/image/${id}`, {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        // .then((item) => {
+        //   return dispatch({
+        //     type: ADD_IMAGE,
+        //     payload: item,
+        //   });
+        // })
+        .catch((err) => {
+          console.log('error in image', err);
+        })
+    );
+  };
+};
+
+export const resetNewItem = () => {
+  // console.log(input);
+  // return {
+  //   type: SHOW_NEW_CARD,
+  //   payload: !input,
+  // };
+  return (dispatch) => {
+    dispatch({
+      type: RESET_NEW_ITEM,
+      payload: '',
+    });
   };
 };
