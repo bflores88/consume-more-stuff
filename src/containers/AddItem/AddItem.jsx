@@ -60,7 +60,7 @@ class AddItem extends Component {
   }
 
   render() {
-    if (this.props.newestItem !== '') {
+    if (1 === 1) {
       return (
         <div className="add-item-page">
           <h1>
@@ -97,10 +97,10 @@ class AddItem extends Component {
                     />
                   </div>
                 </div>
-                <div className="image">
+                {/* <div className="image">
                   <label htmlFor="image">Add an Image</label>
                   <input className="input-label" type="file" name="image" onChange={this.handleInputOnChange} />
-                </div>
+                </div> */}
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>
@@ -222,10 +222,10 @@ class AddItem extends Component {
                     />
                   </div>
                 </div>
-                <div className="image">
+                {/* <div className="image">
                   <label htmlFor="image">Add an Image</label>
                   <input className="input-label" type="file" name="image" onChange={this.handleInputOnChange} />
-                </div>
+                </div> */}
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './AddItemImage.scss';
 import { addItem } from '../../actions';
 import { resetNewItem } from '../../actions';
+import { addImage } from '../../actions';
 
 class AddItemImage extends Component {
   constructor(props) {
@@ -28,9 +29,13 @@ class AddItemImage extends Component {
   }
 
   handleSubmit(e) {
-    if (this.state.image) {
+    if (this.state.image !== '') {
+      const formData = new FormData();
+      formData.append('image', this.state.image);
+      console.log(formData);
+      this.props.addImage(this.props.newestItem.id, formData);
     }
-    this.props.resetNewItem();
+    // this.props.resetNewItem();
   }
 
   componentDidMount() {
@@ -38,21 +43,25 @@ class AddItemImage extends Component {
   }
 
   render() {
-    return (
-      <div id="myModal">
-        <div id="modal-content">
-          <div id="formHeader">
-            <h3>Your item has been posted.</h3>
+    if (this.props.newestItem === '') {
+      return <div />;
+    } else {
+      return (
+        <div id="myModal">
+          <div id="modal-content">
+            <div id="formHeader">
+              <h3>Your item has been posted.</h3>
 
-            <h4>Would you like to add an image to your new item?</h4>
-            <form action="">
-              <input onChange={this.handleInputOnChange} type="file" name="image" />
-              <button onClick={this.handleSubmit}>Submit Item</button>
-            </form>
+              <h4>Would you like to add an image to your new item?</h4>
+              <form>
+                <input onChange={this.handleInputOnChange} type="file" name="image" />
+                <button onClick={this.handleSubmit}>Submit Item</button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
@@ -69,6 +78,12 @@ const mapDispatchToProps = (dispatch) => {
     addItem: (item) => {
       dispatch(addItem(item));
     },
+    resetNewItem: (item) => {
+      dispatch(resetNewItem(item));
+    },
+    // addImage: (image) => {
+    //   dispatch(addImage(image));
+    // },
   };
 };
 

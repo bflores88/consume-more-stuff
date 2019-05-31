@@ -5,7 +5,7 @@ export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
-
+export const ADD_IMAGE = 'ADD_IMAGE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const ADD_ITEM = 'ADD_ITEM';
@@ -55,7 +55,6 @@ export const grabItemImages = () => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: GRAB_ITEM_IMAGES,
           payload: items,
@@ -154,16 +153,32 @@ export const addItem = (data) => {
       .catch((err) => {
         console.log(err);
       });
-    // .then((data) => {
-    //   console.log('datatatat', data);
-    //   return data;
-    // });
-    // .then((body) => {
-    //   return dispatch({
-    //     type: ADD_ITEM,
-    //     payload: body,
-    //   });
-    // });
+  };
+};
+
+export const addImage = (id, data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/image/${id}`, {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        // .then((item) => {
+        //   return dispatch({
+        //     type: ADD_IMAGE,
+        //     payload: item,
+        //   });
+        // })
+        .catch((err) => {
+          console.log('error in image', err);
+        })
+    );
   };
 };
 
