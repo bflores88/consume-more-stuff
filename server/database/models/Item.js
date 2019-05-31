@@ -1,10 +1,11 @@
 const bookshelf = require('../bookshelf');
 
 require('./User');
+require('./ItemCondition');
 require('./ItemStatus');
 require('./Category');
-require('./ItemCondition');
 require('./SubCategory');
+require('./Order');
 class Item extends bookshelf.Model {
   get tableName() {
     return 'items';
@@ -13,21 +14,28 @@ class Item extends bookshelf.Model {
     return true;
   }
 
-  user_id() {
+  users() {
     return this.belongsTo('User', 'user_id');
   }
 
-  condition_id() {
+  conditions() {
     return this.belongsTo('ItemCondition', 'condition_id');
   }
-  status_id() {
+
+  statuses() {
     return this.belongsTo('ItemStatus', 'status_id');
   }
-  category_id() {
+
+  categories() {
     return this.belongsTo('Category', 'category_id');
   }
-  subCategory_id() {
+
+  subCategories() {
     return this.belongsTo('SubCategory', 'subCategory_id');
+  }
+
+  orders() {
+    return this.hasMany('Order', 'item_id');
   }
 }
 

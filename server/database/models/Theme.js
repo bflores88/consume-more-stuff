@@ -10,7 +10,7 @@ class Theme extends bookshelf.Model {
   }
 
   users() {
-    return this.hasMany('User');
+    return this.hasMany('User', 'theme_id');
   }
 }
 
