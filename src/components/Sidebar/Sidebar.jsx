@@ -80,7 +80,7 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/messages">
             <button>Messages</button>
           </Link>
         </div>
@@ -135,7 +135,7 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/items/all">
             <button>Items</button>
           </Link>
         </div>
