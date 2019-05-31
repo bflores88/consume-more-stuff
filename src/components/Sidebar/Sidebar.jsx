@@ -60,14 +60,20 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/Messages">
+            <Link to="/messages">
               <button>Messages - Test</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/Users">
-              <button>Users - Test</button>
+            <Link to="/users/all">
+              <button>All Users - Test</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/users/2">
+              <button>User 2 - Test</button>
             </Link>
           </div>
         </div>

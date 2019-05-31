@@ -29,7 +29,7 @@ class App extends Component {
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item" component={EditItem} />
               <Route path="/messages" component={Messages} />
-              <Route path="/users" component={Users} />
+              <Route path="/users/:id" component={Users} />
               <Route path="/items/category/:category" component={Category} />
             </Switch>
           </div>
