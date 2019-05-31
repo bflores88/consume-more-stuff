@@ -9,13 +9,14 @@ class Item extends Component {
     this.state = {};
   }
   render() {
-    const { name, id, price } = this.props;
+    const { name, id, price, imageLink } = this.props;
     // console.log(this.props.id);
     return (
       <div className="singleItem">
         <div className="imageBox">
           <img
-            src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+            // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+            src={imageLink}
             alt=""
             className="itemImage"
           />
