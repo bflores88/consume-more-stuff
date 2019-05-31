@@ -7,11 +7,16 @@ import { GRAB_ITEM_IMAGES } from '../actions';
 
 import { LOGIN } from '../actions';
 
+import { ADD_ITEM } from '../actions';
+
+import { RESET_NEW_ITEM } from '../actions';
+
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
+  newestItem: '',
 };
 
 function itemReducer(state = initialState, action) {
@@ -27,6 +32,12 @@ function itemReducer(state = initialState, action) {
 
     case LOGIN:
       return Object.assign({}, state, { currentUser: action.payload });
+
+    case ADD_ITEM:
+      return Object.assign({}, state, { newestItem: action.payload });
+
+    case RESET_NEW_ITEM:
+      return Object.assign({}, state, { newestItem: '' });
 
     default:
       return state;

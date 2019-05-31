@@ -16,8 +16,10 @@ class Item extends Component {
     const itemID = id;
     const redirectTo = `/items/${itemID}`;
     // console.log(this.props.id);
-    return (
-      <Link to={redirectTo}>
+
+    if (imageLink) {
+      return (
+
         <div className="singleItem">
           <div className="imageBox">
             <img
@@ -33,9 +35,30 @@ class Item extends Component {
             <div className="itemPrice">Price: {price}</div>
           </div>
           <div />
+
         </div>
-      </Link>
-    );
+      );
+    } else {
+      return (
+        <div className="singleItem">
+          <div className="imageBox">
+            {/* <img
+              // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+              src={imageLink}
+              alt=""
+              className="itemImage"
+            /> */}
+          </div>
+          <div className="itemDescriptionBox">
+            <h4 className="itemName">{name}</h4>
+            {/* <div>id={id}</div> */}
+            <div className="itemPrice">Price: {price}</div>
+          </div>
+          <div />
+        </div>
+      );
+    }
+
   }
 }
 

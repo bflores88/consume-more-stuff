@@ -35,7 +35,7 @@ const Sidebar = (props) => {
     return (
       <div className="public-nav">
         <div className="logo">
-          <i className="sunLogo" class="fas fa-sun" />
+          <i className="sunLogo" className="fas fa-sun" />
           <Link to="/">Savannah</Link>
         </div>
         <div className="wrap-links">
