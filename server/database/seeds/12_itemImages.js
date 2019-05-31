@@ -24,16 +24,16 @@ exports.seed = function(knex, Promise) {
         { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559249786412', item_id: 12 },
         { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559263164246', item_id: 13 },  
         { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559263025312', item_id: 14 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559264340747", item_id: 15 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559264340747', item_id: 15 },
         { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559264416160', item_id: 16 },
         { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559264540392', item_id: 17 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559264642294", item_id: 18 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559265265055", item_id: 19 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559265710362", item_id: 20 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559265999607", item_id: 21 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559266536182", item_id: 22 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559266853736", item_id: 23 },
-        { imageLink: "https://savannah-images.s3.us-west-2.amazonaws.com/1559267241357", item_id: 24 }
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559264642294', item_id: 18 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559265265055', item_id: 19 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559265710362', item_id: 20 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559265999607', item_id: 21 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559266536182', item_id: 22 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559266853736', item_id: 23 },
+        { imageLink: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559267241357', item_id: 24 }
       ]);
     });
 };
