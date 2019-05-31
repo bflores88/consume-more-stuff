@@ -1,58 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
-import { connect } from 'react-redux';
-import { loadItems } from './actions';
+import React, { Component } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 
-import ItemsBox from './containers/ItemsBox';
-import Item from './containers/Item';
+import Home from './components/Home';
 import Header from './containers/Header';
+import AddItem from './components/AddItem';
+import SideBox from './containers/SideBox/SideBox';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: 'test',
-    };
-  }
-
-  componentDidMount() {
-    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
-    return this.props.loadItems();
-  }
-
+class App extends Component {
   render() {
-    console.log(this.props.items);
     return (
-      <div className="App">
+      <>
         <Header />
-        <h3>{this.state.title}</h3>
-        <ItemsBox items={this.props.items} label="Electronics" />
-        <ItemsBox items={this.props.items} label="Apparel" />
-        <ItemsBox items={this.props.items} label="Books" />
-      </div>
+
+        <div className="main">
+          <SideBox />
+          <div className="page">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/AddItem" component={AddItem} />
+            </Switch>
+          </div>
+        </div>
+      </>
+
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    items: state.itemReducer.items,
-  };
-};
-
-const mapDispatchtoProps = (dispatch) => {
-  return {
-    loadItems: () => {
-      return dispatch(loadItems());
-    },
-  };
-};
-
-App = connect(
-  mapStateToProps,
-  mapDispatchtoProps,
-)(App);
 
 export default App;
