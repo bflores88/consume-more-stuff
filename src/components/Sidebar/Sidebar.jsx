@@ -41,7 +41,7 @@ const Sidebar = (props) => {
         <div className="wrap-links">
           <div className="nav-links">
             <Link to="/">
-              <button>Register - waiting for merge</button>
+              <button>Register</button>
             </Link>
           </div>
 
