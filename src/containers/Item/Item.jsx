@@ -32,9 +32,6 @@ class Item extends Component {
             {/* <div>id={id}</div> */}
             <div className="itemPrice">Price: {price}</div>
           </div>
-          <button value={id} onClick={this.getItemId}>
-            View Detail
-          </button>
           <div />
         </div>
       </Link>
