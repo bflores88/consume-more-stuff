@@ -15,14 +15,6 @@ class SideBox extends Component {
     return (
       <div className="side-box">
         <Sidebar />
-        {/* <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/AddItem">Add Item</Link>
-          </li>
-        </ul> */}
       </div>
     );
   }
