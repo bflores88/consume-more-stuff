@@ -9,7 +9,7 @@ class PaymentCard extends bookshelf.Model {
     return true;
   }
 
-  user_id() {
+  users() {
     return this.belongsTo('User', 'user_id');
   }
 }

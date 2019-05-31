@@ -6,12 +6,15 @@ class SubCategory extends bookshelf.Model {
   get tableName() {
     return 'subCategories';
   }
+
   get hasTimestamps() {
     return true;
   }
-  category_id() {
+
+  categories() {
     return this.belongsTo('Category', 'category_id');
   }
+
   items() {
     return this.hasMany('Item');
   }

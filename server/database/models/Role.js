@@ -10,7 +10,7 @@ class Role extends bookshelf.Model {
   }
 
   users() {
-    return this.hasMany('User');
+    return this.hasMany('User', 'role_id');
   }
 }
 
