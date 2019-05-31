@@ -1,0 +1,24 @@
+.add-item-page {
+  // display: flex;
+  height: 100%;
+  .add-item-form {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.description-input {
+  width: 50%;
+  height: 150px;
+  font-size: 1.5em;
+  // padding: 12px 20px;
+}
+
+.input-label {
+  display: block;
+}
+
+// input,
+// label {
+//   display: block;
+// }

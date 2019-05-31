@@ -10,21 +10,39 @@ class AddItem extends Component {
       name: '',
       price: 0,
       category_id: 0,
-      condiiton_id: 0,
+      condition_id: 0,
       quantity: 0,
       description: '',
+      dimensions: '',
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
+    this.addNewItem = this.addNewItem.bind(this);
   }
 
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
 
-    console.log(name, value);
+    // console.log(name, value);
     return this.setState({ [name]: value });
   }
 
+  addNewItem(e) {
+    e.preventDefault();
+    const data = {};
+    data.name = this.state.name;
+    data.price = this.state.price;
+    data.category_id = this.state.category_id;
+    data.condition_id = this.state.condition_id;
+    data.quantity = this.state.quantity;
+    data.description = this.state.description;
+    data.user_id = this.props.currentUser.id;
+    data.approved = false;
+    data.viewCount = 0;
+    data.status_id = 1;
+
+    console.log(data);
+  }
   componentDidMount() {
     return console.log('94it93it349ti3', this.props.currentUser);
   }
@@ -37,7 +55,7 @@ class AddItem extends Component {
           <div>User:{this.props.currentUser.username}</div>
         </h1>
         <div className="add-item-form-box">
-          <form action="">
+          <form className="add-item-form" action="">
             <div className="top-box">
               <div className="title-price-container">
                 <div className="input-div">
@@ -67,11 +85,11 @@ class AddItem extends Component {
               </div>
               <div className="image">
                 <label htmlFor="image">Add an Image</label>
-                <input type="file" name="image" onChange={this.handleInputOnChange} />
+                <input className="input-label" type="file" name="image" onChange={this.handleInputOnChange} />
               </div>
               <div className="input-div">
                 <div className="category">
-                  <label>Category: </label>
+                  <label className="input-label">Category: </label>
                   <select
                     name="category_id"
                     value={this.state.category_id}
@@ -87,10 +105,10 @@ class AddItem extends Component {
               </div>
               <div className="input-div">
                 <div className="condition">
-                  <label>Condition: </label>
+                  <label className="input-label">Condition: </label>
                   <select
                     name="condition_id"
-                    value={this.state.condiiton_id}
+                    value={this.state.condition_id}
                     onChange={this.handleInputOnChange}
                     required
                   >
@@ -104,7 +122,9 @@ class AddItem extends Component {
                 </div>
               </div>
               <div className="input-div">
-                <label htmlFor="quantity">Quantity</label>
+                <label className="input-label" htmlFor="quantity">
+                  Quantity
+                </label>
                 <input
                   className="quantity-input"
                   type="number"
@@ -115,16 +135,34 @@ class AddItem extends Component {
                 />
               </div>
               <div className="input-div">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="dimensions">Item Name</label>
                 <input
-                  className="description-input"
-                  type="textarea"
-                  name="description"
-                  placeholder="Description"
-                  value={this.state.description}
+                  className="dimensions-input"
+                  type="text"
+                  name="dimensions"
+                  placeholder="Dimensions"
+                  value={this.state.dimensions}
                   onChange={this.handleInputOnChange}
+                  required
                 />
               </div>
+              <div className="input-div">
+                <label className="input-label" htmlFor="description">
+                  Description
+                </label>
+
+                <textarea
+                  onChange={this.handleInputOnChange}
+                  className="description-input"
+                  name="description"
+                  id=""
+                  cols="30"
+                  rows="10"
+                />
+              </div>
+              <button onClick={this.addNewItem} className="submit-item-button">
+                Submit Item
+              </button>
             </div>
           </form>
         </div>
