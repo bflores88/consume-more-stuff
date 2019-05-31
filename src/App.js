@@ -13,6 +13,7 @@ import EditItem from './containers/EditItem';
 import Messages from './containers/Messages';
 import Users from './containers/Users';
 import Category from './containers/Category/Category';
+import Footer from './containers/Footer/Footer';
 
 class App extends Component {
   render() {
@@ -33,6 +34,8 @@ class App extends Component {
             </Switch>
           </div>
         </div>
+
+        <Footer />
       </>
     );
   }
