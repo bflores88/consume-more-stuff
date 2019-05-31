@@ -50,7 +50,7 @@ export const loadSpecificItem = (id) => {
 
 export const grabItemImages = () => {
   return (dispatch) => {
-    return fetch(`/api/images`)
+    return fetch(`/api/images/items`)
       .then((response) => {
         return response.json();
       })
