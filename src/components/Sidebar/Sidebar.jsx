@@ -21,6 +21,12 @@ const Sidebar = (props) => {
         <Link to="/items/category/electronics">
           <button>Electronics</button>
         </Link>
+        <Link to="/items/category/food">
+          <button>Food</button>
+        </Link>
+        <Link to="/items/category/movies">
+          <button>Movies</button>
+        </Link>
       </div>
     );
   };

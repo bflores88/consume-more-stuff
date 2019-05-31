@@ -12,12 +12,9 @@ class ItemsBox extends Component {
       input: '',
       items: [{ name: 'banana' }, { name: 'kiwi' }],
     };
-
-    // this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
-    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
     return this.props.grabItemImages();
   }
 
@@ -39,7 +36,6 @@ class ItemsBox extends Component {
 
   render() {
     const filteredItems = this.filterItems(this.props.label, this.props.items);
-    // const images = this.grabImages();
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink;
       if (this.props.images) {
@@ -53,7 +49,6 @@ class ItemsBox extends Component {
         ];
       }
 
-      // console.log('WETWETETWET', itemLink[0].imageLink);
       if (itemLink[0]) {
         return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
       } else {
@@ -66,7 +61,6 @@ class ItemsBox extends Component {
           />
         );
       }
-      // return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
     });
 
     return (

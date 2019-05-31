@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import './Header.scss';
 
@@ -12,9 +10,6 @@ class Header extends Component {
     this.state = {};
   }
   render() {
-    const { name, id, price } = this.props;
-    // console.log(this.props.id);
-    let searchFont = <i className="fas fa-search" />;
     return (
       <div className="header">
         <div className="logoBox">
