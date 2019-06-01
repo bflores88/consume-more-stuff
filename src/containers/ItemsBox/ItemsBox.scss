@@ -7,6 +7,8 @@
     display: flex;
     overflow: auto;
     white-space: nowrap;
+    // border: 1px solid #222f3d;
+    // padding: 0.25em;
     // height: 20%;
     // border: solid 1px rgb(235, 161, 25);
     // padding: 0.1em 0.1em 0.1em 0.1em;
@@ -14,9 +16,11 @@
     // background-color: yellow;
   }
   .item-box-title {
+    padding: 0.5em;
     display: flex;
     margin: 0.5em 0em 0.5em 0em;
     background-color: #222f3d;
+    border-radius: 5px;
     .title-text {
       margin: 0em 0em 0em 0.5em;
       color: rgb(235, 161, 25);

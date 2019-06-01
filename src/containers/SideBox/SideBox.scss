@@ -3,8 +3,17 @@
   z-index: 1;
   top: 75px;
   left: 0;
-  width: auto;
+  // width:
+  // width: 200px;
   height: auto;
-  padding: 40px 20px 20px 20px;
+  padding: 40px 0px 20px 20px;
   overflow: auto;
+  margin: 0;
+  // border: 1px solid orange;
+  // background-color: red;
+  .side-box button {
+    // font-size:
+    // background-color: red;-
+    font-size: 0.5em;
+  }
 }

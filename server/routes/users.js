@@ -7,10 +7,11 @@ const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 
-router.route('/').get((req, res) => {
-  new User({ id: req.user.id })
-    .fetch()
+router.route('/:id').get((req, res) => {
+  new User({ id: req.params.id })
+    .fetch({ withRelated: ['roles']})
     .then((result) => {
+      console.log(result)
       // reply with logged in user
       return res.json(result);
     })

@@ -2,6 +2,11 @@ const bookshelf = require('../bookshelf');
 
 require('./Theme');
 require('./Role');
+require('./Item');
+require('./Message');
+require('./PaymentCard');
+require('./ShippingAddress');
+require('./Transaction');
 class User extends bookshelf.Model {
   get tableName() {
     return 'users';
@@ -16,6 +21,30 @@ class User extends bookshelf.Model {
 
   themes() {
     return this.belongsTo('Theme', 'theme_id');
+  }
+
+  items() {
+    return this.hasMany('Item', 'user_id');
+  }
+
+  sent_messages() {
+    return this.hasMany('Message', 'sent_by');
+  }
+
+  paymentCards() {
+    return this.hasMany('PaymentCard', 'user_id');
+  }
+
+  shippingAddresses() {
+    return this.hasMany('ShippingAddress', 'user_id');
+  }
+
+  transactions() {
+    return this.hasMany('Transaction', 'user_id');
+  }
+
+  received_messages() {
+    return this.hasMany('UserMessage', 'sent_to');
   }
 }
 

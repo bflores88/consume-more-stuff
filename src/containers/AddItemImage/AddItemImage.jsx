@@ -26,16 +26,27 @@ class AddItemImage extends Component {
     if (name === 'image') {
       return this.setState({ image: file });
     }
+    console.log(this.props.image);
   }
 
   handleSubmit(e) {
-    if (this.state.image !== '') {
-      const formData = new FormData();
-      formData.append('image', this.state.image);
-      console.log(formData);
-      this.props.addImage(this.props.newestItem.id, formData);
-    }
-    // this.props.resetNewItem();
+    e.preventDefault();
+    // if (this.state.image !== '') {
+    let formData = new FormData(e.target);
+    console.log(formData);
+    // formData.append('test', 'heeooo');
+    formData.append('image', this.state.image);
+
+    console.log('thipoprsimage', this.state.image);
+    // console.log(formData.get('test'));
+
+    let testObj = {
+      image: this.state.image,
+    };
+    console.log('testOBJ', testObj);
+    this.props.addImage(this.props.newestItem.id, this.state.image);
+
+    return this.props.resetNewItem();
   }
 
   componentDidMount() {
@@ -81,9 +92,9 @@ const mapDispatchToProps = (dispatch) => {
     resetNewItem: (item) => {
       dispatch(resetNewItem(item));
     },
-    // addImage: (image) => {
-    //   dispatch(addImage(image));
-    // },
+    addImage: (id, image) => {
+      dispatch(addImage(id, image));
+    },
   };
 };
 

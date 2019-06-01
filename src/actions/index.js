@@ -16,6 +16,8 @@ export const ADD_IMAGE = 'ADD_IMAGE';
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
+export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -38,7 +40,6 @@ export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
-        console.log('1231231231231232', response);
         return response.json();
       })
       .then((item) => {
@@ -175,14 +176,18 @@ export const register = (accountData) => {
 }
 
 export const addImage = (id, data) => {
+  console.log('actiomndata', data);
+  console.log('id', id);
+  let formData = new FormData();
+  formData.append('image', data);
   return (dispatch) => {
     return (
-      fetch(`/api/image/${id}`, {
+      fetch(`/api/images/items/upload/${id}`, {
         method: 'POST',
-        body: data,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: formData,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
       })
         .then((response) => {
           return response.json();
@@ -213,3 +218,26 @@ export const resetNewItem = () => {
     });
   };
 };
+
+export const loadSingleUser = (userID) => {
+  return (dispatch) => {
+    return fetch(`/api/users/${userID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((user) => {
+        return dispatch({
+          type: LOAD_SINGLE_USER,
+          payload: user,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

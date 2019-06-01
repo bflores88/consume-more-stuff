@@ -14,7 +14,7 @@ class AddItem extends Component {
       price: 0,
       category_id: 0,
       condition_id: 0,
-      quantity: 0,
+      inventory: 0,
       description: '',
       dimensions: '',
       image: '',
@@ -39,13 +39,14 @@ class AddItem extends Component {
     data.price = this.state.price;
     data.category_id = this.state.category_id;
     data.condition_id = this.state.condition_id;
-    data.quantity = this.state.quantity;
+    data.inventory = this.state.inventory;
     data.description = this.state.description;
     data.user_id = this.props.currentUser.id;
     data.subCategory_id = 1;
+    data.dimensions = this.state.dimensions;
     data.approved = false;
     data.viewCount = 0;
-    data.status_id = 1;
+    data.active = true;
     console.log(data);
     // const postEm = (inputData) =>{
     //   return () =>{
@@ -65,17 +66,20 @@ class AddItem extends Component {
         <div className="add-item-page">
           <h1>
             Add Item Page
-            <div>User:{this.props.currentUser.username}</div>
-            <div>newestItem:{this.props.newestItem.id}</div>
+            {/* <div>User:{this.props.currentUser.username}</div>
+            <div>newestItem:{this.props.newestItem.id}</div> */}
           </h1>
           <div className="add-item-form-box">
             <form className="add-item-form" action="">
               <div className="top-box">
                 <div className="title-price-container">
                   <div className="input-div">
-                    <label htmlFor="name">Item Name</label>
+                    <label className="input-label" htmlFor="name">
+                      Item Name:
+                    </label>
                     <input
                       className="name-input"
+                      className="input"
                       type="text"
                       name="name"
                       placeholder="Name"
@@ -86,9 +90,12 @@ class AddItem extends Component {
                   </div>
 
                   <div className="input-div">
-                    <label htmlFor="price">Price</label>
+                    <label className="input-label" htmlFor="price">
+                      Price
+                    </label>
                     <input
                       className="price-input"
+                      className="input"
                       type="number"
                       name="price"
                       placeholder="Price"
@@ -97,10 +104,7 @@ class AddItem extends Component {
                     />
                   </div>
                 </div>
-                {/* <div className="image">
-                  <label htmlFor="image">Add an Image</label>
-                  <input className="input-label" type="file" name="image" onChange={this.handleInputOnChange} />
-                </div> */}
+
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>
@@ -138,22 +142,26 @@ class AddItem extends Component {
                   </div>
                 </div>
                 <div className="input-div">
-                  <label className="input-label" htmlFor="quantity">
-                    Quantity
+                  <label className="input-label" htmlFor="inventory">
+                    Inventory:
                   </label>
                   <input
-                    className="quantity-input"
+                    className="inventory-input"
+                    className="input"
                     type="number"
-                    name="quantity"
-                    placeholder="Quantity"
-                    value={this.state.quantity}
+                    name="inventory"
+                    placeholder="Inventory"
+                    value={this.state.inventory}
                     onChange={this.handleInputOnChange}
                   />
                 </div>
                 <div className="input-div">
-                  <label htmlFor="dimensions">Item Name</label>
+                  <label className="input-label" htmlFor="dimensions">
+                    Item Name:
+                  </label>
                   <input
                     className="dimensions-input"
+                    className="input"
                     type="text"
                     name="dimensions"
                     placeholder="Dimensions"
@@ -164,7 +172,7 @@ class AddItem extends Component {
                 </div>
                 <div className="input-div">
                   <label className="input-label" htmlFor="description">
-                    Description
+                    Description:
                   </label>
 
                   <textarea
@@ -174,10 +182,11 @@ class AddItem extends Component {
                     id=""
                     cols="30"
                     rows="10"
+                    required
                   />
                 </div>
                 <button onClick={this.addNewItem} className="submit-item-button">
-                  Submit Item
+                  Continue
                 </button>
               </div>
             </form>
@@ -186,129 +195,7 @@ class AddItem extends Component {
         </div>
       );
     } else {
-      return (
-        <div className="add-item-page">
-          <h1>
-            Add Item Page
-            <div>User:{this.props.currentUser.username}</div>
-            <div>newestItem:{this.props.newestItem.id}</div>
-          </h1>
-          <div className="add-item-form-box">
-            <form className="add-item-form" action="">
-              <div className="top-box">
-                <div className="title-price-container">
-                  <div className="input-div">
-                    <label htmlFor="name">Item Name</label>
-                    <input
-                      className="name-input"
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      value={this.state.name}
-                      onChange={this.handleInputOnChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="input-div">
-                    <label htmlFor="price">Price</label>
-                    <input
-                      className="price-input"
-                      type="number"
-                      name="price"
-                      placeholder="Price"
-                      value={this.state.price}
-                      onChange={this.handleInputOnChange}
-                    />
-                  </div>
-                </div>
-                {/* <div className="image">
-                  <label htmlFor="image">Add an Image</label>
-                  <input className="input-label" type="file" name="image" onChange={this.handleInputOnChange} />
-                </div> */}
-                <div className="input-div">
-                  <div className="category">
-                    <label className="input-label">Category: </label>
-                    <select
-                      name="category_id"
-                      className="select"
-                      value={this.state.category_id}
-                      onChange={this.handleInputOnChange}
-                      required
-                    >
-                      <option value="">Choose a Category</option>
-                      <option value="1">Electronics</option>
-                      <option value="2">Apparel</option>
-                      <option value="3">Books</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="input-div">
-                  <div className="condition">
-                    <label className="input-label">Condition: </label>
-                    <select
-                      name="condition_id"
-                      className="select"
-                      value={this.state.condition_id}
-                      onChange={this.handleInputOnChange}
-                      required
-                    >
-                      <option value="">Choose a Category</option>
-                      <option value="1">New</option>
-                      <option value="2">Good</option>
-                      <option value="3">Fair</option>
-                      <option value="4">Worn</option>
-                      <option value="5">Used</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="input-div">
-                  <label className="input-label" htmlFor="quantity">
-                    Quantity
-                  </label>
-                  <input
-                    className="quantity-input"
-                    type="number"
-                    name="quantity"
-                    placeholder="Quantity"
-                    value={this.state.quantity}
-                    onChange={this.handleInputOnChange}
-                  />
-                </div>
-                <div className="input-div">
-                  <label htmlFor="dimensions">Item Name</label>
-                  <input
-                    className="dimensions-input"
-                    type="text"
-                    name="dimensions"
-                    placeholder="Dimensions"
-                    value={this.state.dimensions}
-                    onChange={this.handleInputOnChange}
-                    required
-                  />
-                </div>
-                <div className="input-div">
-                  <label className="input-label" htmlFor="description">
-                    Description
-                  </label>
-
-                  <textarea
-                    onChange={this.handleInputOnChange}
-                    className="description-input"
-                    name="description"
-                    id=""
-                    cols="30"
-                    rows="10"
-                  />
-                </div>
-                <button onClick={this.addNewItem} className="submit-item-button">
-                  Submit Item
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      );
+      return <div />;
     }
   }
 }
