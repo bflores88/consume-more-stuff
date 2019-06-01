@@ -51,10 +51,10 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images']})
+      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images'] })
       .then((result) => {
         const item = result.toJSON();
-        console.log(item)
+        console.log(item);
         return res.json(item);
       })
       .catch((err) => {
@@ -95,5 +95,24 @@ router
         console.log('error', err);
       });
   });
+
+router.route('/:id/views').put((req, res) => {
+  new Item({ id: req.params.id })
+    .fetch()
+    .then((item) => {
+      let increment = ++item.viewCount;
+      item
+        .save({ viewCount: increment }, { patch: true })
+        .then(() => {
+          return res.json({ success: true });
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+});
 
 module.exports = router;
