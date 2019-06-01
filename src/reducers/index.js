@@ -1,8 +1,10 @@
+import { combineReducers } from 'redux';
 import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
 
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
+import { REGISTER } from '../actions';
 
 import { LOGIN } from '../actions';
 
@@ -12,11 +14,14 @@ import { ADD_ITEM } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
 
+import { INCREMENT_ITEM_VIEWS } from '../actions';
+
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
+  registrationSuccessful: true, // might not be needed
   loggedIn: false,
   user: {},
   newestItem: '',
@@ -50,9 +55,27 @@ function itemReducer(state = initialState, action) {
     case LOAD_SINGLE_USER:
       return Object.assign({}, state, { user: action.payload })
 
+    case INCREMENT_ITEM_VIEWS:
+      return Object.assign({}, state, { newestItem: '' });
+
     default:
       return state;
   }
 }
 
-export default itemReducer;
+function registerReducer(state = initialState, action) {
+  console.log('register reducer');
+  switch (action.type) {
+    case REGISTER:
+      return Object.assign({}, state, { registrationSuccessful: true });
+    default: 
+      return state;
+  }
+}
+
+const savannahApp = combineReducers({
+  itemReducer,
+  registerReducer,
+})
+
+export default savannahApp;

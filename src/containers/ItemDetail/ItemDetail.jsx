@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadSpecificItem } from '../../actions';
+import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 
 class ItemDetail extends Component {
@@ -11,11 +12,13 @@ class ItemDetail extends Component {
   }
 
   componentDidMount() {
+    this.props.incrementViews(this.props.match.params.id)
     return this.props.loadSpecificItem(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.incrementViews(this.props.match.params.id)
       return this.props.loadSpecificItem(this.props.match.params.id);
     }
   }
@@ -94,6 +97,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    incrementViews: (item) => dispatch(incrementViews(item)),
     loadSpecificItem: (item) => dispatch(loadSpecificItem(item)),
   };
 };

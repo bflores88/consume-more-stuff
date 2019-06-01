@@ -1,0 +1,17 @@
+.user-profile {
+  padding: 50px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  .user-img {
+    max-width: 50%;
+
+    .prof-img {
+      max-width: 100%;
+    }
+  }
+
+
+}
