@@ -43,7 +43,6 @@ class Category extends Component {
       const items = category.items.filter((img, key) => {
         return img.active && img.approved;
       });
-      console.log(items);
 
       const itemsBox = items.map((item, idx) => {
         let itemLink;
