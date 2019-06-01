@@ -51,10 +51,11 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-      .fetch()
+      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images']})
       .then((result) => {
         const item = result.toJSON();
-        return res.send(item);
+        console.log(item)
+        return res.json(item);
       })
       .catch((err) => {
         console.log('error:', err);
