@@ -8,7 +8,9 @@ class ItemDetail extends Component {
     super(props);
     
     this.state = {
+
     };
+
   }
 
   componentDidMount() {
@@ -22,12 +24,19 @@ class ItemDetail extends Component {
   }
 
   render() {
-    console.log('12312312312312',this.props.item)
-    return <div>
-    {this.props.item.name}
-      {this.props.item.description}
-      <h1>Item Detail Page</h1>
-    </div>;
+    console.log('********',this.props.item)
+    return (
+      <div className="item-detail">
+        <div clasName="detail-box">
+          <div className="detail-image">
+            
+          </div>
+
+        </div>
+
+   
+      </div>
+    )
   }
 }
 
