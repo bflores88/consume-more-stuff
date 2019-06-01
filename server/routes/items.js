@@ -23,7 +23,7 @@ router
     new Item()
       .save({
         name: req.body.name,
-        quantity: parseInt(req.body.quantity),
+        inventory: parseInt(req.body.inventory),
         dimensions: req.body.dimensions,
         viewCount: 0,
         price: req.body.price,
@@ -51,10 +51,10 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images']})
+      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images'] })
       .then((result) => {
         const item = result.toJSON();
-        console.log(item)
+        console.log(item);
         return res.json(item);
       })
       .catch((err) => {
@@ -66,7 +66,7 @@ router
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
-        quantity: parseInt(req.body.quantity),
+        inventory: parseInt(req.body.inventory),
         dimensions: req.body.dimensions,
         price: req.body.price,
         description: req.body.description,
