@@ -4,6 +4,17 @@ const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
 
+router.route('/active').get((req, res) => {
+  Item.where({ active: true })
+    .fetchAll()
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
+
 router
   .route('/')
   .get((req, res) => {
@@ -54,7 +65,6 @@ router
       .fetch({ withRelated: ['users', 'conditions', 'categories', 'subCategories', 'images'] })
       .then((result) => {
         return res.json(result);
-
       })
       .catch((err) => {
         console.log('error:', err);
