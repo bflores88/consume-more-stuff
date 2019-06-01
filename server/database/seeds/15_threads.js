@@ -1,12 +1,12 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name')
+  return knex('threads')
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('table_name').insert([
+      return knex('threads').insert([
         { subject: 'Testing out the message feature on Savannah!' },
-        { subject: 'Messages' },
+        { subject: 'I want everyone to know!!' },
       ]);
     });
 };
