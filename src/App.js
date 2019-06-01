@@ -25,12 +25,10 @@ class App extends Component {
           <div className="page">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route 
-                path="/Register" 
-                render={(props) => <Registration {...props} />}/>
+              <Route path="/Register" render={(props) => <Registration {...props} />} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
-              <Route path="/messages/:id" component={Messages} />
+              <Route path="/messages" component={Messages} />
               <Route path="/users/:id" component={Users} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />

@@ -8,16 +8,14 @@ export const LOGOUT = 'LOGOUT';
 export const REGISTER = 'REGISTER';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
-
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 export const ADD_IMAGE = 'ADD_IMAGE';
-
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
-
 export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
-
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+
+export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -31,6 +29,24 @@ export const loadItems = () => {
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabUserThreads = () => {
+  return (dispatch) => {
+    return fetch('/api/threads')
+      .then((response) => {
+        return response.json();
+      })
+      .then((threads) => {
+        console.log(threads);
+
+        return dispatch({
+          type: GRAB_USER_THREADS,
+          payload: threads,
         });
       })
       .catch((err) => console.log('Cant access website' + err));
