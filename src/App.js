@@ -28,8 +28,8 @@ class App extends Component {
               <Route path="/edit-item" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
               <Route path="/users/:id" component={Users} />
-              <Route path="/items/:id" component={ItemDetail} />
               <Route path="/items/category/:category" component={Category} />
+              <Route path="/items/:id" component={ItemDetail} />
             </Switch>
           </div>
         </div>
