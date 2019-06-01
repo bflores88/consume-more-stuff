@@ -9,10 +9,11 @@ import AddItem from './containers/AddItem';
 import SideBox from './containers/SideBox/SideBox';
 import EditItem from './containers/EditItem';
 import Messages from './containers/Messages';
-import Users from './containers/Users';
+import Profiles from './containers/Profiles';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
 
 class App extends Component {
   render() {
@@ -31,9 +32,10 @@ class App extends Component {
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
-              <Route path="/users/:id" component={Users} />
+              <Route path="/profiles/:id" component={Profiles} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
+              <Route path="/not-authorized" component={NotAuthorized} />
             </Switch>
           </div>
         </div>
