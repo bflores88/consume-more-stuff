@@ -9,11 +9,16 @@ import AddItem from './containers/AddItem';
 import SideBox from './containers/SideBox/SideBox';
 import EditItem from './containers/EditItem';
 import Messages from './containers/Messages';
-import Users from './containers/Users';
+import Profiles from './containers/Profiles';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+
+import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
+import UserItems from './containers/UserItems';
+
 import Conversation from './containers/Conversation';
+
 
 class App extends Component {
   render() {
@@ -29,11 +34,19 @@ class App extends Component {
               <Route path="/Register" render={(props) => <Registration {...props} />} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
-              <Route path="/messages" component={Messages} />
-              <Route path="/users/:id" component={Users} />
+
+
+              <Route path="/profiles/:id" component={Profiles} />
+              <Route path="/users/:id/items" component={UserItems} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
+              <Route path="/not-authorized" component={NotAuthorized} />
+
+              <Route path="/messages" component={Messages} />
+
+
               <Route path="/conversation/:id" component={Conversation} />
+
             </Switch>
           </div>
         </div>
