@@ -48,6 +48,7 @@ const Sidebar = (props) => {
     );
   } else if (props.currentUser.role_id === 3) {
     const userLink = `/profiles/${props.currentUser.id}`;
+    const userItemsLink = `/users/${props.currentUser.id}/items`;
     // const messageLink = `/messages/${props.currentUser.id}`;
     return (
       <div className="user-nav">
@@ -82,14 +83,14 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Items</button>
+            <Link to={userItemsLink}>
+              <button>My Items</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/edit-item">
-              <button>Edit Items</button>
+            <Link to="/add-item">
+              <button>Add Items</button>
             </Link>
           </div>
 

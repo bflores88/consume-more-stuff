@@ -26,7 +26,7 @@ class Profiles extends Component {
   render() {
     if (!this.props.currentUser) {
       return <Redirect to="/not-authorized" />;
-    } else if (this.props.currentUser.role_id === 3 && this.props.match.params.id === 'all') {
+    } else if (this.props.currentUser.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.currentUser.id) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
       if (!this.props.user.username) {

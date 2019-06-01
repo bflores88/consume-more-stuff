@@ -14,6 +14,7 @@ import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
 import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
+import UserItems from './containers/UserItems';
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
               <Route path="/profiles/:id" component={Profiles} />
+              <Route path="/users/:id/items" component={UserItems} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
               <Route path="/not-authorized" component={NotAuthorized} />
