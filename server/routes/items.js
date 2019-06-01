@@ -54,6 +54,7 @@ router
       .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images']})
       .then((result) => {
         const item = result.toJSON();
+        console.log(item)
         return res.json(item);
       })
       .catch((err) => {
