@@ -10,6 +10,7 @@ const users = require('./routes/users.js');
 const items = require('./routes/items.js');
 const itemImages = require('./routes/itemImages.js');
 const userImages = require('./routes/userImages.js');
+const categories = require('./routes/categories');
 require('dotenv').config();
 
 const User = require('./database/models/User');
@@ -110,6 +111,7 @@ app.use('/api/users', users);
 app.use('/api/items', items);
 app.use('/api/images/items', itemImages);
 app.use('/api/images/users', userImages);
+app.use('/api/categories', categories)
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);

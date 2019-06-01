@@ -5,10 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { BrowserRouter as Router } from 'react-router-dom';
-import itemReducer from './reducers/index';
+import savannahApp from './reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux'; // may not need reducer
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -17,9 +17,9 @@ const composeEnhancers =
       })
     : compose;
 
-const reducer = combineReducers({ itemReducer });
+// const reducer = combineReducers({ itemReducer });
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(savannahApp, applyMiddleware(thunk)); // used to be reducer
 
 const output = (
   <Provider store={store}>
