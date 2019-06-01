@@ -35,6 +35,7 @@ export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
+        console.log('action', response);
         return response.json();
       })
       .then((item) => {
@@ -222,4 +223,4 @@ export const loadSingleUser = (userID) => {
         console.log(err);
       });
   };
-}
+};
