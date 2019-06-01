@@ -32,6 +32,32 @@ router.route('/items/:userId').get((req, res) => {
     });
 });
 
+// get all active items from a single user
+router.route('/items/:userId/active').get((req, res)=> {
+  Item.where({ user_id: req.params.userId, active: true})
+  .fetchAll()
+  .then((result) => {
+    // replies with all active items associated with the user
+    return res.json(result)
+  })
+  .catch((err) => {
+    console.log('error:', err)
+  })
+})
+
+// get all inactive items from a single user
+router.route('/items/:userId/inactive').get((req, res) => {
+  Item.where({ user_id: req.params.userId, active: false})
+  .fetchAll()
+  .then((result) => {
+    // replies with all inactive items associated with the user
+    return res.json(result)
+  })
+  .catch((err) => {
+    console.log('error:', err)
+  })
+})
+
 // edit general profile
 router.route('/profile').put((req, res) => {
   new User('id', req.user.id)
