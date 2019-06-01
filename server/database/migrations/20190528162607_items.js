@@ -8,11 +8,6 @@ exports.up = function(knex, Promise) {
       .inTable('users')
       .onDelete('CASCADE');
     table
-      .integer('status_id')
-      .notNull()
-      .references('id')
-      .inTable('itemStatuses');
-    table
       .integer('condition_id')
       .notNull()
       .references('id')
@@ -28,11 +23,12 @@ exports.up = function(knex, Promise) {
       .references('id')
       .inTable('subCategories');
     table.string('name', 255).notNull();
-    table.integer('quantity').notNull();
+    table.integer('inventory').notNull();
     table.string('dimensions', 100);
     table.integer('viewCount').notNull();
     table.decimal('price', 8, 2).notNull();
     table.string('description', 1000);
+    table.boolean('active').notNull();
     table.boolean('approved').notNull();
     table.timestamps(true, true);
   });
