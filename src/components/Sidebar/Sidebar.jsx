@@ -45,7 +45,7 @@ const Sidebar = (props) => {
         </div>
         <div className="wrap-links">
           <div className="nav-links">
-            <Link to="/">
+            <Link to="/register">
               <button>Register</button>
             </Link>
           </div>
