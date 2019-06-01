@@ -12,13 +12,13 @@ class ItemDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.incrementViews(this.props.match.params.id)
+    this.props.incrementViews(this.props.match.params.id);
     return this.props.loadSpecificItem(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.props.incrementViews(this.props.match.params.id)
+      this.props.incrementViews(this.props.match.params.id);
       return this.props.loadSpecificItem(this.props.match.params.id);
     }
   }
@@ -41,13 +41,15 @@ class ItemDetail extends Component {
         category: this.props.item.categories.categoryName,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
+        inventory: this.props.item.inventory,
+        viewCount: this.props.item.viewCount,
       };
 
       let status;
       if (!item.status) {
-        status="NOT FOR SALE"
+        status = 'NOT FOR SALE';
       } else {
-        status="AVAILABLE FOR PURCHASE"
+        status = 'AVAILABLE FOR PURCHASE';
       }
 
       const images = item.images.map((image, key) => {
@@ -67,6 +69,7 @@ class ItemDetail extends Component {
               <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.inventory}</h4>
+              <h4>Views:&nbsp;&nbsp;{item.viewCount}</h4>
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
