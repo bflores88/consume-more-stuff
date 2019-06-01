@@ -16,7 +16,11 @@ export const ADD_IMAGE = 'ADD_IMAGE';
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
+
+export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
+
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -219,6 +223,16 @@ export const resetNewItem = () => {
   };
 };
 
+
+export const incrementViews = (id) => {
+  return () => {
+    return fetch(`api/items/${id}/views`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+};
+
 export const loadSingleUser = (userID) => {
   return (dispatch) => {
     return fetch(`/api/users/${userID}`, {
@@ -241,3 +255,4 @@ export const loadSingleUser = (userID) => {
       });
   };
 }
+
