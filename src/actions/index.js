@@ -1,23 +1,18 @@
-// import { push } from 'react-router-redux';
-
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
-
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const REGISTER = 'REGISTER';
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const REGISTER = "REGISTER";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
-
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 export const ADD_IMAGE = 'ADD_IMAGE';
-
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
-
 export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
-
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -250,4 +245,51 @@ export const loadSingleUser = (userID) => {
         console.log(err);
       });
   };
-};
+}
+
+export const loadCategories = () => {
+  return (dispatch) => {
+    return fetch(`/api/categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((categories) => {
+        return dispatch({
+          type: LOAD_CATEGORIES,
+          payload: categories,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export const loadItemsByCategory = (category) => {
+  return (dispatch) => {
+    return fetch(`/api/categories/${category}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        return dispatch({
+          type: LOAD_ITEMS_BY_CATEGORY,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
