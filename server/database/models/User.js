@@ -4,6 +4,7 @@ require('./Theme');
 require('./Role');
 require('./Item');
 require('./Message');
+require('./UserThread');
 require('./PaymentCard');
 require('./ShippingAddress');
 require('./Transaction');
@@ -43,8 +44,8 @@ class User extends bookshelf.Model {
     return this.hasMany('Transaction', 'user_id');
   }
 
-  received_messages() {
-    return this.hasMany('UserMessage', 'sent_to');
+  received_threads() {
+    return this.hasMany('UserThread', 'sent_to');
   }
 }
 
