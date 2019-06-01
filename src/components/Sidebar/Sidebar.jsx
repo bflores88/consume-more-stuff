@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Sidebar.scss';
 
 const Sidebar = (props) => {
-
   //generate links for items by category
   const createItemCategoryLinks = () => {
     return (
@@ -56,7 +55,6 @@ const Sidebar = (props) => {
               <button>Home</button>
             </Link>
           </div>
-
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
@@ -72,49 +70,44 @@ const Sidebar = (props) => {
         </div>
 
         <div className="wrap-links">
+          <div className="nav-links">
+            <Link to="/">
+              <button>Home</button>
+            </Link>
+          </div>
 
-        <div className="nav-links">
-          <Link to="/">
-            <button>Home</button>
-          </Link>
+          <div className="nav-links">
+            <Link to={userLink}>
+              <button>My Profile</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/messages">
+              <button>Messages</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/">
+              <button>Settings</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/add-item">
+              <button>Add Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/edit-item">
+              <button>Edit Items</button>
+            </Link>
+          </div>
+
+          <div className="cat-links">{createItemCategoryLinks()}</div>
         </div>
-
-        <div className="nav-links">
-          <Link to={userLink}>
-            <button>My Profile</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/messages">
-            <button>Messages</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/">
-            <button>Settings</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/add-item">
-            <button>Add Items</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/edit-item">
-            <button>Edit Items</button>
-          </Link>
-        </div>
-
-        <div className="cat-links">{createItemCategoryLinks()}</div>
-
-
-          
-        </div>
-
       </div>
     );
   } else {
@@ -127,43 +120,44 @@ const Sidebar = (props) => {
         </div>
 
         <div className="wrap-links">
-
-        <div className="nav-links">
-          <Link to={userLink}>
-            <button>My Profile</button>
-          </Link>
-          </div>
-          
           <div className="nav-links">
-          <Link to="/users/all">
-            <button>All Users</button>
-          </Link>
+            <Link to={userLink}>
+              <button>My Profile</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/users/all">
+              <button>All Users</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/items/all">
+              <button>Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/add-item">
+              <button>Add Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/">
+              <button>Categories</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/">
+              <button>Settings</button>
+            </Link>
+          </div>
+
+          <div className="cat-links">{createItemCategoryLinks()}</div>
         </div>
-
-        <div className="nav-links">
-          <Link to="/items/all">
-            <button>Items</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/">
-            <button>Categories</button>
-          </Link>
-        </div>
-
-        <div className="nav-links">
-          <Link to="/">
-            <button>Settings</button>
-          </Link>
-        </div>
-
-        <div className="cat-links">{createItemCategoryLinks()}</div>
-
-
-        </div>
-
-        
       </div>
     );
   }
