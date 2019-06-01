@@ -1,22 +1,16 @@
-// import { push } from 'react-router-redux';
-
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
-
-
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const REGISTER = "REGISTER";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
-
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 export const ADD_IMAGE = 'ADD_IMAGE';
-
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
-
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -241,3 +235,28 @@ export const loadSingleUser = (userID) => {
       });
   };
 }
+
+export const loadCategories = () => {
+  return (dispatch) => {
+    return fetch(`/api/categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((categories) => {
+        console.log('*****', categories)
+        return dispatch({
+          type: LOAD_CATEGORIES,
+          payload: categories,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+

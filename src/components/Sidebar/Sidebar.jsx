@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.scss';
+import CategoryLinks from '../CategoryLinks';
 
 const Sidebar = (props) => {
   //generate links for items by category
@@ -11,21 +12,7 @@ const Sidebar = (props) => {
         <Link to="/">
           <button>View All</button>
         </Link>
-        <Link to="/items/category/apparel">
-          <button>Apparel</button>
-        </Link>
-        <Link to="/items/category/books">
-          <button>Books</button>
-        </Link>
-        <Link to="/items/category/electronics">
-          <button>Electronics</button>
-        </Link>
-        <Link to="/items/category/food">
-          <button>Food</button>
-        </Link>
-        <Link to="/items/category/movies">
-          <button>Movies</button>
-        </Link>
+        <CategoryLinks />
       </div>
     );
   };
@@ -56,7 +43,6 @@ const Sidebar = (props) => {
             </Link>
           </div>
         </div>
-
         <div className="cat-links">{createItemCategoryLinks()}</div>
       </div>
     );
