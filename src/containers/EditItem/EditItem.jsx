@@ -10,39 +10,41 @@ class EditItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-      price: 0,
-      category_id: 0,
-      condition_id: 0,
-      inventory: 0,
-      description: '',
-      dimensions: '',
-      image: '',
-      // image: this.props.item.images,
-      // name: this.props.item.name,
-      // dimensions: this.props.item.dimensions,
-      // price: this.props.item.price,
-      // inventory: this.props.item.inventory,
-      // description: this.props.item.description,
-      // // condition: this.props.item.conditions.conditionName,
-      // status: this.props.item.active,
-      // subcat: this.props.item.subCategories.subCategoryName,
-      // updated: this.props.item.updated_at,
-      // category: this.props.item.categories.categoryName,
-      // seller: this.props.item.users.username,
-      // sellerID: this.props.item.user_id,
-      // showModal: false,
-    };
+    // this.state = {
+    //   name: this.props.item.name,
+    //   price: 0,
+    //   category_id: 0,
+    //   condition_id: 0,
+    //   inventory: 0,
+    //   description: '',
+    //   dimensions: '',
+    //   image: '',
+    //   // image: this.props.item.images,
+    //   // name: this.props.item.name,
+    //   // dimensions: this.props.item.dimensions,
+    //   // price: this.props.item.price,
+    //   // inventory: this.props.item.inventory,
+    //   // description: this.props.item.description,
+    //   // // condition: this.props.item.conditions.conditionName,
+    //   // status: this.props.item.active,
+    //   // subcat: this.props.item.subCategories.subCategoryName,
+    //   // updated: this.props.item.updated_at,
+    //   // category: this.props.item.categories.categoryName,
+    //   // seller: this.props.item.users.username,
+    //   // sellerID: this.props.item.user_id,
+    //   // showModal: false,
+    // };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.editThisItem = this.editThisItem.bind(this);
   }
-
+  state = {
+    name: this.props.item.name,
+  };
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
 
-    // console.log(name, value);
+    console.log(name, value);
     return this.setState({ [name]: value });
   }
 
@@ -60,16 +62,17 @@ class EditItem extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.setState({ name: this.props.item.name });
-      return this.props.loadSpecificItem(this.props.match.params.id);
-    }
+    // if (this.props.match.params.id !== prevProps.match.params.id) {
+    //   this.setState({ name: this.props.item.name });
+    //   return this.props.loadSpecificItem(this.props.match.params.id);
+    // }
   }
 
   render() {
     if (!this.props.item.name) {
       return <div>page loading</div>;
     } else {
+      // console.log(this.props.item.name);
       return (
         <div className="add-item-page">
           <h1>
@@ -78,6 +81,7 @@ class EditItem extends Component {
             {/* <div>User:{this.props.currentUser.username}</div>
               <div>newestItem:{this.props.newestItem.id}</div> */}
           </h1>
+          <div>{this.props.item.name}</div>
           <div className="add-item-form-box">
             <form className="add-item-form" action="">
               <div className="top-box">
@@ -108,7 +112,7 @@ class EditItem extends Component {
                       type="number"
                       name="price"
                       placeholder="Price"
-                      value={this.state.price}
+                      value={parseInt(this.props.item.price)}
                       onChange={this.handleInputOnChange}
                     />
                   </div>

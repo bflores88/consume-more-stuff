@@ -3,10 +3,9 @@
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 
-
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
-export const REGISTER = "REGISTER";
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 
@@ -15,6 +14,8 @@ export const ADD_IMAGE = 'ADD_IMAGE';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
+
+export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 
@@ -147,34 +148,33 @@ export const addItem = (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.log('Error in logout: ', error);
-    })
-  }
-}
+    });
+  };
+};
 
 export const register = (accountData) => {
   return (dispatch) => {
-     return fetch('api/auth/register', {
+    return fetch('api/auth/register', {
       method: 'POST',
       body: JSON.stringify(accountData),
-      headers: { 'Content-Type' : 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((body) => {
-      return dispatch({
-        type: REGISTER,
-        payload: body,
+      .then((response) => {
+        return response.json();
       })
-    })
-    .catch((error) => {
-      console.log('Error in registration: ', error);
-    })
-  }
-}
+      .then((body) => {
+        return dispatch({
+          type: REGISTER,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in registration: ', error);
+      });
+  };
+};
 
 export const addImage = (id, data) => {
   console.log('actiomndata', data);
@@ -216,6 +216,15 @@ export const resetNewItem = () => {
     dispatch({
       type: RESET_NEW_ITEM,
       payload: '',
+    });
+  };
+};
+
+export const incrementViews = (id) => {
+  return () => {
+    return fetch(`api/items/${id}/views`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
     });
   };
 };
