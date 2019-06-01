@@ -16,4 +16,16 @@ router.route('/')
     })
   })
 
+router.route('/:category')
+  .get((req, res) => {
+    new Category({ categoryName: req.params.category })
+      .fetch({withRelated: ['items']})
+      .then((result) => {
+        return res.json(result.toJSON())
+      })
+      .catch((err) => {
+      console.log('error', err)
+    })
+  })
+
 module.exports = router;
