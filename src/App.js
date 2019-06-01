@@ -13,7 +13,6 @@ import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 class App extends Component {
