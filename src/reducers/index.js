@@ -1,4 +1,4 @@
-import { LOAD_ITEMS } from '../actions';
+import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
 
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 
@@ -17,9 +17,8 @@ const initialState = {
   item: {},
   items: [],
   images: [],
-
   loggedIn: false,
-
+  user: {},
   newestItem: '',
 };
 
@@ -47,6 +46,9 @@ function itemReducer(state = initialState, action) {
 
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
+    
+    case LOAD_SINGLE_USER:
+      return Object.assign({}, state, { user: action.payload })
 
     default:
       return state;

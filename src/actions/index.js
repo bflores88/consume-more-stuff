@@ -11,6 +11,8 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
+export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -199,3 +201,26 @@ export const resetNewItem = () => {
     });
   };
 };
+
+export const loadSingleUser = (userID) => {
+  return (dispatch) => {
+    return fetch(`/api/users/${userID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((user) => {
+        return dispatch({
+          type: LOAD_SINGLE_USER,
+          payload: user,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
