@@ -8,7 +8,7 @@ const User = require('../database/models/User');
 const saltRounds = 12;
 
 router.route('/register').post((req, res) => {
-  console.log('/register post request, ', req.body);
+  // console.log('/register post request, ', req.body);
   bcrypt.genSalt(saltRounds, (error, salt) => {
     if (error) {
       console.log('genSalt error ', error);
@@ -33,7 +33,6 @@ router.route('/register').post((req, res) => {
       })
         .save() // Save model to database
         .then((newUser) => {
-          console.log(JSON.stringify(newUser));
           return res.json(newUser); // Valid user data sends a response with userData
         })
         .catch((error) => {
@@ -43,7 +42,7 @@ router.route('/register').post((req, res) => {
             return res.json({
               // create an object that only informs of error and doesnt expose database details
               // element : 'username',
-              // errorMessage : 'username taken'
+              errorMessage : 'username taken'
             });
           } else {
             console.log('error ', error);

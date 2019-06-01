@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { register } from '../../actions/index';
+import './Registration.scss';
 
 class Registration extends Component {
   constructor(props){
@@ -12,6 +12,8 @@ class Registration extends Component {
       maxUsernameLength: 20,
       minPasswordLength: 6,
       maxPasswordLength: 100,
+
+      errorMessage: null,
 
       data: {
         username: '',
@@ -83,89 +85,94 @@ class Registration extends Component {
 
   handleSubmit(e) { 
     e.preventDefault();
-    if (!this.props.registrationSuccessful){
-        return;
+    this.props.register(this.state.data).then((body) => {
+      const response = body.payload; // body.payload is the parameter given to res.json() in auth.js
+      if (response.username){
+        return this.props.history.push('/');
       } else {
-        this.props.register(this.state.data);
-        return this.props.history.push('/')
+        this.setState({errorMessage : response.errorMessage});
       }
+    });
   }
 
   render(){
     return(
-      <div className="registration-form">
-        {/* handleSubmit() not called if required, minLength, 
-        and maxLength conditions are not met when clicking submit button. */}
-        <form onSubmit={this.handleSubmit}> 
-          <div>
-            <label htmlFor="username">Username: </label>
-            <input 
-              type="text"
-              name="username"
-              required
-              minLength={this.state.minUsernameLength}  
-              maxLength={this.state.maxUsernameLength} 
-              onChange={this.handleUsernameChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input 
-              type="password"
-              name="password"
-              required
-              minLength={this.state.minPasswordLength}
-              maxLength={this.state.maxPasswordLength}
-              onChange={this.handlePasswordChange}
-            /> 
-          </div>
-          <div>
-            <label htmlFor="name">Name: </label>
-            <input 
-              type="text"
-              name="name"
-              onChange={this.handleNameChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">Email: </label>
-            <input 
-              type="email"
-              name="email"
-              onChange={this.handleEmailChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="profileImage">Profile Image URL: </label>
-            <input 
-              type="url"
-              name="profileImage"
-              onChange={this.handleProfileImageChange}
-            />
-          </div>
-          <div>
-            <input type="submit" name="submit"/>
-          </div>
-        </form>
-      </div>
+        <div className="registration-form">
+          {/* handleSubmit() not called if required, minLength, 
+          and maxLength conditions are not met when clicking submit button. */}
+          <form onSubmit={this.handleSubmit}> 
+            <div>
+              <label htmlFor="username">Username: </label> 
+              <input 
+                type="text"
+                name="username"
+                required
+                minLength={this.state.minUsernameLength}  
+                maxLength={this.state.maxUsernameLength} 
+                onChange={this.handleUsernameChange}
+              />
+              <p>Must be 3 to 20 characters in length</p>
+            </div>
+            <div className="error">
+              <p>{this.state.errorMessage}</p>
+            </div>
+            <div>
+              <label htmlFor="password">Password: </label>
+              <input 
+                type="password"
+                name="password"
+                required
+                minLength={this.state.minPasswordLength}
+                maxLength={this.state.maxPasswordLength}
+                onChange={this.handlePasswordChange}
+              /> 
+            </div>
+            <div>
+              <label htmlFor="name">Name: </label>
+              <input 
+                type="text"
+                name="name"
+                onChange={this.handleNameChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email: </label>
+              <input 
+                type="email"
+                name="email"
+                onChange={this.handleEmailChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="profileImage">Profile Image URL: </label>
+              <input 
+                type="url"
+                name="profileImage"
+                onChange={this.handleProfileImageChange}
+              />
+            </div>
+            <div>
+              <input type="submit" name="submit"/>
+            </div>
+          </form>
+        </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapping state to props for registration');
-  console.log('state ', state);
+  // console.log('mapping state to props for registration');
+  // console.log('state ', state);
   return {
     registrationSuccessful : state.registerReducer.registrationSuccessful
   }
 }
-// function mapToPropsForPage(pageType, mapToProps)
 
 const mapDispatchToProps = (dispatch) => {
   return {
     register: (accountData) => {
       const registerAction = register(accountData);
-      dispatch(registerAction);
+      return dispatch(registerAction);
     }
   }
 }

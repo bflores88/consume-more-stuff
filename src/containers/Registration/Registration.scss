@@ -1,0 +1,33 @@
+// want to center element in page.
+
+.page { 
+  // width: 100%;
+  // text-align: center;
+}
+
+.registration-form {
+
+  display: inline-block;
+
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  margin: 0px;
+  padding: 20px;
+
+  input {
+    width: 200px;
+  }
+
+  .error {
+
+    p {
+      
+      padding: 5px;
+      margin: 0px;
+    }
+  }
+}
