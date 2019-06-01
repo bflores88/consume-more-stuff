@@ -44,9 +44,9 @@ class AddItemImage extends Component {
       image: this.state.image,
     };
     console.log('testOBJ', testObj);
-    return this.props.addImage(this.props.newestItem.id, this.state.image);
+    this.props.addImage(this.props.newestItem.id, this.state.image);
 
-    // this.props.resetNewItem();
+    return this.props.resetNewItem();
   }
 
   componentDidMount() {
