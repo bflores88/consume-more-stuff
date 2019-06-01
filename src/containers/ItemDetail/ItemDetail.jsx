@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadSpecificItem } from '../../actions';
-import './ItemDetail.scss'
-
+import './ItemDetail.scss';
 
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
 
-    };
-
+    this.state = {};
   }
 
   componentDidMount() {
-    return this.props.loadSpecificItem(this.props.match.params.id)
+    return this.props.loadSpecificItem(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      return this.props.loadSpecificItem(this.props.match.params.id)
+      return this.props.loadSpecificItem(this.props.match.params.id);
     }
   }
 
   render() {
     if (!this.props.item.name) {
-      return (
-        <div>Page Loading...</div>
-      )
+      return <div>Page Loading...</div>;
     } else {
       const item = {
         images: this.props.item.images,
@@ -41,28 +35,20 @@ class ItemDetail extends Component {
         status: this.props.item.statuses.statusName,
         subcat: this.props.item.subCategories.subCategoryName,
         updated: this.props.item.updated_at,
-        category: this.props.item.categories.categoryName, 
+        category: this.props.item.categories.categoryName,
         seller: this.props.item.users.username,
-        sellerID: this.props.item.user_id
-      }
+        sellerID: this.props.item.user_id,
+      };
 
       const images = item.images.map((image, key) => {
         let link = image.imageLink;
-        return (
-          <img src={link}></img>
-        )
+        return <img src={link} />;
       });
 
-
-      console.log(this.props.item)
-    
       return (
         <div className="item-detail">
           <div clasName="detail-box">
-
-            <div className="detail-image">
-             {images}
-            </div>
+            <div className="detail-image">{images}</div>
 
             <div className="detail-descr">
               <h2>{item.name}</h2>
@@ -73,26 +59,21 @@ class ItemDetail extends Component {
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
-  
           </div>
 
           <div className="detail-detail">
             <h4>Condition:&nbsp;&nbsp;{item.condition}</h4>
             <h4>Description:</h4>
             {item.description}
-            <br></br>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
+            <br />
             Category:&nbsp;&nbsp;{item.category}
-            <br></br>
+            <br />
             Subcategory:&nbsp;&nbsp;{item.subcat}
           </div>
-
-     
         </div>
-      )
-
-
+      );
     }
   }
 }
