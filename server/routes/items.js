@@ -100,7 +100,7 @@ router.route('/:id/views').put((req, res) => {
   new Item({ id: req.params.id })
     .fetch()
     .then((item) => {
-      let increment = ++item.viewCount;
+      let increment = ++item.attributes.viewCount;
       item
         .save({ viewCount: increment }, { patch: true })
         .then(() => {
