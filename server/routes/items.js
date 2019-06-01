@@ -10,9 +10,8 @@ router
     new Item()
       .fetchAll()
       .then((result) => {
-        const items = result.toJSON();
         // respond with all items
-        return res.send(items);
+        return res.json(result);
       })
       .catch((err) => {
         console.log('error:', err);
@@ -32,7 +31,7 @@ router
         category_id: req.body.category_id,
         subCategory_id: req.body.subCategory_id,
         condition_id: req.body.condition_id,
-        status_id: req.body.status_id,
+        active: req.body.active,
         user_id: parseInt(req.user.id),
       })
       .then((result) => {
@@ -51,11 +50,9 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-      .fetch({ withRelated: ['users', 'conditions', 'statuses', 'categories', 'subCategories', 'images'] })
+      .fetch({ withRelated: ['users', 'conditions', 'categories', 'subCategories', 'images'] })
       .then((result) => {
-        const item = result.toJSON();
-        console.log(item);
-        return res.json(item);
+        return res.json(result);
       })
       .catch((err) => {
         console.log('error:', err);
@@ -74,7 +71,7 @@ router
         category_id: req.body.category_id,
         subCategory_id: req.body.subCategory_id,
         condition_id: req.body.condition_id,
-        status_id: req.body.status_id,
+        active: req.body.active,
       })
       .then((result) => {
         // respond with updated item
