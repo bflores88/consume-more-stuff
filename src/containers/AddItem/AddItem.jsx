@@ -14,7 +14,7 @@ class AddItem extends Component {
       price: 0,
       category_id: 0,
       condition_id: 0,
-      quantity: 0,
+      inventory: 0,
       description: '',
       dimensions: '',
       image: '',
@@ -39,13 +39,14 @@ class AddItem extends Component {
     data.price = this.state.price;
     data.category_id = this.state.category_id;
     data.condition_id = this.state.condition_id;
-    data.quantity = this.state.quantity;
+    data.inventory = this.state.inventory;
     data.description = this.state.description;
     data.user_id = this.props.currentUser.id;
     data.subCategory_id = 1;
+    data.dimensions = this.state.dimensions;
     data.approved = false;
     data.viewCount = 0;
-    data.status_id = 1;
+    data.active = true;
     console.log(data);
     // const postEm = (inputData) =>{
     //   return () =>{
@@ -141,16 +142,16 @@ class AddItem extends Component {
                   </div>
                 </div>
                 <div className="input-div">
-                  <label className="input-label" htmlFor="quantity">
+                  <label className="input-label" htmlFor="inventory">
                     Inventory:
                   </label>
                   <input
-                    className="quantity-input"
+                    className="inventory-input"
                     className="input"
                     type="number"
-                    name="quantity"
-                    placeholder="Quantity"
-                    value={this.state.quantity}
+                    name="inventory"
+                    placeholder="Inventory"
+                    value={this.state.inventory}
                     onChange={this.handleInputOnChange}
                   />
                 </div>

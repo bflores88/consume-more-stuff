@@ -2,7 +2,6 @@ const bookshelf = require('../bookshelf');
 
 require('./User');
 require('./ItemCondition');
-require('./ItemStatus');
 require('./Category');
 require('./SubCategory');
 require('./Order');
@@ -23,10 +22,6 @@ class Item extends bookshelf.Model {
     return this.belongsTo('ItemCondition', 'condition_id');
   }
 
-  statuses() {
-    return this.belongsTo('ItemStatus', 'status_id');
-  }
-
   categories() {
     return this.belongsTo('Category', 'category_id');
   }
@@ -40,7 +35,7 @@ class Item extends bookshelf.Model {
   }
 
   images() {
-    return this.hasMany('ItemImage', 'item_id')
+    return this.hasMany('ItemImage', 'item_id');
   }
 }
 

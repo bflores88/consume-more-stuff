@@ -7,9 +7,7 @@ class Messages extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
-
+    this.state = {};
   }
 
   render() {
@@ -17,8 +15,10 @@ class Messages extends Component {
       return <Redirect to="/" />;
     } else {
       return (
-        <h1>Messages Page</h1>
-      )
+        <div className="message-page">
+          <h1>Messages Page</h1>
+        </div>
+      );
     }
   }
 
@@ -27,7 +27,7 @@ class Messages extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.currentUser)
+    console.log(this.props.currentUser);
     if (this.props.currentUser !== prevProps.currentUser) {
       const user = this.props.currentUser;
     }
@@ -40,6 +40,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(
-  mapStateToProps
-)(Messages);;
+export default connect(mapStateToProps)(Messages);

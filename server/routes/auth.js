@@ -8,7 +8,6 @@ const User = require('../database/models/User');
 const saltRounds = 12;
 
 router.route('/register').post((req, res) => {
-  console.log('/register post request, ', req.body);
   bcrypt.genSalt(saltRounds, (error, salt) => {
     if (error) {
       console.log('genSalt error ', error);
@@ -19,9 +18,7 @@ router.route('/register').post((req, res) => {
         console.log('hash error ', error);
       } //return 500
 
-      return new User({
-        // If no errors were encountered salting and hashing the password then create a new model.
-
+      return new User({ // If no errors were encountered salting and hashing the password then create a new model.
         role_id: 3, // Basic User
         active: true,
         theme_id: 1, // Default Theme
@@ -31,25 +28,24 @@ router.route('/register').post((req, res) => {
         email: req.body.email,
         password: hash,
       })
-        .save() // Save model to database
-        .then((newUser) => {
-          return res.json(newUser); // Valid user data sends a response with no body.
-        })
-        .catch((error) => {
-          if (error.constraint === 'users_username_unique') {
-            // identify what caused error during save attempt
-            return res.json({
-              // create an object that only informs of error and doesnt expose database details
-              // element : 'username',
-              // errorMessage : 'username taken'
-            });
-          } else {
-            console.log('error ', error);
-            return res.json({
-              // message: 'error'
-            });
-          }
-        });
+      .save() // Save model to database
+      .then((newUser) => {
+        console.log('User created: ', newUser);
+        return res.json(newUser); // Valid user data sends a response with userData. 
+      })
+      .catch((error) => {
+        // Custom objects to hide sensitive or uneccessary DB information.
+        if (error.constraint === 'users_username_unique') {
+          return res.json({
+            usernameErrorMessage : req.body.username + ' is not available! Please enter another.'
+          });
+        } else {
+          console.log('error ', error);
+          return res.json({
+            message: 'error'
+          });
+        }
+      });
     });
   });
 });
