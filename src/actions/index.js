@@ -35,7 +35,6 @@ export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
-        console.log('1231231231231232', response);
         return response.json();
       })
       .then((item) => {

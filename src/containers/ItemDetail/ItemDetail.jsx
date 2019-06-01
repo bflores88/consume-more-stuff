@@ -24,7 +24,6 @@ class ItemDetail extends Component {
     if (!this.props.item.name) {
       return <div>Page Loading...</div>;
     } else {
-      console.log(this.props.item)
       const item = {
         images: this.props.item.images,
         name: this.props.item.name,
