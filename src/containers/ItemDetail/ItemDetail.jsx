@@ -24,21 +24,29 @@ class ItemDetail extends Component {
     if (!this.props.item.name) {
       return <div>Page Loading...</div>;
     } else {
+      console.log(this.props.item)
       const item = {
         images: this.props.item.images,
         name: this.props.item.name,
         dims: this.props.item.dimensions,
         price: this.props.item.price,
-        quantity: this.props.item.quantity,
+        quantity: this.props.item.inventory,
         description: this.props.item.description,
         condition: this.props.item.conditions.conditionName,
-        status: this.props.item.statuses.statusName,
+        status: this.props.item.active,
         subcat: this.props.item.subCategories.subCategoryName,
         updated: this.props.item.updated_at,
         category: this.props.item.categories.categoryName,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
       };
+
+      let status;
+      if (!item.status) {
+        status="NOT FOR SALE"
+      } else {
+        status="AVAILABLE FOR PURCHASE"
+      }
 
       const images = item.images.map((image, key) => {
         let link = image.imageLink;
@@ -54,8 +62,9 @@ class ItemDetail extends Component {
               <h2>{item.name}</h2>
               <h3>{item.dims}</h3>
               <h5>Sold By:&nbsp;&nbsp;{item.seller}</h5>
+              <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
-              <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
+              <h4>Quantity in Stock:&nbsp;&nbsp;{item.inventory}</h4>
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
