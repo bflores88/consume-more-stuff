@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: #222f3d;
+  padding: 10px;
+
   .logoBox {
     width: 33%;
     display: flex;
@@ -26,7 +28,6 @@
     justify-content: center;
     justify-content: flex-end;
     flex-direction: row;
-
   }
   .searchBarBox {
     width: 33%;
@@ -34,7 +35,8 @@
   }
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='password'] {
   border: 2px solid orange;
   border-radius: 4px;
   width: 90%;

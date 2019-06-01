@@ -17,7 +17,7 @@ exports.seed = function(knex, Promise) {
           name: 'Jack Sparrow',
           email: 'seaturtules@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270392454",
         },
         {
           active: false,
@@ -28,7 +28,7 @@ exports.seed = function(knex, Promise) {
           name: 'Hector Barbosa',
           email: 'theblackpearl@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270487934",
         },
         {
           active: true,
@@ -39,7 +39,7 @@ exports.seed = function(knex, Promise) {
           name: 'Reptar, Destroyer of Worlds',
           email: 'rugrats@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270596689",
         },
         {
           active: false,
@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
           name: 'Godzilla, The King of Monsters',
           email: 'ilovejapan@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270676961",
         },
         {
           active: true,
@@ -61,7 +61,7 @@ exports.seed = function(knex, Promise) {
           name: 'Sega Sanshiro',
           email: 'buysega@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270918318",
         },
         {
           active: false,
@@ -72,7 +72,7 @@ exports.seed = function(knex, Promise) {
           name: 'Nuck Chorris',
           email: 'Roundhouse2daface@email.com',
           profileImageUrl:
-            'https://images.unsplash.com/photo-1533158307587-828f0a76ef46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+          "https://savannah-images.s3.us-west-2.amazonaws.com/1559271079800",
         },
       ]);
     });

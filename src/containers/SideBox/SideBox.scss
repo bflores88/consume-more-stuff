@@ -1,5 +1,10 @@
 .side-box {
-  width: 20%;
-  border: solid 1px rgb(235, 161, 25);
-  height: 100vw;
+  position: fixed;
+  z-index: 1;
+  top: 75px;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 40px 20px 20px 20px;
+  overflow: auto;
 }

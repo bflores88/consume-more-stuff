@@ -10,7 +10,7 @@ class ItemImage extends bookshelf.Model {
     return true;
   }
 
-  item_id() {
+  items() {
     return this.belongsTo('Item', 'item_id');
   }
 }

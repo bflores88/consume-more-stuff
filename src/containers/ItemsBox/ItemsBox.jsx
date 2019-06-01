@@ -12,17 +12,9 @@ class ItemsBox extends Component {
       input: '',
       items: [{ name: 'banana' }, { name: 'kiwi' }],
     };
-
-    // this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  // grabImages() {
-  //   this.props.grabItemImages();
-  //   return this.props.images;
-  // }
-
   componentDidMount() {
-    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
     return this.props.grabItemImages();
   }
 
@@ -44,14 +36,35 @@ class ItemsBox extends Component {
 
   render() {
     const filteredItems = this.filterItems(this.props.label, this.props.items);
-    // const images = this.grabImages();
     const itemsBox = filteredItems.map((item, idx) => {
-      let itemLink = this.filterImages(item.id, this.props.images);
-      console.log(itemLink);
-      return <Item name={item.name} id={item.id} price={item.price} />;
+      let itemLink;
+      if (this.props.images) {
+        itemLink = this.filterImages(item.id, this.props.images);
+      } else {
+        itemLink = [
+          {
+            imageLink:
+              'https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg',
+          },
+        ];
+      }
+
+      if (itemLink[0]) {
+        return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
+      } else {
+        return (
+          <Item
+            name={item.name}
+            id={item.id}
+            price={item.price}
+            imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+          />
+        );
+      }
     });
+
     return (
-      <div>
+      <div className="categoryBox">
         <div className="item-box-title">
           <h3 className="title-text">{this.props.label}</h3>
         </div>
@@ -60,6 +73,7 @@ class ItemsBox extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     images: state.itemReducer.images,

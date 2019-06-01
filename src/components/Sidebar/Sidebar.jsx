@@ -3,26 +3,32 @@ import { Link } from 'react-router-dom';
 import './Sidebar.scss';
 
 const Sidebar = (props) => {
-  //need props for isLoggedIn and role
-  const { isLoggedIn, roleID } = props;
 
   //generate links for items by category
   const createItemCategoryLinks = () => {
-    <div className="category-links">
-      <h3>Shop By Category</h3>
-      <Link to="/">
-        <button>View All</button>
-      </Link>
-      <Link to="/">
-        <button>Apparel</button>
-      </Link>
-      <Link to="/">
-        <button>Books</button>
-      </Link>
-      <Link to="/">
-        <button>Electronics</button>
-      </Link>
-    </div>;
+    return (
+      <div className="category-links">
+        <h3>Shop By Category</h3>
+        <Link to="/">
+          <button>View All</button>
+        </Link>
+        <Link to="/items/category/apparel">
+          <button>Apparel</button>
+        </Link>
+        <Link to="/items/category/books">
+          <button>Books</button>
+        </Link>
+        <Link to="/items/category/electronics">
+          <button>Electronics</button>
+        </Link>
+        <Link to="/items/category/food">
+          <button>Food</button>
+        </Link>
+        <Link to="/items/category/movies">
+          <button>Movies</button>
+        </Link>
+      </div>
+    );
   };
 
   //conditional statement to show if isLoggedIn is true or false (logged in or not) AND check the role
@@ -31,30 +37,41 @@ const Sidebar = (props) => {
   //second if is for users
   //else is for admins and moderators
 
-  if (!isLoggedIn) {
+  if (!props.currentUser) {
     return (
       <div className="public-nav">
         <div className="logo">
-          {/* insert logo here */}
-          <Link to="/">SAVANNAH</Link>
+          <i className="sunLogo" className="fas fa-sun" />
+          <Link to="/">Savannah</Link>
         </div>
+        <div className="wrap-links">
+          <div className="nav-links">
+            <Link to="/register">
+              <button>Register</button>
+            </Link>
+          </div>
 
-        <div className="nav-links">
-          <Link to="/">
-            <button>Home</button>
-          </Link>
+          <div className="nav-links">
+            <Link to="/">
+              <button>Home</button>
+            </Link>
+          </div>
+
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
       </div>
     );
-  } else if (isLoggedIn && roleID === '3') {
+  } else if (props.currentUser.role_id === 3) {
+    const userLink = `/users/${props.currentUser.id}`;
     return (
       <div className="user-nav">
         <div className="logo">
-          {/* insert logo here */}
+          <i className="sunLogo" class="fas fa-sun" />
           <Link to="/">SAVANNAH</Link>
         </div>
+
+        <div className="wrap-links">
 
         <div className="nav-links">
           <Link to="/">
@@ -63,7 +80,13 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to={userLink}>
+            <button>My Profile</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/messages">
             <button>Messages</button>
           </Link>
         </div>
@@ -75,41 +98,72 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/add-item">
             <button>Add Items</button>
           </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/">
+          <Link to="/edit-item">
             <button>Edit Items</button>
           </Link>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
+
+
+          
+        </div>
+
       </div>
     );
   } else {
+    const userLink = `/users/${props.currentUser.id}`;
     return (
       <div className="admin-nav">
         <div className="logo">
-          {/* insert logo here */}
+          <i className="sunLogo" class="fas fa-sun" />
           <Link to="/">SAVANNAH</Link>
         </div>
 
+        <div className="wrap-links">
+
         <div className="nav-links">
-          <Link to="/">Items</Link>
+          <Link to={userLink}>
+            <button>My Profile</button>
+          </Link>
+          </div>
+          
+          <div className="nav-links">
+          <Link to="/users/all">
+            <button>All Users</button>
+          </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/">Categories</Link>
+          <Link to="/items/all">
+            <button>Items</button>
+          </Link>
         </div>
 
         <div className="nav-links">
-          <Link to="/">Settings</Link>
+          <Link to="/">
+            <button>Categories</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/">
+            <button>Settings</button>
+          </Link>
         </div>
 
         <div className="cat-links">{createItemCategoryLinks()}</div>
+
+
+        </div>
+
+        
       </div>
     );
   }

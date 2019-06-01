@@ -13,7 +13,8 @@ class Registration extends Component {
       minPasswordLength: 6,
       maxPasswordLength: 100,
 
-      errorMessage: null,
+      usernameErrorMessage: '',
+      usernameErrorRender: { display: 'none' },
 
       data: {
         username: '',
@@ -90,79 +91,101 @@ class Registration extends Component {
       if (response.username){
         return this.props.history.push('/');
       } else {
-        this.setState({errorMessage : response.errorMessage});
+        this.setState({
+          usernameErrorMessage : response.usernameErrorMessage,
+          usernameErrorRender : { display: 'initial'},
+        });
       }
     });
   }
 
   render(){
+    /* handleSubmit() not called if required, minLength, 
+    and maxLength conditions are not met when clicking submit button. */
     return(
+      <div className="registration-page">
         <div className="registration-form">
-          {/* handleSubmit() not called if required, minLength, 
-          and maxLength conditions are not met when clicking submit button. */}
+          <h1>Create Account</h1>
+
           <form onSubmit={this.handleSubmit}> 
-            <div>
-              <label htmlFor="username">Username: </label> 
-              <input 
-                type="text"
-                name="username"
-                required
-                minLength={this.state.minUsernameLength}  
-                maxLength={this.state.maxUsernameLength} 
-                onChange={this.handleUsernameChange}
-              />
-              <p>Must be 3 to 20 characters in length</p>
-            </div>
-            <div className="error">
-              <p>{this.state.errorMessage}</p>
-            </div>
-            <div>
-              <label htmlFor="password">Password: </label>
-              <input 
-                type="password"
-                name="password"
-                required
-                minLength={this.state.minPasswordLength}
-                maxLength={this.state.maxPasswordLength}
-                onChange={this.handlePasswordChange}
-              /> 
-            </div>
-            <div>
-              <label htmlFor="name">Name: </label>
-              <input 
-                type="text"
-                name="name"
-                onChange={this.handleNameChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email: </label>
-              <input 
-                type="email"
-                name="email"
-                onChange={this.handleEmailChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="profileImage">Profile Image URL: </label>
-              <input 
-                type="url"
-                name="profileImage"
-                onChange={this.handleProfileImageChange}
-              />
-            </div>
-            <div>
-              <input type="submit" name="submit"/>
+            <ul>
+              <li><label htmlFor="username">Your Username </label></li>
+              <li style={this.state.usernameErrorRender}>
+                <p className="error">{this.state.usernameErrorMessage}</p>
+              </li>
+              <li>
+                <input 
+                  type="text"
+                  name="username"
+                  required
+                  minLength={this.state.minUsernameLength}  
+                  maxLength={this.state.maxUsernameLength} 
+                  onChange={this.handleUsernameChange}
+                />
+              </li>
+              
+
+              <li><label htmlFor="password">Password </label></li>
+              <li>
+                <input 
+                  type="password"
+                  name="password"
+                  required
+                  minLength={this.state.minPasswordLength}
+                  maxLength={this.state.maxPasswordLength}
+                  onChange={this.handlePasswordChange}
+                /> 
+              </li>
+
+
+              <li><label htmlFor="name">Name </label></li>
+              <li>
+                <input 
+                  type="text"
+                  name="name"
+                  onChange={this.handleNameChange}
+                />
+              </li>
+
+
+              <li><label htmlFor="email">Email </label></li>
+              <li>
+                <input 
+                  type="email"
+                  name="email"
+                  onChange={this.handleEmailChange}
+                />
+              </li>
+
+
+              <li><label htmlFor="profileImage">Profile Image URL: </label></li>
+              <li>
+                <input 
+                  type="url"
+                  name="profileImage"
+                  onChange={this.handleProfileImageChange}
+                />
+              </li>
+            </ul>
+
+            <button type="submit">Create your Savannah Account</button>
+
+            <div className="registration-directions">
+              <h6>Information: </h6>
+              <ul>
+                <li>Password must be at least 6 characters.</li>
+                {/* Enable when Login Page is complete
+                <li>Already have an account? <button>Sign In</button></li> */}
+              </ul>
             </div>
           </form>
         </div>
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log('mapping state to props for registration');
-  // console.log('state ', state);
   return {
     registrationSuccessful : state.registerReducer.registrationSuccessful
   }

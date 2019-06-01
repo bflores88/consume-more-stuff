@@ -10,11 +10,11 @@ class User extends bookshelf.Model {
     return true;
   }
 
-  role_id() {
+  roles() {
     return this.belongsTo('Role', 'role_id');
   }
 
-  theme_id() {
+  themes() {
     return this.belongsTo('Theme', 'theme_id');
   }
 }
