@@ -26,6 +26,7 @@ router.route('/').get((req, res) => {
 
 // post image FILES (not links)
 router.route('/upload/:itemId').post(singleUpload, (req, res) => {
+  console.log('REQRGWGEGGEW', req);
   new ItemImage()
     .save({
       imageLink: req.file.location,
