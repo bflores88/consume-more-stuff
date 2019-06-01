@@ -157,14 +157,18 @@ export const addItem = (data) => {
 };
 
 export const addImage = (id, data) => {
+  console.log('actiomndata', data);
+  console.log('id', id);
+  let formData = new FormData();
+  formData.append('image', data);
   return (dispatch) => {
     return (
-      fetch(`/api/image/${id}`, {
+      fetch(`/api/images/items/upload/${id}`, {
         method: 'POST',
-        body: data,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: formData,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
       })
         .then((response) => {
           return response.json();
