@@ -7,7 +7,7 @@ const Sidebar = (props) => {
   const createItemCategoryLinks = () => {
     return (
       <div className="category-links">
-        <h3>Shop By Category</h3>
+        <h4>Shop By Category</h4>
         <Link to="/">
           <button>View All</button>
         </Link>
@@ -62,6 +62,7 @@ const Sidebar = (props) => {
     );
   } else if (props.currentUser.role_id === 3) {
     const userLink = `/users/${props.currentUser.id}`;
+    const messageLink = `/messages/${props.currentUser.id}`;
     return (
       <div className="user-nav">
         <div className="logo">
@@ -83,7 +84,7 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/messages">
+            <Link to={messageLink}>
               <button>Messages</button>
             </Link>
           </div>
