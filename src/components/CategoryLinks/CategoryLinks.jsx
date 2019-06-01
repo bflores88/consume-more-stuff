@@ -15,12 +15,6 @@ class CategoryLinks extends Component {
     return this.props.loadCategories();
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.match.params.id !== prevProps.match.params.id) {
-  //     return this.props.loadSpecificItem(this.props.match.params.id);
-  //   }
-  // }
-
   render() {
     const categories = this.props.categories.map((category, idx) => {
       let categoryName = category.categoryName;

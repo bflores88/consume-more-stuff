@@ -11,6 +11,7 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -248,7 +249,6 @@ export const loadCategories = () => {
         return response.json();
       })
       .then((categories) => {
-        console.log('*****', categories)
         return dispatch({
           type: LOAD_CATEGORIES,
           payload: categories,
@@ -260,3 +260,25 @@ export const loadCategories = () => {
   };
 }
 
+export const loadItemsByCategory = (category) => {
+  return (dispatch) => {
+    return fetch(`/api/categories/${category}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        return dispatch({
+          type: LOAD_ITEMS_BY_CATEGORY,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

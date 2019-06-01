@@ -1,0 +1,30 @@
+@import '../../index.scss';
+
+.category-page {
+  padding: 50px;
+  margin-bottom: 100px;
+
+  .categoryItemsBox {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    a {
+      text-decoration: none;
+      color: $link-color;
+    }
+
+    .singleItem {
+      width: 100%;
+      border: none;
+      border-bottom: 1px double $link-color;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+  
+    }
+  }
+}

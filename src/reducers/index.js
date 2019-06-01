@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
+import { LOAD_ITEMS, LOAD_ITEMS_BY_CATEGORY, LOAD_SINGLE_USER } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
 import { REGISTER, LOGIN, LOGOUT } from '../actions';
@@ -18,6 +18,7 @@ const initialState = {
   user: {},
   newestItem: '',
   categories: [],
+  itemsByCategory: {}
 };
 
 function itemReducer(state = initialState, action) {
@@ -50,6 +51,9 @@ function itemReducer(state = initialState, action) {
     
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
+    
+    case LOAD_ITEMS_BY_CATEGORY:
+        return Object.assign({}, state, { itemsByCategory: [action.payload] });
 
     default:
       return state;
@@ -57,7 +61,6 @@ function itemReducer(state = initialState, action) {
 }
 
 function registerReducer(state = initialState, action) {
-  console.log('register reducer');
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });

@@ -34,15 +34,19 @@ class ItemDetail extends Component {
         condition: this.props.item.conditions.conditionName,
         status: this.props.item.active,
         subcat: this.props.item.subCategories.subCategoryName,
+        created: this.props.item.created_at,
         updated: this.props.item.updated_at,
         category: this.props.item.categories.categoryName,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
       };
+      console.log(this.props.item)
 
       let status;
       if (!item.status) {
-        status="NOT FOR SALE"
+        status = "NOT FOR SALE"
+      } else if (item.quantity === 0) { 
+        status = "ITEM SOLD OUT"
       } else {
         status="AVAILABLE FOR PURCHASE"
       }
@@ -63,7 +67,7 @@ class ItemDetail extends Component {
               <h5>Sold By:&nbsp;&nbsp;{item.seller}</h5>
               <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
-              <h4>Quantity in Stock:&nbsp;&nbsp;{item.inventory}</h4>
+              <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
@@ -79,6 +83,12 @@ class ItemDetail extends Component {
             Category:&nbsp;&nbsp;{item.category}
             <br />
             Subcategory:&nbsp;&nbsp;{item.subcat}
+            <br />
+            <br />
+            <br />
+            Posting Date:&nbsp;&nbsp;{item.created}
+            <br />
+            Last Updated:&nbsp;&nbsp;{item.updated}
           </div>
         </div>
       );
