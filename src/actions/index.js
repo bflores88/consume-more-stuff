@@ -14,6 +14,9 @@ export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
 
+export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
+export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -26,6 +29,42 @@ export const loadItems = () => {
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabThreadMessages = (threadId) => {
+  return (dispatch) => {
+    return fetch(`/api/threads/${threadId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((messages) => {
+        console.log(messages);
+
+        return dispatch({
+          type: GRAB_THREAD_MESSAGES,
+          payload: messages,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabUserThreads = () => {
+  return (dispatch) => {
+    return fetch('/api/threads')
+      .then((response) => {
+        return response.json();
+      })
+      .then((threads) => {
+        console.log(threads);
+
+        return dispatch({
+          type: GRAB_USER_THREADS,
+          payload: threads,
         });
       })
       .catch((err) => console.log('Cant access website' + err));

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './Messages.scss';
-import { grabUserThreads } from '../../actions';
-import ThreadBox from '../ThreadBox';
+import './Conversation.scss';
+import { grabThreadMessages } from '../../actions';
+import MessageBox from '../MessageBox';
 
-class Messages extends Component {
+class Conversation extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,7 @@ class Messages extends Component {
 
   componentDidMount() {
     const user = this.props.currentUser;
-    this.props.grabUserThreads();
+    this.props.grabThreadMessages(this.props.match.params.id);
     return console.log(this.props.threads);
   }
 
@@ -30,32 +30,34 @@ class Messages extends Component {
     if (!this.props.currentUser) {
       return <Redirect to="/" />;
     } else {
-      if (this.props.threads.length === 0) {
+      if (this.props.messages.length === 0) {
         return <div>olollo</div>;
       } else {
-        console.log('threads', this.props.threads);
+        console.log('messages', this.props.messages);
 
-        const threadsBox = this.props.threads.map((thread, idx) => {
+        const messagesBox = this.props.messages.map((message, idx) => {
           return (
-            <ThreadBox
+            <MessageBox
               // name={thread.name}
               // id={thread.id}
               // price={thread.price}
-              id={thread.id}
-              subject={thread.subject}
-              user_list={thread.user_list}
+              id={message.id}
+              body={message.body}
+              sent_by={message.sent_by}
               // imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
             />
           );
         });
 
         return (
-          <div className="message-page">
-            <div className="message-page-title">
-              <h1>Messages Page</h1>
+          <div className="conversation-page">
+            <div className="conversation-page-title">
+              <h1>Conversation Page</h1>
             </div>
-            <div className="threads-container">
-              {threadsBox}
+            <div className="messages-container">
+              <div>test box</div>
+              {messagesBox}
+              {/* {threadsBox} */}
               {/* <div>{this.props.threads[0].subject}</div> */}
             </div>
           </div>
@@ -69,13 +71,14 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.itemReducer.currentUser,
     threads: state.itemReducer.threads,
+    messages: state.itemReducer.messages,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    grabUserThreads: () => {
-      dispatch(grabUserThreads());
+    grabThreadMessages: (id) => {
+      dispatch(grabThreadMessages(id));
     },
   };
 };
@@ -83,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Messages);
+)(Conversation);
