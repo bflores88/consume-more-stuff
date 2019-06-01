@@ -13,6 +13,7 @@ import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import Conversation from './containers/Conversation';
 
 class App extends Component {
   render() {
@@ -25,15 +26,14 @@ class App extends Component {
           <div className="page">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route 
-                path="/Register" 
-                render={(props) => <Registration {...props} />}/>
+              <Route path="/Register" render={(props) => <Registration {...props} />} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
-              <Route path="/messages/:id" component={Messages} />
+              <Route path="/messages" component={Messages} />
               <Route path="/users/:id" component={Users} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
+              <Route path="/conversation/:id" component={Conversation} />
             </Switch>
           </div>
         </div>
