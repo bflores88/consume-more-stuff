@@ -13,6 +13,7 @@ import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import Conversation from './containers/Conversation';
 
 class App extends Component {
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
               <Route path="/users/:id" component={Users} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
+              <Route path="/conversation/:id" component={Conversation} />
             </Switch>
           </div>
         </div>

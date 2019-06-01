@@ -16,6 +16,7 @@ export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
+export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -29,6 +30,24 @@ export const loadItems = () => {
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabThreadMessages = (threadId) => {
+  return (dispatch) => {
+    return fetch(`/api/threads/${threadId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((messages) => {
+        console.log(messages);
+
+        return dispatch({
+          type: GRAB_THREAD_MESSAGES,
+          payload: messages,
         });
       })
       .catch((err) => console.log('Cant access website' + err));

@@ -2,29 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import './ThreadBox.scss';
+import './MessageBox.scss';
 
-class ThreadBox extends Component {
+class MessageBox extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
-    const { id, subject, user_list } = this.props;
+    const { id, body, sent_by } = this.props;
     const threadID = id;
     // const redirectTo = `/conversation/${threadID}`;
-    const redirectLink = `/conversation/${threadID}`;
+    // const redirectLink = `/conversation/${threadID}`;
 
     return (
-      <Link to={redirectLink}>
-        <div className="thread-box">
-          <h3>{subject}</h3>
+      <div className="thread-box">
+        {/* <h3>{}</h3> */}
 
-          <p>{id}</p>
-          <h4>Users: {user_list}</h4>
-        </div>
-      </Link>
+        <h3>{body}</h3>
+        <h4>User: {sent_by}</h4>
+      </div>
     );
   }
 }
@@ -40,4 +38,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ThreadBox);
+)(MessageBox);

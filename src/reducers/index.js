@@ -10,6 +10,7 @@ import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
+import { GRAB_THREAD_MESSAGES } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -21,6 +22,7 @@ const initialState = {
   user: {},
   newestItem: '',
   threads: [],
+  messages: [],
 };
 
 function itemReducer(state = initialState, action) {
@@ -56,6 +58,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_USER_THREADS:
       return Object.assign({}, state, { threads: [...action.payload] });
+
+    case GRAB_THREAD_MESSAGES:
+      return Object.assign({}, state, { messages: [...action.payload] });
 
     default:
       return state;
