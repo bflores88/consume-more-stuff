@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { LOAD_ITEMS } from '../actions';
 import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
 
 import { LOAD_SPECIFIC_ITEM } from '../actions';
