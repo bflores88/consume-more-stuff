@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './containers/Header';
 
-
 import AddItem from './containers/AddItem';
 import SideBox from './containers/SideBox/SideBox';
 import EditItem from './containers/EditItem';
@@ -13,8 +12,6 @@ import Users from './containers/Users';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-
 
 class App extends Component {
   render() {
