@@ -11,6 +11,8 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 
+export const INCREMENT_ITEM_VIEWS = "INCREMENT_ITEM_VIEWS";
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -199,3 +201,17 @@ export const resetNewItem = () => {
     });
   };
 };
+
+export const incrementViews = () => {
+  return (
+    fetch(`api/items/${:id}/views`, {
+      method: 'PUT'
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .catch((err) => {
+      console.log('error', err)
+    })
+  )
+}
