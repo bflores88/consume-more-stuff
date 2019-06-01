@@ -55,10 +55,15 @@ class Conversation extends Component {
               <h1>Conversation Page</h1>
             </div>
             <div className="messages-container">
-              <div>test box</div>
               {messagesBox}
               {/* {threadsBox} */}
               {/* <div>{this.props.threads[0].subject}</div> */}
+            </div>
+            <div className="input-message-container">
+              <form action="">
+                <textarea name="" id="" cols="30" rows="10" />
+                <button>Send</button>
+              </form>
             </div>
           </div>
         );

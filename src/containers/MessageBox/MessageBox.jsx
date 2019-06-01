@@ -17,7 +17,7 @@ class MessageBox extends Component {
     // const redirectLink = `/conversation/${threadID}`;
 
     return (
-      <div className="thread-box">
+      <div className="message-box">
         {/* <h3>{}</h3> */}
 
         <h3>{body}</h3>
