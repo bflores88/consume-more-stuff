@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import LoginForm from '../LoginForm';
 import { logout } from '../../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './LoginComponent.scss';
 
 class LoginComponent extends Component {
   constructor (props) {
@@ -30,7 +32,7 @@ class LoginComponent extends Component {
   handleLogout(e){
     e.preventDefault();
     const user = localStorage.getItem('user');
-    if (user){
+    if (user) {
       this.props.logout(user);
     }
   }
@@ -68,7 +70,7 @@ class LoginComponent extends Component {
         is the value of this.state.renderLoginForm. */}
         <LoginForm renderLoginForm={this.state.renderLoginForm}/>
         <button style={loginCancelButtonDisplay} onClick={this.handleLoginFormEnable}>Cancel</button>
-        <button style={logoutButtonDisplay} onClick={this.handleLogout}>Logout</button>
+        <button style={logoutButtonDisplay} onClick={this.handleLogout}><Link to="/">Logout</Link></button>
       </div>
     )
   }
