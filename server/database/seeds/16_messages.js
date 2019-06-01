@@ -15,16 +15,25 @@ exports.seed = function(knex, Promise) {
           thread_id: 1,
           sent_by: 2,
         },
-        { body: 'It sure is! What do you think User01?!?', thread_id: 1, sent_by: 1 },
+        {
+          body: 'It sure is! What do you think User01?!?',
+          thread_id: 1,
+          sent_by: 1,
+        },
         {
           body: 'Everyone should be listening to what I have to say!!',
           thread_id: 2,
           sent_by: 3,
         },
         {
-          body: 'Hmm... I do not want to reply to everyone, sorry',
+          body: 'I also want to reply to everyone, sorry',
           thread_id: 2,
           sent_by: 4,
+        },
+        {
+          body: 'Everyone please enjoy our newest feature, Public Announcements, on Savannah',
+          thread_id: 3,
+          sent_by: 1,
         },
       ]);
     });
