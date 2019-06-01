@@ -2,16 +2,16 @@ const bookshelf = require('../bookshelf');
 
 require('./User');
 require('./Thread');
-class Message extends bookshelf.Model {
+class UserThread extends bookshelf.Model {
   get tableName() {
-    return 'messages';
+    return 'users_threads';
   }
   get hasTimestamps() {
     return true;
   }
 
-  sent_by() {
-    return this.belongsTo('User', 'sent_by');
+  sent_to() {
+    return this.belongsTo('User', 'sent_to');
   }
 
   threads() {
@@ -19,4 +19,4 @@ class Message extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.model('Message', Message);
+module.exports = bookshelf.model('UserThread', UserThread);

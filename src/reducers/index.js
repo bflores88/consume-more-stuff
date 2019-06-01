@@ -5,8 +5,8 @@ import { GRAB_ITEM_IMAGES } from '../actions';
 import { REGISTER, LOGIN, LOGOUT } from '../actions';
 import { ADD_ITEM } from '../actions';
 import { LOAD_CATEGORIES } from '../actions';
-
 import { RESET_NEW_ITEM } from '../actions';
+import { INCREMENT_ITEM_VIEWS } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -45,15 +45,18 @@ function itemReducer(state = initialState, action) {
 
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
-    
+
     case LOAD_SINGLE_USER:
       return Object.assign({}, state, { user: action.payload });
-    
+
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
     
     case LOAD_ITEMS_BY_CATEGORY:
-        return Object.assign({}, state, { itemsByCategory: [action.payload] });
+        return Object.assign({}, state, { itemsByCategory: [action.payload] })
+
+    case INCREMENT_ITEM_VIEWS:
+      return Object.assign({}, state, { newestItem: '' });
 
     default:
       return state;
