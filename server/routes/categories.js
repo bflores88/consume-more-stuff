@@ -7,7 +7,7 @@ const Category = require('../database/models/Category');
 router.route('/')
   .get((req, res) => {
     Category
-      .fetchAll({columns: ['id', 'categoryName']})
+      .fetchAll({columns: ['id', 'categoryName'], withRelated: ['subCategories']})
       .then((result) => {
         return res.json(result.toJSON())
       })
