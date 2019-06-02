@@ -11,10 +11,11 @@ class UserItems extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.id)
     return (
       <>
         <div> User Items Page</div>
-        <InactiveItems />
+        <InactiveItems id={parseInt(this.props.match.params.id)} />
       </>
     );
   }

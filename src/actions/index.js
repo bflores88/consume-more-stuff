@@ -257,7 +257,7 @@ export const resetNewItem = () => {
 
 export const incrementViews = (id) => {
   return () => {
-    return fetch(`api/items/${id}/views`, {
+    return fetch(`/api/items/${id}/views`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
     });
