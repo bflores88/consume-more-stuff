@@ -101,6 +101,7 @@ router.route('/theme').put((req, res) => {
 
 // change password
 router.route('/password').put((req, res) => {
+
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
       console.log('error:', err);
@@ -113,10 +114,10 @@ router.route('/password').put((req, res) => {
         return res.status(500).send('Unable to encrypt');
       }
 
-      new User('id', req.user.id)
+      new User('id', req.body.id)
         .save({ password: hash })
         .then((result) => {
-          new User({ id: req.user.id }).fetch().then((result) => {
+          new User({ id: req.body.id }).fetch().then((result) => {
             return res.json(result);
           });
         })

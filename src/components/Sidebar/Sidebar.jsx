@@ -77,7 +77,7 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/">
+            <Link to="/profiles/settings">
               <button>Settings</button>
             </Link>
           </div>
@@ -127,6 +127,12 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
+            <Link to="/messages">
+              <button>Messages</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
             <Link to="/add-item">
               <button>Add Items</button>
             </Link>
@@ -139,7 +145,7 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/">
+            <Link to="/profiles/settings">
               <button>Settings</button>
             </Link>
           </div>

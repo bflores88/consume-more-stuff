@@ -18,15 +18,15 @@ router
     knex
       .raw(
         `SELECT threads.*, string_agg(users.username, ', ') AS user_list
-      FROM users_threads
-      INNER JOIN users ON users.id = users_threads.sent_to
-      INNER JOIN threads ON threads.id = users_threads.thread_id
-      WHERE users_threads.thread_id IN
-        (SELECT threads.id
-        FROM threads
-        INNER JOIN users_threads ON users_threads.thread_id = threads.id
-        WHERE users_threads.sent_to = ?)
-      GROUP BY threads.id, threads.subject, threads.read_only`,
+        FROM users_threads
+        INNER JOIN users ON users.id = users_threads.sent_to
+        INNER JOIN threads ON threads.id = users_threads.thread_id
+        WHERE users_threads.thread_id IN
+          (SELECT threads.id
+          FROM threads
+          INNER JOIN users_threads ON users_threads.thread_id = threads.id
+          WHERE users_threads.sent_to = ?)
+        GROUP BY threads.id, threads.subject, threads.read_only`,
         [req.user.id],
       )
       .then((result) => {
@@ -37,12 +37,9 @@ router
     new Thread()
       .save({
         subject: req.body.subject,
-        read_only: false,
-        // read_only: req.body.read_only,
+        read_only: req.body.read_only,
       })
       .then((result) => {
-        console.log('new thread:', result);
-        console.log('new thread.id:', result.id);
         new Message()
           .save({
             body: req.body.body,
@@ -50,22 +47,23 @@ router
             sent_by: req.user.id,
           })
           .then((result) => {
-            console.log('new message:', result);
-            console.log('new message.attributes:', result.attributes);
             new UserThread()
               .save({
                 thread_id: result.attributes.thread_id,
                 sent_to: req.user.id,
               })
               .then((result) => {
-                console.log('new user_thread:', result);
-                console.log('new user_thread.attributes:', result.attributes);
-                // loop through sent_to array & post forEach elem
-                new UserThread()
-                  .save({
-                    thread_id: result.attributes.thread_id,
-                    sent_to: 3,
-                  })
+                const thread_id = result.attributes.thread_id;
+                let usersThreads = [];
+                req.body.userList.forEach((user) => {
+                  usersThreads.push({
+                    thread_id: thread_id,
+                    sent_to: parseInt(user),
+                  });
+                });
+
+                UserThread.collection(usersThreads)
+                  .invokeThen('save')
                   .then((result) => {
                     knex
                       .raw(
@@ -75,7 +73,7 @@ router
                         INNER JOIN threads ON threads.id = users_threads.thread_id
                         INNER JOIN messages ON messages.thread_id = threads.id
                         WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
-                        [req.user.id, result.attributes.thread_id],
+                        [req.user.id, result[0].attributes.thread_id],
                       )
                       .then((result) => {
                         return res.json(result.rows);
