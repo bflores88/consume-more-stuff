@@ -13,7 +13,7 @@ const ownershipGuard = require('../middleware/ownershipGuard');
 
 // const remove = require('../services/image-delete');
 
-router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/').get((req, res) => {
   new ItemImage()
     .fetchAll()
     .then((result) => {
