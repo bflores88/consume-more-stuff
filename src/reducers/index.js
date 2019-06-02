@@ -9,9 +9,9 @@ import { ADD_ITEM } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
 
-import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from '../actions';
+import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
 
-import { LOGIN } from '../actions'; // delete
+// import { LOGIN } from '../actions'; // delete
 /*
 Store is a mess. Have duplicate values, multiple user values so to avoid errors and support a single source
 of truth if you need to refer to the user then use state.authorization. Authorization includes user and loggedIn.
@@ -33,8 +33,8 @@ const initialState = {
   items: [],
   images: [],
   
-  loggedIn: false, // Remove
-  user: {}, // Remove
+  // loggedIn: false, // Remove
+  // user: {}, // Remove
   newestItem: '',
 };
 
@@ -56,13 +56,9 @@ function itemReducer(state = initialState, action) {
     case GRAB_ITEM_IMAGES:
       return Object.assign({}, state, { images: [...action.payload] });
 
-    case LOGIN:
-      initialState.loggedIn = true;
-      return Object.assign({}, state, { currentUser: action.payload });
-
-    case LOGOUT:
-      initialState.loggedIn = false;
-      return Object.assign({}, state, { currentUser: action.payload });
+    // case LOGIN:
+    //   initialState.loggedIn = true;
+    //   return Object.assign({}, state, { currentUser: action.payload });
 
     case ADD_ITEM:
       return Object.assign({}, state, { newestItem: action.payload });
@@ -70,7 +66,7 @@ function itemReducer(state = initialState, action) {
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
     
-    case LOAD_SINGLE_USER:
+    case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
       return Object.assign({}, state, { user: action.payload })
 
     default:
@@ -82,12 +78,22 @@ function authentication(state = authenticationState, action) {
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
-    case LOGIN_FAILURE:
-      // console.log('4 - Auth Reducer Login Fail');
-      return Object.assign({}, state, { loggedIn: false, user: null});
+
     case LOGIN_SUCCESS:
-      // console.log('4 - Auth Reducer Login Success');
       return Object.assign({}, state, { loggedIn: true, user: action.payload});
+
+    case LOGIN_FAILURE:
+      return Object.assign({}, state, { loggedIn: false, user: null});
+    
+    case LOGOUT_SUCCESS:
+      return Object.assign({}, state, { loggedIn: false, user: null });
+
+    case LOGOUT_FAILURE:
+      return Object.assign({}, state);
+
+    case LOAD_SINGLE_USER: // <---- Like so
+      return Object.assign({}, state, { user: action.payload });
+
     default: 
       return state;
   }

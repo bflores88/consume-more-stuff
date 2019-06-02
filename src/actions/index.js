@@ -1,13 +1,14 @@
-// import { push } from 'react-router-redux';
-
 // ACTION DEFINTION
-export const LOAD_ITEMS = 'LOAD_ITEMS';
 
-export const LOGIN = "LOGIN";
+// export const LOGIN = "LOGIN";
+export const REGISTER = "REGISTER";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGOUT = "LOGOUT";
-export const REGISTER = "REGISTER";
+export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+
+
+export const LOAD_ITEMS = 'LOAD_ITEMS';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 
@@ -200,16 +201,15 @@ export const login = (credentials) => {
       } else {
         return { error : 'Bad Username or Password. Try again!' }
       }
-      
-      // console.log('http response ', response);
-      // if (response.status === 401) {
-      //   return { username: null };
-      // } else {
-      //   return response.json();
-      // }
     })
     .then((body) => { 
-      if (!body.error){ 
+      if (body.error){ 
+        // console.log('3 - Actions login() error ', body);
+        return dispatch ({
+          type: LOGIN_FAILURE, 
+          payload: body
+        })
+      } else {
         // console.log('3 - Actions login() ok ', body);
         let userObj = {
           username: body.username,
@@ -221,37 +221,12 @@ export const login = (credentials) => {
           profileImageUrl: body.profileImageUrl,
           email: body.email,
         }
-        // console.log('USEROBJ', userObj);
         localStorage.setItem('user', JSON.stringify(userObj));
         return dispatch({
-          type: LOGIN_SUCCESS, // originally itemReducer.Login
+          type: LOGIN_SUCCESS, 
           payload: userObj,
         });
-      } else {
-        // console.log('3 - Actions login() error ', body);
-        return dispatch ({
-          type: LOGIN_FAILURE, // originally itemReducer.Login
-          payload: body
-        })
       }
-      // let userJSON = JSON.stringify(user);
-      // console.log('USERJSON', userJSON);
-      // let userObj = {
-      //   username: user.username,
-      //   id: user.id,
-      //   active: user.active,
-      //   role_id: user.role_id,
-      //   theme_id: user.theme_id,
-      //   name: user.name,
-      //   profileImageUrl: user.profileImageUrl,
-      //   email: user.email,
-      // };
-      // console.log('USEROBJ', userObj);
-      // localStorage.setItem('user', JSON.stringify(userObj));
-      // return dispatch({
-      //   type: LOGIN,
-      //   payload: userObj,
-      // });
     })
     .catch((error) => {
       console.log('Error in login: ', error);
@@ -261,25 +236,33 @@ export const login = (credentials) => {
 
 export const logout = () => {
   return (dispatch) => {
-    // console.log('Actions logout()');
     return fetch('/api/auth/logout', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-      .then((response) => {
-        // console.log('http response ', response);
+    .then((response) => {
+      if (response.status === 200){
         return response.json();
-      })
-      .then((body) => {
-        // console.log('Actions login() user', user);
+      } else {
+        return {error : 'Logout received but encountered error'}
+      }
+    })
+    .then((body) => {
+      if (body.error) {
+        return dispatch({
+          type: LOGOUT_FAILURE,
+          payload: body,
+        })
+      } else {
         localStorage.removeItem('user');
         return dispatch({
-          type: LOGOUT,
+          type: LOGOUT_SUCCESS,
           payload: body,
         });
-      })
-      .catch((error) => {
-        console.log('Error in logout: ', error);
-      });
+      }
+    })
+    .catch((error) => {
+      console.log('Error in logout: ', error);
+    });
   };
 };

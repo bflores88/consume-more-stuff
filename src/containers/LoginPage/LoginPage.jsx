@@ -8,7 +8,6 @@ class LoginPage extends Component {
     super(props);
 
     this.state = {
-
       error: null,
 
       data: {
@@ -46,7 +45,6 @@ class LoginPage extends Component {
     e.preventDefault();
     this.props.login(this.state.data).then((reducer) => {
       const reducerType = reducer.type;
-      // console.log('Submit Event Reducer Type: ', reducerType);
       if (reducerType === 'LOGIN_SUCCESS') {
         this.props.history.push('/');
       } else {

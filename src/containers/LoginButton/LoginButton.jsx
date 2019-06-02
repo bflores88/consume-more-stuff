@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { logout } from '../../actions';
 import { withRouter } from 'react-router';
 
 class LoginButton extends Component {
@@ -11,7 +12,11 @@ class LoginButton extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.history.push(this.props.destination);
+    if (this.props.destination === '/login') {
+      this.props.history.push(this.props.destination);
+    } else {
+      this.props.logout();
+    }
   }
 
   render() {
@@ -24,7 +29,6 @@ class LoginButton extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('5 - Global State: ', state);
   if (state.authentication.loggedIn) {
     // console.log('6 - Login Button mapping state to props with user');
     return {
@@ -40,9 +44,18 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => {
+      const logoutAction = logout();
+      return dispatch(logoutAction);
+    }
+  }
+}
+
 LoginButton = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(LoginButton);
 
 const LoginButtonWithRouter = withRouter(LoginButton);
