@@ -68,7 +68,7 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-        console.log(messages);
+        // console.log(messages);
 
         return dispatch({
           type: GRAB_THREAD_MESSAGES,

@@ -14,6 +14,7 @@ class Conversation extends Component {
     this.state = {
       body: '',
       messages: this.props.messages,
+      newestMessage: '',
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.postMessage = this.postMessage.bind(this);
@@ -35,6 +36,7 @@ class Conversation extends Component {
     console.log(data);
 
     this.props.postNewMessage(data, this.props.match.params.id);
+    this.setState({ newestMessage: this.state.body });
     // this.props.grabThreadMessages(this.props.match.params.id);
   }
 
@@ -42,14 +44,16 @@ class Conversation extends Component {
     const user = this.props.currentUser;
     this.props.grabThreadMessages(this.props.match.params.id);
     // console.log(this.props.currentUser);
+    if (document.getElementById('messages-container')) {
+      let scroller = document.getElementById('messages-container');
+      scroller.scrollTop = scroller.scrollHeight;
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.messages !== prevProps.messages) {
       let scroller = document.getElementById('messages-container');
       scroller.scrollTop = scroller.scrollHeight;
-      // const user = this.props.currentUser;
-      // this.props.grabThreadMessages(this.props.match.params.id);
     }
     // this.props.grabUserThreads();
   }
@@ -61,7 +65,32 @@ class Conversation extends Component {
       if (this.props.messages.length === 0) {
         return <div>olollo</div>;
       } else {
-        const messagesBox = this.props.messages.map((message, idx) => {
+        // SORT TEST
+        function compareValues(key, order = 'asc') {
+          return function(a, b) {
+            if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+              return 0;
+            }
+
+            const varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key];
+            const varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key];
+
+            let comparison = 0;
+            if (varA > varB) {
+              comparison = 1;
+            } else if (varA < varB) {
+              comparison = -1;
+            }
+            return order == 'desc' ? comparison * -1 : comparison;
+          };
+        }
+
+        console.log(this.props.messages.sort(compareValues('id', 'asc')));
+
+        let sortedMessages = this.props.messages.sort(compareValues('id', 'asc'));
+
+        // SORT TEST ^^
+        const messagesBox = sortedMessages.map((message, idx) => {
           return (
             <MessageBox
               // name={thread.name}
@@ -77,9 +106,7 @@ class Conversation extends Component {
 
         return (
           <div className="conversation-page">
-            <div className="conversation-page-title">
-              <h1>Conversation Page</h1>
-            </div>
+            <div className="conversation-page-title">{/* <h1>Conversation Page</h1> */}</div>
             <div className="messages-container" id="messages-container">
               {messagesBox}
 
