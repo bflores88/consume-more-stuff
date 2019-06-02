@@ -11,7 +11,7 @@ const knex = require('../database/knex.js');
 
 router
   .route('/')
-  .get(registeredUser, ownershipGuard, (req, res)) => {
+  .get(registeredUser, ownershipGuard, (req, res) => {
     // subquery selects threads associated with user
     // top level query selects thread attributes & associated usernames
     // (for each of the subqueried threads)

@@ -20,7 +20,9 @@ class SideBox extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.authentication.user);
   return {
+    
     currentUser: state.authentication.user
   };
 };

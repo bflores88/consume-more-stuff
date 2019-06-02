@@ -16,6 +16,7 @@ import { GRAB_THREAD_MESSAGES } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
 
 const initialState = {
+  user: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
@@ -99,9 +100,6 @@ function authentication(state = authenticationState, action) {
 
     case LOGOUT_FAILURE:
       return Object.assign({}, state);
-
-    case LOAD_SINGLE_USER: // <---- Like so
-      return Object.assign({}, state, { user: action.payload });
 
     default: 
       return state;

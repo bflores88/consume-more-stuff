@@ -36,6 +36,7 @@ class Profiles extends Component {
           </>
         );
       } else {
+        console.log(this.props.user);
         const user = {
           username: this.props.user.username,
           name: this.props.user.name,
