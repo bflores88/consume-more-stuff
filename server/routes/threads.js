@@ -46,37 +46,38 @@ router
             sent_by: req.user.id,
           })
           .then((result) => {
-            new UserThread()
-              .save({
-                thread_id: result.attributes.thread_id,
+            const thread_id = result.attributes.thread_id;
+            let usersThreads = [
+              {
+                thread_id: thread_id,
                 sent_to: req.user.id,
-              })
-              .then((result) => {
-                const thread_id = result.attributes.thread_id;
-                let usersThreads = [];
-                req.body.userList.forEach((user) => {
-                  usersThreads.push({
-                    thread_id: thread_id,
-                    sent_to: parseInt(user),
-                  });
+              },
+            ];
+            const userList = req.body.userList;
+            if (userList.length > 0) {
+              userList.forEach((user) => {
+                usersThreads.push({
+                  thread_id: thread_id,
+                  sent_to: parseInt(user),
                 });
+              });
+            }
 
-                UserThread.collection(usersThreads)
-                  .invokeThen('save')
-                  .then((result) => {
-                    knex
-                      .raw(
-                        `SELECT DISTINCT messages.* 
+            UserThread.collection(usersThreads)
+              .invokeThen('save')
+              .then((result) => {
+                knex
+                  .raw(
+                    `SELECT DISTINCT messages.* 
                         FROM users_threads
                         INNER JOIN users ON users.id = users_threads.sent_to
                         INNER JOIN threads ON threads.id = users_threads.thread_id
                         INNER JOIN messages ON messages.thread_id = threads.id
                         WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
-                        [req.user.id, result[0].attributes.thread_id],
-                      )
-                      .then((result) => {
-                        return res.json(result.rows);
-                      });
+                    [req.user.id, result[0].attributes.thread_id],
+                  )
+                  .then((result) => {
+                    return res.json(result.rows);
                   });
               });
           });
