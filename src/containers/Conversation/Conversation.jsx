@@ -85,7 +85,7 @@ class Conversation extends Component {
           };
         }
 
-        console.log(this.props.messages.sort(compareValues('id', 'asc')));
+        // console.log(this.props.messages.sort(compareValues('id', 'asc')));
 
         let sortedMessages = this.props.messages.sort(compareValues('id', 'asc'));
 
