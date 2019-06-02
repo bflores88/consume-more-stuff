@@ -6,6 +6,7 @@ import { GRAB_ITEM_IMAGES } from '../actions';
 import { REGISTER, LOGIN, LOGOUT } from '../actions';
 import { ADD_ITEM } from '../actions';
 import { LOAD_CATEGORIES } from '../actions';
+import { LOAD_INACTIVE_ITEMS } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
@@ -24,13 +25,11 @@ const initialState = {
   loggedIn: false,
   user: {},
   newestItem: '',
-
   threads: [],
   messages: [],
-
   categories: [],
   itemsByCategory: {},
-
+  inactiveItems: [],
   passwordUpdateStatus: false,
 };
 
@@ -41,6 +40,9 @@ function itemReducer(state = initialState, action) {
 
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
+
+    case LOAD_INACTIVE_ITEMS:
+      return Object.assign({}, state, { inactiveItems: action.payload });
 
     case GRAB_ITEM_IMAGES:
       return Object.assign({}, state, { images: [...action.payload] });
