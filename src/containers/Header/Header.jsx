@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Header.scss';
-import LoginButton from '../LoginButton';
+import LoginLogoutButton from '../LoginLogoutButton';
 
 class Header extends Component {
   constructor(props) {
@@ -28,7 +28,10 @@ class Header extends Component {
             </button>
           </form>
         </div>
-        <LoginButton/>
+
+        <div className="login-box">
+          <LoginLogoutButton/>
+        </div>
       </div>
     );
   }

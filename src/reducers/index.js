@@ -11,38 +11,17 @@ import { RESET_NEW_ITEM } from '../actions';
 
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
 
-// import { LOGIN } from '../actions'; // delete
-/*
-Store is a mess. Have duplicate values, multiple user values so to avoid errors and support a single source
-of truth if you need to refer to the user then use state.authorization. Authorization includes user and loggedIn.
-
-These reducer functions return objects that become properties of the global state, named after the name of their
-functions and with values of objects. Therefore a clean global state should look like
-
-global state ---> itemReducer ---> item: {}, items: [], images: [], newestItem: []
-             ---> authentication ---> user: {} loggedIn: boolean
-
-Also suggest changing the name of itemReducer to something more like 'items'. Therefore the state of the app
-reads state.items or state.authorization.
-*/
-
-
 const initialState = {
-  // currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
-  
-  // loggedIn: false, // Remove
-  // user: {}, // Remove
   newestItem: '',
 };
 
-// Use from now on.
 const authenticationState = {
-  registrationSuccessful: true, 
+  registrationSuccessful: false, 
   loggedIn: false,
-  user: null,
+  user: JSON.parse(localStorage.getItem('user')),
 }
 
 function itemReducer(state = initialState, action) {
@@ -55,10 +34,6 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_ITEM_IMAGES:
       return Object.assign({}, state, { images: [...action.payload] });
-
-    // case LOGIN:
-    //   initialState.loggedIn = true;
-    //   return Object.assign({}, state, { currentUser: action.payload });
 
     case ADD_ITEM:
       return Object.assign({}, state, { newestItem: action.payload });
@@ -100,7 +75,7 @@ function authentication(state = authenticationState, action) {
 }
 
 const savannahApp = combineReducers({
-  itemReducer,
+  itemReducer, 
   authentication,
 })
 

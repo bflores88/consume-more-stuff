@@ -1,6 +1,4 @@
 // ACTION DEFINTION
-
-// export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -241,28 +239,19 @@ export const logout = () => {
       headers: { 'Content-Type': 'application/json' },
     })
     .then((response) => {
-      if (response.status === 200){
-        return response.json();
-      } else {
-        return {error : 'Logout received but encountered error'}
-      }
+      console.log(response);
+      return response.json();
     })
-    .then((body) => {
-      if (body.error) {
-        return dispatch({
-          type: LOGOUT_FAILURE,
-          payload: body,
-        })
-      } else {
-        localStorage.removeItem('user');
-        return dispatch({
-          type: LOGOUT_SUCCESS,
-          payload: body,
-        });
-      }
+    .then(() => {
+      return dispatch({
+        type: LOGOUT_SUCCESS,
+      })
     })
     .catch((error) => {
       console.log('Error in logout: ', error);
+      return dispatch({
+        type: LOGOUT_FAILURE,
+      })
     });
   };
 };

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions';
 import { withRouter } from 'react-router';
+import './LoginLogoutButton.scss';
 
-class LoginButton extends Component {
-  constructor(props) { // constructor only happens once.
+class LoginLogoutButton extends Component {
+  constructor(props) { 
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,17 +22,20 @@ class LoginButton extends Component {
 
   render() {
     return(
-      <button onClick={this.handleSubmit}>
-        {this.props.text}
-      </button>
+      <div className="login-logout-button">
+        <p>{this.props.welcomeMessage}</p>
+        <button onClick={this.handleSubmit}> {this.props.text} </button>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   if (state.authentication.loggedIn) {
     // console.log('6 - Login Button mapping state to props with user');
     return {
+      welcomeMessage: 'Welcome back ' + state.authentication.user.name,
       text: 'Logout',
       destination: '/logout',
     }
@@ -53,10 +57,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-LoginButton = connect(
+LoginLogoutButton = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginButton);
+)(LoginLogoutButton);
 
-const LoginButtonWithRouter = withRouter(LoginButton);
-export default LoginButtonWithRouter;
+const LoginLogoutButtonWithRouter = withRouter(LoginLogoutButton);
+export default LoginLogoutButtonWithRouter;
