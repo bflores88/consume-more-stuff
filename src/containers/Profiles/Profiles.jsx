@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import './Users.scss';
+import './Profiles.scss';
 import { loadSingleUser } from '../../actions';
 
-class Users extends Component {
+class Profiles extends Component {
   constructor(props) {
     super(props);
 
@@ -25,9 +25,9 @@ class Users extends Component {
 
   render() {
     if (!this.props.currentUser) {
-      return <Redirect to="/" />;
-    } else if (this.props.currentUser.role_id === 3 && this.props.match.params.id === 'all') {
-      return <Redirect to="/" />;
+      return <Redirect to="/not-authorized" />;
+    } else if (this.props.currentUser.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.currentUser.id) {
+      return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
       if (!this.props.user.username) {
         return (
@@ -85,8 +85,8 @@ class Users extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.itemReducer.currentUser,
-    user: state.itemReducer.user,
+    currentUser: state.authentication.user,
+    user: state.authentication.user,
   };
 };
 
@@ -96,9 +96,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-Users = connect(
+Profiles = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Users);
+)(Profiles);
 
-export default Users;
+export default Profiles;

@@ -7,16 +7,22 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const LOAD_INACTIVE_ITEMS = "LOAD_INACTIVE_ITEMS";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
-
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
 export const ADD_IMAGE = 'ADD_IMAGE';
-
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
-
+export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
+export const UPDATE_USER_PASSWORD = "UPDATE_USER_PASSWORD";
+export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
+export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
+export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
+
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -36,10 +42,70 @@ export const loadItems = () => {
   };
 };
 
+export const postNewMessage = (data, threadID) => {
+  return (dispatch) => {
+    return fetch(`/api/threads/${threadID}`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return (dispatch) => {
+          dispatch({
+            type: POST_NEW_MESSAGE,
+            payload: response,
+          });
+        };
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
+export const grabThreadMessages = (threadId) => {
+  return (dispatch) => {
+    return fetch(`/api/threads/${threadId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((messages) => {
+        // console.log(messages);
+
+        return dispatch({
+          type: GRAB_THREAD_MESSAGES,
+          payload: messages,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabUserThreads = () => {
+  return (dispatch) => {
+    return fetch('/api/threads')
+      .then((response) => {
+        return response.json();
+      })
+      .then((threads) => {
+        console.log(threads);
+
+        return dispatch({
+          type: GRAB_USER_THREADS,
+          payload: threads,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
 export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
+        console.log('action', response);
         return response.json();
       })
       .then((item) => {
@@ -82,12 +148,11 @@ export const addItem = (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.log('Error in logout: ', error);
-    })
-  }
-}
+    });
+  };
+};
 
 export const addImage = (id, data) => {
   console.log('actiomndata', data);
@@ -133,6 +198,15 @@ export const resetNewItem = () => {
   };
 };
 
+export const incrementViews = (id) => {
+  return () => {
+    return fetch(`/api/items/${id}/views`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+};
+
 export const loadSingleUser = (userID) => {
   return (dispatch) => {
     return fetch(`/api/users/${userID}`, {
@@ -155,12 +229,6 @@ export const loadSingleUser = (userID) => {
       });
   };
 }
-
-
-
-
-
-
 
 export const register = (accountData) => {
   return (dispatch) => {
@@ -255,3 +323,96 @@ export const logout = () => {
     });
   };
 };
+
+export const loadCategories = () => {
+  return (dispatch) => {
+    return fetch(`/api/categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((categories) => {
+        return dispatch({
+          type: LOAD_CATEGORIES,
+          payload: categories,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const loadItemsByCategory = (category) => {
+  return (dispatch) => {
+    return fetch(`/api/categories/${category}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        return dispatch({
+          type: LOAD_ITEMS_BY_CATEGORY,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const updatePassword = (data) => {
+  return (dispatch) => {
+    return fetch('/api/users/password', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: UPDATE_USER_PASSWORD,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+}
+
+export const loadInactiveItems = (userID) => {
+  return (dispatch) => {
+    console.log(userID);
+    return fetch(`/api/users/items/${userID}/inactive`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        console.log(items)
+        return dispatch({
+          type: LOAD_INACTIVE_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

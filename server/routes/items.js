@@ -3,6 +3,19 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
+
+router.route('/active').get((req, res) => {
+  Item.where({ active: true })
+    .fetchAll()
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 router
   .route('/')
@@ -50,6 +63,7 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
+
       .fetch({ withRelated: ['users', 'conditions', 'categories', 'subCategories', 'images'] })
       .then((result) => {
         return res.json(result);
@@ -59,7 +73,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .put((req, res) => {
+  .put(registeredUser, ownershipGuard, (req, res) => {
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
@@ -81,7 +95,7 @@ router
         console.log('error:', err);
       });
   })
-  .delete((req, res) => {
+  .delete(registeredUser, ownershipGuard, (req, res) => {
     Item.where({ id: req.params.id })
       .destroy()
       .then((result) => {
@@ -92,5 +106,24 @@ router
         console.log('error', err);
       });
   });
+
+router.route('/:id/views').put((req, res) => {
+  new Item({ id: req.params.id })
+    .fetch()
+    .then((item) => {
+      let increment = ++item.attributes.viewCount;
+      item
+        .save({ viewCount: increment }, { patch: true })
+        .then(() => {
+          return res.json({ success: true });
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+});
 
 module.exports = router;

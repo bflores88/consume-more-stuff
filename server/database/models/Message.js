@@ -2,7 +2,6 @@ const bookshelf = require('../bookshelf');
 
 require('./User');
 require('./Thread');
-require('./UserMessage');
 class Message extends bookshelf.Model {
   get tableName() {
     return 'messages';
@@ -17,10 +16,6 @@ class Message extends bookshelf.Model {
 
   threads() {
     return this.belongsTo('Thread', 'thread_id');
-  }
-
-  users_messages() {
-    return this.hasMany('UserMessage', 'message_id');
   }
 }
 

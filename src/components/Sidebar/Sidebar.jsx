@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.scss';
+import CategoryLinks from '../CategoryLinks';
 
 const Sidebar = (props) => {
   //generate links for items by category
@@ -11,21 +12,7 @@ const Sidebar = (props) => {
         <Link to="/">
           <button>View All</button>
         </Link>
-        <Link to="/items/category/apparel">
-          <button>Apparel</button>
-        </Link>
-        <Link to="/items/category/books">
-          <button>Books</button>
-        </Link>
-        <Link to="/items/category/electronics">
-          <button>Electronics</button>
-        </Link>
-        <Link to="/items/category/food">
-          <button>Food</button>
-        </Link>
-        <Link to="/items/category/movies">
-          <button>Movies</button>
-        </Link>
+        <CategoryLinks />
       </div>
     );
   };
@@ -56,13 +43,13 @@ const Sidebar = (props) => {
             </Link>
           </div>
         </div>
-
         <div className="cat-links">{createItemCategoryLinks()}</div>
       </div>
     );
   } else if (props.currentUser.role_id === 3) {
-    const userLink = `/users/${props.currentUser.id}`;
-    const messageLink = `/messages/${props.currentUser.id}`;
+    const userLink = `/profiles/${props.currentUser.id}`;
+    const userItemsLink = `/users/${props.currentUser.id}/items`;
+    // const messageLink = `/messages/${props.currentUser.id}`;
     return (
       <div className="user-nav">
         <div className="logo">
@@ -84,14 +71,20 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to={messageLink}>
+            <Link to="/messages">
               <button>Messages</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/">
+            <Link to="/profiles/settings">
               <button>Settings</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to={userItemsLink}>
+              <button>My Items</button>
             </Link>
           </div>
 
@@ -101,18 +94,12 @@ const Sidebar = (props) => {
             </Link>
           </div>
 
-          <div className="nav-links">
-            <Link to="/edit-item">
-              <button>Edit Items</button>
-            </Link>
-          </div>
-
           <div className="cat-links">{createItemCategoryLinks()}</div>
         </div>
       </div>
     );
   } else {
-    const userLink = `/users/${props.currentUser.id}`;
+    const userLink = `/profiles/${props.currentUser.id}`;
     return (
       <div className="admin-nav">
         <div className="logo">
@@ -128,7 +115,7 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/users/all">
+            <Link to="/profiles/all">
               <button>All Users</button>
             </Link>
           </div>
@@ -136,6 +123,12 @@ const Sidebar = (props) => {
           <div className="nav-links">
             <Link to="/items/all">
               <button>Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/messages">
+              <button>Messages</button>
             </Link>
           </div>
 
@@ -152,7 +145,7 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/">
+            <Link to="/profiles/settings">
               <button>Settings</button>
             </Link>
           </div>

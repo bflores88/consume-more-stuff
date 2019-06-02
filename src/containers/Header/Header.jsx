@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Header.scss';
 import LoginLogoutButton from '../LoginLogoutButton';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   constructor(props) {
@@ -12,10 +13,12 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="logoBox">
-          <h2 className="title">
-            <i className="sunLogo" className="fas fa-sun" />
-            Savannah
-          </h2>
+          <Link to="/">
+            <h2 className="title">
+              <i className="sunLogo" className="fas fa-sun" />
+              Savannah
+            </h2>
+          </Link>
         </div>
 
         <div className="searchBarBox">

@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('users_messages', (table) => {
+  return knex.schema.createTable('users_threads', (table) => {
     table.increments();
     table
       .integer('sent_to')
@@ -7,14 +7,14 @@ exports.up = function(knex, Promise) {
       .references('id')
       .inTable('users');
     table
-      .integer('message_id')
+      .integer('thread_id')
       .notNull()
       .references('id')
-      .inTable('messages');
+      .inTable('threads');
     table.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('users_messages');
+  return knex.schema.dropTable('users_threads');
 };

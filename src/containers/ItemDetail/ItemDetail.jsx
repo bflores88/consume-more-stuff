@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadSpecificItem } from '../../actions';
+import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 
 class ItemDetail extends Component {
@@ -11,11 +12,13 @@ class ItemDetail extends Component {
   }
 
   componentDidMount() {
+    this.props.incrementViews(this.props.match.params.id);
     return this.props.loadSpecificItem(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.incrementViews(this.props.match.params.id);
       return this.props.loadSpecificItem(this.props.match.params.id);
     }
   }
@@ -34,17 +37,23 @@ class ItemDetail extends Component {
         condition: this.props.item.conditions.conditionName,
         status: this.props.item.active,
         subcat: this.props.item.subCategories.subCategoryName,
+        created: this.props.item.created_at,
         updated: this.props.item.updated_at,
         category: this.props.item.categories.categoryName,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
+        inventory: this.props.item.inventory,
+        viewCount: this.props.item.viewCount,
       };
+      console.log(this.props.item)
 
       let status;
       if (!item.status) {
-        status="NOT FOR SALE"
+        status = "NOT FOR SALE"
+      } else if (item.quantity === 0) { 
+        status = "ITEM SOLD OUT"
       } else {
-        status="AVAILABLE FOR PURCHASE"
+        status = 'AVAILABLE FOR PURCHASE';
       }
 
       const images = item.images.map((image, key) => {
@@ -63,7 +72,8 @@ class ItemDetail extends Component {
               <h5>Sold By:&nbsp;&nbsp;{item.seller}</h5>
               <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
-              <h4>Quantity in Stock:&nbsp;&nbsp;{item.inventory}</h4>
+              <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
+              <h4>Views:&nbsp;&nbsp;{item.viewCount}</h4>
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
@@ -79,6 +89,12 @@ class ItemDetail extends Component {
             Category:&nbsp;&nbsp;{item.category}
             <br />
             Subcategory:&nbsp;&nbsp;{item.subcat}
+            <br />
+            <br />
+            <br />
+            Posting Date:&nbsp;&nbsp;{item.created}
+            <br />
+            Last Updated:&nbsp;&nbsp;{item.updated}
           </div>
         </div>
       );
@@ -94,6 +110,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    incrementViews: (item) => dispatch(incrementViews(item)),
     loadSpecificItem: (item) => dispatch(loadSpecificItem(item)),
   };
 };

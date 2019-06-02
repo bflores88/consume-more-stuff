@@ -17,16 +17,6 @@ class SideBox extends Component {
     );
   }
 
-  componentDidMount() {
-    const user = this.props.currentUser;
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.currentUser !== prevProps.currentUser) {
-      const user = this.props.currentUser;
-    }
-  }
-
 }
 
 const mapStateToProps = (state) => {

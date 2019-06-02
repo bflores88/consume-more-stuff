@@ -8,10 +8,12 @@ const ItemImage = require('../database/models/ItemImage');
 // 'image' in upload.single() is the key-name that's referenced in the req.body object
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
 // const remove = require('../services/image-delete');
 
-router.route('/').get((req, res) => {
+router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
   new ItemImage()
     .fetchAll()
     .then((result) => {
@@ -25,7 +27,7 @@ router.route('/').get((req, res) => {
 });
 
 // post image FILES (not links)
-router.route('/upload/:itemId').post(singleUpload, (req, res) => {
+router.route('/upload/:itemId').post(singleUpload, registeredUser, ownershipGuard, (req, res) => {
   console.log('REQRGWGEGGEW', req);
   new ItemImage()
     .save({
@@ -44,7 +46,7 @@ router.route('/upload/:itemId').post(singleUpload, (req, res) => {
 });
 
 // post image LINKS (not files)
-router.route('/link/:itemId').post((req, res) => {
+router.route('/link/:itemId').post(registeredUser, ownershipGuard, (req, res) => {
   new ItemImage()
     .save({
       imageLink: req.body.imageLink,
@@ -77,7 +79,7 @@ router.route('/item/:itemId').get((req, res) => {
 
 router
   .route('/:id')
-  .get((req, res) => {
+  .get(registeredUser, ownershipGuard, (req, res) => {
     // return queried image
     new ItemImage({ id: req.params.id })
       .fetch()
@@ -89,7 +91,7 @@ router
         return res.status(404).send('Item image not found');
       });
   })
-  .delete((req, res) => {
+  .delete(registeredUser, ownershipGuard, (req, res) => {
     ItemImage.where({ id: req.params.id })
       .destroy()
       .then((result) => {
