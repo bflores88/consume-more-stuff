@@ -51,6 +51,7 @@ router.route('/register').post((req, res) => {
 });
 
 router.route('/login').post(passport.authenticate('local'), (req, res) => { // req res function only happens if authenication suceeded
+  console.log('logged in successfully, ', req.user);
   return res.json(req.user); // successful login attaches the user property to the req.
 });
 

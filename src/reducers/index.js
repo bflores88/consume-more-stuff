@@ -4,26 +4,46 @@ import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
-import { REGISTER } from '../actions';
-
-import { LOGIN } from '../actions';
-
-import { LOGOUT } from '../actions';
 
 import { ADD_ITEM } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
 
+import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from '../actions';
+
+import { LOGIN } from '../actions'; // delete
+/*
+Store is a mess. Have duplicate values, multiple user values so to avoid errors and support a single source
+of truth if you need to refer to the user then use state.authorization. Authorization includes user and loggedIn.
+
+These reducer functions return objects that become properties of the global state, named after the name of their
+functions and with values of objects. Therefore a clean global state should look like
+
+global state ---> itemReducer ---> item: {}, items: [], images: [], newestItem: []
+             ---> authentication ---> user: {} loggedIn: boolean
+
+Also suggest changing the name of itemReducer to something more like 'items'. Therefore the state of the app
+reads state.items or state.authorization.
+*/
+
+
 const initialState = {
-  currentUser: JSON.parse(localStorage.getItem('user')),
+  // currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
-  registrationSuccessful: true, // might not be needed
-  loggedIn: false,
-  user: {},
+  
+  loggedIn: false, // Remove
+  user: {}, // Remove
   newestItem: '',
 };
+
+// Use from now on.
+const authenticationState = {
+  registrationSuccessful: true, 
+  loggedIn: false,
+  user: null,
+}
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
@@ -58,11 +78,16 @@ function itemReducer(state = initialState, action) {
   }
 }
 
-function registerReducer(state = initialState, action) {
-  console.log('register reducer');
+function authentication(state = authenticationState, action) { 
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
+    case LOGIN_FAILURE:
+      // console.log('4 - Auth Reducer Login Fail');
+      return Object.assign({}, state, { loggedIn: false, user: null});
+    case LOGIN_SUCCESS:
+      // console.log('4 - Auth Reducer Login Success');
+      return Object.assign({}, state, { loggedIn: true, user: action.payload});
     default: 
       return state;
   }
@@ -70,7 +95,7 @@ function registerReducer(state = initialState, action) {
 
 const savannahApp = combineReducers({
   itemReducer,
-  registerReducer,
+  authentication,
 })
 
 export default savannahApp;

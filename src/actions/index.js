@@ -3,8 +3,9 @@
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 
-
 export const LOGIN = "LOGIN";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const REGISTER = "REGISTER";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
@@ -70,73 +71,9 @@ export const grabItemImages = () => {
   };
 };
 
-export const login = (credentials) => {
-  return (dispatch) => {
-    // console.log('Actions login()');
-    return fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => {
-        // console.log('http response ', response);
-        if (response.status === 401) {
-          return null;
-        } else {
-          return response.json();
-        }
-      })
-      .then((user) => {
-        // console.log('Actions login() user', user);
-        let userJSON = JSON.stringify(user);
-        // console.log('USERJSON', userJSON);
-        let userObj = {
-          username: user.username,
-          id: user.id,
-          active: user.active,
-          role_id: user.role_id,
-          theme_id: user.theme_id,
-          name: user.name,
-          profileImageUrl: user.profileImageUrl,
-          email: user.email,
-        };
-        console.log('USEROBJ', userObj);
-        localStorage.setItem('user', JSON.stringify(userObj));
-        return dispatch({
-          type: LOGIN,
-          payload: userObj,
-        });
-      })
-      .catch((error) => {
-        console.log('Error in login: ', error);
-      });
-  };
-};
 
-export const logout = () => {
-  return (dispatch) => {
-    // console.log('Actions logout()');
-    return fetch('/api/auth/logout', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => {
-        // console.log('http response ', response);
-        return response.json();
-      })
-      .then((body) => {
-        // console.log('Actions login() user', user);
-        localStorage.removeItem('user');
-        return dispatch({
-          type: LOGOUT,
-          payload: body,
-        });
-      })
-      .catch((error) => {
-        console.log('Error in logout: ', error);
-      });
-  };
-};
+
+
 
 export const addItem = (data) => {
   return (dispatch) => {
@@ -149,28 +86,6 @@ export const addItem = (data) => {
     })
     .catch((error) => {
       console.log('Error in logout: ', error);
-    })
-  }
-}
-
-export const register = (accountData) => {
-  return (dispatch) => {
-     return fetch('api/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(accountData),
-      headers: { 'Content-Type' : 'application/json' }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((body) => {
-      return dispatch({
-        type: REGISTER,
-        payload: body,
-      })
-    })
-    .catch((error) => {
-      console.log('Error in registration: ', error);
     })
   }
 }
@@ -241,3 +156,130 @@ export const loadSingleUser = (userID) => {
       });
   };
 }
+
+
+
+
+
+
+
+export const register = (accountData) => {
+  return (dispatch) => {
+     return fetch('api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(accountData),
+      headers: { 'Content-Type' : 'application/json' }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      return dispatch({
+        type: REGISTER,
+        payload: body,
+      })
+    })
+    .catch((error) => {
+      console.log('Error in registration: ', error);
+    })
+  }
+}
+
+export const login = (credentials) => {
+  return (dispatch) => {
+    // console.log('1 - Actions login()');
+    return fetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => {
+      // console.log('2 - Actions login() response', response);
+      if (response.status === 200){
+        return response.json();
+      } else {
+        return { error : 'Bad Username or Password. Try again!' }
+      }
+      
+      // console.log('http response ', response);
+      // if (response.status === 401) {
+      //   return { username: null };
+      // } else {
+      //   return response.json();
+      // }
+    })
+    .then((body) => { 
+      if (!body.error){ 
+        // console.log('3 - Actions login() ok ', body);
+        let userObj = {
+          username: body.username,
+          id: body.id,
+          active: body.active,
+          role_id: body.role_id,
+          theme_id: body.theme_id,
+          name: body.name,
+          profileImageUrl: body.profileImageUrl,
+          email: body.email,
+        }
+        // console.log('USEROBJ', userObj);
+        localStorage.setItem('user', JSON.stringify(userObj));
+        return dispatch({
+          type: LOGIN_SUCCESS, // originally itemReducer.Login
+          payload: userObj,
+        });
+      } else {
+        // console.log('3 - Actions login() error ', body);
+        return dispatch ({
+          type: LOGIN_FAILURE, // originally itemReducer.Login
+          payload: body
+        })
+      }
+      // let userJSON = JSON.stringify(user);
+      // console.log('USERJSON', userJSON);
+      // let userObj = {
+      //   username: user.username,
+      //   id: user.id,
+      //   active: user.active,
+      //   role_id: user.role_id,
+      //   theme_id: user.theme_id,
+      //   name: user.name,
+      //   profileImageUrl: user.profileImageUrl,
+      //   email: user.email,
+      // };
+      // console.log('USEROBJ', userObj);
+      // localStorage.setItem('user', JSON.stringify(userObj));
+      // return dispatch({
+      //   type: LOGIN,
+      //   payload: userObj,
+      // });
+    })
+    .catch((error) => {
+      console.log('Error in login: ', error);
+    });
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    // console.log('Actions logout()');
+    return fetch('/api/auth/logout', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        // console.log('http response ', response);
+        return response.json();
+      })
+      .then((body) => {
+        // console.log('Actions login() user', user);
+        localStorage.removeItem('user');
+        return dispatch({
+          type: LOGOUT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};

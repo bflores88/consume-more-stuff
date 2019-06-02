@@ -174,8 +174,7 @@ class Registration extends Component {
               <h6>Information: </h6>
               <ul>
                 <li>Password must be at least 6 characters.</li>
-                {/* Enable when Login Page is complete
-                <li>Already have an account? <button>Sign In</button></li> */}
+                <li>Already have an account? Click the login button at the upper-right corner.</li>
               </ul>
             </div>
           </form>
@@ -187,7 +186,7 @@ class Registration extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    registrationSuccessful : state.registerReducer.registrationSuccessful
+    registrationSuccessful : state.authentication.registrationSuccessful
   }
 }
 

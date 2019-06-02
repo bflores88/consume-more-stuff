@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+.login-page {
+  text-align: center;
+  
+  width: 100%;
+  padding: 100px;
+}
+
+.login-form {
+  display: inline-block;
+  border: 2px solid gold;
+
+  margin: 0px;
+  padding: 20px;
+
+  width: 400px;
+
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+
+    margin-top: 0px;
+  }
+
+  button {
+    background-color: gold;
+    color: black;
+    border: 1px solid black;
+
+    font-size: 13px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+
+    padding: 3px 10px 3px 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    text-align: left;
+
+    margin: 0px;
+    padding: 0px;
+
+    li {
+      width: 100%;
+      padding-bottom: 5px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    input {
+      border: 1px solid darkslategray;
+      border-radius: 4px;
+
+      margin: 0 0 20px 0;
+      padding: 0 3px 0 3px;
+      height: 20px;
+      width: 100%;
+    }
+  
+    .error {
+      background: crimson;
+      color: white;
+      border-radius: 4px;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      padding: 1px 10px 1px 10px;
+      margin: 0px;
+    }
+  }
+}
+
+.registration-directions {
+  text-align: left;
+
+  h6{
+    font-size: 13px;
+    margin: 20px 0 5px 0;
+  }
+
+  ul {
+    font-size: 14px;
+    
+    li {
+      padding-bottom: 6px;
+    }
+  }
+}
