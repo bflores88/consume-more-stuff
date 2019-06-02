@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
@@ -71,7 +73,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .put((req, res) => {
+  .put(registeredUser, ownershipGuard, (req, res) => {
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
@@ -93,7 +95,7 @@ router
         console.log('error:', err);
       });
   })
-  .delete((req, res) => {
+  .delete(registeredUser, ownershipGuard, (req, res) => {
     Item.where({ id: req.params.id })
       .destroy()
       .then((result) => {

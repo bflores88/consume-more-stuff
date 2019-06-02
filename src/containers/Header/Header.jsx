@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Header.scss';
-
+import { Link } from 'react-router-dom';
 import LoginComponent from '../LoginComponent';
 
 class Header extends Component {
@@ -13,10 +13,12 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="logoBox">
-          <h2 className="title">
-            <i className="sunLogo" className="fas fa-sun" />
-            Savannah
-          </h2>
+          <Link to="/">
+            <h2 className="title">
+              <i className="sunLogo" className="fas fa-sun" />
+              Savannah
+            </h2>
+          </Link>
         </div>
 
         <div className="searchBarBox">

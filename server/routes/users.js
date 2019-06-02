@@ -6,8 +6,11 @@ const User = require('../database/models/User');
 const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
-router.route('/all').get((req, res) => {
+
+router.route('/all').get(registeredUser, (req, res) => {
   new User()
     .fetchAll({ withRelated: ['roles'] })
     .then((result) => {
@@ -23,6 +26,13 @@ router.route('/:id').get((req, res) => {
   new User({ id: req.params.id })
     .fetch({ withRelated: ['roles'] })
     .then((result) => {
+
+router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
+  new User({ id: req.params.id })
+    .fetch({ withRelated: ['roles'] })
+    .then((result) => {
+      // console.log(result)
+
       // reply with logged in user
       return res.json(result);
     })
@@ -31,7 +41,7 @@ router.route('/:id').get((req, res) => {
     });
 });
 
-router.route('/items/:userId').get((req, res) => {
+router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) => {
   Item.where({ user_id: req.params.userId })
     .fetchAll()
     .then((result) => {
@@ -44,7 +54,8 @@ router.route('/items/:userId').get((req, res) => {
 });
 
 // get all active items from a single user
-router.route('/items/:userId/active').get((req, res) => {
+router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, res) => {
+
   Item.where({ user_id: req.params.userId, active: true })
     .fetchAll()
     .then((result) => {
@@ -57,7 +68,8 @@ router.route('/items/:userId/active').get((req, res) => {
 });
 
 // get all inactive items from a single user
-router.route('/items/:userId/inactive').get((req, res) => {
+router.route('/items/:userId/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+
   Item.where({ user_id: req.params.userId, active: false })
     .fetchAll()
     .then((result) => {
