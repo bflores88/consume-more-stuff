@@ -51,7 +51,7 @@ router.route('/items/:userId/inactive').get((req, res) => {
   .fetchAll()
   .then((result) => {
     // replies with all inactive items associated with the user
-    return res.json(result)
+    return res.json(result.toJSON())
   })
   .catch((err) => {
     console.log('error:', err)
