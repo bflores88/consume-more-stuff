@@ -5,7 +5,8 @@
 
 .messages-container {
   padding: 1em;
-  border: 2px solid #222f3d;
+  border: 2px solid #cacbcc;
+  border-radius: 5px;
   height: 600px;
   display: block;
   overflow: auto;
@@ -43,6 +44,6 @@
     // padding-top: 10px;
   }
   #submit-message-button:hover {
-    background-color: #222f3d;
+    background-color: rgb(255, 229, 182);
   }
 }
