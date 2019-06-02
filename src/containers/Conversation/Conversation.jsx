@@ -24,6 +24,8 @@ class Conversation extends Component {
       const user = this.props.currentUser;
     }
     // this.props.grabUserThreads();
+    let scroller = document.getElementById('messages-container');
+    scroller.scrollTop = scroller.scrollHeight;
   }
 
   render() {
@@ -54,15 +56,27 @@ class Conversation extends Component {
             <div className="conversation-page-title">
               <h1>Conversation Page</h1>
             </div>
-            <div className="messages-container">
+            <div className="messages-container" id="messages-container">
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
+              {messagesBox}
               {messagesBox}
               {/* {threadsBox} */}
               {/* <div>{this.props.threads[0].subject}</div> */}
             </div>
             <div className="input-message-container">
               <form action="">
-                <textarea name="" id="" cols="30" rows="10" />
-                <button>Send</button>
+                <div id="form-div">
+                  <textarea name="" id="message-input" cols="30" rows="10" />
+                  <div id="button-container">
+                    <button id="submit-message-button">Send</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

@@ -18,10 +18,8 @@ class MessageBox extends Component {
 
     return (
       <div className="message-box">
-        {/* <h3>{}</h3> */}
-
-        <h3>{body}</h3>
         <h4>User: {sent_by}</h4>
+        <div className="message-body">{body}</div>
       </div>
     );
   }
