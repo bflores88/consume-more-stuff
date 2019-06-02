@@ -48,8 +48,8 @@ router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) =>
 });
 
 // get all active items from a single user
-router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, res) => {
-  Item.where({ user_id: req.params.userId, active: true })
+router.route('/items/:id/active').get(registeredUser, ownershipGuard, (req, res) => {
+  Item.where({ user_id: req.params.id, active: true })
     .fetchAll()
     .then((result) => {
       // replies with all active items associated with the user
@@ -61,8 +61,8 @@ router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, 
 });
 
 // get all inactive items from a single user
-router.route('/items/:userId/inactive').get(registeredUser, (req, res) => {
-  Item.where({ user_id: req.params.userId, active: false })
+router.route('/items/:id/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+  Item.where({ user_id: req.params.id, active: false })
     .fetchAll()
     .then((result) => {
       // replies with all inactive items associated with the user
