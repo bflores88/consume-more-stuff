@@ -7,11 +7,22 @@ const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 
+router.route('/all').get((req, res) => {
+  new User()
+    .fetchAll({ withRelated: ['roles'] })
+    .then((result) => {
+      // reply with logged in user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
+
 router.route('/:id').get((req, res) => {
   new User({ id: req.params.id })
-    .fetch({ withRelated: ['roles']})
+    .fetch({ withRelated: ['roles'] })
     .then((result) => {
-      console.log(result)
       // reply with logged in user
       return res.json(result);
     })
@@ -33,30 +44,30 @@ router.route('/items/:userId').get((req, res) => {
 });
 
 // get all active items from a single user
-router.route('/items/:userId/active').get((req, res)=> {
-  Item.where({ user_id: req.params.userId, active: true})
-  .fetchAll()
-  .then((result) => {
-    // replies with all active items associated with the user
-    return res.json(result)
-  })
-  .catch((err) => {
-    console.log('error:', err)
-  })
-})
+router.route('/items/:userId/active').get((req, res) => {
+  Item.where({ user_id: req.params.userId, active: true })
+    .fetchAll()
+    .then((result) => {
+      // replies with all active items associated with the user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 // get all inactive items from a single user
 router.route('/items/:userId/inactive').get((req, res) => {
-  Item.where({ user_id: req.params.userId, active: false})
-  .fetchAll()
-  .then((result) => {
-    // replies with all inactive items associated with the user
-    return res.json(result)
-  })
-  .catch((err) => {
-    console.log('error:', err)
-  })
-})
+  Item.where({ user_id: req.params.userId, active: false })
+    .fetchAll()
+    .then((result) => {
+      // replies with all inactive items associated with the user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 // edit general profile
 router.route('/profile').put((req, res) => {
@@ -99,7 +110,6 @@ router.route('/theme').put((req, res) => {
 
 // change password
 router.route('/password').put((req, res) => {
-
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
       console.log('error:', err);
