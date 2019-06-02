@@ -13,6 +13,7 @@ class Conversation extends Component {
 
     this.state = {
       body: '',
+      messages: this.props.messages,
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.postMessage = this.postMessage.bind(this);
@@ -32,28 +33,25 @@ class Conversation extends Component {
     data.body = this.state.body;
 
     console.log(data);
-    // const postEm = (inputData) =>{
-    //   return () =>{
-    //     return this.props.addItem(inputData)
-    //   }
-    // }
+
     this.props.postNewMessage(data, this.props.match.params.id);
-    this.props.grabThreadMessages(this.props.match.params.id);
+    // this.props.grabThreadMessages(this.props.match.params.id);
   }
 
   componentDidMount() {
     const user = this.props.currentUser;
     this.props.grabThreadMessages(this.props.match.params.id);
-    console.log(this.props.currentUser);
+    // console.log(this.props.currentUser);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currentUser !== prevProps.currentUser) {
-      const user = this.props.currentUser;
+    if (this.props.messages !== prevProps.messages) {
+      let scroller = document.getElementById('messages-container');
+      scroller.scrollTop = scroller.scrollHeight;
+      // const user = this.props.currentUser;
+      // this.props.grabThreadMessages(this.props.match.params.id);
     }
     // this.props.grabUserThreads();
-    let scroller = document.getElementById('messages-container');
-    scroller.scrollTop = scroller.scrollHeight;
   }
 
   render() {

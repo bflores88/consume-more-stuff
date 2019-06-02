@@ -12,6 +12,12 @@
   overflow: auto;
   white-space: nowrap;
   margin: 1em 1em 0em 1em;
+  .messages-container::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  .messages-container::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 #form-div {
