@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Messages.scss';
 import { grabUserThreads } from '../../actions';
 import ThreadBox from '../ThreadBox';
+import { Link } from 'react-router-dom';
 
 class Messages extends Component {
   constructor(props) {
@@ -52,9 +53,17 @@ class Messages extends Component {
         return (
           <div className="message-page">
             <div className="message-page-title">
-              <h1>Messages Page</h1>
+              <h1>Your Messages</h1>
             </div>
             <div className="threads-container">
+              <Link to={'/add-thread'}>
+                <div className="add-thread-box">
+                  <h3>Create new thread</h3>
+
+                  {/* <p>{id}</p>
+                  <h4>Users: {user_list}</h4> */}
+                </div>
+              </Link>
               {threadsBox}
               {/* <div>{this.props.threads[0].subject}</div> */}
             </div>

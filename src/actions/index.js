@@ -19,6 +19,7 @@ export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
 export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
+export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -32,6 +33,23 @@ export const loadItems = () => {
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabAllUsers = () => {
+  return (dispatch) => {
+    return fetch('/api/users/all')
+      .then((response) => {
+        return response.json();
+      })
+      .then((users) => {
+        console.log(users);
+        return dispatch({
+          type: GRAB_ALL_USERS,
+          payload: users,
         });
       })
       .catch((err) => console.log('Cant access website' + err));
