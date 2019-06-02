@@ -7,6 +7,7 @@ import { ADD_ITEM } from '../actions';
 import { LOAD_CATEGORIES } from '../actions';
 import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
+import { UPDATE_USER_PASSWORD } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -18,7 +19,8 @@ const initialState = {
   user: {},
   newestItem: '',
   categories: [],
-  itemsByCategory: {}
+  itemsByCategory: {},
+  passwordUpdateStatus: false,
 };
 
 function itemReducer(state = initialState, action) {
@@ -57,6 +59,10 @@ function itemReducer(state = initialState, action) {
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
+    
+    case UPDATE_USER_PASSWORD:
+      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] })
+    
 
     default:
       return state;
