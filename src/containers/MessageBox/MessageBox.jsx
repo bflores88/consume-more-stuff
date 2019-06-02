@@ -15,20 +15,33 @@ class MessageBox extends Component {
     const threadID = id;
     // const redirectTo = `/conversation/${threadID}`;
     // const redirectLink = `/conversation/${threadID}`;
-
-    return (
-      <div className="thread-box">
-        {/* <h3>{}</h3> */}
-
-        <h3>{body}</h3>
-        <h4>User: {sent_by}</h4>
-      </div>
-    );
+    if (sent_by === this.props.currentUser.id) {
+      return (
+        <div className="outer-message-box-user">
+          <div className="message-box" className="user-message">
+            {/* <h4>User: {sent_by}</h4> */}
+            <p className="sent_by">User: {sent_by}</p>
+            <div className="message-body">{body}</div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="outer-message-box-other">
+          <div className="message-box" className="other-message">
+            <p className="sent_by">User: {sent_by}</p>
+            <div className="message-body">{body}</div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    currentUser: state.itemReducer.currentUser,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

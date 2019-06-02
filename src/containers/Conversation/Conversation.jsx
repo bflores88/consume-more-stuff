@@ -5,23 +5,51 @@ import './Conversation.scss';
 import { grabThreadMessages } from '../../actions';
 import MessageBox from '../MessageBox';
 
+import { postNewMessage } from '../../actions';
+
 class Conversation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      body: '',
+      messages: this.props.messages,
+    };
+    this.handleInputOnChange = this.handleInputOnChange.bind(this);
+    this.postMessage = this.postMessage.bind(this);
+  }
+
+  handleInputOnChange(e) {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    console.log(name, value);
+    return this.setState({ [name]: value });
+  }
+
+  postMessage(e) {
+    e.preventDefault();
+    const data = {};
+    data.body = this.state.body;
+
+    console.log(data);
+
+    this.props.postNewMessage(data, this.props.match.params.id);
+    // this.props.grabThreadMessages(this.props.match.params.id);
   }
 
   componentDidMount() {
     const user = this.props.currentUser;
     this.props.grabThreadMessages(this.props.match.params.id);
-    return console.log(this.props.threads);
+    // console.log(this.props.currentUser);
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.currentUser);
-    if (this.props.currentUser !== prevProps.currentUser) {
-      const user = this.props.currentUser;
+    if (this.props.messages !== prevProps.messages) {
+      let scroller = document.getElementById('messages-container');
+      scroller.scrollTop = scroller.scrollHeight;
+      // const user = this.props.currentUser;
+      // this.props.grabThreadMessages(this.props.match.params.id);
     }
     // this.props.grabUserThreads();
   }
@@ -33,8 +61,6 @@ class Conversation extends Component {
       if (this.props.messages.length === 0) {
         return <div>olollo</div>;
       } else {
-        console.log('messages', this.props.messages);
-
         const messagesBox = this.props.messages.map((message, idx) => {
           return (
             <MessageBox
@@ -54,11 +80,23 @@ class Conversation extends Component {
             <div className="conversation-page-title">
               <h1>Conversation Page</h1>
             </div>
-            <div className="messages-container">
-              <div>test box</div>
+            <div className="messages-container" id="messages-container">
               {messagesBox}
+
               {/* {threadsBox} */}
               {/* <div>{this.props.threads[0].subject}</div> */}
+            </div>
+            <div className="input-message-container">
+              <form action="">
+                <div id="form-div">
+                  <textarea onChange={this.handleInputOnChange} name="body" id="message-input" cols="30" rows="10" />
+                  <div id="button-container">
+                    <button onClick={this.postMessage} id="submit-message-button">
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         );
@@ -79,6 +117,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     grabThreadMessages: (id) => {
       dispatch(grabThreadMessages(id));
+    },
+    postNewMessage: (data, id) => {
+      dispatch(postNewMessage(data, id));
     },
   };
 };

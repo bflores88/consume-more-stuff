@@ -21,6 +21,7 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
+import { POST_NEW_MESSAGE } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -37,7 +38,10 @@ const initialState = {
 
   categories: [],
   itemsByCategory: {},
+
+
   passwordUpdateStatus: false,
+
 
 };
 
@@ -71,9 +75,9 @@ function itemReducer(state = initialState, action) {
 
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
-    
+
     case LOAD_ITEMS_BY_CATEGORY:
-        return Object.assign({}, state, { itemsByCategory: [action.payload] })
+      return Object.assign({}, state, { itemsByCategory: [action.payload] });
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
@@ -86,6 +90,9 @@ function itemReducer(state = initialState, action) {
       return Object.assign({}, state, { threads: [...action.payload] });
 
     case GRAB_THREAD_MESSAGES:
+      return Object.assign({}, state, { messages: [...action.payload] });
+
+    case POST_NEW_MESSAGE:
       return Object.assign({}, state, { messages: [...action.payload] });
 
     default:
