@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './InactiveItems.scss';
 import { loadInactiveItems, grabItemImages } from '../../actions';
 import { connect } from 'react-redux';
 import Item from '../../containers/Item';
 
-class InactiveItems extends Component {
+class ActiveItems extends Component {
   constructor(props) {
     super(props);
 

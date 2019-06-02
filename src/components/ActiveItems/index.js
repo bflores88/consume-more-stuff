@@ -1,2 +1,2 @@
-import InactiveItems from './InactiveItems';
+import InactiveItems from './ActiveItems';
 export default InactiveItems;
