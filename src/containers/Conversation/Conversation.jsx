@@ -44,6 +44,7 @@ class Conversation extends Component {
   componentDidMount() {
     const user = this.props.currentUser;
     this.props.grabThreadMessages(this.props.match.params.id);
+    console.log(this.props.currentUser);
   }
 
   componentDidUpdate(prevProps) {

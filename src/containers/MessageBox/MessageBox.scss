@@ -8,7 +8,44 @@
   min-height: 100px;
   overflow-wrap: break-word;
   white-space: normal; // overflow: hidden;
+
   .message-body {
     font-size: 1em;
   }
+}
+.outer-message-box-user {
+  overflow-wrap: break-word;
+  white-space: normal; // overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 1em;
+}
+.outer-message-box-other {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 1em;
+  width: 100%;
+  overflow-wrap: break-word;
+  white-space: normal; // overflow: hidden;
+}
+
+.sent_by {
+  margin: 0;
+}
+
+.user-message {
+  background-color: rgb(205, 255, 238);
+  border-radius: 10px;
+  // padding: 0.5em;
+  width: 50%;
+  padding: 0.5em;
+}
+
+.other-message {
+  background-color: rgb(252, 229, 186);
+  width: 50%;
+  border-radius: 10px;
+  padding: 0.5em;
 }
