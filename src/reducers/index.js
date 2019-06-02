@@ -1,13 +1,5 @@
 import { combineReducers } from 'redux';
 
-// import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
-// import { LOAD_SPECIFIC_ITEM } from '../actions';
-// import { GRAB_ITEM_IMAGES } from '../actions';
-// import { REGISTER } from '../actions';
-// import { LOGIN } from '../actions';
-// import { LOGOUT } from '../actions';
-// import { ADD_ITEM } from '../actions';
-
 import { LOAD_ITEMS, LOAD_ITEMS_BY_CATEGORY, LOAD_SINGLE_USER } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -39,10 +31,7 @@ const initialState = {
   categories: [],
   itemsByCategory: {},
 
-
   passwordUpdateStatus: false,
-
-
 };
 
 function itemReducer(state = initialState, action) {
@@ -81,10 +70,9 @@ function itemReducer(state = initialState, action) {
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
-    
+
     case UPDATE_USER_PASSWORD:
-      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] })
-    
+      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
 
     case GRAB_USER_THREADS:
       return Object.assign({}, state, { threads: [...action.payload] });
