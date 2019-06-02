@@ -9,7 +9,6 @@ const saltRounds = 12;
 const registeredUser = require('../middleware/userGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
 
-
 router.route('/all').get(registeredUser, (req, res) => {
   new User()
     .fetchAll({ withRelated: ['roles'] })
@@ -21,11 +20,6 @@ router.route('/all').get(registeredUser, (req, res) => {
       console.log('error:', err);
     });
 });
-
-router.route('/:id').get((req, res) => {
-  new User({ id: req.params.id })
-    .fetch({ withRelated: ['roles'] })
-    .then((result) => {
 
 router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
   new User({ id: req.params.id })
@@ -55,7 +49,6 @@ router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) =>
 
 // get all active items from a single user
 router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, res) => {
-
   Item.where({ user_id: req.params.userId, active: true })
     .fetchAll()
     .then((result) => {
@@ -69,7 +62,6 @@ router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, 
 
 // get all inactive items from a single user
 router.route('/items/:userId/inactive').get(registeredUser, ownershipGuard, (req, res) => {
-
   Item.where({ user_id: req.params.userId, active: false })
     .fetchAll()
     .then((result) => {
