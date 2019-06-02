@@ -58,7 +58,10 @@ class Messages extends Component {
             <div className="threads-container">
               <Link to={'/add-thread'}>
                 <div className="add-thread-box">
-                  <h3>Create new thread</h3>
+                  <h3>
+                    <i className="fas fa-plus-circle" />
+                    Create new thread
+                  </h3>
 
                   {/* <p>{id}</p>
                   <h4>Users: {user_list}</h4> */}
