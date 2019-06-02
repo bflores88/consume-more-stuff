@@ -1,8 +1,8 @@
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
-export const REGISTER = "REGISTER";
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
@@ -15,8 +15,11 @@ export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
 export const UPDATE_USER_PASSWORD = "UPDATE_USER_PASSWORD";
 export const LOAD_INACTIVE_ITEMS = "LOAD_INACTIVE_ITEMS";
+export const LOAD_ITEMS_BY_CATEGORY = 'LOAD_ITEMS_BY_CATEGORY';
+export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
+export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -36,6 +39,29 @@ export const loadItems = () => {
   };
 };
 
+export const postNewMessage = (data, threadID) => {
+  return (dispatch) => {
+    return fetch(`/api/threads/${threadID}`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return (dispatch) => {
+          dispatch({
+            type: POST_NEW_MESSAGE,
+            payload: response,
+          });
+        };
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
 export const grabThreadMessages = (threadId) => {
   return (dispatch) => {
     return fetch(`/api/threads/${threadId}`)
@@ -43,7 +69,7 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-        console.log(messages);
+        // console.log(messages);
 
         return dispatch({
           type: GRAB_THREAD_MESSAGES,
@@ -285,7 +311,7 @@ export const loadSingleUser = (userID) => {
         console.log(err);
       });
   };
-}
+};
 
 export const loadCategories = () => {
   return (dispatch) => {
@@ -308,7 +334,7 @@ export const loadCategories = () => {
         console.log(err);
       });
   };
-}
+};
 
 export const loadItemsByCategory = (category) => {
   return (dispatch) => {
@@ -331,7 +357,7 @@ export const loadItemsByCategory = (category) => {
         console.log(err);
       });
   };
-}
+};
 
 export const updatePassword = (data) => {
   return (dispatch) => {

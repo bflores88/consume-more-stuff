@@ -1,9 +1,14 @@
-.threads-container {
-  text-decoration: none;
-  .threads-container a {
-    text-decoration: none;
-  }
-  a:link {
-    text-decoration: none;
-  }
+.thread-box {
+  // border: 1px solid orange;
+  border-radius: 5px;
+  margin: 1em;
+  padding: 1em;
+  color: #222f3d;
+  background-color: rgb(252, 229, 189);
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.thread-box:hover {
+  background-color: rgb(255, 244, 225);
 }

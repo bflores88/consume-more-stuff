@@ -1,13 +1,5 @@
 import { combineReducers } from 'redux';
 
-// import { LOAD_ITEMS, LOAD_SINGLE_USER } from '../actions';
-// import { LOAD_SPECIFIC_ITEM } from '../actions';
-// import { GRAB_ITEM_IMAGES } from '../actions';
-// import { REGISTER } from '../actions';
-// import { LOGIN } from '../actions';
-// import { LOGOUT } from '../actions';
-// import { ADD_ITEM } from '../actions';
-
 import { LOAD_ITEMS, LOAD_ITEMS_BY_CATEGORY, LOAD_SINGLE_USER } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -22,6 +14,7 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
+import { POST_NEW_MESSAGE } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -87,6 +80,9 @@ function itemReducer(state = initialState, action) {
       return Object.assign({}, state, { threads: [...action.payload] });
 
     case GRAB_THREAD_MESSAGES:
+      return Object.assign({}, state, { messages: [...action.payload] });
+
+    case POST_NEW_MESSAGE:
       return Object.assign({}, state, { messages: [...action.payload] });
 
     default:
