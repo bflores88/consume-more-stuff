@@ -5,12 +5,13 @@ const router = express.Router();
 const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
 const UserThread = require('../database/models/UserThread');
-
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 const knex = require('../database/knex.js');
 
 router
   .route('/')
-  .get((req, res) => {
+  .get(registeredUser, ownershipGuard, (req, res) => {
     // subquery selects threads associated with user
     // top level query selects thread attributes & associated usernames
     // (for each of the subqueried threads)
@@ -32,7 +33,7 @@ router
         return res.json(result.rows);
       });
   })
-  .post((req, res) => {
+  .post(registeredUser, ownershipGuard, (req, res) => {
     new Thread()
       .save({
         subject: req.body.subject,
@@ -46,37 +47,38 @@ router
             sent_by: req.user.id,
           })
           .then((result) => {
-            new UserThread()
-              .save({
-                thread_id: result.attributes.thread_id,
+            const thread_id = result.attributes.thread_id;
+            let usersThreads = [
+              {
+                thread_id: thread_id,
                 sent_to: req.user.id,
-              })
-              .then((result) => {
-                const thread_id = result.attributes.thread_id;
-                let usersThreads = [];
-                req.body.userList.forEach((user) => {
-                  usersThreads.push({
-                    thread_id: thread_id,
-                    sent_to: parseInt(user),
-                  });
+              },
+            ];
+            const userList = req.body.userList;
+            if (userList.length > 0) {
+              userList.forEach((user) => {
+                usersThreads.push({
+                  thread_id: thread_id,
+                  sent_to: parseInt(user),
                 });
+              });
+            }
 
-                UserThread.collection(usersThreads)
-                  .invokeThen('save')
-                  .then((result) => {
-                    knex
-                      .raw(
-                        `SELECT DISTINCT messages.* 
+            UserThread.collection(usersThreads)
+              .invokeThen('save')
+              .then((result) => {
+                knex
+                  .raw(
+                    `SELECT DISTINCT messages.* 
                         FROM users_threads
                         INNER JOIN users ON users.id = users_threads.sent_to
                         INNER JOIN threads ON threads.id = users_threads.thread_id
                         INNER JOIN messages ON messages.thread_id = threads.id
                         WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
-                        [req.user.id, result[0].attributes.thread_id],
-                      )
-                      .then((result) => {
-                        return res.json(result.rows);
-                      });
+                    [req.user.id, result[0].attributes.thread_id],
+                  )
+                  .then((result) => {
+                    return res.json(result.rows);
                   });
               });
           });
@@ -85,7 +87,7 @@ router
 
 router
   .route('/:threadId')
-  .get((req, res) => {
+  .get(registeredUser, ownershipGuard, (req, res) => {
     knex
       .raw(
         `SELECT DISTINCT messages.* 
@@ -100,7 +102,7 @@ router
         return res.json(result.rows);
       });
   })
-  .post((req, res) => {
+  .post(registeredUser, ownershipGuard, (req, res) => {
     new Message()
       .save({
         body: req.body.body,

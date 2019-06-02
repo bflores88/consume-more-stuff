@@ -1,0 +1,21 @@
+.user-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  .singleItem {
+    border: none;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .edit-buttons {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
