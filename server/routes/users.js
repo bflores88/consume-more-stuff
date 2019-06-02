@@ -6,12 +6,14 @@ const User = require('../database/models/User');
 const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
   new User({ id: req.params.id })
-    .fetch({ withRelated: ['roles']})
+    .fetch({ withRelated: ['roles'] })
     .then((result) => {
-      console.log(result)
+      // console.log(result)
       // reply with logged in user
       return res.json(result);
     })
@@ -20,7 +22,7 @@ router.route('/:id').get((req, res) => {
     });
 });
 
-router.route('/items/:userId').get((req, res) => {
+router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) => {
   Item.where({ user_id: req.params.userId })
     .fetchAll()
     .then((result) => {
@@ -33,30 +35,30 @@ router.route('/items/:userId').get((req, res) => {
 });
 
 // get all active items from a single user
-router.route('/items/:userId/active').get((req, res)=> {
-  Item.where({ user_id: req.params.userId, active: true})
-  .fetchAll()
-  .then((result) => {
-    // replies with all active items associated with the user
-    return res.json(result)
-  })
-  .catch((err) => {
-    console.log('error:', err)
-  })
-})
+router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, res) => {
+  Item.where({ user_id: req.params.userId, active: true })
+    .fetchAll()
+    .then((result) => {
+      // replies with all active items associated with the user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 // get all inactive items from a single user
-router.route('/items/:userId/inactive').get((req, res) => {
-  Item.where({ user_id: req.params.userId, active: false})
-  .fetchAll()
-  .then((result) => {
-    // replies with all inactive items associated with the user
-    return res.json(result.toJSON())
-  })
-  .catch((err) => {
-    console.log('error:', err)
-  })
-})
+router.route('/items/:userId/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+  Item.where({ user_id: req.params.userId, active: false })
+    .fetchAll()
+    .then((result) => {
+      // replies with all inactive items associated with the user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 // edit general profile
 router.route('/profile').put((req, res) => {
