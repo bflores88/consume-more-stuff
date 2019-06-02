@@ -61,7 +61,7 @@ router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, 
 });
 
 // get all inactive items from a single user
-router.route('/items/:userId/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/items/:userId/inactive').get(registeredUser, (req, res) => {
   Item.where({ user_id: req.params.userId, active: false })
     .fetchAll()
     .then((result) => {
