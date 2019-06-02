@@ -17,6 +17,7 @@ import { LOAD_CATEGORIES } from '../actions';
 
 import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
+import { UPDATE_USER_PASSWORD } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
@@ -37,6 +38,11 @@ const initialState = {
 
   categories: [],
   itemsByCategory: {},
+
+
+  passwordUpdateStatus: false,
+
+
 };
 
 function itemReducer(state = initialState, action) {
@@ -75,6 +81,10 @@ function itemReducer(state = initialState, action) {
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
+    
+    case UPDATE_USER_PASSWORD:
+      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] })
+    
 
     case GRAB_USER_THREADS:
       return Object.assign({}, state, { threads: [...action.payload] });

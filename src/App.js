@@ -16,6 +16,7 @@ import ItemDetail from './containers/ItemDetail/';
 
 import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
 import UserItems from './containers/UserItems';
+import PasswordUpdate from './containers/PasswordUpdate';
 
 import Conversation from './containers/Conversation';
 
@@ -34,8 +35,8 @@ class App extends Component {
               <Route path="/Register" render={(props) => <Registration {...props} />} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
-
-
+              <Route path="/messages/:id" component={Messages} />
+              <Route path="/profiles/settings" component={PasswordUpdate} />
               <Route path="/profiles/:id" component={Profiles} />
               <Route path="/users/:id/items" component={UserItems} />
               <Route path="/items/category/:category" component={Category} />

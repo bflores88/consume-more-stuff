@@ -12,7 +12,10 @@ export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
-export const LOAD_ITEMS_BY_CATEGORY = 'LOAD_ITEMS_BY_CATEGORY';
+
+export const LOAD_ITEMS_BY_CATEGORY = "LOAD_ITEMS_BY_CATEGORY";
+export const UPDATE_USER_PASSWORD = "UPDATE_USER_PASSWORD";
+
 
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
@@ -354,4 +357,31 @@ export const loadItemsByCategory = (category) => {
         console.log(err);
       });
   };
+
 };
+
+}
+
+export const updatePassword = (data) => {
+  return (dispatch) => {
+    return fetch('/api/users/password', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: UPDATE_USER_PASSWORD,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+}
+
+
