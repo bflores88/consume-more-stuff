@@ -14,6 +14,8 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
+import { POST_NEW_MESSAGE } from '../actions';
+import { GRAB_ALL_USERS } from '../actions';
 
 
 const initialState = {
@@ -29,7 +31,11 @@ const initialState = {
   messages: [],
   categories: [],
   itemsByCategory: {},
+
+  userList: [],
+
   inactiveItems: [],
+
   passwordUpdateStatus: false,
 };
 
@@ -84,6 +90,9 @@ function itemReducer(state = initialState, action) {
 
     case POST_NEW_MESSAGE:
       return Object.assign({}, state, { messages: [...action.payload] });
+
+    case GRAB_ALL_USERS:
+      return Object.assign({}, state, { userList: [...action.payload] });
 
     default:
       return state;
