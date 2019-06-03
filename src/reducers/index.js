@@ -91,6 +91,7 @@ function itemReducer(state = initialState, action) {
 }
 
 function userReducer(state = userState, action) { 
+  console.log('userReducer action.payload', action.payload);
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
