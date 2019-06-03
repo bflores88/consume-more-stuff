@@ -1,14 +1,27 @@
+.inactiveItemsBox {
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
 .user-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  max-width: 25%;
+  margin: 20px;
 
   .singleItem {
     border: none;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .edit-buttons {

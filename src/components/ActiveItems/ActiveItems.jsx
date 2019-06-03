@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './InactiveItems.scss';
-import { loadInactiveItems, grabItemImages } from '../../actions';
+import './ActiveItems.scss';
+import { loadActiveItems, grabItemImages } from '../../actions';
 import { connect } from 'react-redux';
 import Item from '../../containers/Item';
 
@@ -14,7 +14,7 @@ class ActiveItems extends Component {
   componentDidMount() {
     this.props.grabItemImages();
     const id = this.props.id;
-    return this.props.loadInactiveItems(id);
+    return this.props.loadActiveItems(id);
   }
 
   filterImages(id, images) {
@@ -22,7 +22,7 @@ class ActiveItems extends Component {
   }
 
   render() {
-    const items = this.props.inactiveItems;
+    const items = this.props.activeItems;
     const itemsBox = items.map((item, idx) => {
  
       let itemLink;
@@ -71,8 +71,8 @@ class ActiveItems extends Component {
 
     return (
       <>
-        <h1>Inactive Items</h1>
-        <div className="inactiveItemsBox">{itemsBox}</div>
+        <h1>Active Items</h1>
+        <div className="activeItemsBox">{itemsBox}</div>
       </>
     );
   }
@@ -81,21 +81,21 @@ class ActiveItems extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.itemReducer.currentUser,
-    inactiveItems: state.itemReducer.inactiveItems,
+    activeItems: state.itemReducer.activeItems,
     images: state.itemReducer.images,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadInactiveItems: (userID) => dispatch(loadInactiveItems(userID)),
+    loadActiveItems: (userID) => dispatch(loadActiveItems(userID)),
     grabItemImages: (item) => dispatch(grabItemImages(item)),
   };
 };
 
-InactiveItems = connect(
+ActiveItems = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(InactiveItems);
+)(ActiveItems);
 
-export default InactiveItems;
+export default ActiveItems;

@@ -53,7 +53,7 @@ function itemReducer(state = initialState, action) {
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
     
-    case LOAD_INACTIVE_ITEMS:
+    case LOAD_ACTIVE_ITEMS:
       return Object.assign({}, state, { activeItems: action.payload });
 
     case LOAD_INACTIVE_ITEMS:

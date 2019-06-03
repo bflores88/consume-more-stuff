@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './UserItems';
+import './UserItems.scss';
 import InactiveItems from '../../components/InactiveItems';
+import ActiveItems from '../../components/ActiveItems';
 import { connect } from 'react-redux';
 
 class UserItems extends Component {
@@ -11,11 +12,18 @@ class UserItems extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.id)
+    const thisUser = this.props.currentUser.id;
+    const userPage = parseInt(this.props.match.params.id);
+    console.log('this user', thisUser);
+    console.log('params page', userPage);
+
     return (
       <>
-        <div> User Items Page</div>
+        <div className="user-items">
+          <ActiveItems id={parseInt(this.props.match.params.id)} />
+          <br></br><br></br>
         <InactiveItems id={parseInt(this.props.match.params.id)} />
+        </div>
       </>
     );
   }
