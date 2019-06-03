@@ -204,7 +204,7 @@ class AddItem extends Component {
 const mapStateToProps = (state) => {
   return {
     images: state.itemReducer.images,
-    currentUser: state.itemReducer.currentUser,
+    currentUser: state.userReducer.user,
     newestItem: state.itemReducer.newestItem,
   };
 };

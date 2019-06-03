@@ -36,11 +36,12 @@ class Profiles extends Component {
           </>
         );
       } else {
+        console.log(this.props.user);
         const user = {
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
-          role: this.props.user.roles.roleName,
+          // role: this.props.user.roles.roleName,
           image: this.props.user.profileImageUrl,
           active: this.props.user.active,
         };
@@ -85,8 +86,8 @@ class Profiles extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.itemReducer.currentUser,
-    user: state.itemReducer.user,
+    currentUser: state.userReducer.user,
+    user: state.userReducer.user,
   };
 };
 
