@@ -49,6 +49,8 @@
     // border-color: aq;
     height: 40px;
     // padding-top: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
   }
   #submit-message-button:hover {
     background-color: rgb(255, 229, 182);

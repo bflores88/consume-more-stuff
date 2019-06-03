@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { LOAD_ITEMS, LOAD_ITEMS_BY_CATEGORY, LOAD_SINGLE_USER, POST_NEW_MESSAGE, LOAD_INACTIVE_ITEMS } from '../actions';
+import {
+  LOAD_ITEMS,
+  LOAD_ITEMS_BY_CATEGORY,
+  LOAD_SINGLE_USER,
+  POST_NEW_MESSAGE,
+  LOAD_INACTIVE_ITEMS,
+} from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
 import { ADD_ITEM } from '../actions';
@@ -14,6 +20,7 @@ import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
+import { GRAB_ALL_USERS } from '../actions';
 
 const initialState = {
   // user: JSON.parse(localStorage.getItem('user')),
@@ -25,6 +32,9 @@ const initialState = {
   messages: [],
   categories: [],
   itemsByCategory: {},
+
+  userList: [],
+
   inactiveItems: [],
 };
 
@@ -54,9 +64,6 @@ function itemReducer(state = initialState, action) {
 
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
-    
-    // case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
-    //   return Object.assign({}, state, { user: action.payload })
 
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
@@ -78,6 +85,9 @@ function itemReducer(state = initialState, action) {
 
     case POST_NEW_MESSAGE:
       return Object.assign({}, state, { messages: [...action.payload] });
+
+    case GRAB_ALL_USERS:
+      return Object.assign({}, state, { userList: [...action.payload] });
 
     default:
       return state;
@@ -101,7 +111,7 @@ function userReducer(state = userState, action) {
     case LOGOUT_FAILURE:
       return Object.assign({}, state);
 
-    case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
+    case LOAD_SINGLE_USER: 
       return Object.assign({}, state, { user: action.payload })
 
     default: 

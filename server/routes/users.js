@@ -9,11 +9,24 @@ const saltRounds = 12;
 const registeredUser = require('../middleware/userGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
 
+router.route('/all').get(registeredUser, (req, res) => {
+  new User()
+    .fetchAll({ withRelated: ['roles'] })
+    .then((result) => {
+      // reply with logged in user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
+
 router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
   new User({ id: req.params.id })
     .fetch({ withRelated: ['roles'] })
     .then((result) => {
       // console.log(result)
+
       // reply with logged in user
       return res.json(result);
     })
@@ -48,7 +61,7 @@ router.route('/items/:userId/active').get(registeredUser, ownershipGuard, (req, 
 });
 
 // get all inactive items from a single user
-router.route('/items/:userId/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/items/:userId/inactive').get(registeredUser, (req, res) => {
   Item.where({ user_id: req.params.userId, active: false })
     .fetchAll()
     .then((result) => {
@@ -101,7 +114,6 @@ router.route('/theme').put((req, res) => {
 
 // change password
 router.route('/password').put((req, res) => {
-
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
       console.log('error:', err);

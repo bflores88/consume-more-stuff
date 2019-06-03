@@ -20,7 +20,7 @@ import UserItems from './containers/UserItems';
 import PasswordUpdate from './containers/PasswordUpdate';
 
 import Conversation from './containers/Conversation';
-
+import AddThread from './containers/AddThread';
 
 class App extends Component {
   render() {
@@ -44,12 +44,11 @@ class App extends Component {
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
               <Route path="/not-authorized" component={NotAuthorized} />
+              <Route path="/add-thread" component={AddThread} />
 
               <Route path="/messages" component={Messages} />
 
-
               <Route path="/conversation/:id" component={Conversation} />
-
             </Switch>
           </div>
         </div>
