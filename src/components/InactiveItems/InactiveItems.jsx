@@ -18,6 +18,14 @@ class InactiveItems extends Component {
     return this.props.loadInactiveItems(id);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.id !== prevProps.id) {
+      const id = this.props.id;
+      this.props.grabItemImages();
+      return this.props.loadActiveItems(id);
+    }
+  }
+
   filterImages(id, images) {
     return images.filter((image) => image.item_id === id);
   }
