@@ -5,8 +5,8 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
-
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const LOAD_ACTIVE_ITEMS = "LOAD_ACTIVE_ITEMS";
 export const LOAD_INACTIVE_ITEMS = "LOAD_INACTIVE_ITEMS";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
@@ -15,14 +15,17 @@ export const ADD_IMAGE = 'ADD_IMAGE';
 export const ADD_ITEM = 'ADD_ITEM';
 export const RESET_NEW_ITEM = 'RESET_NEW_ITEM';
 export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
-export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
-export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 export const LOAD_ITEMS_BY_CATEGORY = 'LOAD_ITEMS_BY_CATEGORY';
-export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
+
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
 export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
 export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
+export const GRAB_USERNAME = 'GRAB_USERNAME';
+export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
+export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -32,7 +35,6 @@ export const loadItems = () => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
@@ -49,7 +51,6 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
-        console.log(users);
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
@@ -122,7 +123,6 @@ export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
-        console.log('action', response);
         return response.json();
       })
       .then((item) => {
@@ -421,6 +421,32 @@ export const updatePassword = (data) => {
   };
 };
 
+export const loadActiveItems = (userID) => {
+  return (dispatch) => {
+    console.log(userID);
+    return fetch(`/api/users/items/${userID}/active`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        console.log(items);
+        return dispatch({
+          type: LOAD_ACTIVE_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+
 export const loadInactiveItems = (userID) => {
   return (dispatch) => {
     console.log(userID);
@@ -438,6 +464,29 @@ export const loadInactiveItems = (userID) => {
         return dispatch({
           type: LOAD_INACTIVE_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabUsername = (userID) => {
+  return (dispatch) => {
+    return fetch(`/api/users/${userID}/username`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((username) => {
+        return dispatch({
+          type: GRAB_USERNAME,
+          payload: username,
         });
       })
       .catch((err) => {
