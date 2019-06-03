@@ -79,7 +79,7 @@ class Messages extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.itemReducer.currentUser,
+    currentUser: state.userReducer.user,
     threads: state.itemReducer.threads,
   };
 };
