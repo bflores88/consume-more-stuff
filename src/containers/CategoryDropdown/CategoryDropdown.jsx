@@ -4,6 +4,7 @@ import './CategoryDropdown.scss';
 import { addItem } from '../../actions';
 import { resetNewItem } from '../../actions';
 import { loadCategories } from '../../actions';
+import { updateChosenCategory } from '../../actions';
 import SubCategoryDropdown from '../SubCategoryDropdown';
 
 class CategoryDropdown extends Component {
@@ -20,10 +21,11 @@ class CategoryDropdown extends Component {
   }
 
   handleInputOnChange(e) {
-    console.log('input');
     const value = e.target.value;
     const name = e.target.name;
     this.setState({ category_dropdown_id: value });
+    // console.log('update', this.state.category_dropdown_id);
+    return this.props.updateChosenCategory(value);
 
     // console.log('dropdown id', this.state.category_dropdown_id);
     //   let categoryProps = this.props.categories;
@@ -105,6 +107,7 @@ const mapStateToProps = (state) => {
     currentUser: state.itemReducer.currentUser,
     newestItem: state.itemReducer.newestItem,
     categories: state.itemReducer.categories,
+    chosen_category: state.itemReducer.chosen_category,
   };
 };
 
@@ -118,6 +121,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadCategories: () => {
       dispatch(loadCategories());
+    },
+    updateChosenCategory: (id) => {
+      dispatch(updateChosenCategory(id));
     },
   };
 };

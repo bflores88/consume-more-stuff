@@ -1,13 +1,13 @@
 // ACTION DEFINTION
-export const REGISTER = "REGISTER";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const REGISTER = 'REGISTER';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
-export const LOAD_ACTIVE_ITEMS = "LOAD_ACTIVE_ITEMS";
-export const LOAD_INACTIVE_ITEMS = "LOAD_INACTIVE_ITEMS";
+export const LOAD_ACTIVE_ITEMS = 'LOAD_ACTIVE_ITEMS';
+export const LOAD_INACTIVE_ITEMS = 'LOAD_INACTIVE_ITEMS';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
 export const LOAD_SPECIFIC_ITEM = 'LOAD_SPECIFIC_ITEM';
 export const GRAB_ITEM_IMAGES = 'GRAB_ITEM_IMAGE';
@@ -27,6 +27,9 @@ export const GRAB_USERNAME = 'GRAB_USERNAME';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 
+export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
+export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -41,6 +44,26 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const updateChosenCategory = (category) => {
+  return (dispatch) => {
+    console.log('action update', category);
+    return dispatch({
+      type: UPDATE_CHOSEN_CATEGORY,
+      payload: category,
+    });
+  };
+};
+
+export const updateChosenSubCategory = (category) => {
+  return (dispatch) => {
+    console.log('action update sub', category);
+    return dispatch({
+      type: UPDATE_CHOSEN_SUBCATEGORY,
+      payload: category,
+    });
   };
 };
 
@@ -153,10 +176,6 @@ export const grabItemImages = () => {
   };
 };
 
-
-
-
-
 export const addItem = (data) => {
   return (dispatch) => {
     return fetch('/api/items', {
@@ -256,29 +275,29 @@ export const loadSingleUser = (userID) => {
         console.log(err);
       });
   };
-}
+};
 
 export const register = (accountData) => {
   return (dispatch) => {
-     return fetch('api/auth/register', {
+    return fetch('api/auth/register', {
       method: 'POST',
       body: JSON.stringify(accountData),
-      headers: { 'Content-Type' : 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((body) => {
-      return dispatch({
-        type: REGISTER,
-        payload: body,
+      .then((response) => {
+        return response.json();
       })
-    })
-    .catch((error) => {
-      console.log('Error in registration: ', error);
-    })
-  }
-}
+      .then((body) => {
+        return dispatch({
+          type: REGISTER,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in registration: ', error);
+      });
+  };
+};
 
 export const login = (credentials) => {
   return (dispatch) => {
@@ -288,43 +307,43 @@ export const login = (credentials) => {
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      // console.log('2 - Actions login() response', response);
-      if (response.status === 200){
-        return response.json();
-      } else {
-        return { error : 'Bad Username or Password. Try again!' }
-      }
-    })
-    .then((body) => { 
-      if (body.error){ 
-        // console.log('3 - Actions login() error ', body);
-        return dispatch ({
-          type: LOGIN_FAILURE, 
-          payload: body
-        })
-      } else {
-        // console.log('3 - Actions login() ok ', body);
-        let userObj = {
-          username: body.username,
-          id: body.id,
-          active: body.active,
-          role_id: body.role_id,
-          theme_id: body.theme_id,
-          name: body.name,
-          profileImageUrl: body.profileImageUrl,
-          email: body.email,
+      .then((response) => {
+        // console.log('2 - Actions login() response', response);
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return { error: 'Bad Username or Password. Try again!' };
         }
-        localStorage.setItem('user', JSON.stringify(userObj));
-        return dispatch({
-          type: LOGIN_SUCCESS, 
-          payload: userObj,
-        });
-      }
-    })
-    .catch((error) => {
-      console.log('Error in login: ', error);
-    });
+      })
+      .then((body) => {
+        if (body.error) {
+          // console.log('3 - Actions login() error ', body);
+          return dispatch({
+            type: LOGIN_FAILURE,
+            payload: body,
+          });
+        } else {
+          // console.log('3 - Actions login() ok ', body);
+          let userObj = {
+            username: body.username,
+            id: body.id,
+            active: body.active,
+            role_id: body.role_id,
+            theme_id: body.theme_id,
+            name: body.name,
+            profileImageUrl: body.profileImageUrl,
+            email: body.email,
+          };
+          localStorage.setItem('user', JSON.stringify(userObj));
+          return dispatch({
+            type: LOGIN_SUCCESS,
+            payload: userObj,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log('Error in login: ', error);
+      });
   };
 };
 
@@ -334,21 +353,21 @@ export const logout = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then(() => {
-      return dispatch({
-        type: LOGOUT_SUCCESS,
+      .then((response) => {
+        console.log(response);
+        return response.json();
       })
-    })
-    .catch((error) => {
-      console.log('Error in logout: ', error);
-      return dispatch({
-        type: LOGOUT_FAILURE,
+      .then(() => {
+        return dispatch({
+          type: LOGOUT_SUCCESS,
+        });
       })
-    });
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+        return dispatch({
+          type: LOGOUT_FAILURE,
+        });
+      });
   };
 };
 
@@ -444,7 +463,6 @@ export const loadActiveItems = (userID) => {
       });
   };
 };
-
 
 export const loadInactiveItems = (userID) => {
   return (dispatch) => {

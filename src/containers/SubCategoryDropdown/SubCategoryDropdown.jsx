@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addItem } from '../../actions';
 import { resetNewItem } from '../../actions';
 import { loadCategories } from '../../actions';
+import { updateChosenSubCategory } from '../../actions';
 
 class SubCategoryDropdown extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class SubCategoryDropdown extends Component {
     const value = e.target.value;
     const name = e.target.name;
     this.setState({ subcategory_dropdown_id: value });
+    this.props.updateChosenSubCategory(value);
   }
 
   componentDidMount() {
@@ -101,6 +103,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadCategories: () => {
       dispatch(loadCategories());
+    },
+    updateChosenSubCategory: (id) => {
+      dispatch(updateChosenSubCategory(id));
     },
   };
 };

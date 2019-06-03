@@ -52,9 +52,11 @@ class EditItem extends Component {
   editThisItem(e) {
     e.preventDefault();
     const data = {};
+    data.category_id = this.props.chosen_category;
+    data.subCategory_id = this.props.chosen_subcategory;
 
-    this.props.editItem(data);
-    console.log(this.props.newestItem);
+    // this.props.editItem(data);
+    console.log(data);
   }
 
   componentDidMount() {
@@ -217,7 +219,7 @@ class EditItem extends Component {
                     value={this.state.description}
                   />
                 </div>
-                <button onClick={this.addNewItem} className="submit-item-button">
+                <button onClick={this.editThisItem} className="submit-item-button">
                   Continue
                 </button>
               </div>
@@ -232,6 +234,8 @@ class EditItem extends Component {
 const mapStateToProps = (state) => {
   return {
     item: state.itemReducer.item,
+    chosen_category: state.itemReducer.chosen_category,
+    chosen_subcategory: state.itemReducer.chosen_subcategory,
   };
 };
 
