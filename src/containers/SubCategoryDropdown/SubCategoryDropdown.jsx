@@ -15,7 +15,6 @@ class SubCategoryDropdown extends Component {
       subcategories: [],
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
-    this.changeSubCategories = this.changeSubCategories.bind(this);
   }
 
   handleInputOnChange(e) {
@@ -23,18 +22,6 @@ class SubCategoryDropdown extends Component {
     const value = e.target.value;
     const name = e.target.name;
     this.setState({ subcategory_dropdown_id: value });
-  }
-
-  changeSubCategories(e) {
-    console.log('hi');
-    // console.log(this.props.categories);
-    // console.log('dropdown id', this.state.category_dropdown_id);
-    // let categoryProps = this.props.categories;
-    // console.log(categoryProps);
-    // let filteredCategory = categoryProps.filter((categories) => categories.id === this.state.category_dropdown_id);
-    // console.log('filtered', filteredCategory);
-    // this.setState({ subcategories: filteredCategory.subCategories });
-    // console.log(this.state.subcategories);
   }
 
   componentDidMount() {
@@ -66,7 +53,6 @@ class SubCategoryDropdown extends Component {
           className="select"
           value={this.state.subcategory_dropdown_id}
           onChange={this.handleInputOnChange}
-          // onChange={this.changeSubCategories}
           required
         >
           <option value="">Choose a SubCategory</option>

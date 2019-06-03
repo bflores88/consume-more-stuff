@@ -138,7 +138,7 @@ class EditItem extends Component {
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>
-                    <select
+                    {/* <select
                       name="category_id"
                       className="select"
                       value={this.state.category_id}
@@ -149,7 +149,8 @@ class EditItem extends Component {
                       <option value="1">Electronics</option>
                       <option value="2">Apparel</option>
                       <option value="3">Books</option>
-                    </select>
+                    </select> */}
+                    <CategoryDropdown />
                   </div>
                 </div>
                 <div className="input-div">
@@ -222,7 +223,6 @@ class EditItem extends Component {
               </div>
             </form>
           </div>
-          <CategoryDropdown />
         </div>
       );
     }
