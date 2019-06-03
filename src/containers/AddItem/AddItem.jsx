@@ -54,10 +54,11 @@ class AddItem extends Component {
     //   }
     // }
     this.props.addItem(data);
-    console.log(this.props.newestItem);
+    // console.log(this.props)
+    console.log('newest', this.props.newestItem);
   }
   componentDidMount() {
-    return console.log('94it93it349ti3', this.props.newestItem);
+    // return console.log('94it93it349ti3', this.props.newestItem);
   }
 
   render() {
@@ -157,7 +158,7 @@ class AddItem extends Component {
                 </div>
                 <div className="input-div">
                   <label className="input-label" htmlFor="dimensions">
-                    Item Name:
+                    Dimensions:
                   </label>
                   <input
                     className="dimensions-input"

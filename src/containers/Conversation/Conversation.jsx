@@ -63,7 +63,7 @@ class Conversation extends Component {
       return <Redirect to="/" />;
     } else {
       if (this.props.messages.length === 0) {
-        return <div>olollo</div>;
+        return <div>No messages found2</div>;
       } else {
         // SORT TEST
         function compareValues(key, order = 'asc') {

@@ -6,7 +6,7 @@ import {
   LOAD_SINGLE_USER,
   POST_NEW_MESSAGE,
   LOAD_ACTIVE_ITEMS,
-  LOAD_INACTIVE_ITEMS
+  LOAD_INACTIVE_ITEMS,
 } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -20,8 +20,11 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
+import { UPDATE_CHOSEN_CATEGORY } from '../actions';
+import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
+
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
-import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
+import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
 
 const initialState = {
   item: {},
@@ -38,15 +41,16 @@ const initialState = {
   activeItems: [],
   inactiveItems: [],
   username: '',
-
-}
+  chosen_category: '',
+  chosen_subcategory: '',
+};
 
 const userState = {
-  registrationSuccessful: false, 
+  registrationSuccessful: false,
   loggedIn: false,
   user: JSON.parse(localStorage.getItem('user')),
   passwordUpdateStatus: false,
-}
+};
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
@@ -55,7 +59,7 @@ function itemReducer(state = initialState, action) {
 
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
-    
+
     case LOAD_ACTIVE_ITEMS:
       return Object.assign({}, state, { activeItems: action.payload });
 
@@ -91,26 +95,32 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_ALL_USERS:
       return Object.assign({}, state, { userList: [...action.payload] });
-    
+
     case GRAB_USERNAME:
       return Object.assign({}, state, { username: action.payload });
+
+    case UPDATE_CHOSEN_CATEGORY:
+      return Object.assign({}, state, { chosen_category: action.payload });
+
+    case UPDATE_CHOSEN_SUBCATEGORY:
+      return Object.assign({}, state, { chosen_subcategory: action.payload });
 
     default:
       return state;
   }
 }
 
-function userReducer(state = userState, action) { 
+function userReducer(state = userState, action) {
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
 
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, { loggedIn: true, user: action.payload});
+      return Object.assign({}, state, { loggedIn: true, user: action.payload });
 
     case LOGIN_FAILURE:
-      return Object.assign({}, state, { loggedIn: false, user: null});
-    
+      return Object.assign({}, state, { loggedIn: false, user: null });
+
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, { loggedIn: false, user: null });
 
@@ -120,10 +130,10 @@ function userReducer(state = userState, action) {
     case UPDATE_USER_PASSWORD:
       return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
 
-    case LOAD_SINGLE_USER: 
-      return Object.assign({}, state, { user: action.payload })
+    case LOAD_SINGLE_USER:
+      return Object.assign({}, state, { user: action.payload });
 
-    default: 
+    default:
       return state;
   }
 }
