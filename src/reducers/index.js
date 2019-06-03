@@ -5,6 +5,7 @@ import {
   LOAD_ITEMS_BY_CATEGORY,
   LOAD_SINGLE_USER,
   POST_NEW_MESSAGE,
+  LOAD_ACTIVE_ITEMS,
   LOAD_INACTIVE_ITEMS,
 } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
@@ -38,6 +39,7 @@ const initialState = {
 
   userList: [],
 
+  activeItems: [],
   inactiveItems: [],
 
   passwordUpdateStatus: false,
@@ -50,6 +52,9 @@ function itemReducer(state = initialState, action) {
 
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
+    
+    case LOAD_INACTIVE_ITEMS:
+      return Object.assign({}, state, { activeItems: action.payload });
 
     case LOAD_INACTIVE_ITEMS:
       return Object.assign({}, state, { inactiveItems: action.payload });
