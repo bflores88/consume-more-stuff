@@ -54,6 +54,10 @@ class EditItem extends Component {
     const data = {};
     data.category_id = this.props.chosen_category;
     data.subCategory_id = this.props.chosen_subcategory;
+    data.name = this.state.name;
+    data.price = this.state.price;
+    data.inventory = this.state.inventory;
+    // data
 
     // this.props.editItem(data);
     console.log(data);
