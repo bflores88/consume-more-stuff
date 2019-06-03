@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { loadSpecificItem } from '../../actions';
 import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
+import { Link } from 'react-router-dom';
 
 class ItemDetail extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class ItemDetail extends Component {
         inventory: this.props.item.inventory,
         viewCount: this.props.item.viewCount,
       };
-      console.log(this.props.item)
+      
 
       let status;
       if (!item.status) {
@@ -61,6 +62,8 @@ class ItemDetail extends Component {
         return <img src={link} />;
       });
 
+      const sellerLink = `/users/${item.sellerID}/items`;
+
       return (
         <div className="item-detail">
           <div clasName="detail-box">
@@ -69,7 +72,7 @@ class ItemDetail extends Component {
             <div className="detail-descr">
               <h2>{item.name}</h2>
               <h3>{item.dims}</h3>
-              <h5>Sold By:&nbsp;&nbsp;{item.seller}</h5>
+              <h5>Sold By:&nbsp;&nbsp;<Link to={sellerLink}>{item.seller}</Link></h5>
               <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>

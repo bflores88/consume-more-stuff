@@ -35,6 +35,21 @@ router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
     });
 });
 
+//public route gets username ONLY
+router.route('/:id/username').get((req, res) => {
+  new User({ id: req.params.id })
+    .fetch({ columns: ['username'] })
+    .then((result) => {
+      // console.log(result)
+
+      // reply with logged in user
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
+
 router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) => {
   Item.where({ user_id: req.params.userId })
     .fetchAll()

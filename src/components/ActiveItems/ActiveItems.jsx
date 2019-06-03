@@ -99,12 +99,20 @@ class ActiveItems extends Component {
 
     });
 
-    return (
-      <>
-        <h1>Items Available For Sale</h1>
-        <div className="activeItemsBox">{itemsBox}</div>
-      </>
-    );
+    if (!itemsBox.length) {
+      return (
+        <>
+          <h1>This user has no items available for sale.</h1>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <h1>Items Available For Sale</h1>
+          <div className="inactiveItemsBox">{itemsBox}</div>
+        </>
+      );
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import './UserItems.scss';
 import InactiveItems from '../../components/InactiveItems';
 import ActiveItems from '../../components/ActiveItems';
 import { connect } from 'react-redux';
+import { grabUsername } from '../../actions';
 
 class UserItems extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class UserItems extends Component {
   }
 
   componentDidMount() {
+    this.props.grabUsername(this.props.match.params.id);
     if (this.props.currentUser) {
       const thisUser = this.props.currentUser.id;
     }
@@ -27,17 +29,23 @@ class UserItems extends Component {
     const thisUser = this.props.currentUser.id;
     const userPage = parseInt(this.props.match.params.id);
     const isUserOnOwnPage = thisUser === userPage;
-    console.log('is user on own page?', isUserOnOwnPage);
-    console.log('this user', thisUser);
-    console.log('params page', userPage);
+    const username = this.props.username.username;
 
     if (isUserOnOwnPage) {
       return (
         <>
           <div className="user-items">
-            <ActiveItems id={parseInt(this.props.match.params.id)} isUserOnOwnPage={isUserOnOwnPage} />
-            <br></br><br></br>
-          <InactiveItems id={parseInt(this.props.match.params.id)} />
+            <div className="user-store">
+              <h1>{username}'s Store</h1>
+            </div>
+            <ActiveItems
+              id={parseInt(this.props.match.params.id)}
+              isUserOnOwnPage={isUserOnOwnPage}
+              username={this.props.username.username}
+            />
+            <br />
+            <br />
+            <InactiveItems id={parseInt(this.props.match.params.id)} />
           </div>
         </>
       );
@@ -45,11 +53,13 @@ class UserItems extends Component {
       return (
         <>
           <div className="user-items">
+            <div className="user-store">
+              <h1>{username}'s Store</h1>
+            </div>
             <ActiveItems id={parseInt(this.props.match.params.id)} isUserOnOwnPage={isUserOnOwnPage} />
           </div>
         </>
       );
-
     }
   }
 }
@@ -57,11 +67,14 @@ class UserItems extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.itemReducer.currentUser,
+    username: state.itemReducer.username,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    grabUsername: (userID) => dispatch(grabUsername(userID)),
+  };
 };
 
 UserItems = connect(

@@ -21,7 +21,7 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
-import { GRAB_ALL_USERS } from '../actions';
+import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 
 const initialState = {
   currentUser: JSON.parse(localStorage.getItem('user')),
@@ -41,6 +41,7 @@ const initialState = {
 
   activeItems: [],
   inactiveItems: [],
+  username: '',
 
   passwordUpdateStatus: false,
 };
@@ -102,6 +103,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_ALL_USERS:
       return Object.assign({}, state, { userList: [...action.payload] });
+    
+    case GRAB_USERNAME:
+      return Object.assign({}, state, { username: action.payload });
 
     default:
       return state;

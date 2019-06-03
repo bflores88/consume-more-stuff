@@ -20,6 +20,7 @@ export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
 export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
 export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
+export const GRAB_USERNAME = 'GRAB_USERNAME';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -29,7 +30,6 @@ export const loadItems = () => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_ITEMS,
           payload: items,
@@ -46,7 +46,6 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
-        console.log(users);
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
@@ -119,7 +118,6 @@ export const loadSpecificItem = (id) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`)
       .then((response) => {
-        console.log('action', response);
         return response.json();
       })
       .then((item) => {
@@ -441,6 +439,29 @@ export const loadInactiveItems = (userID) => {
         return dispatch({
           type: LOAD_INACTIVE_ITEMS,
           payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabUsername = (userID) => {
+  return (dispatch) => {
+    return fetch(`/api/users/${userID}/username`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((username) => {
+        return dispatch({
+          type: GRAB_USERNAME,
+          payload: username,
         });
       })
       .catch((err) => {
