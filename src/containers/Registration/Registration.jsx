@@ -186,7 +186,7 @@ class Registration extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    registrationSuccessful : state.authentication.registrationSuccessful
+    registrationSuccessful : state.userReducer.registrationSuccessful
   }
 }
 

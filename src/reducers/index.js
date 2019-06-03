@@ -16,7 +16,7 @@ import { GRAB_THREAD_MESSAGES } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')),
+  // user: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
@@ -26,13 +26,13 @@ const initialState = {
   categories: [],
   itemsByCategory: {},
   inactiveItems: [],
-  passwordUpdateStatus: false,
 };
 
-const authenticationState = {
+const userState = {
   registrationSuccessful: false, 
   loggedIn: false,
   user: JSON.parse(localStorage.getItem('user')),
+  passwordUpdateStatus: false,
 }
 
 function itemReducer(state = initialState, action) {
@@ -55,8 +55,8 @@ function itemReducer(state = initialState, action) {
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
     
-    case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
-      return Object.assign({}, state, { user: action.payload })
+    // case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
+    //   return Object.assign({}, state, { user: action.payload })
 
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
@@ -84,7 +84,7 @@ function itemReducer(state = initialState, action) {
   }
 }
 
-function authentication(state = authenticationState, action) { 
+function userReducer(state = userState, action) { 
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
@@ -101,6 +101,9 @@ function authentication(state = authenticationState, action) {
     case LOGOUT_FAILURE:
       return Object.assign({}, state);
 
+    case LOAD_SINGLE_USER: // <----- If you're accessing users then this should go under authentication, (94)
+      return Object.assign({}, state, { user: action.payload })
+
     default: 
       return state;
   }
@@ -108,7 +111,7 @@ function authentication(state = authenticationState, action) {
 
 const savannahApp = combineReducers({
   itemReducer,
-  authentication,
+  userReducer,
 });
 
 export default savannahApp;

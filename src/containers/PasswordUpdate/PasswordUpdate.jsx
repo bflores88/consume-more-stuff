@@ -109,8 +109,8 @@ class PasswordUpdate extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.authentication.user,
-    passwordUpdateStatus: state.authentication.passwordUpdateStatus,
+    currentUser: state.userReducer.user,
+    passwordUpdateStatus: state.userReducer.passwordUpdateStatus,
   };
 };
 

@@ -32,10 +32,10 @@ class LoginLogoutButton extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  if (state.authentication.loggedIn) {
+  if (state.userReducer.loggedIn) {
     // console.log('6 - Login Button mapping state to props with user');
     return {
-      welcomeMessage: 'Welcome back ' + state.authentication.user.name,
+      welcomeMessage: 'Welcome back ' + state.userReducer.user.name,
       text: 'Logout',
       destination: '/logout',
     }

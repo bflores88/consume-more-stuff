@@ -203,7 +203,7 @@ class AddItem extends Component {
 const mapStateToProps = (state) => {
   return {
     images: state.itemReducer.images,
-    currentUser: state.authentication.user,
+    currentUser: state.userReducer.user,
     newestItem: state.itemReducer.newestItem,
   };
 };
