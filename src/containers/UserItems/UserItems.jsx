@@ -26,9 +26,15 @@ class UserItems extends Component {
   }
 
   render() {
-    const thisUser = this.props.currentUser.id;
-    const userPage = parseInt(this.props.match.params.id);
-    const isUserOnOwnPage = thisUser === userPage;
+
+    let isUserOnOwnPage = false;
+
+    if (this.props.currentUser) {
+      const thisUser = this.props.currentUser.id;
+      const userPage = parseInt(this.props.match.params.id);
+      isUserOnOwnPage = thisUser === userPage;
+    }
+    
     const username = this.props.username.username;
 
     if (isUserOnOwnPage) {
