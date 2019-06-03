@@ -15,7 +15,6 @@ class LoginLogoutButton extends Component {
   componentDidMount(){
     if (localStorage.getItem('user')){
       const storedUser = JSON.parse(localStorage.getItem('user'));
-      console.log('llb compMount() ', storedUser);
       this.props.setExistingUser(storedUser);
     }
   }
@@ -42,16 +41,13 @@ class LoginLogoutButton extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log('6 - state ', state);
   if (state.userReducer.loggedIn) {
-    console.log('6 - Login Button mapping state to props with user');
     return {
       welcomeMessage: 'Welcome back ' + state.userReducer.user.name,
       text: 'Logout',
       destination: '/logout',
     }
   } else {
-    console.log('6 - Login Button mapping state to props with no user');
     return {
       text: 'Login',
       destination: '/login',
