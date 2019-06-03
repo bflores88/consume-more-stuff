@@ -11,7 +11,6 @@ class UserItems extends Component {
     this.state = {};
   }
 
-  
   componentDidMount() {
     if (this.props.currentUser) {
       const thisUser = this.props.currentUser.id;
@@ -23,8 +22,6 @@ class UserItems extends Component {
       const thisUser = this.props.currentUser.id;
     }
   }
-
-
 
   render() {
     const thisUser = this.props.currentUser.id;

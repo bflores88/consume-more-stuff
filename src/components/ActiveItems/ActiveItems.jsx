@@ -3,6 +3,7 @@ import './ActiveItems.scss';
 import { loadActiveItems, grabItemImages } from '../../actions';
 import { connect } from 'react-redux';
 import Item from '../../containers/Item';
+import EditItemsDiv from '../../components/EditItemsDiv'
 
 class ActiveItems extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class ActiveItems extends Component {
   }
 
   render() {
+    const activeStatus = true;
     const items = this.props.activeItems;
     const itemsBox = items.map((item, idx) => {
  
@@ -52,10 +54,7 @@ class ActiveItems extends Component {
               <div>
                 <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />
               </div>
-              <div className="edit-buttons">
-                <button>Edit Item</button>
-                <button>Make Inactive</button>
-              </div>
+              <EditItemsDiv id={item.id} activeStatus={activeStatus} />
             </div>
           );
         } else {
@@ -69,10 +68,7 @@ class ActiveItems extends Component {
                   imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
                 />
               </div>
-              <div>
-                <button className="edit-buttons">Edit Item</button>
-                <button>Make Inactive</button>
-              </div>
+              <EditItemsDiv id={item.id} activeStatus={activeStatus} />
             </div>
           );
         }

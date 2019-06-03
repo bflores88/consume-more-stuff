@@ -4,6 +4,7 @@ import './InactiveItems.scss';
 import { loadInactiveItems, grabItemImages } from '../../actions';
 import { connect } from 'react-redux';
 import Item from '../../containers/Item';
+import EditItemsDiv from '../../components/EditItemsDiv';
 
 class InactiveItems extends Component {
   constructor(props) {
@@ -31,10 +32,10 @@ class InactiveItems extends Component {
   }
 
   render() {
+    const activeStatus = false;
     const items = this.props.inactiveItems;
-    console.log(items)
+    console.log(items);
     const itemsBox = items.map((item, idx) => {
- 
       let itemLink;
       if (this.props.images) {
         itemLink = this.filterImages(item.id, this.props.images);
@@ -53,10 +54,7 @@ class InactiveItems extends Component {
             <div>
               <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />
             </div>
-            <div className="edit-buttons">
-              <button>Edit Item</button>
-              <button>Make Active</button>
-            </div>
+            <EditItemsDiv id={item.id} activeStatus={activeStatus} />
           </div>
         );
       } else {
@@ -70,21 +68,26 @@ class InactiveItems extends Component {
                 imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
               />
             </div>
-            <div className="edit-buttons">
-              <button>Edit Item</button>
-              <button>Make Active</button>
-            </div>
+            <EditItemsDiv id={item.id} activeStatus={activeStatus} />
           </div>
         );
       }
     });
 
-    return (
-      <>
-        <h1>Inactive Items</h1>
-        <div className="inactiveItemsBox">{itemsBox}</div>
-      </>
-    );
+    if (!itemsBox.length) {
+      return (
+        <>
+          <h1>No Inactive Items</h1>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <h1>Inactive Items</h1>
+          <div className="inactiveItemsBox">{itemsBox}</div>
+        </>
+      );
+    }
   }
 }
 
