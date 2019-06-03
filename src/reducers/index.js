@@ -23,7 +23,6 @@ import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE}
 import { GRAB_ALL_USERS } from '../actions';
 
 const initialState = {
-  // user: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
@@ -74,9 +73,6 @@ function itemReducer(state = initialState, action) {
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
 
-    case UPDATE_USER_PASSWORD:
-      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
-
     case GRAB_USER_THREADS:
       return Object.assign({}, state, { threads: [...action.payload] });
 
@@ -110,6 +106,9 @@ function userReducer(state = userState, action) {
 
     case LOGOUT_FAILURE:
       return Object.assign({}, state);
+
+    case UPDATE_USER_PASSWORD:
+      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
 
     case LOAD_SINGLE_USER: 
       return Object.assign({}, state, { user: action.payload })
