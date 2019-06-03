@@ -6,34 +6,39 @@ const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
 const UserThread = require('../database/models/UserThread');
 const registeredUser = require('../middleware/userGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+
 const knex = require('../database/knex.js');
 
 router
   .route('/')
-  .get(registeredUser, ownershipGuard, (req, res) => {
-    // subquery selects threads associated with user
-    // top level query selects thread attributes & associated usernames
-    // (for each of the subqueried threads)
+  .get(registeredUser, (req, res) => {
+    // inner most subquery selects threads associated with the user
+    // outer subquery selects those threads' attributes (incl list of users sent_to)
+    // top level query joins & sorts by most recent message
     knex
       .raw(
-        `SELECT threads.*, string_agg(users.username, ', ') AS user_list
-        FROM users_threads
-        INNER JOIN users ON users.id = users_threads.sent_to
-        INNER JOIN threads ON threads.id = users_threads.thread_id
-        WHERE users_threads.thread_id IN
-          (SELECT threads.id
-          FROM threads
-          INNER JOIN users_threads ON users_threads.thread_id = threads.id
-          WHERE users_threads.sent_to = ?)
-        GROUP BY threads.id, threads.subject, threads.read_only`,
+        `SELECT a.*, MAX(messages.id) AS max_message_id
+        FROM
+          (SELECT threads.*, string_agg(users.username, ', ') AS user_list
+            FROM threads
+            INNER JOIN users_threads ON users_threads.thread_id = threads.id
+            INNER JOIN users ON users.id = users_threads.sent_to
+            WHERE threads.id IN
+              (SELECT threads.id
+              FROM threads
+              INNER JOIN users_threads ON users_threads.thread_id = threads.id
+              WHERE users_threads.sent_to = ?)
+            GROUP BY threads.id, threads.subject, threads.read_only) a
+          INNER JOIN messages ON messages.thread_id = a.id
+          GROUP BY a.id, a.subject, a.read_only, a.user_list, a.created_at, a.updated_at
+          ORDER BY max_message_id DESC`,
         [req.user.id],
       )
       .then((result) => {
         return res.json(result.rows);
       });
   })
-  .post(registeredUser, ownershipGuard, (req, res) => {
+  .post(registeredUser, (req, res) => {
     new Thread()
       .save({
         subject: req.body.subject,
@@ -69,12 +74,19 @@ router
               .then((result) => {
                 knex
                   .raw(
-                    `SELECT DISTINCT messages.* 
-                        FROM users_threads
-                        INNER JOIN users ON users.id = users_threads.sent_to
-                        INNER JOIN threads ON threads.id = users_threads.thread_id
-                        INNER JOIN messages ON messages.thread_id = threads.id
-                        WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
+                    `SELECT
+                      messages.id AS message_id,
+                      messages.sent_by AS sent_by_user_id,
+                      users.username AS sent_by_username,
+                      messages.body,
+                      messages.thread_id,
+                      messages.created_at,
+                      messages.updated_at
+                    FROM messages
+                    INNER JOIN users ON users.id = messages.sent_by
+                    INNER JOIN users_threads ON users_threads.thread_id = messages.thread_id
+                    WHERE users_threads.sent_to = ? AND messages.thread_id = ?
+                    ORDER BY message_id`,
                     [req.user.id, result[0].attributes.thread_id],
                   )
                   .then((result) => {
@@ -87,22 +99,29 @@ router
 
 router
   .route('/:threadId')
-  .get(registeredUser, ownershipGuard, (req, res) => {
+  .get(registeredUser, (req, res) => {
     knex
       .raw(
-        `SELECT DISTINCT messages.* 
-        FROM users_threads
-        INNER JOIN users ON users.id = users_threads.sent_to
-        INNER JOIN threads ON threads.id = users_threads.thread_id
-        INNER JOIN messages ON messages.thread_id = threads.id
-        WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
+        `SELECT
+          messages.id AS message_id,
+          messages.sent_by AS sent_by_user_id,
+          users.username AS sent_by_username,
+          messages.body,
+          messages.thread_id,
+          messages.created_at,
+          messages.updated_at
+        FROM messages
+        INNER JOIN users ON users.id = messages.sent_by
+        INNER JOIN users_threads ON users_threads.thread_id = messages.thread_id
+        WHERE users_threads.sent_to = ? AND messages.thread_id = ?
+        ORDER BY message_id`,
         [req.user.id, req.params.threadId],
       )
       .then((result) => {
         return res.json(result.rows);
       });
   })
-  .post(registeredUser, ownershipGuard, (req, res) => {
+  .post(registeredUser, (req, res) => {
     new Message()
       .save({
         body: req.body.body,
@@ -113,12 +132,19 @@ router
         // after post, return the thread with the new message added
         knex
           .raw(
-            `SELECT DISTINCT messages.* 
-            FROM users_threads
-            INNER JOIN users ON users.id = users_threads.sent_to
-            INNER JOIN threads ON threads.id = users_threads.thread_id
-            INNER JOIN messages ON messages.thread_id = threads.id
-            WHERE users_threads.sent_to = ? AND users_threads.thread_id = ?`,
+            `SELECT
+              messages.id AS message_id,
+              messages.sent_by AS sent_by_user_id,
+              users.username AS sent_by_username,
+              messages.body,
+              messages.thread_id,
+              messages.created_at,
+              messages.updated_at
+            FROM messages
+            INNER JOIN users ON users.id = messages.sent_by
+            INNER JOIN users_threads ON users_threads.thread_id = messages.thread_id
+            WHERE users_threads.sent_to = ? AND messages.thread_id = ?
+            ORDER BY message_id`,
             [req.user.id, req.params.threadId],
           )
           .then((result) => {
