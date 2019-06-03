@@ -27,25 +27,11 @@ class EditItemsDiv extends Component {
     const itemID = this.props.id;
     const url = `/edit-items/${itemID}`;
 
-
-    if (!this.props.activeStatus) {
-
       return (
         <div className="edit-buttons">
           <button><Link to={url}>Edit Item</Link></button>
-          <button>Make Active</button>
         </div>
       );
-      
-    } else {
-
-      return (
-        <div className="edit-buttons">
-          <button><Link to={url}>Edit Item</Link></button>
-          <button>Make Inactive</button>
-        </div>
-      );
-    }
 
   }
 }
