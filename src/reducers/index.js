@@ -9,7 +9,6 @@ import {
 } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
-import { REGISTER, LOGIN, LOGOUT } from '../actions';
 import { ADD_ITEM } from '../actions';
 import { LOAD_CATEGORIES } from '../actions';
 
@@ -20,16 +19,13 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
+import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
 import { GRAB_ALL_USERS } from '../actions';
 
 const initialState = {
-  currentUser: JSON.parse(localStorage.getItem('user')),
   item: {},
   items: [],
   images: [],
-  registrationSuccessful: true, // might not be needed
-  loggedIn: false,
-  user: {},
   newestItem: '',
   threads: [],
   messages: [],
@@ -39,9 +35,14 @@ const initialState = {
   userList: [],
 
   inactiveItems: [],
-
-  passwordUpdateStatus: false,
 };
+
+const userState = {
+  registrationSuccessful: false, 
+  loggedIn: false,
+  user: JSON.parse(localStorage.getItem('user')),
+  passwordUpdateStatus: false,
+}
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
@@ -57,22 +58,11 @@ function itemReducer(state = initialState, action) {
     case GRAB_ITEM_IMAGES:
       return Object.assign({}, state, { images: [...action.payload] });
 
-    case LOGIN:
-      initialState.loggedIn = true;
-      return Object.assign({}, state, { currentUser: action.payload });
-
-    case LOGOUT:
-      initialState.loggedIn = false;
-      return Object.assign({}, state, { currentUser: action.payload });
-
     case ADD_ITEM:
       return Object.assign({}, state, { newestItem: action.payload });
 
     case RESET_NEW_ITEM:
       return Object.assign({}, state, { newestItem: '' });
-
-    case LOAD_SINGLE_USER:
-      return Object.assign({}, state, { user: action.payload });
 
     case LOAD_CATEGORIES:
       return Object.assign({}, state, { categories: [...action.payload] });
@@ -82,9 +72,6 @@ function itemReducer(state = initialState, action) {
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });
-
-    case UPDATE_USER_PASSWORD:
-      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
 
     case GRAB_USER_THREADS:
       return Object.assign({}, state, { threads: [...action.payload] });
@@ -103,18 +90,37 @@ function itemReducer(state = initialState, action) {
   }
 }
 
-function registerReducer(state = initialState, action) {
+function userReducer(state = userState, action) { 
   switch (action.type) {
     case REGISTER:
       return Object.assign({}, state, { registrationSuccessful: true });
-    default:
+
+    case LOGIN_SUCCESS:
+      return Object.assign({}, state, { loggedIn: true, user: action.payload});
+
+    case LOGIN_FAILURE:
+      return Object.assign({}, state, { loggedIn: false, user: null});
+    
+    case LOGOUT_SUCCESS:
+      return Object.assign({}, state, { loggedIn: false, user: null });
+
+    case LOGOUT_FAILURE:
+      return Object.assign({}, state);
+
+    case UPDATE_USER_PASSWORD:
+      return Object.assign({}, state, { passwordUpdateStatus: [action.payload] });
+
+    case LOAD_SINGLE_USER: 
+      return Object.assign({}, state, { user: action.payload })
+
+    default: 
       return state;
   }
 }
 
 const savannahApp = combineReducers({
   itemReducer,
-  registerReducer,
+  userReducer,
 });
 
 export default savannahApp;

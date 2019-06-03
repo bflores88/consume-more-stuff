@@ -23,7 +23,7 @@ class UserItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.itemReducer.currentUser,
+    currentUser: state.userReducer.user,
   };
 };
 
