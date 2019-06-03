@@ -6,9 +6,7 @@ const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
 const UserThread = require('../database/models/UserThread');
 const registeredUser = require('../middleware/userGuard');
-// no req.params associated with userId so 'ownershipGuard' doesn't work.
-// needs a replacement guard.
-const ownershipGuard = require('../middleware/ownershipGuard');
+
 const knex = require('../database/knex.js');
 
 router
