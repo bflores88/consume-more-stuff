@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Item from '../Item';
 import './ItemsBox.scss';
 import { connect } from 'react-redux';
-import { grabItemImages } from '../../actions';
+import { grabItemImages, loadCategories } from '../../actions';
 
 class ItemsBox extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class ItemsBox extends Component {
   }
 
   componentDidMount() {
+    this.props.loadCategories()
     return this.props.grabItemImages();
   }
 
@@ -35,6 +36,7 @@ class ItemsBox extends Component {
   }
 
   render() {
+    console.log('8888', this.props.categories)
     const filteredItems = this.filterItems(this.props.label, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink;
@@ -77,14 +79,14 @@ class ItemsBox extends Component {
 const mapStateToProps = (state) => {
   return {
     images: state.itemReducer.images,
+    categories: state.itemReducer.categories,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    grabItemImages: (item) => {
-      dispatch(grabItemImages(item));
-    },
+    grabItemImages: (item) => {dispatch(grabItemImages(item))},
+    loadCategories: () => dispatch(loadCategories()),
   };
 };
 

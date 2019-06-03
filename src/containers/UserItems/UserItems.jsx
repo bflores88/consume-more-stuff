@@ -21,7 +21,9 @@ class UserItems extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.currentUser !== prevProps.currentUser) {
-      const thisUser = this.props.currentUser.id;
+      if (this.props.currentUser) {
+        const thisUser = this.props.currentUser.id;
+      }
     }
   }
 
