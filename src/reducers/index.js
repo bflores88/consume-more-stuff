@@ -5,7 +5,8 @@ import {
   LOAD_ITEMS_BY_CATEGORY,
   LOAD_SINGLE_USER,
   POST_NEW_MESSAGE,
-  LOAD_INACTIVE_ITEMS,
+  LOAD_ACTIVE_ITEMS,
+  LOAD_INACTIVE_ITEMS
 } from '../actions';
 import { LOAD_SPECIFIC_ITEM } from '../actions';
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -19,8 +20,8 @@ import { UPDATE_USER_PASSWORD } from '../actions';
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
 
+import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE} from '../actions';
-import { GRAB_ALL_USERS } from '../actions';
 
 const initialState = {
   item: {},
@@ -34,8 +35,11 @@ const initialState = {
 
   userList: [],
 
+  activeItems: [],
   inactiveItems: [],
-};
+  username: '',
+
+}
 
 const userState = {
   registrationSuccessful: false, 
@@ -51,6 +55,9 @@ function itemReducer(state = initialState, action) {
 
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
+    
+    case LOAD_ACTIVE_ITEMS:
+      return Object.assign({}, state, { activeItems: action.payload });
 
     case LOAD_INACTIVE_ITEMS:
       return Object.assign({}, state, { inactiveItems: action.payload });
@@ -84,6 +91,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_ALL_USERS:
       return Object.assign({}, state, { userList: [...action.payload] });
+    
+    case GRAB_USERNAME:
+      return Object.assign({}, state, { username: action.payload });
 
     default:
       return state;
