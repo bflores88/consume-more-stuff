@@ -225,9 +225,20 @@ export const addItem = (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).catch((error) => {
-      console.log('Error in logout: ', error);
-    });
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data', data);
+        return dispatch({
+          type: ADD_ITEM,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
   };
 };
 
