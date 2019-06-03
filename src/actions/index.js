@@ -1,5 +1,6 @@
 // ACTION DEFINTION
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const LOAD_ACTIVE_ITEMS = "LOAD_ACTIVE_ITEMS";
 export const LOAD_INACTIVE_ITEMS = 'LOAD_INACTIVE_ITEMS';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -396,6 +397,32 @@ export const updatePassword = (data) => {
       });
   };
 };
+
+export const loadActiveItems = (userID) => {
+  return (dispatch) => {
+    console.log(userID);
+    return fetch(`/api/users/items/${userID}/active`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        console.log(items);
+        return dispatch({
+          type: LOAD_ACTIVE_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 
 export const loadInactiveItems = (userID) => {
   return (dispatch) => {

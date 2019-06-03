@@ -48,7 +48,7 @@ router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) =>
 });
 
 // get all active items from a single user
-router.route('/items/:id/active').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/items/:id/active').get((req, res) => {
   Item.where({ user_id: req.params.id, active: true })
     .fetchAll()
     .then((result) => {
