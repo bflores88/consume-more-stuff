@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './EditItem.scss';
 // import { editItem } from '../../actions';
 import { loadSpecificItem } from '../../actions';
+import CategoryDropdown from '../CategoryDropdown';
 
 // import editItemImage from '../editItemImage';
 
@@ -221,7 +222,7 @@ class EditItem extends Component {
               </div>
             </form>
           </div>
-          <editItemImage />
+          <CategoryDropdown />
         </div>
       );
     }
