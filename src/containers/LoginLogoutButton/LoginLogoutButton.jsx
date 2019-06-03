@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions';
+import { setExistingUser } from '../../actions';
 import { withRouter } from 'react-router';
 import './LoginLogoutButton.scss';
 
@@ -9,6 +10,13 @@ class LoginLogoutButton extends Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  componentDidMount(){
+    if (localStorage.getItem('user')){
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      this.props.setExistingUser(storedUser);
+    }
   }
 
   handleSubmit(e) {
@@ -30,17 +38,16 @@ class LoginLogoutButton extends Component {
   }
 }
 
+
+
 const mapStateToProps = (state) => {
-  console.log(state);
   if (state.userReducer.loggedIn) {
-    // console.log('6 - Login Button mapping state to props with user');
     return {
       welcomeMessage: 'Welcome back ' + state.userReducer.user.name,
       text: 'Logout',
       destination: '/logout',
     }
   } else {
-    // console.log('6 - Login Button mapping state to props with no user');
     return {
       text: 'Login',
       destination: '/login',
@@ -51,9 +58,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => {
-      const logoutAction = logout();
+      const logoutAction = logout(); 
       return dispatch(logoutAction);
-    }
+    },
+    setExistingUser: (data) => {
+      const setExistingUserAction = setExistingUser(data); 
+      return dispatch(setExistingUserAction);
+    },
   }
 }
 

@@ -269,6 +269,16 @@ export const register = (accountData) => {
   }
 }
 
+export const setExistingUser = (data) => {
+  console.log('setExistingUser data');
+  return (dispatch) => {
+    return dispatch({
+      type: LOGIN_SUCCESS, 
+      payload: data,
+    });
+  }
+}
+
 export const login = (credentials) => {
   return (dispatch) => {
     // console.log('1 - Actions login()');
@@ -318,6 +328,7 @@ export const login = (credentials) => {
 };
 
 export const logout = () => {
+  console.log('logout action');
   return (dispatch) => {
     return fetch('/api/auth/logout', {
       method: 'GET',
@@ -328,6 +339,7 @@ export const logout = () => {
       return response.json();
     })
     .then(() => {
+      localStorage.removeItem('user');
       return dispatch({
         type: LOGOUT_SUCCESS,
       })
