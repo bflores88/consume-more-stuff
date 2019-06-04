@@ -42,7 +42,7 @@ class Profiles extends Component {
           name: this.props.user.name,
           email: this.props.user.email,
           // role: this.props.user.roles.roleName,
-          image: this.props.user.profileImageUrl,
+          image: this.props.user.profile_image_url,
           active: this.props.user.active,
         };
 
