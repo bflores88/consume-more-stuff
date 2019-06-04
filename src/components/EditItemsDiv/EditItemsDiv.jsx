@@ -25,14 +25,15 @@ class EditItemsDiv extends Component {
 
   render() {
     const itemID = this.props.id;
-    const url = `/edit-items/${itemID}`;
+    const url = `/edit-item/${itemID}`;
 
-      return (
-        <div className="edit-buttons">
-          <button><Link to={url}>Edit Item</Link></button>
-        </div>
-      );
-
+    return (
+      <div className="edit-buttons">
+        <button>
+          <Link to={url}>Edit Item</Link>
+        </button>
+      </div>
+    );
   }
 }
 

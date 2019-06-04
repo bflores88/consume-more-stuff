@@ -24,48 +24,21 @@ class CategoryDropdown extends Component {
     const value = e.target.value;
     const name = e.target.name;
     this.setState({ category_dropdown_id: value });
-    // console.log('update', this.state.category_dropdown_id);
+
     return this.props.updateChosenCategory(value);
-
-    // console.log('dropdown id', this.state.category_dropdown_id);
-    //   let categoryProps = this.props.categories;
-    //   console.log(categoryProps);
-    //   let filteredCategory = categoryProps.filter((categories) => categories.id == this.state.category_dropdown_id);
-    //   console.log('filtered', filteredCategory);
-    //   this.setState({ subcategories: filteredCategory.subCategories });
-    //   console.log(this.state.subcategories);
   }
 
-  changeSubCategories(e) {
-    console.log('hi');
-    // console.log(this.props.categories);
-    // console.log('dropdown id', this.state.category_dropdown_id);
-    // let categoryProps = this.props.categories;
-    // console.log(categoryProps);
-    // let filteredCategory = categoryProps.filter((categories) => categories.id === this.state.category_dropdown_id);
-    // console.log('filtered', filteredCategory);
-    // this.setState({ subcategories: filteredCategory.subCategories });
-    // console.log(this.state.subcategories);
-  }
+  changeSubCategories(e) {}
 
   componentDidMount() {
     this.props.loadCategories();
-    console.log(this.props.categories);
   }
 
   render() {
     const categoryOptions = this.props.categories.map((category, idx) => {
       return <option value={category.id}>{category.categoryName}</option>;
     });
-    // if (this.state.subcategories !== '') {
-    //   // let currentSubs = this.state.subcategories
 
-    //   const subCategoryOptions = this.state.subcategories.map((subcategory, idx) => {
-    //     return <option value={subcategory.id}>{subcategory.categoryName}</option>;
-    //   });
-    // }
-
-    // if (this.state.category_dropdown_id === '') {
     return (
       <div>
         <select
@@ -83,21 +56,6 @@ class CategoryDropdown extends Component {
         <SubCategoryDropdown category_id={this.state.category_dropdown_id} />
       </div>
     );
-    // } else {
-    //   return (
-    //     <select
-    //       name="category_id"
-    //       className="select"
-    //       value={this.state.category_dropdown_id}
-    //       onChange={this.handleInputOnChange}
-    //       required
-    //     >
-    //       <option value="">Choose a Category</option>
-
-    //       {categoryOptions}
-    //     </select>
-    //   );
-    // }
   }
 }
 

@@ -19,7 +19,6 @@ class SubCategoryDropdown extends Component {
   }
 
   handleInputOnChange(e) {
-    console.log('input');
     const value = e.target.value;
     const name = e.target.name;
     this.setState({ subcategory_dropdown_id: value });
@@ -28,7 +27,6 @@ class SubCategoryDropdown extends Component {
 
   componentDidMount() {
     this.props.loadCategories();
-    console.log(this.props.categories);
   }
 
   render() {
@@ -38,10 +36,7 @@ class SubCategoryDropdown extends Component {
 
       let filteredCategory = this.props.categories.filter((categories) => categories.id == category_id);
 
-      console.log('filtered/', filteredCategory);
-
       let filteredSubcategories = filteredCategory[0].subCategories;
-      console.log(filteredSubcategories);
 
       subCategoryOptions = filteredSubcategories.map((subcategory, idx) => {
         return <option value={subcategory.id}>{subcategory.subCategoryName}</option>;
@@ -65,22 +60,6 @@ class SubCategoryDropdown extends Component {
     } else {
       return <div />;
     }
-
-    // } else {
-    //   return (
-    //     <select
-    //       name="category_id"
-    //       className="select"
-    //       value={this.state.category_dropdown_id}
-    //       onChange={this.handleInputOnChange}
-    //       required
-    //     >
-    //       <option value="">Choose a Category</option>
-
-    //       {categoryOptions}
-    //     </select>
-    //   );
-    // }
   }
 }
 
