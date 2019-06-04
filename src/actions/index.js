@@ -6,6 +6,7 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const LOAD_ALL_ACTIVE_ITEMS = 'LOAD_ALL_ACTIVE_ITEMS';
 export const LOAD_ACTIVE_ITEMS = 'LOAD_ACTIVE_ITEMS';
 export const LOAD_INACTIVE_ITEMS = 'LOAD_INACTIVE_ITEMS';
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
@@ -40,6 +41,22 @@ export const loadItems = () => {
       .then((items) => {
         return dispatch({
           type: LOAD_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const loadAllActiveItems = () => {
+  return (dispatch) => {
+    return fetch('/api/items/active')
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        return dispatch({
+          type: LOAD_ALL_ACTIVE_ITEMS,
           payload: items,
         });
       })
@@ -364,22 +381,22 @@ export const logout = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then(() => {
-      localStorage.removeItem('user');
-      return dispatch({
-        type: LOGOUT_SUCCESS,
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then(() => {
+        localStorage.removeItem('user');
+        return dispatch({
+          type: LOGOUT_SUCCESS,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+        return dispatch({
+          type: LOGOUT_FAILURE,
+        });
       });
-    })
-    .catch((error) => {
-      console.log('Error in logout: ', error);
-      return dispatch({
-        type: LOGOUT_FAILURE,
-      });
-    });
   };
 };
 
@@ -453,7 +470,6 @@ export const updatePassword = (data) => {
 
 export const loadActiveItems = (userID) => {
   return (dispatch) => {
-    console.log(userID);
     return fetch(`/api/users/items/${userID}/active`, {
       method: 'GET',
       headers: {
@@ -464,7 +480,6 @@ export const loadActiveItems = (userID) => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_ACTIVE_ITEMS,
           payload: items,
@@ -478,7 +493,6 @@ export const loadActiveItems = (userID) => {
 
 export const loadInactiveItems = (userID) => {
   return (dispatch) => {
-    console.log(userID);
     return fetch(`/api/users/items/${userID}/inactive`, {
       method: 'GET',
       headers: {
@@ -489,7 +503,6 @@ export const loadInactiveItems = (userID) => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_INACTIVE_ITEMS,
           payload: items,
