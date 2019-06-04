@@ -33,11 +33,11 @@ class User extends bookshelf.Model {
     return this.hasMany('Message', 'sent_by');
   }
 
-  paymentCards() {
+  payment_cards() {
     return this.hasMany('PaymentCard', 'user_id');
   }
 
-  shippingAddresses() {
+  shipping_addresses() {
     return this.hasMany('ShippingAddress', 'user_id');
   }
 

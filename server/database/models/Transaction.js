@@ -15,8 +15,8 @@ class Transaction extends bookshelf.Model {
     return this.belongsTo('User', 'purchased_by');
   }
 
-  shippingAddresses() {
-    return this.belongsTo('ShippingAddress', 'shippingAddress_id');
+  shipping_addresses() {
+    return this.belongsTo('ShippingAddress', 'shipping_address_id');
   }
 
   orders() {

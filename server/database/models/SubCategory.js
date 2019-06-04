@@ -4,7 +4,7 @@ require('./Category');
 require('./Item');
 class SubCategory extends bookshelf.Model {
   get tableName() {
-    return 'subCategories';
+    return 'sub_categories';
   }
 
   get hasTimestamps() {
