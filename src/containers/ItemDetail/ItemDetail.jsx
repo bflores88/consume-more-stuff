@@ -36,12 +36,12 @@ class ItemDetail extends Component {
         price: this.props.item.price,
         quantity: this.props.item.inventory,
         description: this.props.item.description,
-        condition: this.props.item.conditions.conditionName,
+        condition: this.props.item.conditions.condition_name,
         status: this.props.item.active,
-        subcat: this.props.item.subCategories.subCategoryName,
+        subcat: this.props.item.subCategories.sub_category_name,
         created: this.props.item.created_at,
         updated: this.props.item.updated_at,
-        category: this.props.item.categories.categoryName,
+        category: this.props.item.categories.category_name,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
         inventory: this.props.item.inventory,
@@ -60,7 +60,7 @@ class ItemDetail extends Component {
       }
 
       const images = item.images.map((image, key) => {
-        let link = image.imageLink;
+        let link = image.image_link;
         return <img src={link} />;
       });
 

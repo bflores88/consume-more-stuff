@@ -11,18 +11,18 @@ class Item extends Component {
   }
 
   render() {
-    const { name, id, price, imageLink } = this.props;
+    const { name, id, price, image_link } = this.props;
     const itemID = id;
     const redirectTo = `/items/${itemID}`;
 
-    if (imageLink) {
+    if (image_link) {
       return (
         <Link to={redirectTo}>
           <div className="singleItem">
             <div className="imageBox">
               <img
                 // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
-                src={imageLink}
+                src={image_link}
                 alt=""
                 className="itemImage"
               />
@@ -42,7 +42,7 @@ class Item extends Component {
             <div className="imageBox">
               {/* <img
               // src="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
-              src={imageLink}
+              src={image_link}
               alt=""
               className="itemImage"
             /> */}
