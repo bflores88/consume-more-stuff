@@ -25,11 +25,7 @@ router
         [req.user.id],
       )
       .then((result) => {
-        /* Returns a cart owned by req.user.id
-           with associated items, where the item
-           name, dimensions, price, shipping cost,
-           description and image links were renamed.
-        */
+        // respond with all of user's carted_items
         return res.json(result.rows);
       })
       .catch((err) => {
@@ -38,13 +34,15 @@ router
       });
   })
   .post((req, res) => {
+    // make sure item not already in cart
     CartedItem.where({ carted_by: req.user.id, item_id: parseInt(req.body.item_id) })
       .fetch()
       .then((result) => {
         if (result !== null) {
-          return res.status(400).send(`Item already in users cart`);
+          return res.status(400).send(`Item already in user's cart`);
         }
-        
+
+        // make sure item is valid & has sufficient inventory
         return Item.where({ id: req.body.item_id })
           .fetch()
           .then((result) => {
@@ -60,6 +58,7 @@ router
               return res.status(400).send('Order quantity exceeds inventory');
             }
 
+            // add to cart
             return new CartedItem()
               .save({
                 item_id: parseInt(req.body.item_id),
@@ -67,6 +66,7 @@ router
                 quantity: req.body.quantity,
               })
               .then((result) => {
+                // respond with newly carted_item
                 new CartedItem({ id: result.id }).fetch().then((result) => {
                   return res.json(result);
                 });
@@ -85,6 +85,7 @@ router
     CartedItem.where({ id: parseInt(req.params.id) })
       .fetch({ withRelated: ['items'] })
       .then((result) => {
+        // ensure sufficient inventory
         if (req.body.quantity > result.toJSON().items.inventory) {
           return res.status(400).send('Order quantity exceeds inventory');
         }
@@ -97,6 +98,7 @@ router
             return CartedItem.where({ carted_by: req.user.id })
               .fetchAll()
               .then((result) => {
+                // respond with all items in cart
                 return res.json(result);
               });
           });
@@ -107,12 +109,14 @@ router
       });
   })
   .delete((req, res) => {
+    // first remove item from cart
     CartedItem.where({ id: req.params.id })
       .destroy()
       .then(() => {
         return CartedItem.where({ carted_by: req.user.id })
           .fetchAll()
           .then((result) => {
+            // then respond with remaining items in cart
             return res.json(result);
           });
       })

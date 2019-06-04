@@ -77,7 +77,7 @@ class AdminUserCard extends Component {
   handleStatusChange(e) {
     e.preventDefault();
     let data;
-    if (this.props.active) {
+    if (this.state.active === 'ACTIVE') {
       data = {
         id: this.state.id,
         active: false,
