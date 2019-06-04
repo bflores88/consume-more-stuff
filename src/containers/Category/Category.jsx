@@ -36,7 +36,7 @@ class Category extends Component {
       return <div>Page Loading...</div>;
     } else {
       const category = {
-        name: categoryItems.categoryName,
+        name: categoryItems.category_name,
         items: categoryItems.items,
       };
 
@@ -51,21 +51,21 @@ class Category extends Component {
         } else {
           itemLink = [
             {
-              imageLink:
+              image_link:
                 'https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg',
             },
           ];
         }
 
         if (itemLink[0]) {
-          return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
+          return <Item name={item.name} id={item.id} price={item.price} image_link={itemLink[0].image_link} />;
         } else {
           return (
             <Item
               name={item.name}
               id={item.id}
               price={item.price}
-              imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+              image_link="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
             />
           );
         }

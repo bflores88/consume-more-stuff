@@ -17,11 +17,11 @@ class CategoryLinks extends Component {
 
   render() {
     const categories = this.props.categories.map((category, idx) => {
-      let categoryName = category.categoryName;
-      let link = `/items/category/${categoryName}`;
+      let category_name = category.category_name;
+      let link = `/items/category/${category_name}`;
       return (
         <Link to={link}>
-          <button>{categoryName}</button>
+          <button>{category_name}</button>
         </Link>
       );
     });

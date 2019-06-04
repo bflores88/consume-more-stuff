@@ -26,7 +26,10 @@ class Profiles extends Component {
   render() {
     if (!this.props.currentUser) {
       return <Redirect to="/not-authorized" />;
-    } else if (this.props.currentUser.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.currentUser.id) {
+    } else if (
+      this.props.currentUser.role_id !== 1 &&
+      parseInt(this.props.match.params.id) !== this.props.currentUser.id
+    ) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
       if (!this.props.user.username) {
@@ -41,8 +44,8 @@ class Profiles extends Component {
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
-          // role: this.props.user.roles.roleName,
-          image: this.props.user.profileImageUrl,
+          // role: this.props.user.roles.role_name,
+          image: this.props.user.profile_image_url,
           active: this.props.user.active,
         };
 
