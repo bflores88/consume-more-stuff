@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('orderStatuses', (table) => {
+  return knex.schema.createTable('item_conditions', (table) => {
     table.increments();
     table
-      .string('statusName', 30)
+      .string('condition_name', 30)
       .notNull()
       .unique();
     table.timestamps(true, true);
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('orderStatuses');
+  return knex.schema.dropTable('item_conditions');
 };

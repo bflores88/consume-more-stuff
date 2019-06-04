@@ -1,13 +1,13 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('shippingAddresses')
+  return knex('shipping_addresses')
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('shippingAddresses').insert([
+      return knex('shipping_addresses').insert([
         {
           street: '123 Easy Street',
-          aptSuite: '',
+          apt_suite: '',
           city: 'Honolulu',
           state: 'HI',
           country: 'USA',
@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           street: '123 Sesame Street',
-          aptSuite: '',
+          apt_suite: '',
           city: 'Carson City',
           state: 'NV',
           country: 'USA',
@@ -25,7 +25,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           street: '123 Kenya Street',
-          aptSuite: 'Suite A',
+          apt_suite: 'Suite A',
           city: 'Gotham City',
           state: 'WA',
           country: 'USA',
@@ -34,7 +34,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           street: '123 Malaysia Street',
-          aptSuite: 'Apt 202',
+          apt_suite: 'Apt 202',
           city: 'Marshmallow',
           state: 'NJ',
           country: 'USA',
@@ -43,7 +43,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           street: '123 Dakka Dakka Lane',
-          aptSuite: '',
+          apt_suite: '',
           city: 'Milwaukee',
           state: 'TX',
           country: 'USA',
@@ -52,7 +52,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           street: '123 Durka Dur Street',
-          aptSuite: '',
+          apt_suite: '',
           city: 'Canton',
           state: 'OH',
           country: 'USA',

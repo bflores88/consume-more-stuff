@@ -18,34 +18,35 @@ router.route('/register').post((req, res) => {
         console.log('hash error ', error);
       } //return 500
 
-      return new User({ // If no errors were encountered salting and hashing the password then create a new model.
+      return new User({
+        // If no errors were encountered salting and hashing the password then create a new model.
         role_id: 3, // Basic User
         active: true,
         theme_id: 1, // Default Theme
         username: req.body.username,
-        profileImageUrl: req.body.profileImageUrl,
+        profile_image_url: req.body.profile_image_url,
         name: req.body.name,
         email: req.body.email,
         password: hash,
       })
-      .save() // Save model to database
-      .then((newUser) => {
-        console.log('User created: ', newUser);
-        return res.json(newUser); // Valid user data sends a response with userData. 
-      })
-      .catch((error) => {
-        // Custom objects to hide sensitive or uneccessary DB information.
-        if (error.constraint === 'users_username_unique') {
-          return res.json({
-            usernameErrorMessage : req.body.username + ' is not available! Please enter another.'
-          });
-        } else {
-          console.log('error ', error);
-          return res.json({
-            message: 'error'
-          });
-        }
-      });
+        .save() // Save model to database
+        .then((newUser) => {
+          console.log('User created: ', newUser);
+          return res.json(newUser); // Valid user data sends a response with userData.
+        })
+        .catch((error) => {
+          // Custom objects to hide sensitive or uneccessary DB information.
+          if (error.constraint === 'users_username_unique') {
+            return res.json({
+              usernameErrorMessage: req.body.username + ' is not available! Please enter another.',
+            });
+          } else {
+            console.log('error ', error);
+            return res.json({
+              message: 'error',
+            });
+          }
+        });
     });
   });
 });

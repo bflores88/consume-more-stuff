@@ -27,6 +27,8 @@ export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
 export const GRAB_USERNAME = 'GRAB_USERNAME';
 export const LOAD_SINGLE_USER = 'LOAD_SINGLE_USER';
 export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DEACTIVATE_USER = 'DEACTIVATE_USER';
 
 export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
 export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
@@ -203,6 +205,53 @@ export const grabUserThreads = () => {
       .catch((err) => console.log('Cant access website' + err));
   };
 };
+
+export const updateUser = (data) => {
+  return (dispatch) => {
+    return fetch('/api/users/profile', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        console.log(body)
+        return dispatch({
+          type: UPDATE_USER,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+}
+
+export const deactivateUser = () => {
+  const data = { active: false };
+  return (dispatch) => {
+    return fetch('/api/users/profile', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        console.log(body)
+        return dispatch({
+          type: DEACTIVATE_USER,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+}
 
 export const loadSpecificItem = (id) => {
   return (dispatch) => {
@@ -403,7 +452,7 @@ export const login = (credentials) => {
             role_id: body.role_id,
             theme_id: body.theme_id,
             name: body.name,
-            profileImageUrl: body.profileImageUrl,
+            profile_image_url: body.profile_image_url,
             email: body.email,
           };
           localStorage.setItem('user', JSON.stringify(userObj));

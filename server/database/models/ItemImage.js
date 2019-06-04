@@ -4,7 +4,7 @@ require('./Item');
 
 class ItemImage extends bookshelf.Model {
   get tableName() {
-    return 'itemImages';
+    return 'item_images';
   }
   get hasTimestamps() {
     return true;

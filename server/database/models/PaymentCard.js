@@ -3,7 +3,7 @@ const bookshelf = require('../bookshelf');
 require('./User');
 class PaymentCard extends bookshelf.Model {
   get tableName() {
-    return 'paymentCards';
+    return 'payment_cards';
   }
   get hasTimestamps() {
     return true;

@@ -21,13 +21,11 @@ class ItemsBox extends Component {
   filterItems(label, id, items) {
     switch (label) {
       case label:
-        return items.filter((item) => item.category_id === parseInt(id)).sort((a,b) => b.viewCount - a.viewCount);
+        return items.filter((item) => item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
       default:
         return items.filter((item) => item.category.id === 1);
     }
   }
-
-
 
   filterImages(id, images) {
     return images.filter((image) => image.item_id === id);
@@ -42,21 +40,21 @@ class ItemsBox extends Component {
       } else {
         itemLink = [
           {
-            imageLink:
+            image_link:
               'https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg',
           },
         ];
       }
 
       if (itemLink[0]) {
-        return <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />;
+        return <Item name={item.name} id={item.id} price={item.price} image_link={itemLink[0].image_link} />;
       } else {
         return (
           <Item
             name={item.name}
             id={item.id}
             price={item.price}
-            imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+            image_link="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
           />
         );
       }
@@ -82,7 +80,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    grabItemImages: (item) => {dispatch(grabItemImages(item))},
+    grabItemImages: (item) => {
+      dispatch(grabItemImages(item));
+    },
     loadCategories: () => dispatch(loadCategories()),
   };
 };

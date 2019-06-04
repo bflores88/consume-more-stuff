@@ -27,8 +27,8 @@ class Item extends bookshelf.Model {
     return this.belongsTo('Category', 'category_id');
   }
 
-  subCategories() {
-    return this.belongsTo('SubCategory', 'subCategory_id');
+  sub_categories() {
+    return this.belongsTo('SubCategory', 'sub_category_id');
   }
 
   orders() {

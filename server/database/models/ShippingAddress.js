@@ -4,7 +4,7 @@ require('./User');
 require('./Transaction');
 class ShippingAddress extends bookshelf.Model {
   get tableName() {
-    return 'shippingAddresses';
+    return 'shipping_addresses';
   }
   get hasTimestamps() {
     return true;
@@ -15,7 +15,7 @@ class ShippingAddress extends bookshelf.Model {
   }
 
   transactions() {
-    return this.hasMany('Transaction', 'shippingAddress_id');
+    return this.hasMany('Transaction', 'shipping_address_id');
   }
 }
 
