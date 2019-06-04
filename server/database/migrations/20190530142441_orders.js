@@ -12,12 +12,11 @@ exports.up = function(knex, Promise) {
       .references('id')
       .inTable('items');
     table
-      .integer('orderStatus_id')
+      .integer('order_status_id')
       .notNull()
       .references('id')
       .inTable('orderStatuses');
-    table.integer('orderQuantity').notNull();
-    table.decimal('shippingCost', 8, 2).notNull();
+    table.integer('quantity').notNull();
     table.timestamps(true, true);
   });
 };
