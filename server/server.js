@@ -43,7 +43,6 @@ app.use(passport.session());
 
 passport.use(
   new localStrategy(function(username, password, done) {
-    // method of validating given data.
     console.log('Validating with localStrategy');
 
     return new User({ username: username })
@@ -51,22 +50,21 @@ passport.use(
       .then((data) => {
         user = data.toJSON();
 
-        if (user === null || user.active === false) {
-          return done(null, false, { message: 'bad username or password' });
-        } else {
-          // console.log('password from credentials: ', password);
-          // console.log('password from user model: ', user.password);
+        if (user === null) {
+          return done(null, false, { message: 'Bad username or password. Try again!'});
+        }
 
-          bcrypt.compare(password, user.password).then((res) => {
-            // console.log('bcrypt.compare() result, ', res);
-            if (res) {
-              // bycrypt returns boolean, that if true means user and password match with database entries.
-              // console.log('good credentials');
+        if (user.active === false) {
+          return done(null, false, { message: 'Account inactive. Contact an Admin.' });
+        } else {
+          bcrypt.compare(password, user.password).then((match) => {
+
+            if (match) {
+              // bycrypt returns boolean, true means password matches.
               return done(null, user);
             } else {
-              // error route. username exists, pw not matched
-              // console.log('password bad');
-              return done(null, false, { message: 'bad username or password' });
+              // false means password wrong.
+              return done(null, false, { message: 'Bad username or password. Try again!' });
             }
           });
         }
