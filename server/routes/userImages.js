@@ -20,7 +20,12 @@ router.route('/').get(isLoggedInGuard, (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 router.route('/upload/:userId').put(isLoggedInGuard, singleUpload, (req, res) => {
+=======
+// PUT image FILES (not links)
+router.route('/upload/:userId').put(singleUpload, isLoggedInGuard, (req, res) => {
+>>>>>>> 4e83bda7993a32d969c350b0e2b2720de34228c1
   new User('id', req.params.userId)
     .save({
       profile_image_url: req.file.location,
