@@ -31,6 +31,7 @@ import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
 import { GRAB_USER_CART } from '../actions';
+import { DELETE_ITEM_FROM_CART } from '../actions';
 
 const initialState = {
   item: {},
@@ -116,6 +117,9 @@ function itemReducer(state = initialState, action) {
       return Object.assign({}, state, { chosen_subcategory: action.payload });
 
     case GRAB_USER_CART:
+      return Object.assign({}, state, { cart_items: [...action.payload] });
+
+    case DELETE_ITEM_FROM_CART:
       return Object.assign({}, state, { cart_items: [...action.payload] });
 
     default:
