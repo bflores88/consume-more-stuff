@@ -101,6 +101,8 @@ router.route('/theme').put(isLoggedInGuard, ownershipGuard, (req, res) => {
       theme_id: req.body.theme_id,
     })
     .then((result) => {
+      /* The user is able to adjust which 
+         preset theme they'd like to use */
       new User({ id: req.user.id })
         .fetch()
         .then((result) => {
@@ -129,6 +131,7 @@ router.route('/password').put(isLoggedInGuard, ownershipGuard, (req, res) => {
       new User('id', req.body.id)
         .save({ password: hash })
         .then((result) => {
+          // The current user can change their password
           new User({ id: req.body.id }).fetch().then((result) => {
             return res.json(result);
           });

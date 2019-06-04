@@ -13,6 +13,7 @@ router.route('/').get((req, res) => {
   new ItemImage()
     .fetchAll()
     .then((result) => {
+      // returns all images of all items.
       return res.json(result);
     })
     .catch((err) => {
@@ -28,6 +29,7 @@ router.route('/upload/:itemId').post(isLoggedInGuard, singleUpload, (req, res) =
       item_id: parseInt(req.params.itemId),
     })
     .then((result) => {
+      // uploads a new image to AWS bucket if the user is logged in
       new ItemImage({ id: result.id }).fetch().then((result) => {
         return res.json(result);
       });
@@ -45,6 +47,7 @@ router.route('/link/:itemId').post(isLoggedInGuard, (req, res) => {
     })
     .then((result) => {
       new ItemImage({ id: result.id }).fetch().then((result) => {
+        // links the item image to the associated item
         return res.json(result);
       });
     })
@@ -58,6 +61,7 @@ router.route('/item/:itemId').get((req, res) => {
   ItemImage.where({ item_id: req.params.itemId })
     .fetchAll({ columns: ['image_link'] })
     .then((result) => {
+      // returns all images for the requested item
       return res.json(result);
     })
     .catch((err) => {
@@ -72,6 +76,7 @@ router
     new ItemImage({ id: req.params.id })
       .fetch()
       .then((result) => {
+        // returns a single image based on its ID
         return res.json(result);
       })
       .catch((err) => {

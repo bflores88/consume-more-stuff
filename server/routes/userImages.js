@@ -12,6 +12,7 @@ router.route('/').get(isLoggedInGuard, (req, res) => {
   new User()
     .fetchAll({ columns: ['id', 'profile_image_url'] })
     .then((result) => {
+      // returns the current users profile picture
       return res.json(result);
     })
     .catch((err) => {
@@ -20,17 +21,14 @@ router.route('/').get(isLoggedInGuard, (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 router.route('/upload/:userId').put(isLoggedInGuard, singleUpload, (req, res) => {
-=======
-// PUT image FILES (not links)
-router.route('/upload/:userId').put(singleUpload, isLoggedInGuard, (req, res) => {
->>>>>>> 4e83bda7993a32d969c350b0e2b2720de34228c1
   new User('id', req.params.userId)
     .save({
       profile_image_url: req.file.location,
     })
     .then((result) => {
+      /* allows the current user to change 
+      their profile picture using a png or jpeg file.*/
       new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
         return res.json(result);
       });
@@ -46,6 +44,8 @@ router.route('/link/:userId').put(isLoggedInGuard, (req, res) => {
       profile_image_url: req.body.image_link,
     })
     .then((result) => {
+      /* allows the current user to change their 
+         profile picture using a hypertext link*/
       new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
         return res.json(result);
       });

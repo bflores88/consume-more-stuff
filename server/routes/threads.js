@@ -34,16 +34,22 @@ router
         [req.user.id],
       )
       .then((result) => {
+        /* Inner most subquery selects threads associated with the user.
+           Outer most subquery selects those threads' attributes (including
+           a list of users set_to). Top level query joins & sorts by most
+           recent message */
         return res.json(result.rows);
       });
   })
   .post(isLoggedInGuard, (req, res) => {
+    // starts a new thread
     new Thread()
       .save({
         subject: req.body.subject,
         read_only: req.body.read_only,
       })
       .then((result) => {
+        // creates the first message associated with the thread
         new Message()
           .save({
             body: req.body.body,
@@ -51,6 +57,7 @@ router
             sent_by: req.user.id,
           })
           .then((result) => {
+            // adds the sender to the thread
             const thread_id = result.attributes.thread_id;
             let usersThreads = [
               {
@@ -58,6 +65,7 @@ router
                 sent_to: req.user.id,
               },
             ];
+            // adding additional recipients to the thread
             const userList = req.body.userList;
             if (userList.length > 0) {
               userList.forEach((user) => {
@@ -89,6 +97,7 @@ router
                     [req.user.id, result[0].attributes.thread_id],
                   )
                   .then((result) => {
+                    // Replies with the first message on the thread
                     return res.json(result.rows);
                   });
               });
@@ -99,6 +108,7 @@ router
 router
   .route('/:threadId')
   .get(isLoggedInGuard, (req, res) => {
+    // Get all messages on a thread
     knex
       .raw(
         `SELECT
@@ -121,6 +131,7 @@ router
       });
   })
   .post(isLoggedInGuard, (req, res) => {
+    // creates a new message on a thread
     new Message()
       .save({
         body: req.body.body,

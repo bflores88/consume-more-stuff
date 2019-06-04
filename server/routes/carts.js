@@ -25,6 +25,11 @@ router
         [req.user.id],
       )
       .then((result) => {
+        /* Returns a cart owned by req.user.id
+           with associated items, where the item
+           name, dimensions, price, shipping cost,
+           description and image links were renamed.
+        */
         return res.json(result.rows);
       })
       .catch((err) => {
@@ -37,9 +42,9 @@ router
       .fetch()
       .then((result) => {
         if (result !== null) {
-          return res.status(400).send(`Item already in user's cart`);
+          return res.status(400).send(`Item already in users cart`);
         }
-
+        
         return Item.where({ id: req.body.item_id })
           .fetch()
           .then((result) => {
