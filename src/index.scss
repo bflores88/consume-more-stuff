@@ -59,25 +59,46 @@ a {
   
     .side-box {
       // background: green;
-      position: fixed;
-      top: 80px; // start at height of the header
-      bottom: 40px; // height of footer
+
       
-
-      overflow: scroll;
-
-      border-right: 1px solid gold;
+      position: absolute;
+      top: auto;
+      bottom: auto;
 
       margin: 0;
-      padding: 30px;
+      padding: 10px;
+      padding-bottom: 10%;
       width: 20%;
-      height: auto;
+      overflow-y: scroll;
+      min-width: initial;
+
+//       position: fixed;
+//       top: 80px; // start at height of the header
+//       bottom: 40px; // height of footer
+      
+
+//       overflow: scroll;
+
+//       border-right: 1px solid gold;
+
+//       margin: 0;
+//       padding: 30px;
+//       width: 20%;
+//       height: auto;
+
     }
     .page {
       // background: blue;
 
       margin-left: 20%;
       width: 80%;
+
+      .detail-image {
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
 
       .login-form {
         width: 250px;
