@@ -14,9 +14,6 @@ const knex = require('../database/knex.js');
 router
   .route('/')
   .get(isLoggedInGuard, (req, res) => {
-    // inner most subquery selects threads associated with the user
-    // outer subquery selects those threads' attributes (incl list of users sent_to)
-    // top level query joins & sorts by most recent message
     knex
       .raw(
         `SELECT a.*, MAX(messages.id) AS max_message_id
@@ -131,7 +128,6 @@ router
         sent_by: parseInt(req.user.id),
       })
       .then(() => {
-        // after post, return the thread with the new message added
         knex
           .raw(
             `SELECT
