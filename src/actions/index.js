@@ -303,11 +303,11 @@ export const setExistingUser = (data) => {
   console.log('setExistingUser data');
   return (dispatch) => {
     return dispatch({
-      type: LOGIN_SUCCESS, 
+      type: LOGIN_SUCCESS,
       payload: data,
     });
-  }
-}
+  };
+};
 
 export const login = (credentials) => {
   return (dispatch) => {
@@ -372,7 +372,7 @@ export const logout = () => {
       localStorage.removeItem('user');
       return dispatch({
         type: LOGOUT_SUCCESS,
-      })
+      });
     })
     .catch((error) => {
       console.log('Error in logout: ', error);
