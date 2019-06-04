@@ -4,14 +4,16 @@ const express = require('express');
 const router = express.Router();
 const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
-const UserThread = require('../database/models/UserThread');
-const registeredUser = require('../middleware/userGuard');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
+const isModeratorGuard = require('../middleware/isModeratorGuard');
+const isAdminGuard = require('../middleware/isAdminGuard');
 
 const knex = require('../database/knex.js');
 
 router
   .route('/')
-  .get(registeredUser, (req, res) => {
+  .get(isLoggedInGuard, (req, res) => {
     // inner most subquery selects threads associated with the user
     // outer subquery selects those threads' attributes (incl list of users sent_to)
     // top level query joins & sorts by most recent message
@@ -38,7 +40,7 @@ router
         return res.json(result.rows);
       });
   })
-  .post(registeredUser, (req, res) => {
+  .post(isLoggedInGuard, (req, res) => {
     new Thread()
       .save({
         subject: req.body.subject,
@@ -99,7 +101,7 @@ router
 
 router
   .route('/:threadId')
-  .get(registeredUser, (req, res) => {
+  .get(isLoggedInGuard, (req, res) => {
     knex
       .raw(
         `SELECT
@@ -121,7 +123,7 @@ router
         return res.json(result.rows);
       });
   })
-  .post(registeredUser, (req, res) => {
+  .post(isLoggedInGuard, (req, res) => {
     new Message()
       .save({
         body: req.body.body,
