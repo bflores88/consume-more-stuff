@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './EditItem.scss';
-// import { editItem } from '../../actions';
+import { editItem } from '../../actions';
 import { loadSpecificItem } from '../../actions';
 import CategoryDropdown from '../CategoryDropdown';
 
@@ -20,23 +20,12 @@ class EditItem extends Component {
       description: '',
       dimensions: '',
       image: '',
-      // image: this.props.item.images,
-      // name: this.props.item.name,
-      // dimensions: this.props.item.dimensions,
-      // price: this.props.item.price,
-      // inventory: this.props.item.inventory,
-      // description: this.props.item.description,
-      // // condition: this.props.item.conditions.conditionName,
-      // status: this.props.item.active,
-      // subcat: this.props.item.subCategories.subCategoryName,
-      // updated: this.props.item.updated_at,
-      // category: this.props.item.categories.categoryName,
-      // seller: this.props.item.users.username,
-      // sellerID: this.props.item.user_id,
-      // showModal: false,
+      active: false,
+      id: 0,
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.editThisItem = this.editThisItem.bind(this);
+    this.handleActiveChange = this.handleActiveChange.bind(this);
   }
   // state = {
   //   name: this.props.item.name,
@@ -44,9 +33,19 @@ class EditItem extends Component {
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-
+    // console.log
     console.log(name, value);
     return this.setState({ [name]: value });
+  }
+
+  handleActiveChange(e) {
+    if (this.state.active === false) {
+      this.setState({ active: true });
+      console.log(this.state.active);
+    } else {
+      this.setState({ active: false });
+      console.log(this.state.active);
+    }
   }
 
   editThisItem(e) {
@@ -57,9 +56,13 @@ class EditItem extends Component {
     data.name = this.state.name;
     data.price = this.state.price;
     data.inventory = this.state.inventory;
+    data.dimensions = this.state.dimensions;
+    data.condition_id = this.state.condition_id;
+    data.active = this.state.active;
+    data.approved = true;
     // data
 
-    // this.props.editItem(data);
+    this.props.editItem(this.state.id, data);
     console.log(data);
   }
 
@@ -76,6 +79,7 @@ class EditItem extends Component {
         this.setState({ condition_id: data.payload.condition_id });
         this.setState({ dimensions: data.payload.dimensions });
         this.setState({ description: data.payload.description });
+        this.setState({ id: data.payload.id });
       }
     });
     // this.setState({ name: this.props.item.name });
@@ -144,18 +148,7 @@ class EditItem extends Component {
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>
-                    {/* <select
-                      name="category_id"
-                      className="select"
-                      value={this.state.category_id}
-                      onChange={this.handleInputOnChange}
-                      required
-                    >
-                      <option value="">Choose a Category</option>
-                      <option value="1">Electronics</option>
-                      <option value="2">Apparel</option>
-                      <option value="3">Books</option>
-                    </select> */}
+
                     <CategoryDropdown />
                   </div>
                 </div>
@@ -223,8 +216,16 @@ class EditItem extends Component {
                     value={this.state.description}
                   />
                 </div>
+                <div className="input-div">
+                  <label htmlFor="active">Set item to Active?</label>
+                  <label class="switch">
+                    <input name="active" type="checkbox" onChange={this.handleActiveChange} />
+                    <span class="slider" />
+                  </label>
+                </div>
+
                 <button onClick={this.editThisItem} className="submit-item-button">
-                  Continue
+                  Edit Item
                 </button>
               </div>
             </form>
@@ -246,6 +247,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadSpecificItem: (item) => dispatch(loadSpecificItem(item)),
+    editItem: (id, item) => {
+      dispatch(editItem(id, item));
+    },
   };
 };
 

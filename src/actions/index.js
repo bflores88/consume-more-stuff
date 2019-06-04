@@ -29,6 +29,7 @@ export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 
 export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
 export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
+export const EDIT_ITEM = 'EDIT_ITEM';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -44,6 +45,33 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const editItem = (id, data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/items/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        // .then((data) => {
+        //   console.log('data', data);
+        //   return dispatch({
+        //     type: EDIT_ITEM,
+        //     payload: data,
+        //   });
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
   };
 };
 
