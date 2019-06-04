@@ -62,7 +62,6 @@ router
       });
   });
 
-// no guard below
 router
   .route('/:id')
   .get((req, res) => {
