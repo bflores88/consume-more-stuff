@@ -11,23 +11,23 @@ exports.up = function(knex, Promise) {
       .integer('condition_id')
       .notNull()
       .references('id')
-      .inTable('itemConditions');
+      .inTable('item_conditions');
     table
       .integer('category_id')
       .notNull()
       .references('id')
       .inTable('categories');
     table
-      .integer('subCategory_id')
+      .integer('sub_category_id')
       .notNull()
       .references('id')
-      .inTable('subCategories');
+      .inTable('sub_categories');
     table.string('name', 255).notNull();
     table.integer('inventory').notNull();
     table.string('dimensions', 100);
-    table.integer('viewCount').notNull();
+    table.integer('view_count').notNull();
     table.decimal('price', 8, 2).notNull();
-    table.decimal('shippingCost', 8, 2).notNull();
+    table.decimal('shipping_cost', 8, 2).notNull();
     table.string('description', 1000);
     table.boolean('active').notNull();
     table.boolean('approved').notNull();

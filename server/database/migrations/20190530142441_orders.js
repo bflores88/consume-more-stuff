@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
       .integer('order_status_id')
       .notNull()
       .references('id')
-      .inTable('orderStatuses');
+      .inTable('order_statuses');
     table.integer('quantity').notNull();
     table.timestamps(true, true);
   });

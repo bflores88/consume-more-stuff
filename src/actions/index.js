@@ -403,7 +403,7 @@ export const login = (credentials) => {
             role_id: body.role_id,
             theme_id: body.theme_id,
             name: body.name,
-            profileImageUrl: body.profileImageUrl,
+            profile_image_url: body.profile_image_url,
             email: body.email,
           };
           localStorage.setItem('user', JSON.stringify(userObj));

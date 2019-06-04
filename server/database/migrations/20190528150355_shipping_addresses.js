@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('shippingAddresses', (table) => {
+  return knex.schema.createTable('shipping_addresses', (table) => {
     table.increments();
     table.string('street', 100);
-    table.string('aptSuite', 20);
+    table.string('apt_suite', 20);
     table.string('city', 50);
     table.string('state', 20);
     table.string('country', 20);
@@ -18,5 +18,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('shippingAddresses');
+  return knex.schema.dropTable('shipping_addresses');
 };

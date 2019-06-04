@@ -2,14 +2,14 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('roles', (table) => {
     table.increments();
     table
-      .string('roleName', 30)
+      .string('role_name', 30)
       .notNull()
       .unique();
-    table.boolean('canBuy').notNull();
-    table.boolean('canSell').notNull();
-    table.boolean('canModify').notNull();
-    table.boolean('canApprove').notNull();
-    table.boolean('canSuspend').notNull();
+    table.boolean('can_buy').notNull();
+    table.boolean('can_sell').notNull();
+    table.boolean('can_modify').notNull();
+    table.boolean('can_approve').notNull();
+    table.boolean('can_suspend').notNull();
     table.timestamps(true, true);
   });
 };

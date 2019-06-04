@@ -7,10 +7,10 @@ exports.up = function(knex, Promise) {
       .references('id')
       .inTable('users');
     table
-      .integer('shippingAddress_id')
+      .integer('shipping_address_id')
       .notNull()
       .references('id')
-      .inTable('shippingAddresses');
+      .inTable('shipping_addresses');
     table.decimal('tax', 8, 2).notNull();
     table.timestamps(true, true);
   });

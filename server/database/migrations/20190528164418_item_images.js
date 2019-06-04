@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('itemImages', (table) => {
+  return knex.schema.createTable('item_images', (table) => {
     table.increments();
-    table.string('imageLink', 255).notNull();
+    table.string('image_link', 255).notNull();
     table
       .integer('item_id')
       .notNull()
@@ -12,5 +12,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('itemImages');
+  return knex.schema.dropTable('item_images');
 };
