@@ -3,19 +3,16 @@
 const express = require('express');
 const router = express.Router();
 const ItemImage = require('../database/models/ItemImage');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
-// AWS s3 middleware for posting images
-// 'image' in upload.single() is the key-name that's referenced in the req.body object
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
-// const remove = require('../services/image-delete');
 
-// no guard below
 router.route('/').get((req, res) => {
   new ItemImage()
     .fetchAll()
     .then((result) => {
-      // respond with all images
       return res.json(result);
     })
     .catch((err) => {
@@ -24,9 +21,7 @@ router.route('/').get((req, res) => {
     });
 });
 
-// post image FILES (not links)
-router.route('/upload/:itemId').post(singleUpload, (req, res) => {
-  console.log('REQRGWGEGGEW', req);
+router.route('/upload/:itemId').post(isLoggedInGuard, singleUpload, (req, res) => {
   new ItemImage()
     .save({
       image_link: req.file.location,
@@ -34,7 +29,6 @@ router.route('/upload/:itemId').post(singleUpload, (req, res) => {
     })
     .then((result) => {
       new ItemImage({ id: result.id }).fetch().then((result) => {
-        // respond with newly created item image
         return res.json(result);
       });
     })
@@ -43,8 +37,7 @@ router.route('/upload/:itemId').post(singleUpload, (req, res) => {
     });
 });
 
-// post image LINKS (not files)
-router.route('/link/:itemId').post((req, res) => {
+router.route('/link/:itemId').post(isLoggedInGuard, (req, res) => {
   new ItemImage()
     .save({
       image_link: req.body.image_link,
@@ -52,7 +45,6 @@ router.route('/link/:itemId').post((req, res) => {
     })
     .then((result) => {
       new ItemImage({ id: result.id }).fetch().then((result) => {
-        // respond with newly created item image
         return res.json(result);
       });
     })
@@ -63,7 +55,6 @@ router.route('/link/:itemId').post((req, res) => {
 });
 
 router.route('/item/:itemId').get((req, res) => {
-  // return only image_links for images tied to specified item
   ItemImage.where({ item_id: req.params.itemId })
     .fetchAll({ columns: ['image_link'] })
     .then((result) => {
@@ -78,7 +69,6 @@ router.route('/item/:itemId').get((req, res) => {
 router
   .route('/:id')
   .get((req, res) => {
-    // return queried image
     new ItemImage({ id: req.params.id })
       .fetch()
       .then((result) => {
@@ -89,15 +79,13 @@ router
         return res.status(404).send('Item image not found');
       });
   })
-  .delete((req, res) => {
+  .delete(isLoggedInGuard, ownershipGuard, (req, res) => {
     ItemImage.where({ id: req.params.id })
       .destroy()
       .then((result) => {
         new ItemImage()
           .fetchAll({ columns: ['image_link'] })
           .then((result) => {
-            // respond with all remaining images
-            // BETTER would be to reply with all remaining images tied to item
             return res.json(result);
           })
           .catch((err) => {
