@@ -8,16 +8,14 @@ exports.seed = function(knex, Promise) {
         {
           transaction_id: 3,
           item_id: 1,
-          orderStatus_id: 4,
-          orderQuantity: 1,
-          shippingCost: 12.95,
+          order_status_id: 4,
+          quantity: 1,
         },
         {
           transaction_id: 1,
           item_id: 5,
-          orderStatus_id: 4,
-          orderQuantity: 2,
-          shippingCost: 4.99,
+          order_status_id: 4,
+          quantity: 2,
         },
       ]);
     });

@@ -12,7 +12,7 @@ class Transaction extends bookshelf.Model {
   }
 
   users() {
-    return this.belongsTo('User', 'user_id');
+    return this.belongsTo('User', 'purchased_by');
   }
 
   shippingAddresses() {

@@ -1,26 +1,23 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('orders', (table) => {
+  return knex.schema.createTable('carted_items', (table) => {
     table.increments();
-    table
-      .integer('transaction_id')
-      .notNull()
-      .references('id')
-      .inTable('transactions');
     table
       .integer('item_id')
       .notNull()
       .references('id')
-      .inTable('items');
+      .inTable('items')
+      .onDelete('CASCADE');
     table
-      .integer('order_status_id')
+      .integer('carted_by')
       .notNull()
       .references('id')
-      .inTable('orderStatuses');
+      .inTable('users')
+      .onDelete('CASCADE');
     table.integer('quantity').notNull();
     table.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('orders');
+  return knex.schema.dropTable('carted_items');
 };

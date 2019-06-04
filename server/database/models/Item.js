@@ -5,6 +5,7 @@ require('./ItemCondition');
 require('./Category');
 require('./SubCategory');
 require('./Order');
+require('./CartedItem');
 require('./ItemImage');
 class Item extends bookshelf.Model {
   get tableName() {
@@ -32,6 +33,10 @@ class Item extends bookshelf.Model {
 
   orders() {
     return this.hasMany('Order', 'item_id');
+  }
+
+  carted_items() {
+    return this.hasMany('CartedItem', 'item_id');
   }
 
   images() {
