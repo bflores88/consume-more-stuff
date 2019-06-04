@@ -3,15 +3,15 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../database/models/User');
-const registeredUser = require('../middleware/userGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 
 // AWS s3 middleware for posting images
 // 'image' in upload.single() is the key-name that's referenced in the req.body object
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 
-router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
+// do we care if someone can get all the profile images?
+router.route('/').get(isLoggedInGuard, (req, res) => {
   new User()
     .fetchAll({ columns: ['id', 'profileImageUrl'] })
     .then((result) => {
@@ -26,7 +26,7 @@ router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
 
 // PUT image FILES (not links)
 // AFTER TESTING:: remove /:userId  && change req.params.userId --> req.user.id
-router.route('/upload/:userId').put(singleUpload, registeredUser, ownershipGuard, (req, res) => {
+router.route('/upload/:userId').put(singleUpload, isLoggedInGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
       profileImageUrl: req.file.location,
@@ -44,7 +44,7 @@ router.route('/upload/:userId').put(singleUpload, registeredUser, ownershipGuard
 
 // PUT image LINKS (not files)
 // AFTER TESTING:: remove /:userId  && change req.params.userId --> req.user.id
-router.route('/link/:userId').put(registeredUser, ownershipGuard, (req, res) => {
+router.route('/link/:userId').put(isLoggedInGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
       profileImageUrl: req.body.imageLink,
