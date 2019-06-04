@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './Profiles.scss';
 import { loadSingleUser } from '../../actions';
+import moment from 'moment';
 
 class Profiles extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+    };
   }
 
   componentDidMount() {
@@ -29,7 +31,7 @@ class Profiles extends Component {
     } else if (this.props.currentUser.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.currentUser.id) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
-      if (!this.props.user.username) {
+      if (!this.props.user.roles) {
         return (
           <>
             <div>Page Loading...</div>
@@ -41,10 +43,13 @@ class Profiles extends Component {
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
-          // role: this.props.user.roles.roleName,
+          role: this.props.user.roles.roleName,
           image: this.props.user.profileImageUrl,
           active: this.props.user.active,
+          memberSince: this.props.user.created_at
         };
+
+        let memberSince = moment(new Date(user.memberSince)).format("MMM DD, YYYY")
 
         let status;
         if (user.active) {
@@ -66,6 +71,7 @@ class Profiles extends Component {
               <p className="user-detail">Email:&nbsp;{user.email}</p>
               <p className="user-detail">Role:&nbsp;{user.role}</p>
               <p className="user-detail">Status:&nbsp;{status}</p>
+              <p className="user-detail">Member Since:&nbsp;{memberSince}</p>
               <br />
               <div className="profile-button">
                 <button>Edit Profile</button>

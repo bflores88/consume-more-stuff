@@ -4,6 +4,7 @@ import { loadSpecificItem } from '../../actions';
 import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 class ItemDetail extends Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class ItemDetail extends Component {
         inventory: this.props.item.inventory,
         viewCount: this.props.item.viewCount,
       };
+
+      const created = moment(new Date(item.created)).format("MMM DD, YYYY")
+      const updated = moment(new Date(item.updated)).format("MMM DD, YYYY")
       
 
       let status;
@@ -95,9 +99,9 @@ class ItemDetail extends Component {
             <br />
             <br />
             <br />
-            Posting Date:&nbsp;&nbsp;{item.created}
+            Posting Date:&nbsp;&nbsp;{created}
             <br />
-            Last Updated:&nbsp;&nbsp;{item.updated}
+            Last Updated:&nbsp;&nbsp;{updated}
           </div>
         </div>
       );
