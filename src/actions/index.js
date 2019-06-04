@@ -49,6 +49,31 @@ export const loadItems = () => {
   };
 };
 
+// export const editItem = (id, data) => {
+//   return (dispatch) => {
+//     return fetch(`/api/items/${id}`, {
+//       method: 'PUT',
+//       body: JSON.stringify(data),
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     })
+//       .then((response) => {
+//         return response.json();
+//       })
+
+//       .then((data) => {
+//         console.log('data', data);
+//         // return dispatch({
+//         //   type: EDIT_ITEM,
+//         //   payload: data,
+//         // });
+//       })
+//       .catch((error) => {
+//         console.log('Error in logout: ', error);
+//       });
+//     }
+
 export const editItem = (id, data) => {
   return (dispatch) => {
     return fetch(`/api/items/${id}`, {
@@ -61,19 +86,11 @@ export const editItem = (id, data) => {
       .then((response) => {
         return response.json();
       })
-
       .then((data) => {
-        console.log('data', data);
-        // return dispatch({
-        //   type: EDIT_ITEM,
-        //   payload: data,
-        // });
-      })
-      .catch((error) => {
-        console.log('Error in logout: ', error);
+        console.log(data);
       });
-    }
   };
+};
 
 export const loadAllActiveItems = () => {
   return (dispatch) => {
@@ -88,7 +105,6 @@ export const loadAllActiveItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
-
   };
 };
 
