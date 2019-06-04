@@ -22,7 +22,12 @@ class AddThread extends Component {
     const value = e.target.value;
     const name = e.target.name;
 
-    // console.log(name, value);
+    if (name === 'addUser') {
+      let userListArray = this.state.userList;
+      userListArray.push(parseInt(value));
+      console.log(userListArray);
+      return this.setState({ userList: userListArray });
+    }
     return this.setState({ [name]: value });
   }
 
@@ -32,7 +37,7 @@ class AddThread extends Component {
     data.subject = this.state.subject;
     data.body = this.state.body;
     data.read_only = false;
-    data.userList = [3];
+    data.userList = this.state.userList;
     return this.props.addThread(data);
   }
 
@@ -41,6 +46,26 @@ class AddThread extends Component {
   }
 
   render() {
+    let userInputs = this.state.userList.map((user, idx) => {
+      return (
+        <div className="input-div">
+          <label className="input-label" htmlFor="addUser">
+            Add User to Thread:
+          </label>
+          <input
+            className="body-input"
+            className="input"
+            type="number"
+            name="addUser"
+            placeholder="Add User"
+            value={this.state.userList[idx + 1]}
+            onChange={this.handleInputOnChange}
+            required
+          />
+        </div>
+      );
+    });
+
     return (
       <div className="add-thread-page">
         <h1>Add Thread Page</h1>
@@ -79,6 +104,23 @@ class AddThread extends Component {
                 required
               />
             </div>
+
+            <div className="input-div">
+              <label className="input-label" htmlFor="addUser">
+                Add User to Thread:
+              </label>
+              <input
+                className="body-input"
+                className="input"
+                type="number"
+                name="addUser"
+                placeholder="Add User"
+                value={this.state.userList[0]}
+                onChange={this.handleInputOnChange}
+                required
+              />
+            </div>
+            {userInputs}
             <button onClick={this.addNewThread}>Create Thread</button>
           </form>
         </div>
