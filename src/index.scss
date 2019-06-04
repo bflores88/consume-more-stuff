@@ -49,24 +49,29 @@ a {
 
 @media only screen and (max-width: 950px) {
   .header {
+    height: 80px;
     // background: transparent;
     width: 100%;
   }
   
   .main {
     // background: yellow;
-
+  
     .side-box {
       // background: green;
-      
       position: fixed;
-      top: auto;
+      top: 80px; // start at height of the header
+      bottom: 40px; // height of footer
+      
+
+      overflow: scroll;
+
+      border-right: 1px solid gold;
 
       margin: 0;
-      padding: 10px;
+      padding: 30px;
       width: 20%;
-      height: 100%;
-      min-width: initial;
+      height: auto;
     }
     .page {
       // background: blue;
@@ -83,4 +88,13 @@ a {
       }
     }
   }
+
+  // .footer {
+  //   // background-color: transparent;
+  //   border-top: 1px solid black;
+
+  //   .logoBox{
+  //     // background-color: transparent;
+  //   }
+  // }
 }
