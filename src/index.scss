@@ -46,3 +46,33 @@ a {
   text-decoration: none;
   color: $link-color;
 }
+
+@media only screen and (max-width: 750px) {
+  .header {
+    background: transparent;
+  }
+  
+  .main {
+    background: yellow;
+
+    .side-box {
+      background: green;
+    }
+    .page {
+      background: blue;
+    }
+  }
+
+  .footer {
+
+    background: transparent;
+    .logoBox {
+      background: transparent;
+
+      .title {
+        background: transparent;
+      }
+    }
+
+  }
+}

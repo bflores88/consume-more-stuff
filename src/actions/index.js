@@ -72,6 +72,8 @@ export const editItem = (id, data) => {
       .catch((error) => {
         console.log('Error in logout: ', error);
       });
+    }
+  };
 
 export const loadAllActiveItems = () => {
   return (dispatch) => {
