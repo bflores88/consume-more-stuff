@@ -52,20 +52,16 @@ router.route('/register').post((req, res) => {
 });
 
 // next transfers control to the next middleware function.
-
 router.route('/login').post((req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      console.log('err ', err);
       return res.json(err);
 
     } else {
       if (!user) {
-        console.log('info ', info);
         return res.json({error : info.message});
 
       } else {
-        console.log('user ', user);
         return res.json(user);
       }
     }
