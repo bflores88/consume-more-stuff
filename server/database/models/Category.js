@@ -10,7 +10,7 @@ class Category extends bookshelf.Model {
     return true;
   }
 
-  subCategories() {
+  sub_categories() {
     return this.hasMany('SubCategory', 'category_id');
   }
 

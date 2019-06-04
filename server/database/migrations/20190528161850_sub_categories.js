@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('subCategories', (table) => {
+  return knex.schema.createTable('sub_categories', (table) => {
     table.increments();
     table
-      .string('subCategoryName', 30)
+      .string('sub_category_name', 30)
       .notNull()
       .unique();
     table
@@ -15,5 +15,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('subCategories');
+  return knex.schema.dropTable('sub_categories');
 };

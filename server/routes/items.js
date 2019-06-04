@@ -37,12 +37,12 @@ router
         name: req.body.name,
         inventory: parseInt(req.body.inventory),
         dimensions: req.body.dimensions,
-        viewCount: 0,
+        view_count: 0,
         price: req.body.price,
         description: req.body.description,
         approved: false,
         category_id: req.body.category_id,
-        subCategory_id: req.body.subCategory_id,
+        sub_category_id: req.body.sub_category_id,
         condition_id: req.body.condition_id,
         active: req.body.active,
         user_id: parseInt(req.user.id),
@@ -64,7 +64,7 @@ router
   .get((req, res) => {
     new Item({ id: req.params.id })
 
-      .fetch({ withRelated: ['users', 'conditions', 'categories', 'subCategories', 'images'] })
+      .fetch({ withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images'] })
       .then((result) => {
         return res.json(result);
       })
@@ -83,7 +83,7 @@ router
         description: req.body.description,
         approved: req.body.approved,
         category_id: req.body.category_id,
-        subCategory_id: req.body.subCategory_id,
+        sub_category_id: req.body.sub_category_id,
         condition_id: req.body.condition_id,
         active: req.body.active,
       })
@@ -111,9 +111,9 @@ router.route('/:id/views').put((req, res) => {
   new Item({ id: req.params.id })
     .fetch()
     .then((item) => {
-      let increment = ++item.attributes.viewCount;
+      let increment = ++item.attributes.view_count;
       item
-        .save({ viewCount: increment }, { patch: true })
+        .save({ view_count: increment }, { patch: true })
         .then(() => {
           return res.json({ success: true });
         })

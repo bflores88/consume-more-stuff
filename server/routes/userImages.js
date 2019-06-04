@@ -13,7 +13,7 @@ const singleUpload = upload.single('image');
 
 router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
   new User()
-    .fetchAll({ columns: ['id', 'profileImageUrl'] })
+    .fetchAll({ columns: ['id', 'profile_image_url'] })
     .then((result) => {
       // respond with all profile images
       return res.json(result);
@@ -25,14 +25,13 @@ router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
 });
 
 // PUT image FILES (not links)
-// AFTER TESTING:: remove /:userId  && change req.params.userId --> req.user.id
 router.route('/upload/:userId').put(singleUpload, registeredUser, ownershipGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
-      profileImageUrl: req.file.location,
+      profile_image_url: req.file.location,
     })
     .then((result) => {
-      new User({ id: req.params.userId }).fetch({ columns: ['profileImageUrl'] }).then((result) => {
+      new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
         // respond with updated profile image
         return res.json(result);
       });
@@ -43,14 +42,13 @@ router.route('/upload/:userId').put(singleUpload, registeredUser, ownershipGuard
 });
 
 // PUT image LINKS (not files)
-// AFTER TESTING:: remove /:userId  && change req.params.userId --> req.user.id
 router.route('/link/:userId').put(registeredUser, ownershipGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
-      profileImageUrl: req.body.imageLink,
+      profile_image_url: req.body.image_link,
     })
     .then((result) => {
-      new User({ id: req.params.userId }).fetch({ columns: ['profileImageUrl'] }).then((result) => {
+      new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
         // respond with updated profile image
         return res.json(result);
       });
