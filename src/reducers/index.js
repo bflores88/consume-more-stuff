@@ -9,6 +9,7 @@ import {
   LOAD_ACTIVE_ITEMS,
   LOAD_INACTIVE_ITEMS,
   LOAD_SPECIFIC_ITEM,
+  ADMIN_USER_EDIT,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -29,6 +30,8 @@ import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
 
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
+import { GRAB_USER_CART } from '../actions';
+import { DELETE_ITEM_FROM_CART } from '../actions';
 
 const initialState = {
   item: {},
@@ -46,6 +49,7 @@ const initialState = {
   username: '',
   chosen_category: '',
   chosen_subcategory: '',
+  cart_items: [],
 };
 
 const userState = {
@@ -112,6 +116,12 @@ function itemReducer(state = initialState, action) {
     case UPDATE_CHOSEN_SUBCATEGORY:
       return Object.assign({}, state, { chosen_subcategory: action.payload });
 
+    case GRAB_USER_CART:
+      return Object.assign({}, state, { cart_items: [...action.payload] });
+
+    case DELETE_ITEM_FROM_CART:
+      return Object.assign({}, state, { cart_items: [...action.payload] });
+
     default:
       return state;
   }
@@ -139,11 +149,14 @@ function userReducer(state = userState, action) {
 
     case LOAD_SINGLE_USER:
       return Object.assign({}, state, { user: action.payload });
-    
+
     case UPDATE_USER:
       return Object.assign({}, state, { updatedUser: action.payload });
-    
+
     case DEACTIVATE_USER:
+      return Object.assign({}, state, { updatedUser: action.payload });
+
+    case ADMIN_USER_EDIT:
       return Object.assign({}, state, { updatedUser: action.payload });
 
     default:

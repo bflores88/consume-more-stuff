@@ -5,12 +5,14 @@ import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { addItemToCart } from '../../actions';
 
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+    this.addNewItemToCart = this.addNewItemToCart.bind(this);
   }
 
   componentDidMount() {
@@ -25,10 +27,18 @@ class ItemDetail extends Component {
     }
   }
 
+  addNewItemToCart() {
+    let data = {};
+    data.item_id = parseInt(this.props.match.params.id);
+    data.quantity = 1;
+    this.props.addItemToCart(data);
+  }
+
   render() {
     if (!this.props.item.name) {
       return <div>Page Loading...</div>;
     } else {
+      console.log(this.props.item);
       const item = {
         images: this.props.item.images,
         name: this.props.item.name,
@@ -38,7 +48,7 @@ class ItemDetail extends Component {
         description: this.props.item.description,
         condition: this.props.item.conditions.condition_name,
         status: this.props.item.active,
-        subcat: this.props.item.subCategories.sub_category_name,
+        subcat: this.props.item.sub_categories.sub_category_name,
         created: this.props.item.created_at,
         updated: this.props.item.updated_at,
         category: this.props.item.categories.category_name,
@@ -48,8 +58,8 @@ class ItemDetail extends Component {
         view_count: this.props.item.view_count,
       };
 
-      const created = moment(new Date(item.created)).format("MMM DD, YYYY")
-      const updated = moment(new Date(item.updated)).format("MMM DD, YYYY")
+      const created = moment(new Date(item.created)).format('MMM DD YYYY');
+      const updated = moment(new Date(item.updated)).format('MMM DD YYYY');
       let status;
       if (!item.status) {
         status = 'NOT FOR SALE';
@@ -81,7 +91,10 @@ class ItemDetail extends Component {
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
               <h4>Views:&nbsp;&nbsp;{item.view_count}</h4>
-              <button>Add To Cart</button>
+              <Link to={'/cart'}>
+                <button onClick={this.addNewItemToCart}>Add To Cart</button>
+              </Link>
+
               <button>Contact Seller</button>
             </div>
           </div>
@@ -119,6 +132,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     incrementViews: (item) => dispatch(incrementViews(item)),
     loadSpecificItem: (item) => dispatch(loadSpecificItem(item)),
+    addItemToCart: (data) => dispatch(addItemToCart(data)),
   };
 };
 

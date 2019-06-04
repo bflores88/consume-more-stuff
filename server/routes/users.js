@@ -88,7 +88,26 @@ router.route('/items/:id/inactive').get(registeredUser, ownershipGuard, (req, re
     });
 });
 
-// edit general profile
+// admin edit user - NEEDS ADMIN GUARD?!
+router.route('/admin').put((req, res) => {
+  new User('id', req.body.id)
+    .save({
+      role_id: req.body.role_id,
+      active: req.body.active
+    })
+    .then((result) => {
+      new User({ id: req.body.id })
+        .fetch()
+        .then((result) => {
+          const user = result.toJSON();
+          return res.send(user);
+        })
+        .catch((err) => {
+          console.log('error:', err);
+        });
+    });
+});
+
 router.route('/profile').put((req, res) => {
   new User('id', req.user.id)
     .save({
@@ -98,7 +117,7 @@ router.route('/profile').put((req, res) => {
     })
     .then((result) => {
       new User({ id: req.user.id })
-        .fetch()
+        .fetch({withRelated: ['roles']})
         .then((result) => {
           const user = result.toJSON();
           return res.send(user);

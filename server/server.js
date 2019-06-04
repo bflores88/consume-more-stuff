@@ -13,6 +13,7 @@ const userImages = require('./routes/userImages.js');
 const threads = require('./routes/threads.js');
 const categories = require('./routes/categories');
 const carts = require('./routes/carts');
+const checkout = require('./routes/checkout');
 
 require('dotenv').config();
 
@@ -113,6 +114,7 @@ app.use('/api/images/users', userImages);
 app.use('/api/threads', threads);
 app.use('/api/categories', categories);
 app.use('/api/carts', carts);
+app.use('/api/checkout', checkout);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);

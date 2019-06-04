@@ -6,19 +6,10 @@ const CartedItem = require('../database/models/CartedItem');
 const Item = require('../database/models/Item');
 
 const knex = require('../database/knex.js');
-/*
-`SELECT *
-        FROM carted_items
-        INNER JOIN items ON items.id = carted_items.item_id
-        INNER JOIN itemImages ON itemImages.item_id = carted_items.item_id
-        INNER JOIN users ON users.id = items.user_id
-        WHERE carted_by = ?`,
-*/
+
 router
   .route('/')
   .get((req, res) => {
-    // CartedItem.where({ carted_by: parseInt(req.user.id) })
-    //   .fetchAll({ withRelated: ['items'] })
     knex
       .raw(
         `SELECT carted_items.*,
@@ -43,10 +34,12 @@ router
       });
   })
   .post((req, res) => {
+    console.log('post req data', req.body);
     // make sure item not already in cart
     CartedItem.where({ carted_by: req.user.id, item_id: parseInt(req.body.item_id) })
       .fetch()
       .then((result) => {
+        console.log('past carted item', result);
         if (result !== null) {
           return res.status(400).send(`Item already in user's cart`);
         }
