@@ -11,31 +11,29 @@ router.route('/register').post((req, res) => {
   bcrypt.genSalt(saltRounds, (error, salt) => {
     if (error) {
       console.log('genSalt error ', error);
-    } //return 500
+    }
 
     bcrypt.hash(req.body.password, salt, (error, hash) => {
       if (error) {
         console.log('hash error ', error);
-      } //return 500
+      }
 
       return new User({
-        // If no errors were encountered salting and hashing the password then create a new model.
-        role_id: 3, // Basic User
+        role_id: 3,
         active: true,
-        theme_id: 1, // Default Theme
+        theme_id: 1,
         username: req.body.username,
         profile_image_url: req.body.profile_image_url,
         name: req.body.name,
         email: req.body.email,
         password: hash,
       })
-        .save() // Save model to database
+        .save()
         .then((newUser) => {
           console.log('User created: ', newUser);
-          return res.json(newUser); // Valid user data sends a response with userData.
+          return res.json(newUser);
         })
         .catch((error) => {
-          // Custom objects to hide sensitive or uneccessary DB information.
           if (error.constraint === 'users_username_unique') {
             return res.json({
               usernameErrorMessage: req.body.username + ' is not available! Please enter another.',
@@ -52,14 +50,12 @@ router.route('/register').post((req, res) => {
 });
 
 router.route('/login').post(passport.authenticate('local'), (req, res) => {
-  // req res function only happens if authenication suceeded
   console.log('logged in successfully, ', req.user);
-  return res.json(req.user); // successful login attaches the user property to the req.
+  return res.json(req.user);
 });
 
 router.route('/logout').get((req, res) => {
-  // console.log('Logged Out');
-  req.logout(); // if a user is logged in, req.logout will remove the user property from the req and terminate the session if there is one
+  req.logout();
   return res.json(null);
 });
 
