@@ -21,7 +21,7 @@ router
   .route('/')
   .get((req, res) => {
     new Item()
-      .fetchAll()
+      .fetchAll({withRelated: ['users']})
       .then((result) => {
         // respond with all items
         return res.json(result);
