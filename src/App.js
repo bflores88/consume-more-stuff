@@ -23,6 +23,7 @@ import PasswordUpdate from './containers/PasswordUpdate';
 import Conversation from './containers/Conversation';
 import AddThread from './containers/AddThread';
 import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate';
+import UserCart from './containers/UserCart';
 
 class App extends Component {
   render() {
@@ -35,8 +36,8 @@ class App extends Component {
           <div className="page">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/Register" render={(props) => <Registration {...props} />}/>
-              <Route path="/login" component={LoginPage}/>
+              <Route path="/Register" render={(props) => <Registration {...props} />} />
+              <Route path="/login" component={LoginPage} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
@@ -51,6 +52,7 @@ class App extends Component {
               <Route path="/messages" component={Messages} />
               <Route path="/conversation/:id" component={Conversation} />
               <Route path="/admin/users" component={AdminAllUsers} />
+              <Route path="/cart" component={UserCart} />
             </Switch>
           </div>
         </div>
