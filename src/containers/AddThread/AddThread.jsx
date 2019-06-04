@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AddThread.scss';
-import { addItem } from '../../actions';
+import { addThread } from '../../actions';
 
 import AddItemImage from '../AddItemImage';
 
@@ -10,10 +10,12 @@ class AddThread extends Component {
     super(props);
 
     this.state = {
-      name: '',
+      subject: '',
+      body: '',
+      userList: [],
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
-    this.addNewItem = this.addNewItem.bind(this);
+    this.addNewThread = this.addNewThread.bind(this);
   }
 
   handleInputOnChange(e) {
@@ -24,11 +26,16 @@ class AddThread extends Component {
     return this.setState({ [name]: value });
   }
 
-  addNewItem(e) {
+  addNewThread(e) {
     e.preventDefault();
     const data = {};
-    data.name = this.state.name;
+    data.subject = this.state.subject;
+    data.body = this.state.body;
+    data.read_only = false;
+    data.userList = [3];
+    return this.props.addThread(data);
   }
+
   componentDidMount() {
     // return console.log('94it93it349ti3', this.props.newestItem);
   }
@@ -41,20 +48,38 @@ class AddThread extends Component {
           <form className="add-thread-form" action="">
             <div />
             <div className="input-div">
-              <label className="input-label" htmlFor="name">
-                Thread Subject:
+              <div>
+                <label className="input-label" htmlFor="name">
+                  Thread Subject:
+                </label>
+                <input
+                  className="name-input"
+                  className="input"
+                  type="text"
+                  name="subject"
+                  placeholder="Subject"
+                  value={this.state.name}
+                  onChange={this.handleInputOnChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="input-div">
+              <label className="input-label" htmlFor="body">
+                Message Body:
               </label>
               <input
-                className="name-input"
+                className="body-input"
                 className="input"
                 type="text"
-                name="name"
-                placeholder="Name"
-                value={this.state.name}
+                name="body"
+                placeholder="Message Body"
+                value={this.state.body}
                 onChange={this.handleInputOnChange}
                 required
               />
             </div>
+            <button onClick={this.addNewThread}>Create Thread</button>
           </form>
         </div>
       </div>
@@ -72,8 +97,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItem: (item) => {
-      dispatch(addItem(item));
+    addThread: (data) => {
+      dispatch(addThread(data));
     },
   };
 };
