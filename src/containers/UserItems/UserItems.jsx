@@ -9,20 +9,23 @@ class UserItems extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      userID: ''
+    };
+
   }
 
   componentDidMount() {
     this.props.grabUsername(this.props.match.params.id);
     if (this.props.currentUser) {
-      const thisUser = this.props.currentUser.id;
+      this.state.userID = this.props.currentUser.id;
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentUser !== prevProps.currentUser) {
       if (this.props.currentUser) {
-        const thisUser = this.props.currentUser.id;
+        this.state.userID = this.props.currentUser.id;
       }
     }
   }
@@ -31,10 +34,9 @@ class UserItems extends Component {
 
     let isUserOnOwnPage = false;
 
-    if (this.props.currentUser) {
-      const thisUser = this.props.currentUser.id;
-      const userPage = parseInt(this.props.match.params.id);
-      isUserOnOwnPage = thisUser === userPage;
+    if (this.state.userID) {
+      const userPage = this.props.match.params.id;
+      isUserOnOwnPage = this.state.userID === parseInt(userPage);
     }
     
     const username = this.props.username.username;

@@ -440,7 +440,6 @@ export const updatePassword = (data) => {
 
 export const loadActiveItems = (userID) => {
   return (dispatch) => {
-    console.log(userID);
     return fetch(`/api/users/items/${userID}/active`, {
       method: 'GET',
       headers: {
@@ -451,7 +450,6 @@ export const loadActiveItems = (userID) => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_ACTIVE_ITEMS,
           payload: items,
@@ -466,7 +464,6 @@ export const loadActiveItems = (userID) => {
 
 export const loadInactiveItems = (userID) => {
   return (dispatch) => {
-    console.log(userID);
     return fetch(`/api/users/items/${userID}/inactive`, {
       method: 'GET',
       headers: {
@@ -477,7 +474,6 @@ export const loadInactiveItems = (userID) => {
         return response.json();
       })
       .then((items) => {
-        console.log(items);
         return dispatch({
           type: LOAD_INACTIVE_ITEMS,
           payload: items,
