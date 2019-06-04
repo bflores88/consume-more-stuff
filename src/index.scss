@@ -1,7 +1,7 @@
 $link-color: orange;
-$side-box-width: 200px;
-// $headerWidth:
 
+@import './containers/SideBox/SideBox.scss';
+@import './containers/Header/Header.scss';
 
 body {
   margin: 0;
@@ -24,7 +24,6 @@ code {
   .page {
     width: 80%;
     height: 100%;
-    // border: solid 1px rgb(235, 161, 25);
     margin-left: 200px;
   }
 }
@@ -52,38 +51,45 @@ a {
 
 @media only screen and (max-width: 950px) {
   .header {
-    height: 80px;
-    // background: transparent;
-    width: 100%;
+    .logoBox {
+      width: auto;
+      padding-right: 10px;
+    }
+
+    .searchBarBox {
+      width: 50%;
+      padding-left: 5px;
+      margin: 0;
+      
+      input {
+        width: 82%;
+      }
+    }
+
+    .login-box {
+      width: auto;
+    }
   }
   
   .main {
-    // background: yellow;
-  
     .side-box {
-      // background: green;
-
       position: fixed;
-      top: 80px; // start at height of the header
+      top: 0;
       bottom: 40px; // height of footer
-      width: $side-box-width; // Cannot set any lower than 200.
+      
+      margin: 0;
+      border-right: 1px solid gold;
+      padding: 50px 10px 10px 10px;
+      height: auto;
+      width: $side-box-width; 
 
       overflow: scroll;
-
-      border-right: 1px solid gold;
-
-      margin: 0;
-      padding: 30px;
-      height: auto;
-
     }
+
     .page {
-      // background: blue;
-
-      margin-left: $side-box-width; // match width of side-box
-
-      
-      // width: 100% - $side-box-width;
+      width: 100%;
+      margin: 0;
+      padding-left: $side-box-width;
 
       .detail-image {
         img {
@@ -101,13 +107,4 @@ a {
       }
     }
   }
-
-  // .footer {
-  //   // background-color: transparent;
-  //   border-top: 1px solid black;
-
-  //   .logoBox{
-  //     // background-color: transparent;
-  //   }
-  // }
 }

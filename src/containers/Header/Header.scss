@@ -1,5 +1,14 @@
+$header-height: 80px;
+
 .header {
   // height: 8%; Disabled for the moment, until the formatting on the login component is better.
+
+  position: relative;
+    height: $header-height;
+    width: 100%;
+    z-index: 2;
+
+  ////
   display: flex;
   align-items: center;
   justify-content: space-between;
