@@ -71,14 +71,14 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages</button>
+            <Link to="/profiles/settings">
+              <button>Settings</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
+            <Link to="/messages">
+              <button>Messages</button>
             </Link>
           </div>
 
@@ -100,6 +100,7 @@ const Sidebar = (props) => {
     );
   } else {
     const userLink = `/profiles/${props.currentUser.id}`;
+    const userItemsLink = `/users/${props.currentUser.id}/items`;
     return (
       <div className="admin-nav">
         <div className="logo">
@@ -115,26 +116,20 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/profiles/all">
+            <Link to="/profiles/settings">
+              <button>Settings</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/admin/users">
               <button>All Users</button>
             </Link>
           </div>
 
           <div className="nav-links">
             <Link to="/items/all">
-              <button>Items</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Items</button>
+              <button>All Items</button>
             </Link>
           </div>
 
@@ -144,9 +139,23 @@ const Sidebar = (props) => {
             </Link>
           </div>
 
+          <br></br>
+
           <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
+            <Link to="/messages">
+              <button>Messages</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to={userItemsLink}>
+              <button>My Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/add-item">
+              <button>Add Items</button>
             </Link>
           </div>
 

@@ -8,8 +8,9 @@ import {
   LOAD_ALL_ACTIVE_ITEMS,
   LOAD_ACTIVE_ITEMS,
   LOAD_INACTIVE_ITEMS,
+  LOAD_SPECIFIC_ITEM,
 } from '../actions';
-import { LOAD_SPECIFIC_ITEM } from '../actions';
+
 import { GRAB_ITEM_IMAGES } from '../actions';
 import { ADD_ITEM } from '../actions';
 import { LOAD_CATEGORIES } from '../actions';
@@ -17,6 +18,7 @@ import { LOAD_CATEGORIES } from '../actions';
 import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
 import { UPDATE_USER_PASSWORD } from '../actions';
+import { UPDATE_USER } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
@@ -37,9 +39,7 @@ const initialState = {
   messages: [],
   categories: [],
   itemsByCategory: {},
-
   userList: [],
-
   activeItems: [],
   inactiveItems: [],
   username: '',
@@ -52,13 +52,14 @@ const userState = {
   loggedIn: false,
   user: JSON.parse(localStorage.getItem('user')),
   passwordUpdateStatus: false,
+  updatedUser: {},
 };
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_ITEMS:
       return Object.assign({}, state, { items: [...action.payload] });
-    
+
     case LOAD_ALL_ACTIVE_ITEMS:
       return Object.assign({}, state, { allActiveItems: [...action.payload] });
 
@@ -137,6 +138,9 @@ function userReducer(state = userState, action) {
 
     case LOAD_SINGLE_USER:
       return Object.assign({}, state, { user: action.payload });
+    
+    case UPDATE_USER:
+      return Object.assign({}, state, { updatedUser: action.payload });
 
     default:
       return state;

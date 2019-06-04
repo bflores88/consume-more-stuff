@@ -14,6 +14,7 @@ import Profiles from './containers/Profiles';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import AdminAllUsers from './containers/AdminAllUsers';
 
 import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
 import UserItems from './containers/UserItems';
@@ -45,10 +46,9 @@ class App extends Component {
               <Route path="/items/:id" component={ItemDetail} />
               <Route path="/not-authorized" component={NotAuthorized} />
               <Route path="/add-thread" component={AddThread} />
-
               <Route path="/messages" component={Messages} />
-
               <Route path="/conversation/:id" component={Conversation} />
+              <Route path="/admin/users" component={AdminAllUsers} />
             </Switch>
           </div>
         </div>
