@@ -3,9 +3,12 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
-const registeredUser = require('../middleware/userGuard');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
+const isAdminGuard = require('../middleware/isAdminGuard');
+const isModeratorGuard = require('../middleware/isModeratorGuard');
 
+//no guard below
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
     .fetchAll()
@@ -19,7 +22,7 @@ router.route('/active').get((req, res) => {
 
 router
   .route('/')
-  .get((req, res) => {
+  .get(isLoggedInGuard, (req, res) => {
     new Item()
       .fetchAll()
       .then((result) => {
@@ -31,7 +34,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .post((req, res) => {
+  .post(isLoggedInGuard, (req, res) => {
     new Item()
       .save({
         name: req.body.name,
@@ -40,7 +43,7 @@ router
         viewCount: 0,
         price: req.body.price,
         description: req.body.description,
-        approved: false,
+        approved: true,
         category_id: req.body.category_id,
         subCategory_id: req.body.subCategory_id,
         condition_id: req.body.condition_id,
@@ -59,13 +62,18 @@ router
       });
   });
 
+// no guard below
 router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-
+      /*Do we need to fetch users? 
+    Though postman you can get all the related users information,
+    could we instead fetch for just the username? */
       .fetch({ withRelated: ['users', 'conditions', 'categories', 'subCategories', 'images'] })
       .then((result) => {
+        /* take result and parse out information we want
+        and format it similarly to res.json(result) */
         return res.json(result);
       })
       .catch((err) => {
@@ -73,7 +81,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .put(registeredUser, ownershipGuard, (req, res) => {
+  .put(isLoggedInGuard, ownershipGuard, (req, res) => {
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
@@ -95,7 +103,7 @@ router
         console.log('error:', err);
       });
   })
-  .delete(registeredUser, ownershipGuard, (req, res) => {
+  .delete(isLoggedInGuard, ownershipGuard, (req, res) => {
     Item.where({ id: req.params.id })
       .destroy()
       .then((result) => {
