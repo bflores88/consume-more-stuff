@@ -35,6 +35,8 @@ export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const ADD_THREAD = 'ADD_THREAD';
 export const GRAB_USER_CART = 'GRAB_USER_CART';
+export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
+export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -50,6 +52,57 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const deleteItemFromCart = (id) => {
+  return (dispatch) => {
+    // console.log('action data',);
+    return fetch(`/api/carts/${id}`, {
+      method: 'DELETE',
+      // body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('delte response', response);
+        return (dispatch) => {
+          dispatch({
+            type: DELETE_ITEM_FROM_CART,
+            payload: response,
+          });
+        };
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
+export const addItemToCart = (data) => {
+  return (dispatch) => {
+    console.log('action data', data);
+    return (
+      fetch(`/api/carts`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_ITEM_TO_CART,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
   };
 };
 

@@ -5,12 +5,14 @@ import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { addItemToCart } from '../../actions';
 
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+    this.addNewItemToCart = this.addNewItemToCart.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +25,13 @@ class ItemDetail extends Component {
       this.props.incrementViews(this.props.match.params.id);
       return this.props.loadSpecificItem(this.props.match.params.id);
     }
+  }
+
+  addNewItemToCart() {
+    let data = {};
+    data.item_id = parseInt(this.props.match.params.id);
+    data.quantity = 1;
+    this.props.addItemToCart(data);
   }
 
   render() {
@@ -82,7 +91,7 @@ class ItemDetail extends Component {
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
               <h4>Views:&nbsp;&nbsp;{item.view_count}</h4>
-              <button>Add To Cart</button>
+              <button onClick={this.addNewItemToCart}>Add To Cart</button>
               <button>Contact Seller</button>
             </div>
           </div>
@@ -120,6 +129,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     incrementViews: (item) => dispatch(incrementViews(item)),
     loadSpecificItem: (item) => dispatch(loadSpecificItem(item)),
+    addItemToCart: (data) => dispatch(addItemToCart(data)),
   };
 };
 
