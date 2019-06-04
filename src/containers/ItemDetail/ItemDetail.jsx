@@ -45,18 +45,16 @@ class ItemDetail extends Component {
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
         inventory: this.props.item.inventory,
-        viewCount: this.props.item.viewCount,
+        view_count: this.props.item.view_count,
       };
 
       const created = moment(new Date(item.created)).format("MMM DD, YYYY")
       const updated = moment(new Date(item.updated)).format("MMM DD, YYYY")
-      
-
       let status;
       if (!item.status) {
-        status = "NOT FOR SALE"
-      } else if (item.quantity === 0) { 
-        status = "ITEM SOLD OUT"
+        status = 'NOT FOR SALE';
+      } else if (item.quantity === 0) {
+        status = 'ITEM SOLD OUT';
       } else {
         status = 'AVAILABLE FOR PURCHASE';
       }
@@ -76,11 +74,13 @@ class ItemDetail extends Component {
             <div className="detail-descr">
               <h2>{item.name}</h2>
               <h3>{item.dims}</h3>
-              <h5>Sold By:&nbsp;&nbsp;<Link to={sellerLink}>{item.seller}</Link></h5>
+              <h5>
+                Sold By:&nbsp;&nbsp;<Link to={sellerLink}>{item.seller}</Link>
+              </h5>
               <h5>Status:&nbsp;&nbsp;{status}</h5>
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
-              <h4>Views:&nbsp;&nbsp;{item.viewCount}</h4>
+              <h4>Views:&nbsp;&nbsp;{item.view_count}</h4>
               <button>Add To Cart</button>
               <button>Contact Seller</button>
             </div>

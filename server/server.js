@@ -102,7 +102,7 @@ passport.deserializeUser(function(user, done) {
       username: user.username,
       name: user.name,
       email: user.email,
-      profileImageUrl: user.profileImageUrl,
+      profile_image_url: user.profile_image_url,
     });
   });
 });

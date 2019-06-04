@@ -42,10 +42,10 @@ class AddItem extends Component {
     data.inventory = this.state.inventory;
     data.description = this.state.description;
     data.user_id = this.props.currentUser.id;
-    data.subCategory_id = 1;
+    data.sub_category_id = 1;
     data.dimensions = this.state.dimensions;
     data.approved = false;
-    data.viewCount = 0;
+    data.view_count = 0;
     data.active = true;
     console.log('data', data);
     // const postEm = (inputData) =>{

@@ -21,13 +21,11 @@ class ItemsBox extends Component {
   filterItems(label, id, items) {
     switch (label) {
       case label:
-        return items.filter((item) => item.category_id === parseInt(id)).sort((a,b) => b.viewCount - a.viewCount);
+        return items.filter((item) => item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
       default:
         return items.filter((item) => item.category.id === 1);
     }
   }
-
-
 
   filterImages(id, images) {
     return images.filter((image) => image.item_id === id);
@@ -82,7 +80,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    grabItemImages: (item) => {dispatch(grabItemImages(item))},
+    grabItemImages: (item) => {
+      dispatch(grabItemImages(item));
+    },
     loadCategories: () => dispatch(loadCategories()),
   };
 };

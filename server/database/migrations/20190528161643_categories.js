@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('categories', (table) => {
     table.increments();
     table
-      .string('categoryName', 30)
+      .string('category_name', 30)
       .notNull()
       .unique();
     table.timestamps(true, true);

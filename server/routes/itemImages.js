@@ -31,7 +31,7 @@ router.route('/upload/:itemId').post(singleUpload, registeredUser, ownershipGuar
   console.log('REQRGWGEGGEW', req);
   new ItemImage()
     .save({
-      imageLink: req.file.location,
+      image_link: req.file.location,
       item_id: parseInt(req.params.itemId),
     })
     .then((result) => {
@@ -49,7 +49,7 @@ router.route('/upload/:itemId').post(singleUpload, registeredUser, ownershipGuar
 router.route('/link/:itemId').post(registeredUser, ownershipGuard, (req, res) => {
   new ItemImage()
     .save({
-      imageLink: req.body.imageLink,
+      image_link: req.body.image_link,
       item_id: parseInt(req.params.itemId),
     })
     .then((result) => {
@@ -65,9 +65,9 @@ router.route('/link/:itemId').post(registeredUser, ownershipGuard, (req, res) =>
 });
 
 router.route('/item/:itemId').get((req, res) => {
-  // return only imageLinks for images tied to specified item
+  // return only image_links for images tied to specified item
   ItemImage.where({ item_id: req.params.itemId })
-    .fetchAll({ columns: ['imageLink'] })
+    .fetchAll({ columns: ['image_link'] })
     .then((result) => {
       return res.json(result);
     })
@@ -96,7 +96,7 @@ router
       .destroy()
       .then((result) => {
         new ItemImage()
-          .fetchAll({ columns: ['imageLink'] })
+          .fetchAll({ columns: ['image_link'] })
           .then((result) => {
             // respond with all remaining images
             // BETTER would be to reply with all remaining images tied to item

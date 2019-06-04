@@ -5,14 +5,37 @@ const router = express.Router();
 const CartedItem = require('../database/models/CartedItem');
 const Item = require('../database/models/Item');
 
+const knex = require('../database/knex.js');
+/*
+`SELECT *
+        FROM carted_items
+        INNER JOIN items ON items.id = carted_items.item_id
+        INNER JOIN itemImages ON itemImages.item_id = carted_items.item_id
+        INNER JOIN users ON users.id = items.user_id
+        WHERE carted_by = ?`,
+*/
 router
   .route('/')
   .get((req, res) => {
-    CartedItem.where({ carted_by: req.user.id })
-      .fetchAll()
+    // CartedItem.where({ carted_by: parseInt(req.user.id) })
+    //   .fetchAll({ withRelated: ['items'] })
+    knex
+      .raw(
+        `SELECT carted_items.*,
+          items.name AS item_name, items.dimensions, items.price,
+          items.shipping_cost, items.description AS item_description,
+          item_images.image_link AS item_image,
+          users.username AS seller, users.profile_image_url AS seller_profile_image
+        FROM carted_items
+        INNER JOIN items ON items.id = carted_items.item_id
+        INNER JOIN item_images ON item_images.item_id = carted_items.item_id
+        INNER JOIN users ON users.id = items.user_id
+        WHERE carted_by = ?`,
+        [req.user.id],
+      )
       .then((result) => {
         // respond with all of user's carted_items
-        return res.json(result);
+        return res.json(result.rows);
       })
       .catch((err) => {
         console.log('error:', err);

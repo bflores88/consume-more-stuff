@@ -3,14 +3,14 @@ const bookshelf = require('../bookshelf');
 require('./Order');
 class OrderStatus extends bookshelf.Model {
   get tableName() {
-    return 'orderStatuses';
+    return 'order_statuses';
   }
   get hasTimestamps() {
     return true;
   }
 
   orders() {
-    return this.hasMany('Order', 'orderStatus_id');
+    return this.hasMany('Order', 'order_status_id');
   }
 }
 

@@ -16,8 +16,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Jack Sparrow',
           email: 'seaturtules@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270392454",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270392454',
         },
         {
           active: false,
@@ -27,8 +26,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Hector Barbosa',
           email: 'theblackpearl@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270487934",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270487934',
         },
         {
           active: true,
@@ -38,8 +36,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Reptar, Destroyer of Worlds',
           email: 'rugrats@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270596689",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270596689',
         },
         {
           active: false,
@@ -49,8 +46,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Godzilla, The King of Monsters',
           email: 'ilovejapan@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270676961",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270676961',
         },
         {
           active: true,
@@ -60,8 +56,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Sega Sanshiro',
           email: 'buysega@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559270918318",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270918318',
         },
         {
           active: false,
@@ -71,8 +66,7 @@ exports.seed = function(knex, Promise) {
           password: bcrypt.hashSync('password', saltRounds),
           name: 'Nuck Chorris',
           email: 'Roundhouse2daface@email.com',
-          profileImageUrl:
-          "https://savannah-images.s3.us-west-2.amazonaws.com/1559271079800",
+          profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559271079800',
         },
       ]);
     });
