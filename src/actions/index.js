@@ -138,6 +138,7 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
+        console.log('88888', users)
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
