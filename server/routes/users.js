@@ -6,14 +6,14 @@ const User = require('../database/models/User');
 const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
-const registeredUser = require('../middleware/userGuard');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
+const isAdminGuard = require('../middleware/isAdminGuard.js');
 
-router.route('/all').get(registeredUser, (req, res) => {
+router.route('/all').get(isLoggedInGuard, isAdminGuard, (req, res) => {
   new User()
     .fetchAll({ withRelated: ['roles'] })
     .then((result) => {
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -21,13 +21,10 @@ router.route('/all').get(registeredUser, (req, res) => {
     });
 });
 
-router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/:id').get(isLoggedInGuard, (req, res) => {
   new User({ id: req.params.id })
     .fetch({ withRelated: ['roles'] })
     .then((result) => {
-      // console.log(result)
-
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -35,14 +32,10 @@ router.route('/:id').get(registeredUser, ownershipGuard, (req, res) => {
     });
 });
 
-//public route gets username ONLY
 router.route('/:id/username').get((req, res) => {
   new User({ id: req.params.id })
     .fetch({ columns: ['username'] })
     .then((result) => {
-      // console.log(result)
-
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -50,11 +43,10 @@ router.route('/:id/username').get((req, res) => {
     });
 });
 
-router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) => {
-  Item.where({ user_id: req.params.userId })
+router.route('/items/:id').get(isLoggedInGuard, ownershipGuard, (req, res) => {
+  Item.where({ user_id: req.params.id })
     .fetchAll()
     .then((result) => {
-      // reply with all items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -62,12 +54,10 @@ router.route('/items/:userId').get(registeredUser, ownershipGuard, (req, res) =>
     });
 });
 
-// get all active items from a single user
 router.route('/items/:id/active').get((req, res) => {
   Item.where({ user_id: req.params.id, active: true })
     .fetchAll()
     .then((result) => {
-      // replies with all active items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -75,12 +65,10 @@ router.route('/items/:id/active').get((req, res) => {
     });
 });
 
-// get all inactive items from a single user
-router.route('/items/:id/inactive').get(registeredUser, ownershipGuard, (req, res) => {
+router.route('/items/:id/inactive').get(isLoggedInGuard, ownershipGuard, (req, res) => {
   Item.where({ user_id: req.params.id, active: false })
     .fetchAll()
     .then((result) => {
-      // replies with all inactive items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -88,6 +76,7 @@ router.route('/items/:id/inactive').get(registeredUser, ownershipGuard, (req, re
     });
 });
 
+<<<<<<< HEAD
 // admin edit user - NEEDS ADMIN GUARD?!
 router.route('/admin').put((req, res) => {
   new User('id', req.body.id)
@@ -110,6 +99,9 @@ router.route('/admin').put((req, res) => {
 
 // edit general profile
 router.route('/profile').put((req, res) => {
+=======
+router.route('/profile').put(isLoggedInGuard, ownershipGuard, (req, res) => {
+>>>>>>> dev
   new User('id', req.user.id)
     .save({
       name: req.body.name,
@@ -129,13 +121,14 @@ router.route('/profile').put((req, res) => {
     });
 });
 
-// change theme
-router.route('/theme').put((req, res) => {
+router.route('/theme').put(isLoggedInGuard, ownershipGuard, (req, res) => {
   new User('id', req.user.id)
     .save({
       theme_id: req.body.theme_id,
     })
     .then((result) => {
+      /* The user is able to adjust which 
+         preset theme they'd like to use */
       new User({ id: req.user.id })
         .fetch()
         .then((result) => {
@@ -148,8 +141,7 @@ router.route('/theme').put((req, res) => {
     });
 });
 
-// change password
-router.route('/password').put((req, res) => {
+router.route('/password').put(isLoggedInGuard, ownershipGuard, (req, res) => {
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
       console.log('error:', err);
@@ -165,6 +157,7 @@ router.route('/password').put((req, res) => {
       new User('id', req.body.id)
         .save({ password: hash })
         .then((result) => {
+          // The current user can change their password
           new User({ id: req.body.id }).fetch().then((result) => {
             return res.json(result);
           });
