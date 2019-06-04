@@ -59,13 +59,15 @@ a {
     .side-box {
       // background: green;
       
-      position: fixed;
+      position: absolute;
       top: auto;
+      bottom: auto;
 
       margin: 0;
       padding: 10px;
+      padding-bottom: 10%;
       width: 20%;
-      height: 100%;
+      overflow-y: scroll;
       min-width: initial;
     }
     .page {
