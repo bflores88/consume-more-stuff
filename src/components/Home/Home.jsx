@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import { connect } from 'react-redux';
-import { loadItems } from '../../actions';
+import { loadAllActiveItems, loadCategories } from '../../actions';
 
 import ItemsBox from '../../containers/ItemsBox';
 
@@ -16,32 +16,34 @@ class Home extends React.Component {
   d;
 
   componentDidMount() {
-    // return this.props.loadUsers() && this.props.loadCards() && console.log(this.props.cards);
-    return this.props.loadItems();
+    this.props.loadCategories();
+    return this.props.loadAllActiveItems();
   }
 
+  componentDidUpdate() {}
+
   render() {
-    return (
-      <div className="App">
-        <ItemsBox items={this.props.items} label="Electronics" />
-        <ItemsBox items={this.props.items} label="Apparel" />
-        <ItemsBox items={this.props.items} label="Books" />
-      </div>
-    );
+    const categories = this.props.categories;
+
+    const filterByCategory = categories.map((category, idx) => {
+      return <ItemsBox items={this.props.items} label={category.categoryName} labelID={category.id} />;
+    });
+
+    return <div className="App">{filterByCategory}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    items: state.itemReducer.items,
+    items: state.itemReducer.allActiveItems,
+    categories: state.itemReducer.categories,
   };
 };
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    loadItems: () => {
-      return dispatch(loadItems());
-    },
+    loadAllActiveItems: () => dispatch(loadAllActiveItems()),
+    loadCategories: () => dispatch(loadCategories()),
   };
 };
 
