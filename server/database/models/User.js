@@ -8,6 +8,7 @@ require('./UserThread');
 require('./PaymentCard');
 require('./ShippingAddress');
 require('./Transaction');
+require('./CartedItem');
 class User extends bookshelf.Model {
   get tableName() {
     return 'users';
@@ -40,8 +41,12 @@ class User extends bookshelf.Model {
     return this.hasMany('ShippingAddress', 'user_id');
   }
 
+  carted_items() {
+    return this.hasMany('CartedItem', 'carted_by');
+  }
+
   transactions() {
-    return this.hasMany('Transaction', 'user_id');
+    return this.hasMany('Transaction', 'purchased_by');
   }
 
   received_threads() {
