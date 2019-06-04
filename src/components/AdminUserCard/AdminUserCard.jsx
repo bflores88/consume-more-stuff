@@ -64,11 +64,11 @@ class AdminUserCard extends Component {
     };
 
     if (data.role_id === '1') {
-      this.setState({ role: 'ADMIN' });
+      this.setState({ role: 'Admin' });
     } else if (data.role_id === '2') {
-      this.setState({ role: 'MODERATOR' });
+      this.setState({ role: 'Moderator' });
     } else {
-      this.setState({ role: 'USER' });
+      this.setState({ role: 'User' });
     }
 
     return this.props.adminUserEdit(data);
