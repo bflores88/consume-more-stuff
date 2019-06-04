@@ -58,8 +58,8 @@ class ItemDetail extends Component {
         view_count: this.props.item.view_count,
       };
 
-      const created = moment(new Date(item.created)).format("MMM DD YYYY")
-      const updated = moment(new Date(item.updated)).format("MMM DD YYYY")
+      const created = moment(new Date(item.created)).format('MMM DD YYYY');
+      const updated = moment(new Date(item.updated)).format('MMM DD YYYY');
       let status;
       if (!item.status) {
         status = 'NOT FOR SALE';
@@ -91,7 +91,10 @@ class ItemDetail extends Component {
               <h4>Seller Price:&nbsp;&nbsp;{item.price}</h4>
               <h4>Quantity in Stock:&nbsp;&nbsp;{item.quantity}</h4>
               <h4>Views:&nbsp;&nbsp;{item.view_count}</h4>
-              <button onClick={this.addNewItemToCart}>Add To Cart</button>
+              <Link to={'/cart'}>
+                <button onClick={this.addNewItemToCart}>Add To Cart</button>
+              </Link>
+
               <button>Contact Seller</button>
             </div>
           </div>
