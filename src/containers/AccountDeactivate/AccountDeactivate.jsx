@@ -45,14 +45,14 @@ class AccountDeactivate extends Component {
         <div className="deactivate">
           <h2>Deactivate Account</h2>
   
-          <p>Note that deactivating your account will not permanently delete your account.  Upon account deactivation, all of your items will be changed to inactive status.  You may log in again to reactivate your account.</p>
+          <p>Note that deactivating your account will not permanently delete your account.  Upon account deactivation, all of your items will be changed to inactive status and you may not log into your account again.</p>
   
           <p>Upon account deactivation, you will be logged out of your account and returned to the Home page.</p>
   
           <br></br>
           <br></br>
   
-          <button onClick={this.handleDeactivate}>Deactivate My Account</button>
+          <button onClick={this.handleDeactivate}>I Understand, Deactivate My Account</button>
         </div>
       )
     }

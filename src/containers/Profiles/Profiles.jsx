@@ -99,10 +99,12 @@ class Profiles extends Component {
           status = 'INACTIVE';
         }
 
+        const altDetail = `image-user${user.id}`;
+
         return (
           <div className="user-profile">
             <div className="user-img">
-              <img className="prof-img" src={user.image} alt="user-image" />
+              <img className="prof-img" src={user.image} alt={altDetail} />
             </div>
 
             <div className="user-details">
