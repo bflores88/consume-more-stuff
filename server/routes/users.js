@@ -81,6 +81,7 @@ router.route('/profile').put(isLoggedInGuard, ownershipGuard, (req, res) => {
     .save({
       name: req.body.name,
       email: req.body.email,
+      active: req.body.active
     })
     .then((result) => {
       new User({ id: req.user.id })

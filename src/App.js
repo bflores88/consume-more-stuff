@@ -14,6 +14,7 @@ import Profiles from './containers/Profiles';
 import Category from './containers/Category/Category';
 import Footer from './containers/Footer/Footer';
 import ItemDetail from './containers/ItemDetail/';
+import AdminAllUsers from './containers/AdminAllUsers';
 
 import NotAuthorized from './containers/NotAuthorized/NotAuthorized';
 import UserItems from './containers/UserItems';
@@ -21,6 +22,7 @@ import PasswordUpdate from './containers/PasswordUpdate';
 
 import Conversation from './containers/Conversation';
 import AddThread from './containers/AddThread';
+import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate';
 
 class App extends Component {
   render() {
@@ -39,16 +41,16 @@ class App extends Component {
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
               <Route path="/profiles/settings" component={PasswordUpdate} />
+              <Route path="/profiles/:id/deactivate" component={AccountDeactivate} />
               <Route path="/profiles/:id" component={Profiles} />
               <Route path="/users/:id/items" component={UserItems} />
               <Route path="/items/category/:category" component={Category} />
               <Route path="/items/:id" component={ItemDetail} />
               <Route path="/not-authorized" component={NotAuthorized} />
               <Route path="/add-thread" component={AddThread} />
-
               <Route path="/messages" component={Messages} />
-
               <Route path="/conversation/:id" component={Conversation} />
+              <Route path="/admin/users" component={AdminAllUsers} />
             </Switch>
           </div>
         </div>

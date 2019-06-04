@@ -4,6 +4,7 @@ import { loadSpecificItem } from '../../actions';
 import { incrementViews } from '../../actions';
 import './ItemDetail.scss';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 class ItemDetail extends Component {
   constructor(props) {
@@ -35,18 +36,20 @@ class ItemDetail extends Component {
         price: this.props.item.price,
         quantity: this.props.item.inventory,
         description: this.props.item.description,
-        condition: this.props.item.conditions.conditionName,
+        condition: this.props.item.conditions.condition_name,
         status: this.props.item.active,
-        subcat: this.props.item.subCategories.subCategoryName,
+        subcat: this.props.item.subCategories.sub_category_name,
         created: this.props.item.created_at,
         updated: this.props.item.updated_at,
-        category: this.props.item.categories.categoryName,
+        category: this.props.item.categories.category_name,
         seller: this.props.item.users.username,
         sellerID: this.props.item.user_id,
         inventory: this.props.item.inventory,
         view_count: this.props.item.view_count,
       };
 
+      const created = moment(new Date(item.created)).format("MMM DD, YYYY")
+      const updated = moment(new Date(item.updated)).format("MMM DD, YYYY")
       let status;
       if (!item.status) {
         status = 'NOT FOR SALE';
@@ -57,7 +60,7 @@ class ItemDetail extends Component {
       }
 
       const images = item.images.map((image, key) => {
-        let link = image.imageLink;
+        let link = image.image_link;
         return <img src={link} />;
       });
 
@@ -96,9 +99,9 @@ class ItemDetail extends Component {
             <br />
             <br />
             <br />
-            Posting Date:&nbsp;&nbsp;{item.created}
+            Posting Date:&nbsp;&nbsp;{created}
             <br />
-            Last Updated:&nbsp;&nbsp;{item.updated}
+            Last Updated:&nbsp;&nbsp;{updated}
           </div>
         </div>
       );

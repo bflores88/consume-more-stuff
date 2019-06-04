@@ -26,7 +26,7 @@ class Home extends React.Component {
     const categories = this.props.categories;
 
     const filterByCategory = categories.map((category, idx) => {
-      return <ItemsBox items={this.props.items} label={category.categoryName} labelID={category.id} />;
+      return <ItemsBox items={this.props.items} label={category.category_name} labelID={category.id} />;
     });
 
     return <div className="App">{filterByCategory}</div>;

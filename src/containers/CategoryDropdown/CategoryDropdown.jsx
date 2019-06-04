@@ -36,7 +36,7 @@ class CategoryDropdown extends Component {
 
   render() {
     const categoryOptions = this.props.categories.map((category, idx) => {
-      return <option value={category.id}>{category.categoryName}</option>;
+      return <option value={category.id}>{category.category_name}</option>;
     });
 
     return (
