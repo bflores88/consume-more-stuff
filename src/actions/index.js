@@ -34,6 +34,7 @@ export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
 export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const ADD_THREAD = 'ADD_THREAD';
+export const GRAB_USER_CART = 'GRAB_USER_CART';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -49,6 +50,25 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const grabUserCart = () => {
+  return (dispatch) => {
+    return fetch(`/api/carts`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((item) => {
+        console.log('items from cart', item);
+        return dispatch({
+          type: GRAB_USER_CART,
+          payload: item,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
@@ -217,7 +237,7 @@ export const updateUser = (data) => {
         return response.json();
       })
       .then((body) => {
-        console.log(body)
+        console.log(body);
         return dispatch({
           type: UPDATE_USER,
           payload: body,
@@ -227,7 +247,7 @@ export const updateUser = (data) => {
         console.log('error', error);
       });
   };
-}
+};
 
 export const deactivateUser = () => {
   const data = { active: false };
@@ -241,7 +261,7 @@ export const deactivateUser = () => {
         return response.json();
       })
       .then((body) => {
-        console.log(body)
+        console.log(body);
         return dispatch({
           type: DEACTIVATE_USER,
           payload: body,
@@ -251,7 +271,7 @@ export const deactivateUser = () => {
         console.log('error', error);
       });
   };
-}
+};
 
 export const loadSpecificItem = (id) => {
   return (dispatch) => {
