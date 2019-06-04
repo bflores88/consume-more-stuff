@@ -12,6 +12,7 @@ const itemImages = require('./routes/itemImages.js');
 const userImages = require('./routes/userImages.js');
 const threads = require('./routes/threads.js');
 const categories = require('./routes/categories');
+const carts = require('./routes/carts');
 
 require('dotenv').config();
 
@@ -112,8 +113,8 @@ app.use('/api/items', items);
 app.use('/api/images/items', itemImages);
 app.use('/api/images/users', userImages);
 app.use('/api/threads', threads);
-app.use('/api/categories', categories)
-
+app.use('/api/categories', categories);
+app.use('/api/carts', carts);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);
