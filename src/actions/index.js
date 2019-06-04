@@ -303,11 +303,11 @@ export const setExistingUser = (data) => {
   console.log('setExistingUser data');
   return (dispatch) => {
     return dispatch({
-      type: LOGIN_SUCCESS, 
+      type: LOGIN_SUCCESS,
       payload: data,
     });
-  }
-}
+  };
+};
 
 export const login = (credentials) => {
   return (dispatch) => {
@@ -364,17 +364,12 @@ export const logout = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then(() => {
-      localStorage.removeItem('user');
-      return dispatch({
-        type: LOGOUT_SUCCESS,
+      .then((response) => {
+        console.log(response);
+        return response.json();
       })
       .then(() => {
+        localStorage.removeItem('user');
         return dispatch({
           type: LOGOUT_SUCCESS,
         });

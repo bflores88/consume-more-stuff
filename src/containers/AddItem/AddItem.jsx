@@ -47,7 +47,7 @@ class AddItem extends Component {
     data.approved = false;
     data.viewCount = 0;
     data.active = true;
-    console.log(data);
+    console.log('data', data);
     // const postEm = (inputData) =>{
     //   return () =>{
     //     return this.props.addItem(inputData)
