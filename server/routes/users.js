@@ -14,7 +14,6 @@ router.route('/all').get(isLoggedInGuard, isAdminGuard, (req, res) => {
   new User()
     .fetchAll({ withRelated: ['roles'] })
     .then((result) => {
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -26,9 +25,6 @@ router.route('/:id').get(isLoggedInGuard, (req, res) => {
   new User({ id: req.params.id })
     .fetch({ withRelated: ['roles'] })
     .then((result) => {
-      // console.log(result)
-
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -36,14 +32,10 @@ router.route('/:id').get(isLoggedInGuard, (req, res) => {
     });
 });
 
-//public route gets username ONLY
 router.route('/:id/username').get((req, res) => {
   new User({ id: req.params.id })
     .fetch({ columns: ['username'] })
     .then((result) => {
-      // console.log(result)
-
-      // reply with logged in user
       return res.json(result);
     })
     .catch((err) => {
@@ -52,11 +44,9 @@ router.route('/:id/username').get((req, res) => {
 });
 
 router.route('/items/:id').get(isLoggedInGuard, ownershipGuard, (req, res) => {
-  console.log('/items/:id', req.params)
   Item.where({ user_id: req.params.id })
     .fetchAll()
     .then((result) => {
-      // reply with all items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -64,13 +54,10 @@ router.route('/items/:id').get(isLoggedInGuard, ownershipGuard, (req, res) => {
     });
 });
 
-// get all active items from a single user also no guards
 router.route('/items/:id/active').get((req, res) => {
-  console.log('/items/:id/active', req.params)
   Item.where({ user_id: req.params.id, active: true })
     .fetchAll()
     .then((result) => {
-      // replies with all active items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -78,12 +65,10 @@ router.route('/items/:id/active').get((req, res) => {
     });
 });
 
-// get all inactive items from a single user
 router.route('/items/:id/inactive').get(isLoggedInGuard, ownershipGuard, (req, res) => {
   Item.where({ user_id: req.params.id, active: false })
     .fetchAll()
     .then((result) => {
-      // replies with all inactive items associated with the user
       return res.json(result);
     })
     .catch((err) => {
@@ -91,7 +76,6 @@ router.route('/items/:id/inactive').get(isLoggedInGuard, ownershipGuard, (req, r
     });
 });
 
-// edit general profile
 router.route('/profile').put(isLoggedInGuard, ownershipGuard, (req, res) => {
   new User('id', req.user.id)
     .save({
@@ -111,7 +95,6 @@ router.route('/profile').put(isLoggedInGuard, ownershipGuard, (req, res) => {
     });
 });
 
-// change theme
 router.route('/theme').put(isLoggedInGuard, ownershipGuard, (req, res) => {
   new User('id', req.user.id)
     .save({
@@ -130,7 +113,6 @@ router.route('/theme').put(isLoggedInGuard, ownershipGuard, (req, res) => {
     });
 });
 
-// change password || not tested with guards yet
 router.route('/password').put(isLoggedInGuard, ownershipGuard, (req, res) => {
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
