@@ -43,18 +43,16 @@ app.use(passport.session());
 passport.use(
   new localStrategy(function(username, password, done) {
     // method of validating given data.
-    // console.log('Validating with localStrategy');
+    console.log('Validating with localStrategy');
 
     return new User({ username: username })
       .fetch()
-      .then((user) => {
-        // console.log('Attempting to login with ', JSON.stringify(user));
+      .then((data) => {
+        user = data.toJSON();
 
         if (user === null || user.active === false) {
-          // console.log('username bad');
           return done(null, false, { message: 'bad username or password' });
         } else {
-          user = user.toJSON();
           // console.log('password from credentials: ', password);
           // console.log('password from user model: ', user.password);
 

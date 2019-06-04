@@ -364,22 +364,22 @@ export const logout = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then(() => {
-        localStorage.removeItem('user');
-        return dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-      })
-      .catch((error) => {
-        console.log('Error in logout: ', error);
-        return dispatch({
-          type: LOGOUT_FAILURE,
-        });
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then(() => {
+      localStorage.removeItem('user');
+      return dispatch({
+        type: LOGOUT_SUCCESS,
       });
+    })
+    .catch((error) => {
+      console.log('Error in logout: ', error);
+      return dispatch({
+        type: LOGOUT_FAILURE,
+      });
+    });
   };
 };
 
