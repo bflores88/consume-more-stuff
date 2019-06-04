@@ -66,8 +66,10 @@ class Profiles extends Component {
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
     } else if (
+
       this.props.user.role_id !== 1 &&
       parseInt(this.props.match.params.id) !== this.props.user.id
+
     ) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
@@ -84,8 +86,12 @@ class Profiles extends Component {
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
+
+          // role: this.props.user.roles.role_name,
+          image: this.props.user.profile_image_url,
+
           role: this.props.user.roles.roleName,
-          image: this.props.user.profileImageUrl,
+
           active: this.props.user.active,
           memberSince: this.props.user.created_at,
         };
