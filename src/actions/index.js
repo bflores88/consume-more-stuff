@@ -364,7 +364,6 @@ export const logout = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-
     .then((response) => {
       console.log(response);
       return response.json();
@@ -374,17 +373,13 @@ export const logout = () => {
       return dispatch({
         type: LOGOUT_SUCCESS,
       })
-      .then(() => {
-        return dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-      })
-      .catch((error) => {
-        console.log('Error in logout: ', error);
-        return dispatch({
-          type: LOGOUT_FAILURE,
-        });
+    })
+    .catch((error) => {
+      console.log('Error in logout: ', error);
+      return dispatch({
+        type: LOGOUT_FAILURE,
       });
+    });
   };
 };
 
