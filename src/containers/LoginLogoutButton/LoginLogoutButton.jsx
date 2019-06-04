@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import './LoginLogoutButton.scss';
 
 class LoginLogoutButton extends Component {
-  constructor(props) { 
+  constructor(props) {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +29,7 @@ class LoginLogoutButton extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="login-logout-button">
         <p>{this.props.welcomeMessage}</p>
         <button onClick={this.handleSubmit}> {this.props.text} </button>
@@ -41,19 +41,20 @@ class LoginLogoutButton extends Component {
 
 
 const mapStateToProps = (state) => {
+
   if (state.userReducer.loggedIn) {
     return {
       welcomeMessage: 'Welcome back ' + state.userReducer.user.name,
       text: 'Logout',
       destination: '/logout',
-    }
+    };
   } else {
     return {
       text: 'Login',
       destination: '/login',
-    }
+    };
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -61,12 +62,14 @@ const mapDispatchToProps = (dispatch) => {
       const logoutAction = logout(); 
       return dispatch(logoutAction);
     },
+
     setExistingUser: (data) => {
       const setExistingUserAction = setExistingUser(data); 
       return dispatch(setExistingUserAction);
     },
   }
 }
+
 
 LoginLogoutButton = connect(
   mapStateToProps,

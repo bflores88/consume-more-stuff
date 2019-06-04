@@ -55,8 +55,10 @@ class AddItemImage extends Component {
 
   render() {
     if (this.props.newestItem === '') {
+      console.log('hide', this.props.newestItem);
       return <div />;
     } else {
+      console.log('show', this.props.newestItem);
       return (
         <div id="myModal">
           <div id="modal-content">
