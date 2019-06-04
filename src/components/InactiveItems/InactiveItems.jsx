@@ -42,7 +42,7 @@ class InactiveItems extends Component {
       } else {
         itemLink = [
           {
-            imageLink:
+            image_link:
               'https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg',
           },
         ];
@@ -52,7 +52,7 @@ class InactiveItems extends Component {
         return (
           <div className="user-item">
             <div>
-              <Item name={item.name} id={item.id} price={item.price} imageLink={itemLink[0].imageLink} />
+              <Item name={item.name} id={item.id} price={item.price} image_link={itemLink[0].image_link} />
             </div>
             <EditItemsDiv id={item.id} activeStatus={activeStatus} />
           </div>
@@ -65,7 +65,7 @@ class InactiveItems extends Component {
                 name={item.name}
                 id={item.id}
                 price={item.price}
-                imageLink="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
+                image_link="https://3dexport.com/items/2018/07/11/530458/205933/rigged_cartoon_giraffe_model_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2172968_o.jpg"
               />
             </div>
             <EditItemsDiv id={item.id} activeStatus={activeStatus} />

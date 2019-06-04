@@ -71,14 +71,14 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages</button>
+            <Link to="/profiles/settings">
+              <button>Settings</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
+            <Link to="/messages">
+              <button>Messages</button>
             </Link>
           </div>
 
@@ -116,26 +116,34 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/profiles/all">
+            <Link to="/profiles/settings">
+              <button>Settings</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to="/admin/users">
               <button>All Users</button>
             </Link>
           </div>
 
           <div className="nav-links">
             <Link to="/items/all">
-              <button>Items</button>
+              <button>All Items</button>
             </Link>
           </div>
+
+          <div className="nav-links">
+            <Link to="/">
+              <button>Categories</button>
+            </Link>
+          </div>
+
+          <br></br>
 
           <div className="nav-links">
             <Link to="/messages">
               <button>Messages</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Items</button>
             </Link>
           </div>
 
@@ -146,14 +154,8 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/">
-              <button>Categories</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
+            <Link to="/add-item">
+              <button>Add Items</button>
             </Link>
           </div>
 
