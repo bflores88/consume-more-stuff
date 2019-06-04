@@ -27,7 +27,7 @@ router
         if (result !== null) {
           return res.status(400).send(`Item already in user's cart`);
         }
-        // }).then((result))
+
         // make sure item is valid
         return Item.where({ id: req.body.item_id })
           .fetch()
