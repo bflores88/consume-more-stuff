@@ -19,6 +19,7 @@ import { RESET_NEW_ITEM } from '../actions';
 import { INCREMENT_ITEM_VIEWS } from '../actions';
 import { UPDATE_USER_PASSWORD } from '../actions';
 import { UPDATE_USER } from '../actions';
+import { DEACTIVATE_USER } from '../actions';
 
 import { GRAB_USER_THREADS } from '../actions';
 import { GRAB_THREAD_MESSAGES } from '../actions';
@@ -140,6 +141,9 @@ function userReducer(state = userState, action) {
       return Object.assign({}, state, { user: action.payload });
     
     case UPDATE_USER:
+      return Object.assign({}, state, { updatedUser: action.payload });
+    
+    case DEACTIVATE_USER:
       return Object.assign({}, state, { updatedUser: action.payload });
 
     default:

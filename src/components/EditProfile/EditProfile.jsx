@@ -63,7 +63,8 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.props.id)
+    const deactivateUrl = `/profiles/${this.props.id}/deactivate`;
     return (
       <div className="edit-profile-div">
         <h2>Update Your Profile</h2>
@@ -98,7 +99,7 @@ class EditProfile extends Component {
         </form>
 
         <div className="other-edit-div">
-          <button>Deactivate My Account</button>
+          <button><Link to={deactivateUrl}>Deactivate My Account</Link></button>
         </div>
 
         <div className="other-edit-div">

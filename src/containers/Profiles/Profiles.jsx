@@ -63,11 +63,11 @@ class Profiles extends Component {
   }
 
   render() {
-    if (!this.props.currentUser) {
+    if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
     } else if (
-      this.props.currentUser.role_id !== 1 &&
-      parseInt(this.props.match.params.id) !== this.props.currentUser.id
+      this.props.user.role_id !== 1 &&
+      parseInt(this.props.match.params.id) !== this.props.user.id
     ) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
@@ -80,6 +80,7 @@ class Profiles extends Component {
       } else {
         console.log(this.props.user);
         const user = {
+          id: this.props.user.id,
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
@@ -129,6 +130,7 @@ class Profiles extends Component {
                   name={user.name}
                   email={user.email}
                   success={this.editSuccess}
+                  id={user.id}
                 />
               </div>
             </div>
@@ -143,7 +145,6 @@ class Profiles extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userReducer.user,
     user: state.userReducer.user,
   };
 };

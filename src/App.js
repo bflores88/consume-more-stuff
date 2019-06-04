@@ -22,6 +22,7 @@ import PasswordUpdate from './containers/PasswordUpdate';
 
 import Conversation from './containers/Conversation';
 import AddThread from './containers/AddThread';
+import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate';
 
 class App extends Component {
   render() {
@@ -40,6 +41,7 @@ class App extends Component {
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />
               <Route path="/profiles/settings" component={PasswordUpdate} />
+              <Route path="/profiles/:id/deactivate" component={AccountDeactivate} />
               <Route path="/profiles/:id" component={Profiles} />
               <Route path="/users/:id/items" component={UserItems} />
               <Route path="/items/category/:category" component={Category} />
