@@ -13,6 +13,7 @@ class UserCart extends Component {
     super(props);
 
     this.state = {};
+    this.deleteCartItem = this.deleteCartItem.bind(this);
   }
 
   componentDidMount() {
@@ -29,8 +30,9 @@ class UserCart extends Component {
     // // this.props.grabUserThreads();
   }
 
-  deleteCartItem() {
-    this.props.deleteItemFromCart();
+  deleteCartItem(id) {
+    this.props.deleteItemFromCart(id);
+    this.props.grabUserCart();
   }
 
   render() {
@@ -52,7 +54,13 @@ class UserCart extends Component {
               <div className="cart-item-price cart-item-info">Item Price: $ {item.price}</div>
               <div className="cart-item-price cart-item-info">Shipping Cost: $ {item.shipping_cost}</div>
               <div className="cart-item-total-price">Total Cost for Item: $ {totalItemPrice}</div>
-              <button onClick={this.deleteCartItem} className="delete-item-button">
+              <button
+                // onMouseOver={this.changeHover(item.id)}
+                onClick={() => {
+                  this.deleteCartItem(item.id);
+                }}
+                className="delete-item-button"
+              >
                 Delete Item From Cart
               </button>
             </div>
@@ -65,6 +73,7 @@ class UserCart extends Component {
       <div className="cart-page">
         <div className="cart-page-title">
           <h1>Your Cart</h1>
+          <div>{this.state.hoverId}</div>
         </div>
         <div className="cart-items-container">
           <div className="small-cart-container">{cartItems}</div>
