@@ -32,6 +32,8 @@ export const DEACTIVATE_USER = 'DEACTIVATE_USER';
 
 export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
 export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
+export const EDIT_ITEM = 'EDIT_ITEM';
+export const ADD_THREAD = 'ADD_THREAD';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -47,6 +49,49 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const addThread = (data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/threads`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_THREAD,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
+  };
+};
+
+export const editItem = (id, data) => {
+  return (dispatch) => {
+    return fetch(`/api/items/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
   };
 };
 

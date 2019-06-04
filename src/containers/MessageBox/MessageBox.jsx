@@ -11,16 +11,17 @@ class MessageBox extends Component {
   }
 
   render() {
-    const { id, body, sent_by } = this.props;
+    const { id, body, sent_by_user_id, sent_by_username } = this.props;
     const threadID = id;
+    // console.log('sent_by', sent_by);
     // const redirectTo = `/conversation/${threadID}`;
     // const redirectLink = `/conversation/${threadID}`;
-    if (sent_by === this.props.currentUser.id) {
+    if (sent_by_user_id === this.props.currentUser.id) {
       return (
         <div className="outer-message-box-user">
           <div className="message-box" className="user-message">
             {/* <h4>User: {sent_by}</h4> */}
-            <p className="sent_by">User: {sent_by}</p>
+            <p className="sent_by">{sent_by_username}</p>
             <div className="message-body">{body}</div>
           </div>
         </div>
@@ -29,7 +30,7 @@ class MessageBox extends Component {
       return (
         <div className="outer-message-box-other">
           <div className="message-box" className="other-message">
-            <p className="sent_by">User: {sent_by}</p>
+            <p className="sent_by">{sent_by_username}</p>
             <div className="message-body">{body}</div>
           </div>
         </div>
