@@ -6,19 +6,10 @@ const CartedItem = require('../database/models/CartedItem');
 const Item = require('../database/models/Item');
 
 const knex = require('../database/knex.js');
-/*
-`SELECT *
-        FROM carted_items
-        INNER JOIN items ON items.id = carted_items.item_id
-        INNER JOIN itemImages ON itemImages.item_id = carted_items.item_id
-        INNER JOIN users ON users.id = items.user_id
-        WHERE carted_by = ?`,
-*/
+
 router
   .route('/')
   .get((req, res) => {
-    // CartedItem.where({ carted_by: parseInt(req.user.id) })
-    //   .fetchAll({ withRelated: ['items'] })
     knex
       .raw(
         `SELECT carted_items.*,
@@ -34,7 +25,6 @@ router
         [req.user.id],
       )
       .then((result) => {
-        // respond with all of user's carted_items
         return res.json(result.rows);
       })
       .catch((err) => {
@@ -43,7 +33,6 @@ router
       });
   })
   .post((req, res) => {
-    // make sure item not already in cart
     CartedItem.where({ carted_by: req.user.id, item_id: parseInt(req.body.item_id) })
       .fetch()
       .then((result) => {
@@ -51,7 +40,6 @@ router
           return res.status(400).send(`Item already in user's cart`);
         }
 
-        // make sure item is valid & has sufficient inventory
         return Item.where({ id: req.body.item_id })
           .fetch()
           .then((result) => {
@@ -67,7 +55,6 @@ router
               return res.status(400).send('Order quantity exceeds inventory');
             }
 
-            // add to cart
             return new CartedItem()
               .save({
                 item_id: parseInt(req.body.item_id),
@@ -75,7 +62,6 @@ router
                 quantity: req.body.quantity,
               })
               .then((result) => {
-                // respond with newly carted_item
                 new CartedItem({ id: result.id }).fetch().then((result) => {
                   return res.json(result);
                 });
@@ -94,7 +80,6 @@ router
     CartedItem.where({ id: parseInt(req.params.id) })
       .fetch({ withRelated: ['items'] })
       .then((result) => {
-        // ensure sufficient inventory
         if (req.body.quantity > result.toJSON().items.inventory) {
           return res.status(400).send('Order quantity exceeds inventory');
         }
@@ -107,7 +92,6 @@ router
             return CartedItem.where({ carted_by: req.user.id })
               .fetchAll()
               .then((result) => {
-                // respond with all items in cart
                 return res.json(result);
               });
           });
@@ -118,14 +102,12 @@ router
       });
   })
   .delete((req, res) => {
-    // first remove item from cart
     CartedItem.where({ id: req.params.id })
       .destroy()
       .then(() => {
         return CartedItem.where({ carted_by: req.user.id })
           .fetchAll()
           .then((result) => {
-            // then respond with remaining items in cart
             return res.json(result);
           });
       })
