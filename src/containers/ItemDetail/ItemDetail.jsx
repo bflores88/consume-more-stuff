@@ -49,8 +49,8 @@ class ItemDetail extends Component {
         view_count: this.props.item.view_count,
       };
 
-      const created = moment(new Date(item.created)).format('MMM DD, YYYY');
-      const updated = moment(new Date(item.updated)).format('MMM DD, YYYY');
+      const created = moment(new Date(item.created)).format("MMM DD YYYY")
+      const updated = moment(new Date(item.updated)).format("MMM DD YYYY")
       let status;
       if (!item.status) {
         status = 'NOT FOR SALE';

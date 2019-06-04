@@ -3,16 +3,19 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../database/models/User');
-const isLoggedInGuard = require('../middleware/isLoggedInGuard');
+const registeredUser = require('../middleware/userGuard');
+const ownershipGuard = require('../middleware/ownershipGuard');
 
+// AWS s3 middleware for posting images
+// 'image' in upload.single() is the key-name that's referenced in the req.body object
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 
-router.route('/').get(isLoggedInGuard, (req, res) => {
+router.route('/').get(registeredUser, ownershipGuard, (req, res) => {
   new User()
     .fetchAll({ columns: ['id', 'profile_image_url'] })
     .then((result) => {
-      // returns the current users profile picture
+      // respond with all profile images
       return res.json(result);
     })
     .catch((err) => {
@@ -21,15 +24,15 @@ router.route('/').get(isLoggedInGuard, (req, res) => {
     });
 });
 
-router.route('/upload/:userId').put(isLoggedInGuard, singleUpload, (req, res) => {
+// PUT image FILES (not links)
+router.route('/upload/:userId').put(singleUpload, registeredUser, ownershipGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
       profile_image_url: req.file.location,
     })
     .then((result) => {
-      /* allows the current user to change 
-      their profile picture using a png or jpeg file.*/
       new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
+        // respond with updated profile image
         return res.json(result);
       });
     })
@@ -38,15 +41,15 @@ router.route('/upload/:userId').put(isLoggedInGuard, singleUpload, (req, res) =>
     });
 });
 
-router.route('/link/:userId').put(isLoggedInGuard, (req, res) => {
+// PUT image LINKS (not files)
+router.route('/link/:userId').put(registeredUser, ownershipGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
       profile_image_url: req.body.image_link,
     })
     .then((result) => {
-      /* allows the current user to change their 
-         profile picture using a hypertext link*/
       new User({ id: req.params.userId }).fetch({ columns: ['profile_image_url'] }).then((result) => {
+        // respond with updated profile image
         return res.json(result);
       });
     })

@@ -17,6 +17,50 @@ const Sidebar = (props) => {
     );
   };
 
+  const createDefaultLinks = (id) => {
+    const userLink = `/profiles/${id}`;
+    const userItemsLink = `/users/${id}/items`;
+    return (
+      <>
+        <div className="nav-links">
+          <Link to="/">
+            <button>Home</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to={userLink}>
+            <button>My Profile</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/profiles/settings">
+            <button>Settings</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/messages">
+            <button>Messages</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to={userItemsLink}>
+            <button>My Items</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/add-item">
+            <button>Add Items</button>
+          </Link>
+        </div>
+      </>
+    );
+  };
+
   //conditional statement to show if isLoggedIn is true or false (logged in or not) AND check the role
 
   //first if statement is for non-users
@@ -47,56 +91,35 @@ const Sidebar = (props) => {
       </div>
     );
   } else if (props.currentUser.role_id === 3) {
-    const userLink = `/profiles/${props.currentUser.id}`;
-    const userItemsLink = `/users/${props.currentUser.id}/items`;
     // const messageLink = `/messages/${props.currentUser.id}`;
     return (
       <div className="user-nav">
         <div className="logo">
           <i className="sunLogo" class="fas fa-sun" />
+          <Link to="/">Savannah</Link>
+        </div>
+        <div className="wrap-links">
+          {createDefaultLinks(props.currentUser.id)}
+          <div className="cat-links">{createItemCategoryLinks()}</div>
+        </div>
+      </div>
+    );
+  } else if (props.currentUser.role_id === 2){
+    // const messageLink = `/messages/${props.currentUser.id}`;
+    return (
+      <div className="admin-nav">
+        <div className="logo">
+          <i className="sunLogo" class="fas fa-sun" />
           <Link to="/">SAVANNAH</Link>
         </div>
-
         <div className="wrap-links">
-          <div className="nav-links">
-            <Link to="/">
-              <button>Home</button>
-            </Link>
-          </div>
+          {createDefaultLinks(props.currentUser.id)}
+
+          <br />
 
           <div className="nav-links">
-            <Link to={userLink}>
-              <button>My Profile</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/cart">
-              <button>My Cart</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to={userItemsLink}>
-              <button>My Items</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Items</button>
+            <Link to="/admin-items">
+              <button>All Items</button>
             </Link>
           </div>
 
@@ -104,70 +127,35 @@ const Sidebar = (props) => {
         </div>
       </div>
     );
-  } else {
-    const userLink = `/profiles/${props.currentUser.id}`;
-    const userItemsLink = `/users/${props.currentUser.id}/items`;
+} else {
     return (
       <div className="admin-nav">
         <div className="logo">
           <i className="sunLogo" class="fas fa-sun" />
-          <Link to="/">SAVANNAH</Link>
+          <Link to="/">Savannah</Link>
         </div>
 
         <div className="wrap-links">
-          <div className="nav-links">
-            <Link to={userLink}>
-              <button>My Profile</button>
-            </Link>
-          </div>
+
+          {createDefaultLinks(props.currentUser.id)}
+          
+          <br />
 
           <div className="nav-links">
-            <Link to="/cart">
-              <button>My Cart</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/profiles/settings">
-              <button>Settings</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/admin/users">
+            <Link to="/admin-users">
               <button>All Users</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/items/all">
+            <Link to="/admin-items">
               <button>All Items</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/">
-              <button>Categories</button>
-            </Link>
-          </div>
-
-          <br />
-
-          <div className="nav-links">
-            <Link to="/messages">
-              <button>Messages</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to={userItemsLink}>
-              <button>My Items</button>
-            </Link>
-          </div>
-
-          <div className="nav-links">
-            <Link to="/add-item">
-              <button>Add Items</button>
+            <Link to="/admin-categories">
+              <button>All Categories</button>
             </Link>
           </div>
 

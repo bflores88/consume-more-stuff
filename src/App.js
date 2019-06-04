@@ -23,6 +23,7 @@ import PasswordUpdate from './containers/PasswordUpdate';
 import Conversation from './containers/Conversation';
 import AddThread from './containers/AddThread';
 import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate';
+import AdminAllItems from './containers/AdminAllItems';
 import UserCart from './containers/UserCart';
 
 class App extends Component {
@@ -51,7 +52,8 @@ class App extends Component {
               <Route path="/add-thread" component={AddThread} />
               <Route path="/messages" component={Messages} />
               <Route path="/conversation/:id" component={Conversation} />
-              <Route path="/admin/users" component={AdminAllUsers} />
+              <Route path="/admin-items" component={AdminAllItems} />
+              <Route path="/admin-users" component={AdminAllUsers} />
               <Route path="/cart" component={UserCart} />
             </Switch>
           </div>

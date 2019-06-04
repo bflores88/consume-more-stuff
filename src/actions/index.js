@@ -36,6 +36,8 @@ export const EDIT_ITEM = 'EDIT_ITEM';
 export const ADD_THREAD = 'ADD_THREAD';
 export const GRAB_USER_CART = 'GRAB_USER_CART';
 
+export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -158,6 +160,7 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
+        console.log('88888', users)
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
@@ -647,6 +650,28 @@ export const grabUsername = (userID) => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+};
+
+export const adminUserEdit = (data) => {
+  return (dispatch) => {
+    return fetch('/api/users/admin', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADMIN_USER_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
       });
   };
 };
