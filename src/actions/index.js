@@ -50,28 +50,27 @@ export const loadItems = () => {
 
 export const editItem = (id, data) => {
   return (dispatch) => {
-    return (
-      fetch(`/api/items/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    return fetch(`/api/items/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
       })
-        .then((response) => {
-          return response.json();
-        })
-        // .then((data) => {
-        //   console.log('data', data);
-        //   return dispatch({
-        //     type: EDIT_ITEM,
-        //     payload: data,
-        //   });
-        // })
-        .catch((error) => {
-          console.log('Error in logout: ', error);
-        })
-    );
+
+      .then((data) => {
+        console.log('data', data);
+        // return dispatch({
+        //   type: EDIT_ITEM,
+        //   payload: data,
+        // });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
   };
 };
 

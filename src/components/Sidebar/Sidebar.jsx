@@ -100,6 +100,7 @@ const Sidebar = (props) => {
     );
   } else {
     const userLink = `/profiles/${props.currentUser.id}`;
+    const userItemsLink = `/users/${props.currentUser.id}/items`;
     return (
       <div className="admin-nav">
         <div className="logo">
@@ -135,6 +136,12 @@ const Sidebar = (props) => {
           <div className="nav-links">
             <Link to="/add-item">
               <button>Add Items</button>
+            </Link>
+          </div>
+
+          <div className="nav-links">
+            <Link to={userItemsLink}>
+              <button>My Items</button>
             </Link>
           </div>
 
