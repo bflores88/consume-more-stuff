@@ -1,11 +1,11 @@
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('themes').del()
-    .then(function () {
+  return knex('themes')
+    .del()
+    .then(function() {
       // Inserts seed entries
       return knex('themes').insert([
-        {themeName: 'filler', backgroundColor: 'filler', fontStyle: 'filler', borderStyle: 'filler'},
+        { theme_name: 'filler', background_color: 'filler', font_style: 'filler', border_style: 'filler' },
       ]);
     });
 };

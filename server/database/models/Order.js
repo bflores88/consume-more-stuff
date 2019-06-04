@@ -19,8 +19,8 @@ class Order extends bookshelf.Model {
     return this.belongsTo('Item', 'item_id');
   }
 
-  orderStatuses() {
-    return this.belongsTo('OrderStatus', 'orderStatus_id');
+  order_statuses() {
+    return this.belongsTo('OrderStatus', 'order_status_id');
   }
 }
 
