@@ -31,6 +31,7 @@ export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 export const UPDATE_CHOSEN_CATEGORY = 'UPDATE_CHOSEN_CATEGORY';
 export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
 export const EDIT_ITEM = 'EDIT_ITEM';
+export const ADD_THREAD = 'ADD_THREAD';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -49,30 +50,30 @@ export const loadItems = () => {
   };
 };
 
-// export const editItem = (id, data) => {
-//   return (dispatch) => {
-//     return fetch(`/api/items/${id}`, {
-//       method: 'PUT',
-//       body: JSON.stringify(data),
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//       .then((response) => {
-//         return response.json();
-//       })
-
-//       .then((data) => {
-//         console.log('data', data);
-//         // return dispatch({
-//         //   type: EDIT_ITEM,
-//         //   payload: data,
-//         // });
-//       })
-//       .catch((error) => {
-//         console.log('Error in logout: ', error);
-//       });
-//     }
+export const addThread = (data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/threads`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_THREAD,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
+  };
+};
 
 export const editItem = (id, data) => {
   return (dispatch) => {

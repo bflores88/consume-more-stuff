@@ -4,7 +4,7 @@ require('./User');
 require('./Item');
 class CartedItem extends bookshelf.Model {
   get tableName() {
-    return 'cartedItems';
+    return 'carted_items';
   }
   get hasTimestamps() {
     return true;
@@ -14,7 +14,7 @@ class CartedItem extends bookshelf.Model {
     return this.belongsTo('User', 'carted_by');
   }
 
-  transactions() {
+  items() {
     return this.belongsTo('Item', 'item_id');
   }
 }
