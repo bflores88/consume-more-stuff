@@ -29,6 +29,7 @@ class ItemDetail extends Component {
     if (!this.props.item.name) {
       return <div>Page Loading...</div>;
     } else {
+      console.log(this.props.item);
       const item = {
         images: this.props.item.images,
         name: this.props.item.name,
@@ -38,7 +39,7 @@ class ItemDetail extends Component {
         description: this.props.item.description,
         condition: this.props.item.conditions.condition_name,
         status: this.props.item.active,
-        subcat: this.props.item.subCategories.sub_category_name,
+        subcat: this.props.item.sub_categories.sub_category_name,
         created: this.props.item.created_at,
         updated: this.props.item.updated_at,
         category: this.props.item.categories.category_name,
@@ -48,8 +49,8 @@ class ItemDetail extends Component {
         view_count: this.props.item.view_count,
       };
 
-      const created = moment(new Date(item.created)).format("MMM DD, YYYY")
-      const updated = moment(new Date(item.updated)).format("MMM DD, YYYY")
+      const created = moment(new Date(item.created)).format('MMM DD, YYYY');
+      const updated = moment(new Date(item.updated)).format('MMM DD, YYYY');
       let status;
       if (!item.status) {
         status = 'NOT FOR SALE';
