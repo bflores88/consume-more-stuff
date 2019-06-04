@@ -21,7 +21,7 @@ class MessageBox extends Component {
         <div className="outer-message-box-user">
           <div className="message-box" className="user-message">
             {/* <h4>User: {sent_by}</h4> */}
-            <p className="sent_by">User: {sent_by_username}</p>
+            <p className="sent_by">{sent_by_username}</p>
             <div className="message-body">{body}</div>
           </div>
         </div>
@@ -30,7 +30,7 @@ class MessageBox extends Component {
       return (
         <div className="outer-message-box-other">
           <div className="message-box" className="other-message">
-            <p className="sent_by">User: {sent_by_username}</p>
+            <p className="sent_by">{sent_by_username}</p>
             <div className="message-body">{body}</div>
           </div>
         </div>
