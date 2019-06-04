@@ -122,13 +122,13 @@ const Sidebar = (props) => {
           </div>
 
           <div className="nav-links">
-            <Link to="/admin/users">
+            <Link to="/admin-users">
               <button>All Users</button>
             </Link>
           </div>
 
           <div className="nav-links">
-            <Link to="/items/all">
+            <Link to="/admin-items">
               <button>All Items</button>
             </Link>
           </div>
