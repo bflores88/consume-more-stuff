@@ -96,7 +96,7 @@ class Profiles extends Component {
           memberSince: this.props.user.created_at,
         };
 
-        let memberSince = moment(new Date(user.memberSince)).format('MMM DD, YYYY');
+        let memberSince = moment(new Date(user.memberSince)).format('MMM DD YYYY');
 
         let status;
         if (user.active) {
