@@ -6,6 +6,7 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const LOAD_ALL_ACTIVE_ITEMS = 'LOAD_ALL_ACTIVE_ITEMS';
 export const LOAD_ACTIVE_ITEMS = "LOAD_ACTIVE_ITEMS";
 export const LOAD_INACTIVE_ITEMS = "LOAD_INACTIVE_ITEMS";
 export const GRAB_ITEM_IMAGE = 'GRAB_ITEM_IMAGE';
@@ -37,6 +38,22 @@ export const loadItems = () => {
       .then((items) => {
         return dispatch({
           type: LOAD_ITEMS,
+          payload: items,
+        });
+      })
+      .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const loadAllActiveItems = () => {
+  return (dispatch) => {
+    return fetch('/api/items/active')
+      .then((response) => {
+        return response.json();
+      })
+      .then((items) => {
+        return dispatch({
+          type: LOAD_ALL_ACTIVE_ITEMS,
           payload: items,
         });
       })

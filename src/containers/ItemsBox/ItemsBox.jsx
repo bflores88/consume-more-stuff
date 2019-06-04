@@ -15,29 +15,26 @@ class ItemsBox extends Component {
   }
 
   componentDidMount() {
-    this.props.loadCategories()
     return this.props.grabItemImages();
   }
 
-  filterItems(label, items) {
+  filterItems(label, id, items) {
     switch (label) {
-      case 'Electronics':
-        return items.filter((item) => item.category_id === 1);
-      case 'Apparel':
-        return items.filter((item) => item.category_id === 2);
-      case 'Books':
-        return items.filter((item) => item.category_id === 3);
+      case label:
+        return items.filter((item) => item.category_id === parseInt(id)).sort((a,b) => b.viewCount - a.viewCount);
       default:
         return items.filter((item) => item.category.id === 1);
     }
   }
+
+
+
   filterImages(id, images) {
     return images.filter((image) => image.item_id === id);
   }
 
   render() {
-    console.log('8888', this.props.categories)
-    const filteredItems = this.filterItems(this.props.label, this.props.items);
+    const filteredItems = this.filterItems(this.props.label, this.props.labelID, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink;
       if (this.props.images) {

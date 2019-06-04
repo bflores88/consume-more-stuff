@@ -5,6 +5,7 @@ import {
   LOAD_ITEMS_BY_CATEGORY,
   LOAD_SINGLE_USER,
   POST_NEW_MESSAGE,
+  LOAD_ALL_ACTIVE_ITEMS,
   LOAD_ACTIVE_ITEMS,
   LOAD_INACTIVE_ITEMS
 } from '../actions';
@@ -25,6 +26,7 @@ import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE}
 
 const initialState = {
   item: {},
+  allActiveItems: [],
   items: [],
   images: [],
   newestItem: '',
@@ -52,6 +54,9 @@ function itemReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_ITEMS:
       return Object.assign({}, state, { items: [...action.payload] });
+    
+    case LOAD_ALL_ACTIVE_ITEMS:
+      return Object.assign({}, state, { allActiveItems: [...action.payload] });
 
     case LOAD_SPECIFIC_ITEM:
       return Object.assign({}, state, { item: action.payload });
