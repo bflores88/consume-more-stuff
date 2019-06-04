@@ -16,6 +16,10 @@ class AdminAllUsers extends Component {
     return this.props.grabAllUsers();
   }
 
+  componentDidUpdate(prevProps) {
+    
+  }
+
   render() {
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;

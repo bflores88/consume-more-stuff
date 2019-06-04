@@ -9,6 +9,7 @@ import {
   LOAD_ACTIVE_ITEMS,
   LOAD_INACTIVE_ITEMS,
   LOAD_SPECIFIC_ITEM,
+  ADMIN_USER_EDIT,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -139,11 +140,14 @@ function userReducer(state = userState, action) {
 
     case LOAD_SINGLE_USER:
       return Object.assign({}, state, { user: action.payload });
-    
+
     case UPDATE_USER:
       return Object.assign({}, state, { updatedUser: action.payload });
-    
+
     case DEACTIVATE_USER:
+      return Object.assign({}, state, { updatedUser: action.payload });
+
+    case ADMIN_USER_EDIT:
       return Object.assign({}, state, { updatedUser: action.payload });
 
     default:

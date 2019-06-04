@@ -96,7 +96,7 @@ router.route('/admin').put((req, res) => {
       active: req.body.active
     })
     .then((result) => {
-      new User({ id: req.user.id })
+      new User({ id: req.body.id })
         .fetch()
         .then((result) => {
           const user = result.toJSON();
@@ -118,7 +118,7 @@ router.route('/profile').put((req, res) => {
     })
     .then((result) => {
       new User({ id: req.user.id })
-        .fetch()
+        .fetch({withRelated: ['roles']})
         .then((result) => {
           const user = result.toJSON();
           return res.send(user);

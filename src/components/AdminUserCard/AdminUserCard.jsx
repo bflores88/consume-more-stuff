@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './AdminUserCard.scss';
 import moment from 'moment';
+import { adminUserEdit, loadSingleUser } from '../../actions';
 
 class AdminUserCard extends Component {
   constructor(props) {
@@ -20,10 +21,11 @@ class AdminUserCard extends Component {
 
     this.roleOptions = this.roleOptions.bind(this);
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
   componentDidMount() {
-
     let memberSince = moment(new Date(this.props.activeSince)).format('MM/DD/YYYY');
 
     this.setState((prevState) => ({
@@ -37,22 +39,61 @@ class AdminUserCard extends Component {
 
     if (this.props.active) {
       this.setState((prevState) => ({
-        active: 'ACTIVE'
+        active: 'ACTIVE',
       }));
     } else {
       this.setState((prevState) => ({
-        active: 'INACTIVE'
+        active: 'INACTIVE',
       }));
     }
-
-
   }
+
+  componentDidUpdate(prevProps) {}
 
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-
     return this.setState({ [name]: value });
+  }
+
+  handleRoleChange(e) {
+    e.preventDefault();
+    const data = {
+      id: this.state.id,
+      role_id: this.state.role_id,
+    };
+
+    if (data.role_id === '1') {
+      this.setState({ role: 'ADMIN' });
+    } else if (data.role_id === '2') {
+      this.setState({ role: 'MODERATOR' });
+    } else {
+      this.setState({ role: 'USER' });
+    }
+
+    return this.props.adminUserEdit(data);
+  }
+
+  handleStatusChange(e) {
+    e.preventDefault();
+    let data;
+    if (this.props.active) {
+      data = {
+        id: this.state.id,
+        active: false,
+      };
+
+      this.setState({ active: 'INACTIVE' });
+    } else {
+      data = {
+        id: this.state.id,
+        active: true,
+      };
+
+      this.setState({ active: 'ACTIVE' });
+    }
+
+    this.props.adminUserEdit(data);
   }
 
   roleOptions(roleID) {
@@ -106,15 +147,18 @@ class AdminUserCard extends Component {
             <form>
               <label for="role" name="role">
                 Update Role
-              </label><br></br>
+              </label>
+              <br />
               {this.roleOptions(this.props.role_id)}
-              <br></br>
-              <button>Submit</button>
+              <br />
+              <button type="submit" onClick={this.handleRoleChange}>
+                Submit
+              </button>
             </form>
           </div>
 
           <div className="deactivate">
-            <button>Activate / Deactivate</button>
+            <button onClick={this.handleStatusChange}>Activate / Deactivate</button>
           </div>
         </div>
       </div>
@@ -123,11 +167,15 @@ class AdminUserCard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    updatedUser: state.userReducer.updatedUser,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    adminUserEdit: (data) => dispatch(adminUserEdit(data)),
+  };
 };
 
 AdminUserCard = connect(

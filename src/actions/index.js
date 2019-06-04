@@ -35,6 +35,8 @@ export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const ADD_THREAD = 'ADD_THREAD';
 
+export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
+
 // ACTION CREATOR
 export const loadItems = () => {
   return (dispatch) => {
@@ -628,6 +630,28 @@ export const grabUsername = (userID) => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+};
+
+export const adminUserEdit = (data) => {
+  return (dispatch) => {
+    return fetch('/api/users/admin', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADMIN_USER_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
       });
   };
 };
