@@ -3,13 +3,16 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
-const registeredUser = require('../middleware/userGuard');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
+const isModeratorGuard = require('../middleware/isModeratorGuard');
+const isAdminGuard = require('../middleware/isAdminGuard');
 
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
     .fetchAll()
     .then((result) => {
+      // returns all active items
       return res.json(result);
     })
     .catch((err) => {
@@ -17,9 +20,8 @@ router.route('/active').get((req, res) => {
     });
 });
 
-router
-  .route('/')
-  .get((req, res) => {
+router.route('/')
+  .get(isLoggedInGuard, isModeratorGuard, (req, res) => {
     new Item()
       .orderBy('approved', 'ASC')
       .fetchAll({ withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images'] })
@@ -49,9 +51,9 @@ router
         user_id: parseInt(req.user.id),
       })
       .then((result) => {
+        // creates a new item if the user is logged in
         new Item({ id: result.id }).fetch().then((result) => {
           const item = result.toJSON();
-          // respond with newly created item
           return res.json(item);
         });
       })
@@ -60,8 +62,7 @@ router
       });
   });
 
-//ROUTE FOR ADMIN TO CHANGE ITEM APPROVAL --- THIS WILL NEED AN ADMIN/MODERATOR GUARD 
-router.route('/admin').put((req, res) => {
+router.route('/admin').put(isLoggedInGuard, isAdminGuard, (req, res) => {
   new Item('id', req.body.id)
     .save({
       approved: req.body.approved,
@@ -79,9 +80,9 @@ router
   .route('/:id')
   .get((req, res) => {
     new Item({ id: req.params.id })
-
       .fetch({ withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images'] })
       .then((result) => {
+        // returns a single item for "ItemDetail"
         return res.json(result);
       })
       .catch((err) => {
@@ -89,7 +90,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .put(registeredUser, ownershipGuard, (req, res) => {
+  .put(isLoggedInGuard, ownershipGuard, (req, res) => {
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
@@ -104,18 +105,17 @@ router
         active: req.body.active,
       })
       .then((result) => {
-        // respond with updated item
+        // allows a user to update an owned items information
         return res.json(result);
       })
       .catch((err) => {
         console.log('error:', err);
       });
   })
-  .delete(registeredUser, ownershipGuard, (req, res) => {
+  .delete(isLoggedInGuard, ownershipGuard, (req, res) => {
     Item.where({ id: req.params.id })
       .destroy()
       .then((result) => {
-        // respond with successful delete message
         return res.send('successful delete');
       })
       .catch((err) => {
@@ -131,6 +131,7 @@ router.route('/:id/views').put((req, res) => {
       item
         .save({ view_count: increment }, { patch: true })
         .then(() => {
+          // updates viewCount for each ItemDetail
           return res.json({ success: true });
         })
         .catch((err) => {

@@ -25,7 +25,11 @@ router
         [req.user.id],
       )
       .then((result) => {
-        // respond with all of user's carted_items
+        /* Returns a cart owned by req.user.id
+           with associated items, where the item
+           name, dimensions, price, shipping cost,
+           description and image links were renamed.
+        */
         return res.json(result.rows);
       })
       .catch((err) => {

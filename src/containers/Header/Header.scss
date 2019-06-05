@@ -18,6 +18,19 @@ $header-height: 80px;
     justify-content: space-between;
     align-items: center;
 
+    a {
+      display: flex;
+    }
+
+    .fas.fa-sun {
+      padding: 20px 0 15px 0;
+      font-size: 30px;
+    }
+    .sunLogo {
+      // width: 30%;
+      // width: auto;
+      color: #fd5e53;
+    }
     .title {
       color: #222f3d;
       // color: #f5bc69;
