@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Checkout.scss';
 import { grabUserCart } from '../../actions';
 import { grabShipping } from '../../actions';
+import { grabShippingPrimary } from '../../actions';
 import { grabPayments } from '../../actions';
 import { postNewOrder } from '../../actions';
 import ThreadBox from '../ThreadBox';
@@ -33,6 +34,7 @@ class Checkout extends Component {
   componentDidMount() {
     this.props.grabUserCart();
     this.props.grabShipping();
+    this.props.grabShippingPrimary();
     this.props.grabPayments();
   }
 
@@ -61,6 +63,8 @@ class Checkout extends Component {
   }
 
   render() {
+    console.log(this.props.shipping);
+    // console.log(this.props.shippingPrimary[0].id);
     // item operations below
     let allItemsPrice = 0;
     let totalPrice = 0;
@@ -230,6 +234,7 @@ const mapStateToProps = (state) => {
     cart_items: state.itemReducer.cart_items,
     shipping: state.itemReducer.shipping,
     payments: state.itemReducer.payments,
+    shippingPrimary: state.itemReducer.shippingPrimary,
   };
 };
 
@@ -241,6 +246,9 @@ const mapDispatchToProps = (dispatch) => {
 
     grabShipping: () => {
       dispatch(grabShipping());
+    },
+    grabShippingPrimary: () => {
+      dispatch(grabShippingPrimary());
     },
     grabPayments: () => {
       dispatch(grabPayments());

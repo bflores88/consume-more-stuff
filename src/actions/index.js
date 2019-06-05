@@ -39,6 +39,7 @@ export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
 export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
+export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
@@ -93,9 +94,30 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
+        console.log('shipping', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabShippingPrimary = () => {
+  return (dispatch) => {
+    return fetch(`/api/shipping`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((shipping) => {
+        // console.log('shipping', shipping);
+        let primary = shipping.filter((address) => address.primary === true);
+        return dispatch({
+          type: GRAB_SHIPPING_PRIMARY,
+          payload: primary,
         });
       })
       .catch((err) => {
@@ -111,6 +133,7 @@ export const grabPayments = () => {
         return response.json();
       })
       .then((payments) => {
+        console.log('payments', payments);
         return dispatch({
           type: GRAB_PAYMENTS,
           payload: payments,
