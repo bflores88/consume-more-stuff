@@ -1,6 +1,7 @@
 const bookshelf = require('../bookshelf');
 
 require('./User');
+require('./State');
 require('./Transaction');
 class ShippingAddress extends bookshelf.Model {
   get tableName() {
@@ -12,6 +13,10 @@ class ShippingAddress extends bookshelf.Model {
 
   users() {
     return this.belongsTo('User', 'user_id');
+  }
+
+  states() {
+    return this.belongsTo('State', 'state_id');
   }
 
   transactions() {
