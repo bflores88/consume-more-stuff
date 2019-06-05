@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AdminCategories.scss';
 import { loadCategories } from '../../actions';
-import AdminCategoryButton from '../../components/AdminCategoryButton';
-import { all } from 'bluebird';
+import AdminAddCategory from '../../components/AdminAddCategory';
+import AdminAddSubcategory from '../../components/AdminAddSubcategory';
 
 class AdminCategories extends Component {
   constructor(props) {
@@ -74,7 +74,10 @@ class AdminCategories extends Component {
               {listSubCategories}
             </div>
             <div className="sub-div">
-              <h1>Add Categories</h1>
+              <h3>+ Add Category</h3>
+              <AdminAddCategory />
+              <h3>+ Add Subcategory</h3>
+              <AdminAddSubcategory />
             </div>
           </div>
         </div>

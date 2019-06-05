@@ -135,7 +135,7 @@ class AdminUserCard extends Component {
     return (
       <div className="admin-user-view">
         <div className="admin-user-box-1">
-          <img className="img" src={this.state.imageURL} />
+          <img className="img" src={this.state.imageURL} alt={this.state.username} />
         </div>
 
         <div className="admin-user-box-2">
