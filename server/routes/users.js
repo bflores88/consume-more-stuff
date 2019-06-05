@@ -7,7 +7,7 @@ const Item = require('../database/models/Item');
 const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 const isAdminGuard = require('../middleware/isAdminGuard');
 
 router.route('/all').get(isLoggedInGuard, isAdminGuard, (req, res) => {
@@ -44,7 +44,7 @@ router.route('/:id/username').get((req, res) => {
     });
 });
 
-router.route('/items/:userId').get(isLoggedInGuard, ownershipGuard, (req, res) => {
+router.route('/items/:userId').get(isLoggedInGuard, itemOwnerGuard, (req, res) => {
   Item.where({ user_id: req.params.userId })
     .fetchAll()
     .then((result) => {
@@ -70,7 +70,7 @@ router.route('/items/:id/active').get((req, res) => {
 });
 
 // get all inactive items from a single user
-router.route('/items/:id/inactive').get(isLoggedInGuard, ownershipGuard, (req, res) => {
+router.route('/items/:id/inactive').get(isLoggedInGuard, itemOwnerGuard, (req, res) => {
   Item.where({ user_id: req.params.id, active: false })
     .fetchAll()
     .then((result) => {
@@ -144,7 +144,7 @@ router.route('/theme').put((req, res) => {
 });
 
 // change password
-router.route('/password').put(isLoggedInGuard, ownershipGuard, (req, res) => {
+router.route('/password').put(isLoggedInGuard, itemOwnerGuard, (req, res) => {
   bcrypt.genSalt(saltRounds, (err, salt) => {
     if (err) {
       console.log('error:', err);
