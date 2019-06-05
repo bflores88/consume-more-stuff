@@ -3,7 +3,7 @@
 const PaymentCard = require('../database/models/PaymentCard');
 
 module.export = function(req, res, next) {
-  PaymentCard.where({ user_id: req.user.id })
+  PaymentCard.where({ user_id: req.params.id })
     .fetch({ withRelated: ['users'] })
     .then((result) => {
       const cardUserId = result.toJSON().user_id;
