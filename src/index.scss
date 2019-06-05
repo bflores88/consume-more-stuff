@@ -72,20 +72,6 @@ a {
   }
   
   .main {
-    .side-box {
-      position: fixed;
-      top: 0;
-      bottom: 40px; // height of footer
-      
-      margin: 0;
-      border-right: 1px solid gold;
-      padding: 50px 10px 10px 10px;
-      height: auto;
-      width: $side-box-width; 
-
-      overflow: scroll;
-    }
-
     .page {
       width: 100%;
       margin: 0;
