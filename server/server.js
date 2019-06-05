@@ -15,6 +15,7 @@ const categories = require('./routes/categories');
 const carts = require('./routes/carts');
 const payments = require('./routes/payments');
 const shipping = require('./routes/shipping');
+const orders = require('./routes/orders');
 
 require('dotenv').config();
 
@@ -53,14 +54,13 @@ passport.use(
         user = data.toJSON();
 
         if (user === null) {
-          return done(null, false, { message: 'Bad username or password. Try again!'});
+          return done(null, false, { message: 'Bad username or password. Try again!' });
         }
 
         if (user.active === false) {
           return done(null, false, { message: 'Account inactive. Contact an Admin.' });
         } else {
           bcrypt.compare(password, user.password).then((match) => {
-
             if (match) {
               // bycrypt returns boolean, true means password matches.
               return done(null, user);
@@ -117,6 +117,7 @@ app.use('/api/categories', categories);
 app.use('/api/carts', carts);
 app.use('/api/payments', payments);
 app.use('/api/shipping', shipping);
+app.use('/api/orders', orders);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);

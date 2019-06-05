@@ -6,7 +6,6 @@ const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
 const UserThread = require('../database/models/UserThread');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 const isModeratorGuard = require('../middleware/isModeratorGuard');
 const isAdminGuard = require('../middleware/isAdminGuard');
 

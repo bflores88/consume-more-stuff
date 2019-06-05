@@ -1,32 +1,36 @@
 .checkout-page {
   height: 100%;
 }
+.checkout-title {
+  margin: 1em;
+}
 .main-checkout-container {
   display: flex;
 }
 .info-review-container {
   height: 100%;
   width: 80%;
-  border: 1px solid orange;
+  // border: 1px solid orange;
   margin: 1em;
   padding: 1em;
   .shipping-address-container {
-    border: 1px solid orange;
+    border-top: 1px solid orange;
+    // background-color: rgb(255, 238, 205);
     margin: 1em;
     padding: 1em;
   }
   .payment-method-container {
-    border: 1px solid orange;
+    border-top: 1px solid orange;
     margin: 1em;
     padding: 1em;
   }
   .review-items-container {
-    border: 1px solid orange;
+    border-top: 1px solid orange;
     margin: 1em;
     padding: 1em;
     .checkout-item-box {
       // background-color: yellow;
-      border: 1px solid orange;
+      border-top: 1px dotted orange;
       margin: 1em;
       padding: 1em;
       width: 100%;
@@ -40,6 +44,9 @@
           width: 30%;
           height: auto;
         }
+      }
+      .checkout-item-name {
+        font-weight: bold;
       }
       .checkout-item-information-box {
         width: 50%;
@@ -58,14 +65,43 @@
     border: 1px solid orange;
     margin: 1em;
     padding: 1em;
+    font-size: 0.8em;
+    width: 15%;
     .order-price-info-container {
       .order-items-price-box {
         display: flex;
         justify-content: space-between;
+        margin: 0.5em;
+        padding: 0.5em;
       }
       .order-items-shipping-box {
         display: flex;
         justify-content: space-between;
+        margin: 0.5em;
+        padding: 0.5em;
+        border-bottom: 1px dotted #aaa;
+      }
+      .order-items-before-tax-box {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.5em;
+        padding: 0.5em;
+      }
+      .order-items-estimated-tax-box {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.5em;
+        padding: 0.5em;
+      }
+      .order-items-total-price-box {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.5em;
+        padding: 0.5em;
+        border-top: 1px dotted #aaa;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #b14467;
       }
     }
     #place-order-button-box {
@@ -93,3 +129,5 @@
     }
   }
 }
+
+// custom select
