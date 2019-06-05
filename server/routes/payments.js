@@ -6,7 +6,7 @@ const PaymentCard = require('../database/models/PaymentCard');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 
-router.route('/').get(isLoggedInGuard, itemOwnerGuard, (req, res) => {
+router.route('/').get(isLoggedInGuard, (req, res) => {
   PaymentCard.where({ user_id: req.user.id })
     .fetchAll({ withRelated: ['states'] })
     .then((result) => {
