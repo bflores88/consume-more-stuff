@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const Item = require('../database/models/Item');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 const isModeratorGuard = require('../middleware/isModeratorGuard');
 const isAdminGuard = require('../middleware/isAdminGuard');
 
@@ -90,7 +90,7 @@ router
         return res.status(404).send('Item not found');
       });
   })
-  .put(isLoggedInGuard, ownershipGuard, (req, res) => {
+  .put(isLoggedInGuard, itemOwnerGuard, (req, res) => {
     new Item('id', req.params.id)
       .save({
         name: req.body.name,
@@ -112,7 +112,7 @@ router
         console.log('error:', err);
       });
   })
-  .delete(isLoggedInGuard, ownershipGuard, (req, res) => {
+  .delete(isLoggedInGuard, itemOwnerGuard, (req, res) => {
     Item.where({ id: req.params.id })
       .destroy()
       .then((result) => {
