@@ -3,7 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Checkout.scss';
 import { grabUserCart } from '../../actions';
-import { grabCheckout } from '../../actions';
+import { grabShipping } from '../../actions';
+import { grabPayments } from '../../actions';
 import ThreadBox from '../ThreadBox';
 import { Link } from 'react-router-dom';
 
@@ -11,15 +12,26 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      payment_dropdown_id: '',
+      shipping_dropdown_id: '',
+    };
+    this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
   }
 
-  componentDidMount() {
-    console.log(typeof this.props.grabUserCart);
+  handleInputOnChange(e) {
+    const value = e.target.value;
+    const name = e.target.name;
+    // console.log
+    console.log(name, value);
+    return this.setState({ [name]: value });
+  }
 
+  componentDidMount() {
     this.props.grabUserCart();
-    this.props.grabCheckout();
+    this.props.grabShipping();
+    this.props.grabPayments();
   }
 
   componentDidUpdate(prevProps) {
@@ -36,7 +48,7 @@ class Checkout extends Component {
   }
 
   render() {
-    console.log(this.props.checkout);
+    // item operations below
     let allItemsPrice = 0;
     let totalPrice = 0;
     let cartItems = this.props.cart_items.map((item, idx) => {
@@ -71,6 +83,27 @@ class Checkout extends Component {
       );
     });
 
+    // payment/shipping below
+    console.log('shipping', this.props.shipping);
+    console.log('payments', this.props.payments);
+
+    let shippingOptions = this.props.shipping.map((address, idx) => {
+      return (
+        <option value={address.id}>
+          {address.street}, {address.city}, {address.states.postal_code}
+        </option>
+      );
+    });
+
+    let paymentOptions = this.props.payments.map((method, idx) => {
+      let lastFourDigits = method.card_number.substr(method.card_number.length - 4);
+      let asteriskLength = method.card_number.length - 4;
+
+      let censoredCardNumber = '*'.repeat(asteriskLength) + lastFourDigits;
+
+      return <option value={method.id}>{censoredCardNumber}</option>;
+    });
+
     return (
       <div className="checkout-page">
         <div className="checkout-title">
@@ -78,9 +111,35 @@ class Checkout extends Component {
         </div>
         <div className="main-checkout-container">
           <div className="info-review-container">
-            <div className="shipping-address-container">shippin</div>
+            <div className="shipping-address-container">
+              <div>Confirm Shipping</div>
+              <select
+                name="shipping_dropdown_id"
+                className="select"
+                value={this.state.shipping_dropdown_id}
+                onChange={this.handleInputOnChange}
+                // onChange={this.changeSubCategories}
+                required
+              >
+                <option value="">Choose a Category</option>
+                {shippingOptions}
+              </select>
+            </div>
 
-            <div className="payment-method-container">payment</div>
+            <div className="payment-method-container">
+              <div>Confirm Payment Method</div>
+              <select
+                name="payment_dropdown_id"
+                className="select"
+                value={this.state.payment_dropdown_id}
+                onChange={this.handleInputOnChange}
+                // onChange={this.changeSubCategories}
+                required
+              >
+                <option value="">Choose a Category</option>
+                {paymentOptions}
+              </select>
+            </div>
 
             <div className="review-items-container">{cartItems}</div>
           </div>
@@ -112,7 +171,8 @@ const mapStateToProps = (state) => {
     currentUser: state.userReducer.user,
     threads: state.itemReducer.threads,
     cart_items: state.itemReducer.cart_items,
-    checkout: state.itemReducer.checkout,
+    shipping: state.itemReducer.shipping,
+    payments: state.itemReducer.payments,
   };
 };
 
@@ -122,8 +182,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(grabUserCart());
     },
 
-    grabCheckout: () => {
-      dispatch(grabCheckout());
+    grabShipping: () => {
+      dispatch(grabShipping());
+    },
+    grabPayments: () => {
+      dispatch(grabPayments());
     },
   };
 };
