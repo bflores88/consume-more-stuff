@@ -20,8 +20,7 @@ router.route('/active').get((req, res) => {
     });
 });
 
-router
-  .route('/')
+router.route('/')
   .get(isLoggedInGuard, isModeratorGuard, (req, res) => {
     new Item()
       .orderBy('approved', 'ASC')

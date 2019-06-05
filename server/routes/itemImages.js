@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const ItemImage = require('../database/models/ItemImage');
-
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 const registeredUser = require('../middleware/isLoggedInGuard');
