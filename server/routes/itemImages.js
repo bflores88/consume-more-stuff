@@ -4,20 +4,17 @@ const express = require('express');
 const router = express.Router();
 const ItemImage = require('../database/models/ItemImage');
 
-// AWS s3 middleware for posting images
-// 'image' in upload.single() is the key-name that's referenced in the req.body object
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
-const registeredUser = require('../middleware/userGuard');
+const registeredUser = require('../middleware/isLoggedInGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
 
-// const remove = require('../services/image-delete');
 
 router.route('/').get((req, res) => {
   new ItemImage()
     .fetchAll()
     .then((result) => {
-      // respond with all images
+      // returns all images of all items
       return res.json(result);
     })
     .catch((err) => {
@@ -26,17 +23,15 @@ router.route('/').get((req, res) => {
     });
 });
 
-// post image FILES (not links)
-router.route('/upload/:itemId').post(singleUpload, registeredUser, ownershipGuard, (req, res) => {
-  console.log('REQRGWGEGGEW', req);
+router.route('/upload/:itemId').post(isLoggedInGuard, singleUpload, (req, res) => {
   new ItemImage()
     .save({
       image_link: req.file.location,
       item_id: parseInt(req.params.itemId),
     })
     .then((result) => {
+      // uploads a new image to AWS bucket if the user is logged in
       new ItemImage({ id: result.id }).fetch().then((result) => {
-        // respond with newly created item image
         return res.json(result);
       });
     })
@@ -45,16 +40,15 @@ router.route('/upload/:itemId').post(singleUpload, registeredUser, ownershipGuar
     });
 });
 
-// post image LINKS (not files)
-router.route('/link/:itemId').post(registeredUser, ownershipGuard, (req, res) => {
+router.route('/link/:itemId').post(isLoggedInGuard, (req, res) => {
   new ItemImage()
     .save({
       image_link: req.body.image_link,
       item_id: parseInt(req.params.itemId),
     })
     .then((result) => {
+      // uploads a new image using links to AWS bucket if the user is logged in
       new ItemImage({ id: result.id }).fetch().then((result) => {
-        // respond with newly created item image
         return res.json(result);
       });
     })
@@ -65,10 +59,10 @@ router.route('/link/:itemId').post(registeredUser, ownershipGuard, (req, res) =>
 });
 
 router.route('/item/:itemId').get((req, res) => {
-  // return only image_links for images tied to specified item
   ItemImage.where({ item_id: req.params.itemId })
     .fetchAll({ columns: ['image_link'] })
     .then((result) => {
+      // returns all images for the requested item
       return res.json(result);
     })
     .catch((err) => {
@@ -84,6 +78,7 @@ router
     new ItemImage({ id: req.params.id })
       .fetch()
       .then((result) => {
+        // returns a single image based on its ID
         return res.json(result);
       })
       .catch((err) => {
