@@ -25,6 +25,7 @@ import AddThread from './containers/AddThread';
 import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate';
 import AdminAllItems from './containers/AdminAllItems';
 import UserCart from './containers/UserCart';
+import Checkout from './containers/Checkout';
 
 class App extends Component {
   render() {
@@ -55,6 +56,7 @@ class App extends Component {
               <Route path="/admin-items" component={AdminAllItems} />
               <Route path="/admin-users" component={AdminAllUsers} />
               <Route path="/cart" component={UserCart} />
+              <Route path="/checkout" component={Checkout} />
             </Switch>
           </div>
         </div>

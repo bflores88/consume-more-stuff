@@ -1,12 +1,14 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('shipping_addresses', (table) => {
     table.increments();
-    table.string('street', 100);
+    table.boolean('primary').notNull();
+    table.string('address_name', 100).notNull();
+    table.string('street', 100).notNull();
     table.string('apt_suite', 20);
-    table.string('city', 50);
-    table.string('state', 20);
-    table.string('country', 20);
-    table.string('zip', 5);
+    table.string('city', 50).notNull();
+    table.string('state', 20).notNull();
+    table.string('country', 20).notNull();
+    table.string('zip', 5).notNull();
     table
       .integer('user_id')
       .notNull()
