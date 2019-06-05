@@ -37,9 +37,11 @@ export const ADD_THREAD = 'ADD_THREAD';
 export const GRAB_USER_CART = 'GRAB_USER_CART';
 export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
-export const GRAB_CHECKOUT = 'GRAB_CHECKOUT';
+export const GRAB_SHIPPING = 'GRAB_SHIPPING';
+export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
+export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -58,17 +60,36 @@ export const loadItems = () => {
   };
 };
 
-export const grabCheckout = () => {
+export const grabShipping = () => {
   return (dispatch) => {
-    return fetch(`/api/checkout`)
+    return fetch(`/api/shipping`)
       .then((response) => {
         return response.json();
       })
-      .then((checkout) => {
-        console.log('checkout data', checkout);
+      .then((shipping) => {
+        console.log('shipping data', shipping);
         return dispatch({
-          type: GRAB_CHECKOUT,
-          payload: checkout,
+          type: GRAB_SHIPPING,
+          payload: shipping,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabPayments = () => {
+  return (dispatch) => {
+    return fetch(`/api/payments`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((payments) => {
+        console.log('shipping data', payments);
+        return dispatch({
+          type: GRAB_PAYMENTS,
+          payload: payments,
         });
       })
       .catch((err) => {
@@ -522,7 +543,6 @@ export const login = (credentials) => {
       .then((response) => {
         if (response.status === 200) {
           return response.json();
-
         } else {
           return { error: 'Bad Username or Password. Try again!' };
         }
@@ -739,3 +759,26 @@ export const adminUserEdit = (data) => {
       });
   };
 };
+
+export const adminItemEdit = (data) => {
+  return (dispatch) => {
+    return fetch('/api/items/admin', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADMIN_ITEM_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+
+}

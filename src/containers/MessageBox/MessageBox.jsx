@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import './MessageBox.scss';
@@ -11,8 +10,8 @@ class MessageBox extends Component {
   }
 
   render() {
-    const { id, body, sent_by_user_id, sent_by_username } = this.props;
-    const threadID = id;
+    const {  body, sent_by_user_id, sent_by_username } = this.props;
+    // const threadID = id;
     // console.log('sent_by', sent_by);
     // const redirectTo = `/conversation/${threadID}`;
     // const redirectLink = `/conversation/${threadID}`;
