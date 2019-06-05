@@ -26,8 +26,6 @@ class AdminAllUsers extends Component {
     } else if (this.props.user.role_id !== 1) {
       return <Redirect to="/not-authorized" />;
     } else {
-      console.log(this.props.user);
-      console.log(this.props.userList);
 
       const userBoxes = this.props.userList.map((user, idx) => {
         return (
