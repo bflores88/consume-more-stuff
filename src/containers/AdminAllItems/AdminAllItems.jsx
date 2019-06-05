@@ -66,7 +66,6 @@ class AdminAllItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // updatedUser: state.userReducer.updatedUser,
     items: state.itemReducer.items,
     user: state.userReducer.user,
   };
@@ -74,7 +73,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // adminUserEdit: (data) => dispatch(adminUserEdit(data)),
     loadItems: () => dispatch(loadItems()),
   };
 };

@@ -1,0 +1,18 @@
+.category-container {
+  padding: 50px;
+  margin-bottom: 100px;
+
+  .admin-categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .sub-div {
+      width: 32%;
+      height: 600px;
+      border: 1px solid orange;
+      padding: 30px;
+    }
+  }
+
+}
