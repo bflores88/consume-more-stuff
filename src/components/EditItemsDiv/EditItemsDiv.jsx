@@ -6,20 +6,26 @@ class EditItemsDiv extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      thisUser: '',
+    };
   }
 
   //take in itemID AND take in status
 
   componentDidMount() {
     if (this.props.currentUser) {
-      const thisUser = this.props.currentUser.id;
+      this.setState({
+        thisUser: this.props.currentUser.id,
+      })
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentUser !== prevProps.currentUser) {
-      const thisUser = this.props.currentUser.id;
+      this.setState({
+        thisUser: this.props.currentUser.id,
+      })
     }
   }
 

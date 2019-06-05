@@ -41,6 +41,7 @@ export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
+export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -758,3 +759,26 @@ export const adminUserEdit = (data) => {
       });
   };
 };
+
+export const adminItemEdit = (data) => {
+  return (dispatch) => {
+    return fetch('/api/items/admin', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADMIN_ITEM_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+
+}

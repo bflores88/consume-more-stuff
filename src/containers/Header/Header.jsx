@@ -15,7 +15,7 @@ class Header extends Component {
         <div className="logoBox">
           <Link to="/">
             <h2 className="title">
-              <i className="sunLogo" className="fas fa-sun" />
+            <i class="fas fa-sun"></i>
               Savannah
             </h2>
           </Link>
