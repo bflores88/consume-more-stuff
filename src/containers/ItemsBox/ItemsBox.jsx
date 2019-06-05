@@ -21,9 +21,9 @@ class ItemsBox extends Component {
   filterItems(label, id, items) {
     switch (label) {
       case label:
-        return items.filter((item) => item.approved && item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
+        return items.filter((item) => item.inventory > 0 && item.approved && item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
       default:
-        return items.filter((item) => item.category.id === 1);
+        return items.filter((item) =>  item.inventory > 0 && item.approved && item.category.id === 1);
     }
   }
 

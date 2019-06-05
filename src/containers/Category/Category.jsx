@@ -40,8 +40,8 @@ class Category extends Component {
         items: categoryItems.items,
       };
 
-      const items = category.items.filter((img, key) => {
-        return img.active && img.approved;
+      const items = category.items.filter((item, key) => {
+        return item.inventory > 0 && item.active && item.approved;
       });
 
       const itemsBox = items.map((item, idx) => {

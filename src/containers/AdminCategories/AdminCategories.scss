@@ -2,6 +2,10 @@
   padding: 50px;
   margin-bottom: 100px;
 
+  h2 {
+    margin: 5px 0px;
+  }
+
   .admin-categories {
     display: flex;
     flex-direction: row;
@@ -12,7 +16,20 @@
       height: 600px;
       border: 1px solid orange;
       padding: 30px;
+
     }
   }
+
+  button {
+    display: block;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+
+    :hover {
+      color: #222f3d;
+    }
+  }
+
 
 }
