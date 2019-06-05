@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './AccountDeactivate.scss';
 import { connect } from 'react-redux';
 import { deactivateUser, logout } from '../../actions';

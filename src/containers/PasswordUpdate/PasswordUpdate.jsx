@@ -21,23 +21,19 @@ class PasswordUpdate extends Component {
 
   componentDidMount() {
     const user = this.props.currentUser.id;
-    this.state.userID = user;
+    this.setState({ userID: user })
   }
 
   componentDidUpdate() {}
 
   handlePasswordChange(e) {
     const { value } = e.target;
-    this.setState((prevState) => ({
-      newPassword: value,
-    }));
+    this.setState({ newPassword: value })
   }
 
   handleRetypePasswordChange(e) {
     const { value } = e.target;
-    this.setState((prevState) => ({
-      retypePassword: value,
-    }));
+    this.setState({ retypePassword: value })
   }
 
   handleNewPasswordSubmit(e) {
@@ -57,6 +53,7 @@ class PasswordUpdate extends Component {
   }
 
   render() {
+    console.log(this.state)
     if (!this.props.currentUser) {
       return <Redirect to="/not-authorized" />;
     } else {

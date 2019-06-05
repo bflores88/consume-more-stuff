@@ -17,7 +17,6 @@ class AddItemImage extends Component {
   }
 
   handleInputOnChange(e) {
-    const value = e.target.value;
     const name = e.target.name;
     let file;
     if (e.target.files) {
@@ -26,7 +25,6 @@ class AddItemImage extends Component {
     if (name === 'image') {
       return this.setState({ image: file });
     }
-    console.log(this.props.image);
   }
 
   handleSubmit(e) {

@@ -118,8 +118,7 @@ class EditItem extends Component {
                     </label>
 
                     <input
-                      className="name-input"
-                      className="input"
+                      className="name-input input"
                       type="text"
                       name="name"
                       placeholder="Name"
@@ -134,8 +133,7 @@ class EditItem extends Component {
                       Price
                     </label>
                     <input
-                      className="price-input"
-                      className="input"
+                      className="price-input input"
                       type="number"
                       name="price"
                       placeholder="Price"
@@ -176,8 +174,7 @@ class EditItem extends Component {
                     Inventory:
                   </label>
                   <input
-                    className="inventory-input"
-                    className="input"
+                    className="inventory-input input"
                     type="number"
                     name="inventory"
                     placeholder="Inventory"
@@ -190,8 +187,7 @@ class EditItem extends Component {
                     Item Name:
                   </label>
                   <input
-                    className="dimensions-input"
-                    className="input"
+                    className="dimensions-input input"
                     type="text"
                     name="dimensions"
                     placeholder="Dimensions"
