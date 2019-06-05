@@ -487,7 +487,6 @@ export const register = (accountData) => {
 };
 
 export const setExistingUser = (data) => {
-  console.log('setExistingUser data');
   return (dispatch) => {
     return dispatch({
       type: LOGIN_SUCCESS,
@@ -498,29 +497,26 @@ export const setExistingUser = (data) => {
 
 export const login = (credentials) => {
   return (dispatch) => {
-    // console.log('1 - Actions login()');
     return fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((response) => {
-        // console.log('2 - Actions login() response', response);
         if (response.status === 200) {
           return response.json();
+
         } else {
           return { error: 'Bad Username or Password. Try again!' };
         }
       })
       .then((body) => {
         if (body.error) {
-          // console.log('3 - Actions login() error ', body);
           return dispatch({
             type: LOGIN_FAILURE,
             payload: body,
           });
         } else {
-          // console.log('3 - Actions login() ok ', body);
           let userObj = {
             username: body.username,
             id: body.id,
@@ -531,6 +527,7 @@ export const login = (credentials) => {
             profile_image_url: body.profile_image_url,
             email: body.email,
           };
+
           localStorage.setItem('user', JSON.stringify(userObj));
           return dispatch({
             type: LOGIN_SUCCESS,
@@ -545,14 +542,12 @@ export const login = (credentials) => {
 };
 
 export const logout = () => {
-  console.log('logout action');
   return (dispatch) => {
     return fetch('/api/auth/logout', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then(() => {
@@ -562,7 +557,6 @@ export const logout = () => {
         });
       })
       .catch((error) => {
-        console.log('Error in logout: ', error);
         return dispatch({
           type: LOGOUT_FAILURE,
         });
