@@ -178,6 +178,7 @@ class Checkout extends Component {
           <div className="quick-order-container">
             <div className="quick-order-box">
               <div className="order-price-info-container">
+                <h4>Order Summary</h4>
                 <div className="order-items-price-box">
                   <div>Items ({totalQuantity}) :</div>
                   <div>${parseFloat(allItemsPrice).toFixed(2)}</div>
