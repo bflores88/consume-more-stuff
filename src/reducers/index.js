@@ -32,7 +32,8 @@ import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
 import { GRAB_USER_CART } from '../actions';
 import { DELETE_ITEM_FROM_CART } from '../actions';
-import { GRAB_CHECKOUT } from '../actions';
+import { GRAB_SHIPPING } from '../actions';
+import { GRAB_PAYMENTS } from '../actions';
 
 const initialState = {
   item: {},
@@ -51,7 +52,8 @@ const initialState = {
   chosen_category: '',
   chosen_subcategory: '',
   cart_items: [],
-  checkout: {},
+  shipping: [],
+  payments: [],
 };
 
 const userState = {
@@ -124,8 +126,11 @@ function itemReducer(state = initialState, action) {
     case DELETE_ITEM_FROM_CART:
       return Object.assign({}, state, { cart_items: [...action.payload] });
 
-    case GRAB_CHECKOUT:
-      return Object.assign({}, state, { checkout: [...action.payload] });
+    case GRAB_SHIPPING:
+      return Object.assign({}, state, { shipping: [...action.payload] });
+
+    case GRAB_PAYMENTS:
+      return Object.assign({}, state, { payments: [...action.payload] });
 
     default:
       return state;
