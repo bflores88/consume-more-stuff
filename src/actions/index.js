@@ -93,7 +93,6 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
-        console.log('shipping data', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
@@ -112,7 +111,6 @@ export const grabPayments = () => {
         return response.json();
       })
       .then((payments) => {
-        console.log('shipping data', payments);
         return dispatch({
           type: GRAB_PAYMENTS,
           payload: payments,

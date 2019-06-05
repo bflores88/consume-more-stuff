@@ -26,8 +26,7 @@ class Checkout extends Component {
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-    // console.log
-    console.log(name, value);
+
     return this.setState({ [name]: value });
   }
 
@@ -37,13 +36,7 @@ class Checkout extends Component {
     this.props.grabPayments();
   }
 
-  componentDidUpdate(prevProps) {
-    // console.log(this.props.currentUser);
-    // if (this.props.currentUser !== prevProps.currentUser) {
-    //   const user = this.props.currentUser;
-    // }
-    // // this.props.grabUserThreads();
-  }
+  componentDidUpdate(prevProps) {}
 
   deleteCartItem(id) {
     this.props.deleteItemFromCart(id);
@@ -59,14 +52,12 @@ class Checkout extends Component {
       itemObj.quantity = item.quantity;
       cartArray.push(itemObj);
     });
-    // console.log(cartArray);
 
     let data = {};
     data.shipping_address_id = this.state.shipping_dropdown_id;
     data.payment_card_id = this.state.payment_dropdown_id;
     data.orders = cartArray;
-    this.props.postNewOrder(data);
-    return console.log(data);
+    return this.props.postNewOrder(data);
   }
 
   render() {
@@ -109,10 +100,6 @@ class Checkout extends Component {
       );
     });
 
-    // payment/shipping below
-    // console.log('shipping', this.props.shipping);
-    console.log('payments', this.props.payments);
-
     let shippingOptions = this.props.shipping.map((address, idx) => {
       return (
         <option className="select-selected" value={address.id}>
@@ -137,14 +124,11 @@ class Checkout extends Component {
     let totalOrderPrice = totalBeforeTax;
     if (this.state.shipping_dropdown_id !== '') {
       let currentAddress = this.props.shipping.filter((ship) => ship.id == this.state.shipping_dropdown_id);
-      // console.log(currentAddress);
+
       let taxRate = parseFloat(currentAddress[0].states.tax_rate);
-      // console.log(taxRate);
+
       totalTax = parseFloat(Number(totalBeforeTax) * taxRate).toFixed(2);
       totalOrderPrice = parseFloat(Number(totalBeforeTax) + Number(totalTax)).toFixed(2);
-      console.log('totaltax', totalTax);
-      console.log('totalbeforetax', totalBeforeTax);
-      console.log('total', totalOrderPrice);
 
       // return images.filter((image) => image.item_id === id);
     } else {
@@ -225,9 +209,11 @@ class Checkout extends Component {
                 </div>
               </div>
               <div id="place-order-button-box">
-                <button onClick={this.createOrder} id="place-order-button">
-                  Place Your Order
-                </button>
+                <Link to="/">
+                  <button onClick={this.createOrder} id="place-order-button">
+                    Place Your Order
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
