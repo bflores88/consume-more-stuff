@@ -17,8 +17,6 @@ class AdminAllItems extends Component {
   }
 
   render() {
-    console.log(this.props.items);
-    console.log(this.props.user);
     const spreadItems = this.props.items.map((item, idx) => {
       const price = `$ ${item.price}`;
       const shipping = `$ ${item.shipping_cost}`;
