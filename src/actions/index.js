@@ -39,9 +39,11 @@ export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
 export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
+export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
+export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -60,6 +62,31 @@ export const loadItems = () => {
   };
 };
 
+export const postNewOrder = (data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/orders`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_ITEM_TO_CART,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
+  };
+};
+
 export const grabShipping = () => {
   return (dispatch) => {
     return fetch(`/api/shipping`)
@@ -67,10 +94,30 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
-        console.log('shipping data', shipping);
+        console.log('shipping', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabShippingPrimary = () => {
+  return (dispatch) => {
+    return fetch(`/api/shipping`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((shipping) => {
+        // console.log('shipping', shipping);
+        let primary = shipping.filter((address) => address.primary === true);
+        return dispatch({
+          type: GRAB_SHIPPING_PRIMARY,
+          payload: primary,
         });
       })
       .catch((err) => {
@@ -86,7 +133,7 @@ export const grabPayments = () => {
         return response.json();
       })
       .then((payments) => {
-        console.log('shipping data', payments);
+        console.log('payments', payments);
         return dispatch({
           type: GRAB_PAYMENTS,
           payload: payments,
@@ -780,5 +827,4 @@ export const adminItemEdit = (data) => {
         console.log('error', error);
       });
   };
-
-}
+};

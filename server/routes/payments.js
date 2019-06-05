@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const PaymentCard = require('../database/models/PaymentCard');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const paymentCardGuard = require('../middleware/paymentGuard');
+const paymentCardGuard = require('../middleware/paymentCardGuard');
 
 router.route('/').get(isLoggedInGuard, paymentCardGuard, (req, res) => {
   PaymentCard.where({ user_id: req.user.id })
