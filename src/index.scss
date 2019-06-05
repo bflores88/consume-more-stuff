@@ -84,6 +84,21 @@ a {
       margin: 0;
       padding-left: $side-box-width;
 
+      .cart-page {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        .cart-item-box {
+          margin: 0;
+
+          
+        }
+
+        .cart-item-information-box {
+          width: initial;
+        }
+      }
+
       .user-profile {
         flex-wrap: wrap;
 
