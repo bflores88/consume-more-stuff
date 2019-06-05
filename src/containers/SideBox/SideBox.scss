@@ -1,17 +1,18 @@
+$side-box-width: 200px; // Cannot set any lower than 200.
+
 .side-box {
   position: fixed;
-  z-index: 1;
-  top: 100px;
-  min-width: 200px;
-  left: 0;
-  // width:
-  // width: 200px;
-  height: auto;
-  padding: 40px 0px 20px 20px;
-  overflow: auto;
+  top: 0;
+  bottom: 40px; // height of footer
+  
   margin: 0;
-  // border: 1px solid orange;
-  // background-color: red;
+  border-right: 1px solid gold;
+  padding: 50px 10px 10px 10px;
+  height: auto;
+  width: $side-box-width; // Cannot set any lower than 200.
+
+  overflow: scroll;
+
   .side-box button {
     // font-size:
     // background-color: red;-

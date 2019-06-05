@@ -35,6 +35,8 @@ export const UPDATE_CHOSEN_SUBCATEGORY = 'UPDATE_CHOSEN_SUBCATEGORY';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const ADD_THREAD = 'ADD_THREAD';
 export const GRAB_USER_CART = 'GRAB_USER_CART';
+export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
+export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 
@@ -52,6 +54,57 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const deleteItemFromCart = (id) => {
+  return (dispatch) => {
+    // console.log('action data',);
+    return fetch(`/api/carts/${id}`, {
+      method: 'DELETE',
+      // body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('delte response', response);
+        return (dispatch) => {
+          dispatch({
+            type: DELETE_ITEM_FROM_CART,
+            payload: response,
+          });
+        };
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
+export const addItemToCart = (data) => {
+  return (dispatch) => {
+    console.log('action data', data);
+    return (
+      fetch(`/api/carts`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_ITEM_TO_CART,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
   };
 };
 
@@ -434,7 +487,6 @@ export const register = (accountData) => {
 };
 
 export const setExistingUser = (data) => {
-  console.log('setExistingUser data');
   return (dispatch) => {
     return dispatch({
       type: LOGIN_SUCCESS,
@@ -445,29 +497,26 @@ export const setExistingUser = (data) => {
 
 export const login = (credentials) => {
   return (dispatch) => {
-    // console.log('1 - Actions login()');
     return fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' },
     })
       .then((response) => {
-        // console.log('2 - Actions login() response', response);
         if (response.status === 200) {
           return response.json();
+
         } else {
           return { error: 'Bad Username or Password. Try again!' };
         }
       })
       .then((body) => {
         if (body.error) {
-          // console.log('3 - Actions login() error ', body);
           return dispatch({
             type: LOGIN_FAILURE,
             payload: body,
           });
         } else {
-          // console.log('3 - Actions login() ok ', body);
           let userObj = {
             username: body.username,
             id: body.id,
@@ -478,6 +527,7 @@ export const login = (credentials) => {
             profile_image_url: body.profile_image_url,
             email: body.email,
           };
+
           localStorage.setItem('user', JSON.stringify(userObj));
           return dispatch({
             type: LOGIN_SUCCESS,
@@ -492,14 +542,12 @@ export const login = (credentials) => {
 };
 
 export const logout = () => {
-  console.log('logout action');
   return (dispatch) => {
     return fetch('/api/auth/logout', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then(() => {
@@ -509,7 +557,6 @@ export const logout = () => {
         });
       })
       .catch((error) => {
-        console.log('Error in logout: ', error);
         return dispatch({
           type: LOGOUT_FAILURE,
         });

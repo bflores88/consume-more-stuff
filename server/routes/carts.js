@@ -34,10 +34,12 @@ router
       });
   })
   .post((req, res) => {
+    console.log('post req data', req.body);
     // make sure item not already in cart
     CartedItem.where({ carted_by: req.user.id, item_id: parseInt(req.body.item_id) })
       .fetch()
       .then((result) => {
+        console.log('past carted item', result);
         if (result !== null) {
           return res.status(400).send(`Item already in user's cart`);
         }
