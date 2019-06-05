@@ -3,7 +3,7 @@
 const ShippingAddress = require('../database/models/shipping_addresses');
 
 module.exports = function(req, res, next) {
-  ShippingAddress.where({ user_id: req.user.id })
+  ShippingAddress.where({ user_id: req.params.id })
     .fetch({ withRelated: ['users'] })
     .then((result) => {
       const shipAddressUserId = result.toJSON().user_id;
