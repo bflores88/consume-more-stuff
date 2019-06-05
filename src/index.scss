@@ -57,7 +57,7 @@ a {
     }
 
     .searchBarBox {
-      width: 50%;
+      width: auto;
       padding-left: 5px;
       margin: 0;
       
@@ -67,7 +67,14 @@ a {
     }
 
     .login-box {
-      width: auto;
+      
+      height: 100%;
+      max-width: 200px;
+
+      p {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
   }
   
@@ -76,6 +83,43 @@ a {
       width: 100%;
       margin: 0;
       padding-left: $side-box-width;
+
+      .cart-page {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        .cart-item-box {
+          margin: 0;
+
+          
+        }
+
+        .cart-item-information-box {
+          width: initial;
+          display: initial;
+          justify-content: initial;
+        }
+      }
+
+      .user-profile {
+        flex-wrap: wrap;
+
+        margin: 0;
+        padding: 50px 0 0 0;
+
+        .user-img {
+          min-width: 240px;
+        }
+
+        .user-details {
+          max-width: none;
+          word-wrap: normal;
+          word-break: normal;
+
+          padding-left: 10px;
+        }
+
+      }
 
       .detail-image {
         img {
@@ -91,6 +135,38 @@ a {
       .registration-form {
         width: 250px;
       }
+
+      .user-item {
+        max-width: none;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .header {
+    .fas.fa-sun {
+      padding: 0;
+    }
+    .title {
+      display: none;
+    }
+
+    .login-box {
+      p {
+        display: none;
+      }
+    }
+  }
+
+  .side-box {
+    display: none; // For testing super small resolutions where a theoretical 'slide-in' nav bar would exist.
+  }
+
+  .main {
+    .page {
+      padding-left: 0;
     }
   }
 }
