@@ -36,7 +36,7 @@ class SubCategoryDropdown extends Component {
 
       let filteredCategory = this.props.categories.filter((categories) => categories.id == category_id);
 
-      let filteredSubcategories = filteredCategory[0].subCategories;
+      let filteredSubcategories = filteredCategory[0].sub_categories;
 
       subCategoryOptions = filteredSubcategories.map((subcategory, idx) => {
         return <option value={subcategory.id}>{subcategory.sub_category_name}</option>;

@@ -39,8 +39,10 @@ class UserCart extends Component {
     console.log(this.props.cart_items);
     let totalPrice = 0;
     let cartItems = this.props.cart_items.map((item, idx) => {
-      let totalItemPrice = parseFloat(item.price * item.quantity) + parseFloat(item.shipping_cost);
-      totalPrice += parseFloat(totalItemPrice);
+      let totalItemPrice =
+        parseFloat(parseFloat(item.price * item.quantity).toFixed(2)) +
+        parseFloat(parseFloat(item.shipping_cost).toFixed(2));
+      totalPrice += parseFloat(parseFloat(totalItemPrice).toFixed(2));
       return (
         <div className="cart-item-box">
           <div className="cart-item-image-box">
@@ -80,7 +82,9 @@ class UserCart extends Component {
         </div>
         <div className="total-price-container">Total Price: $ {totalPrice}</div>
         <div className="checkout-container">
-          <button className="checkout-button">Checkout</button>
+          <Link to="/checkout">
+            <button className="checkout-button">Checkout</button>
+          </Link>
         </div>
       </div>
     );
