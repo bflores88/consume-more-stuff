@@ -47,6 +47,12 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
+          <Link to="/cart">
+            <button>My Cart</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
           <Link to={userItemsLink}>
             <button>My Items</button>
           </Link>
@@ -104,7 +110,7 @@ const Sidebar = (props) => {
         </div>
       </div>
     );
-  } else if (props.currentUser.role_id === 2){
+  } else if (props.currentUser.role_id === 2) {
     // const messageLink = `/messages/${props.currentUser.id}`;
     return (
       <div className="admin-nav">
@@ -127,7 +133,7 @@ const Sidebar = (props) => {
         </div>
       </div>
     );
-} else {
+  } else {
     return (
       <div className="admin-nav">
         <div className="logo">
@@ -136,9 +142,8 @@ const Sidebar = (props) => {
         </div>
 
         <div className="wrap-links">
-
           {createDefaultLinks(props.currentUser.id)}
-          
+
           <br />
 
           <div className="nav-links">

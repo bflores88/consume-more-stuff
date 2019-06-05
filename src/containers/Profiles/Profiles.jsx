@@ -90,7 +90,7 @@ class Profiles extends Component {
           // role: this.props.user.roles.role_name,
           image: this.props.user.profile_image_url,
 
-          role: this.props.user.roles.roleName,
+          role: this.props.user.roles.role_name,
 
           active: this.props.user.active,
           memberSince: this.props.user.created_at,
