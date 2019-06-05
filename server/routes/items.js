@@ -6,6 +6,7 @@ const Item = require('../database/models/Item');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const ownershipGuard = require('../middleware/ownershipGuard');
 const isModeratorGuard = require('../middleware/isModeratorGuard');
+const isAdminGuard = require('../middleware/isAdminGuard');
 
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
@@ -62,8 +63,7 @@ router
       });
   });
 
-//ROUTE FOR ADMIN TO CHANGE ITEM APPROVAL --- THIS WILL NEED AN ADMIN/MODERATOR GUARD 
-router.route('/admin').put((req, res) => {
+router.route('/admin').put(isLoggedInGuard, isAdminGuard, (req, res) => {
   new Item('id', req.body.id)
     .save({
       approved: req.body.approved,
