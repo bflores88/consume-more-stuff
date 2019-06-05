@@ -21,7 +21,8 @@ router
   .route('/')
   .get((req, res) => {
     new Item()
-      .fetchAll({withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images']})
+      .orderBy('approved', 'ASC')
+      .fetchAll({ withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images'] })
       .then((result) => {
         // respond with all items
         return res.json(result);
@@ -58,6 +59,21 @@ router
         console.log('error:', err);
       });
   });
+
+//ROUTE FOR ADMIN TO CHANGE ITEM APPROVAL --- THIS WILL NEED AN ADMIN/MODERATOR GUARD 
+router.route('/admin').put((req, res) => {
+  new Item('id', req.body.id)
+    .save({
+      approved: req.body.approved,
+    })
+    .then((result) => {
+      // respond with updated item
+      return res.json(result);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+    });
+});
 
 router
   .route('/:id')

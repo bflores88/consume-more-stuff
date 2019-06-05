@@ -10,6 +10,7 @@ import {
   LOAD_INACTIVE_ITEMS,
   LOAD_SPECIFIC_ITEM,
   ADMIN_USER_EDIT,
+  ADMIN_ITEM_EDIT,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -121,6 +122,9 @@ function itemReducer(state = initialState, action) {
 
     case DELETE_ITEM_FROM_CART:
       return Object.assign({}, state, { cart_items: [...action.payload] });
+
+    case ADMIN_ITEM_EDIT:
+      return Object.assign({}, state, { item: action.payload });
 
     default:
       return state;
