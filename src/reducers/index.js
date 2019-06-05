@@ -35,6 +35,7 @@ import { GRAB_USER_CART } from '../actions';
 import { DELETE_ITEM_FROM_CART } from '../actions';
 import { GRAB_SHIPPING } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
+// import { POST_NEW_ORDER } from '../actions';
 
 const initialState = {
   item: {},
@@ -135,7 +136,6 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_PAYMENTS:
       return Object.assign({}, state, { payments: [...action.payload] });
-
 
     default:
       return state;

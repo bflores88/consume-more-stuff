@@ -42,6 +42,7 @@ export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
+export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 
 // ACTION CREATOR
 export const loadItems = () => {
@@ -57,6 +58,31 @@ export const loadItems = () => {
         });
       })
       .catch((err) => console.log('Cant access website' + err));
+  };
+};
+
+export const postNewOrder = (data) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/orders`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_ITEM_TO_CART,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
   };
 };
 
@@ -780,5 +806,4 @@ export const adminItemEdit = (data) => {
         console.log('error', error);
       });
   };
-
-}
+};

@@ -5,8 +5,10 @@ import './Checkout.scss';
 import { grabUserCart } from '../../actions';
 import { grabShipping } from '../../actions';
 import { grabPayments } from '../../actions';
+import { postNewOrder } from '../../actions';
 import ThreadBox from '../ThreadBox';
 import { Link } from 'react-router-dom';
+import { tsPropertySignature } from '@babel/types';
 
 class Checkout extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Checkout extends Component {
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
+    this.createOrder = this.createOrder.bind(this);
   }
 
   handleInputOnChange(e) {
@@ -45,6 +48,25 @@ class Checkout extends Component {
   deleteCartItem(id) {
     this.props.deleteItemFromCart(id);
     this.props.grabUserCart();
+  }
+
+  createOrder() {
+    let cartArray = [];
+
+    this.props.cart_items.map((item, idx) => {
+      let itemObj = {};
+      itemObj.item_id = item.item_id;
+      itemObj.quantity = item.quantity;
+      cartArray.push(itemObj);
+    });
+    // console.log(cartArray);
+
+    let data = {};
+    data.shipping_address_id = this.state.shipping_dropdown_id;
+    data.payment_card_id = this.state.payment_dropdown_id;
+    data.orders = cartArray;
+    this.props.postNewOrder(data);
+    return console.log(data);
   }
 
   render() {
@@ -203,7 +225,9 @@ class Checkout extends Component {
                 </div>
               </div>
               <div id="place-order-button-box">
-                <button id="place-order-button">Place Your Order</button>
+                <button onClick={this.createOrder} id="place-order-button">
+                  Place Your Order
+                </button>
               </div>
             </div>
           </div>
@@ -234,6 +258,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     grabPayments: () => {
       dispatch(grabPayments());
+    },
+    postNewOrder: (data) => {
+      dispatch(postNewOrder(data));
     },
   };
 };
