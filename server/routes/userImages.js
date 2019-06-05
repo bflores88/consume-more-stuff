@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../database/models/User');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 
@@ -41,7 +41,7 @@ router.route('/upload/:userId').put(isLoggedInGuard, singleUpload, (req, res) =>
 });
 
 // PUT image LINKS (not files)
-router.route('/link/:userId').put(isLoggedInGuard, ownershipGuard, (req, res) => {
+router.route('/link/:userId').put(isLoggedInGuard, itemOwnerGuard, (req, res) => {
   new User('id', req.params.userId)
     .save({
       profile_image_url: req.body.image_link,
