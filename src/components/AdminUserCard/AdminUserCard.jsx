@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './AdminUserCard.scss';
 import moment from 'moment';
-import { adminUserEdit, loadSingleUser } from '../../actions';
+import { adminUserEdit } from '../../actions';
 
 class AdminUserCard extends Component {
   constructor(props) {
