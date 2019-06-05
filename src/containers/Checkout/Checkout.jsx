@@ -12,8 +12,20 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      payment_dropdown_id: '',
+      shipping_dropdown_id: '',
+    };
+    this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
+  }
+
+  handleInputOnChange(e) {
+    const value = e.target.value;
+    const name = e.target.name;
+    // console.log
+    console.log(name, value);
+    return this.setState({ [name]: value });
   }
 
   componentDidMount() {
@@ -83,6 +95,15 @@ class Checkout extends Component {
       );
     });
 
+    let paymentOptions = this.props.payments.map((method, idx) => {
+      let lastFourDigits = method.card_number.substr(method.card_number.length - 4);
+      let asteriskLength = method.card_number.length - 4;
+
+      let censoredCardNumber = '*'.repeat(asteriskLength) + lastFourDigits;
+
+      return <option value={method.id}>{censoredCardNumber}</option>;
+    });
+
     return (
       <div className="checkout-page">
         <div className="checkout-title">
@@ -95,8 +116,8 @@ class Checkout extends Component {
               <select
                 name="shipping_dropdown_id"
                 className="select"
-                value="1"
-                // onChange={this.handleInputOnChange}
+                value={this.state.shipping_dropdown_id}
+                onChange={this.handleInputOnChange}
                 // onChange={this.changeSubCategories}
                 required
               >
@@ -110,13 +131,13 @@ class Checkout extends Component {
               <select
                 name="payment_dropdown_id"
                 className="select"
-                value="1"
-                // onChange={this.handleInputOnChange}
+                value={this.state.payment_dropdown_id}
+                onChange={this.handleInputOnChange}
                 // onChange={this.changeSubCategories}
                 required
               >
                 <option value="">Choose a Category</option>
-                {shippingOptions}
+                {paymentOptions}
               </select>
             </div>
 
