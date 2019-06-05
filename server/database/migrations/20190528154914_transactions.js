@@ -11,7 +11,11 @@ exports.up = function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('shipping_addresses');
-    table.decimal('tax', 8, 2).notNull();
+    table
+      .integer('payment_card_id')
+      .notNull()
+      .references('id')
+      .inTable('payment_cards');
     table.timestamps(true, true);
   });
 };
