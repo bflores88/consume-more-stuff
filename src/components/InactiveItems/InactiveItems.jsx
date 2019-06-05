@@ -34,7 +34,6 @@ class InactiveItems extends Component {
   render() {
     const activeStatus = false;
     const items = this.props.inactiveItems;
-    console.log(items);
     const itemsBox = items.map((item, idx) => {
       let itemLink;
       if (this.props.images) {

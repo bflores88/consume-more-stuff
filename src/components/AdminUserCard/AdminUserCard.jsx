@@ -131,6 +131,7 @@ class AdminUserCard extends Component {
   }
 
   render() {
+    const userLink = `/users/${this.state.id}/items`
     return (
       <div className="admin-user-view">
         <div className="admin-user-box-1">
@@ -138,7 +139,7 @@ class AdminUserCard extends Component {
         </div>
 
         <div className="admin-user-box-2">
-          <h3>{this.state.username}</h3>
+          <Link to={userLink}><h3>{this.state.username}</h3></Link>
           <p>Member Since:&nbsp;&nbsp;{this.state.activeSince}</p>
           <p>Role:&nbsp;&nbsp;{this.state.role}</p>
           <p>Status:&nbsp;&nbsp;{this.state.active}</p>
