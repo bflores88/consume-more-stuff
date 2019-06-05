@@ -62,6 +62,7 @@ router.route('/login').post((req, res, next) => {
         return res.json({error : info.message});
 
       } else {
+        req.logIn(user, ()=>{});
         return res.json(user);
       }
     }
