@@ -4,12 +4,13 @@ const express = require('express');
 const router = express.Router();
 const CartedItem = require('../database/models/CartedItem');
 const Item = require('../database/models/Item');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 
 const knex = require('../database/knex.js');
 
 router
   .route('/')
-  .get((req, res) => {
+  .get(isLoggedInGuard, (req, res) => {
     knex
       .raw(
         `SELECT carted_items.*,
@@ -37,7 +38,7 @@ router
         return res.status(404).send('Cart not found');
       });
   })
-  .post((req, res) => {
+  .post(isLoggedInGuard, (req, res) => {
     console.log('post req data', req.body);
     // make sure item not already in cart
     CartedItem.where({ carted_by: req.user.id, item_id: parseInt(req.body.item_id) })
@@ -85,6 +86,7 @@ router
       });
   });
 
+  // do we need a isLoggedInGuard for the two routes below?
 router
   .route('/:id')
   .put((req, res) => {
