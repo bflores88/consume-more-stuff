@@ -37,6 +37,7 @@ export const ADD_THREAD = 'ADD_THREAD';
 export const GRAB_USER_CART = 'GRAB_USER_CART';
 export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
+export const GRAB_CHECKOUT = 'GRAB_CHECKOUT';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
@@ -58,6 +59,25 @@ export const loadItems = () => {
   };
 };
 
+export const grabCheckout = () => {
+  return (dispatch) => {
+    return fetch(`/api/checkout`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((checkout) => {
+        console.log('checkout data', checkout);
+        return dispatch({
+          type: GRAB_CHECKOUT,
+          payload: checkout,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const deleteItemFromCart = (id) => {
   return (dispatch) => {
     // console.log('action data',);
@@ -69,7 +89,6 @@ export const deleteItemFromCart = (id) => {
       },
     })
       .then((response) => {
-        console.log('delte response', response);
         return (dispatch) => {
           dispatch({
             type: DELETE_ITEM_FROM_CART,
@@ -85,7 +104,6 @@ export const deleteItemFromCart = (id) => {
 
 export const addItemToCart = (data) => {
   return (dispatch) => {
-    console.log('action data', data);
     return (
       fetch(`/api/carts`, {
         method: 'POST',
@@ -116,7 +134,6 @@ export const grabUserCart = () => {
         return response.json();
       })
       .then((item) => {
-        console.log('items from cart', item);
         return dispatch({
           type: GRAB_USER_CART,
           payload: item,
@@ -214,7 +231,7 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
-        console.log('88888', users)
+        console.log('88888', users);
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,

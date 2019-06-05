@@ -1,6 +1,8 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('payment_cards', (table) => {
     table.increments();
+    table.boolean('primary').notNull();
+    table.string('card_name', 100).notNull();
     table.string('card_number', 20).notNull();
     table.string('expiration', 6).notNull();
     table.string('cvv', 4).notNull();

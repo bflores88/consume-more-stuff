@@ -117,13 +117,14 @@ class AdminItemCard extends Component {
           <div className="item-subdiv">
             <p>Condition:&nbsp;&nbsp;{this.state.condition}</p>
             <p>Status:&nbsp;&nbsp;{this.state.status}</p>
-            <p><span className="approval">Approved:&nbsp;&nbsp;{this.state.approved}</span></p>
             <p>Inventory:&nbsp;&nbsp;{this.state.inventory}</p>
             <p>Price:&nbsp;&nbsp;{this.state.price}</p>
             <p>Shipping Price:&nbsp;&nbsp;{this.state.shipping}</p>
           </div>
           <div className="toggle">
             <button onClick={this.handleApprovalChange}>Approve/Unapprove</button>
+            <br /><br />
+            <p><span className="approval">Approved:&nbsp;&nbsp;{this.state.approved}</span></p>
           </div>
         </div>
       </div>

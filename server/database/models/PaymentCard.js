@@ -1,6 +1,7 @@
 const bookshelf = require('../bookshelf');
 
 require('./User');
+require('./State');
 class PaymentCard extends bookshelf.Model {
   get tableName() {
     return 'payment_cards';
@@ -11,6 +12,10 @@ class PaymentCard extends bookshelf.Model {
 
   users() {
     return this.belongsTo('User', 'user_id');
+  }
+
+  states() {
+    return this.belongsTo('State', 'state_id');
   }
 }
 
