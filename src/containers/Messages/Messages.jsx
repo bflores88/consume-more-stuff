@@ -10,11 +10,13 @@ class Messages extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      user: ''
+    };
   }
 
   componentDidMount() {
-    const user = this.props.currentUser;
+    this.setState({user: this.props.currentUser})
     this.props.grabUserThreads();
     return console.log(this.props.threads);
   }
@@ -22,7 +24,7 @@ class Messages extends Component {
   componentDidUpdate(prevProps) {
     console.log(this.props.currentUser);
     if (this.props.currentUser !== prevProps.currentUser) {
-      const user = this.props.currentUser;
+      this.setState({user: this.props.currentUser})
     }
     // this.props.grabUserThreads();
   }

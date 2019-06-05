@@ -12,7 +12,7 @@ class Footer extends Component {
       <div className="footer">
         <div className="logoBox">
           <h4 className="title">
-            <i className="sunLogo" className="fas fa-sun" />
+          <i class="fas fa-sun"></i>
             Savannah
           </h4>
         </div>
