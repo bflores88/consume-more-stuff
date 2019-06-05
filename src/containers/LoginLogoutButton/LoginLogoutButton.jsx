@@ -11,9 +11,9 @@ class LoginLogoutButton extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-  componentDidMount(){
-    if (localStorage.getItem('user')){
+
+  componentDidMount() {
+    if (localStorage.getItem('user')) {
       const storedUser = JSON.parse(localStorage.getItem('user'));
       this.props.setExistingUser(storedUser);
     }
@@ -38,10 +38,7 @@ class LoginLogoutButton extends Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
-
   if (state.userReducer.loggedIn) {
     return {
       welcomeMessage: 'Welcome back ' + state.userReducer.user.name,
@@ -59,17 +56,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => {
-      const logoutAction = logout(); 
+      const logoutAction = logout();
       return dispatch(logoutAction);
     },
 
     setExistingUser: (data) => {
-      const setExistingUserAction = setExistingUser(data); 
+      const setExistingUserAction = setExistingUser(data);
       return dispatch(setExistingUserAction);
     },
-  }
-}
-
+  };
+};
 
 LoginLogoutButton = connect(
   mapStateToProps,
