@@ -1,0 +1,95 @@
+.checkout-page {
+  height: 100%;
+}
+.main-checkout-container {
+  display: flex;
+}
+.info-review-container {
+  height: 100%;
+  width: 80%;
+  border: 1px solid orange;
+  margin: 1em;
+  padding: 1em;
+  .shipping-address-container {
+    border: 1px solid orange;
+    margin: 1em;
+    padding: 1em;
+  }
+  .payment-method-container {
+    border: 1px solid orange;
+    margin: 1em;
+    padding: 1em;
+  }
+  .review-items-container {
+    border: 1px solid orange;
+    margin: 1em;
+    padding: 1em;
+    .checkout-item-box {
+      // background-color: yellow;
+      border: 1px solid orange;
+      margin: 1em;
+      padding: 1em;
+      width: 100%;
+      display: flex;
+      min-height: 100px;
+      justify-content: space-between;
+      .checkout-item-image-box {
+        // background-color: red;width
+        width: 50%;
+        .checkout-item-image {
+          width: 30%;
+          height: auto;
+        }
+      }
+      .checkout-item-information-box {
+        width: 50%;
+      }
+    }
+  }
+}
+.quick-order-container {
+  width: 20%;
+  // border: 1px solid orange;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  .quick-order-box {
+    position: fixed;
+    border: 1px solid orange;
+    margin: 1em;
+    padding: 1em;
+    .order-price-info-container {
+      .order-items-price-box {
+        display: flex;
+        justify-content: space-between;
+      }
+      .order-items-shipping-box {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    #place-order-button-box {
+      width: 100%;
+      align-content: center;
+      display: flex;
+      justify-content: center;
+    }
+    #place-order-button {
+      background-color: orange; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      -webkit-transition-duration: 0.7s; /* Safari */
+      transition-duration: 0.7s;
+    }
+    #place-order-button:hover {
+      // background-color: white;
+      // color: orange;
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+}
