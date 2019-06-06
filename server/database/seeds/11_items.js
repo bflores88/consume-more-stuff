@@ -157,7 +157,7 @@ exports.seed = function(knex, Promise) {
           approved: true,
         },
         {
-          user_id: 6,
+          user_id: 5,
           active: true,
           condition_id: 5,
           category_id: 3,
@@ -172,7 +172,7 @@ exports.seed = function(knex, Promise) {
           approved: true,
         },
         {
-          user_id: 6,
+          user_id: 4,
           active: true,
           condition_id: 1,
           category_id: 3,
@@ -235,7 +235,7 @@ exports.seed = function(knex, Promise) {
           approved: true,
         },
         {
-          user_id: 6,
+          user_id: 4,
           active: true,
           condition_id: 1,
           category_id: 5,

@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
           profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270392454',
         },
         {
-          active: false,
+          active: true,
           role_id: 1,
           theme_id: 1,
           username: 'Admin02',
@@ -39,7 +39,7 @@ exports.seed = function(knex, Promise) {
           profile_image_url: 'https://savannah-images.s3.us-west-2.amazonaws.com/1559270596689',
         },
         {
-          active: false,
+          active: true,
           role_id: 2,
           theme_id: 1,
           username: 'Moderator02',
