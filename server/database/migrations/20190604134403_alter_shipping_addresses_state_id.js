@@ -10,5 +10,8 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('shipping_addresses');
+  return knex.schema.alterTable('shipping_addresses', (table) => {
+    table.string('state', 20).notNull();
+    table.dropColumn('state_id');
+  });
 };
