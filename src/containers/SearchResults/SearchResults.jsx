@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import SearchResult from '../../components/SearchResult';
 import './SearchResults.scss';
 
 class SearchResults extends Component {
@@ -7,25 +8,26 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {
-      debugMessage: 'This is the search results',
+      headerMessage: 'This is the search results',
     }
   }
 
   render() {
-    // console.log('wildProp ', this.props.wildProp);
-    let x;
+    console.log('wildProp ', this.props.wildProp);
+    let searchResults;
 
     if (this.props.wildProp.length > 0){
-      x = this.props.wildProp[0].name;
+      searchResults = this.props.wildProp.map((result) => {
+        return <SearchResult value={result}/>
+      });
     } else {
-      x = 'No Results';
+      searchResults = 'No Results';
     }
 
     return (
       <div className="search-results">
-        {this.state.debugMessage}
-        {x}
-        {/* {this.state.wildProp[0].name} */}
+        <h1>{this.state.headerMessage}</h1>
+        {searchResults}
       </div>
     )
   }
