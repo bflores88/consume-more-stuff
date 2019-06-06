@@ -11,6 +11,7 @@ class AdminAddCategory extends Component {
 
     this.handleCategoryInput = this.handleCategoryInput.bind(this);
     this.handleSubcategoryInput = this.handleSubcategoryInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleCategoryInput(e) {
@@ -29,8 +30,45 @@ class AdminAddCategory extends Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const data = {
+      category_name: this.state.newCategory
+    }
+
+    const sub_categories = []
+
+    for (let i = 1; i < 6; i++){
+      const key = `subCategory${i}`;
+      if (this.state.hasOwnProperty(key)) {
+        sub_categories.push({ sub_category_name: this.state[key] })
+      }
+    }
+
+    if (sub_categories.length) {
+      data.sub_categories = sub_categories
+    }
+
+    console.log(data);
+  }
+
+// myBody =  {
+//   category_name: 'food',
+//   category_type: 'whatever',
+//   sub_categories:
+//   [
+//     {
+//       category_id: 7,
+//       name: 'potatoes'
+//     },
+//     {
+  
+//     }
+//   ]
+//   }
   render() {
-    const isEnabled = this.state.newCategory.length > 3;
+    const isEnabled = this.state.newCategory.length > 2 && this.state.newCategory.length < 21;
 
     return (
       <form className="new-category-form">
@@ -42,6 +80,8 @@ class AdminAddCategory extends Component {
             value={this.state.newCategory}
             placeholder="category name"
             onChange={this.handleCategoryInput}
+            minlength="2"
+            maxlength="20"
           />
         </div>
 
@@ -53,35 +93,45 @@ class AdminAddCategory extends Component {
             value={this.state.value}
             placeholder="subcategory 1"
             onChange={this.handleSubcategoryInput}
+            minlength="2"
+            maxlength="20"
           />
           <input
             name="subCategory2"
             value={this.state.value}
             placeholder="subcategory 2"
             onChange={this.handleSubcategoryInput}
+            minlength="2"
+            maxlength="20"
           />
           <input
             name="subCategory3"
             value={this.state.value}
             placeholder="subcategory 3"
             onChange={this.handleSubcategoryInput}
+            minlength="2"
+            maxlength="20"
           />
           <input
             name="subCategory4"
             value={this.state.value}
             placeholder="subcategory 4"
             onChange={this.handleSubcategoryInput}
+            minlength="2"
+            maxlength="20"
           />
           <input
             name="subCategory5"
             value={this.state.value}
             placeholder="subcategory 5"
             onChange={this.handleSubcategoryInput}
+            minlength="2"
+            maxlength="20"
           />
         </div>
 
         <div className="submit-div">
-          <button type="submit" disabled={!isEnabled}>Submit</button>
+          <button type="submit" disabled={!isEnabled} onClick={this.handleSubmit}>Submit</button>
 
         </div>
 
