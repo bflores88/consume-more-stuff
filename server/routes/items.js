@@ -8,6 +8,20 @@ const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 const isModeratorGuard = require('../middleware/isModeratorGuard');
 const isAdminGuard = require('../middleware/isAdminGuard');
 
+router.route('/search/:searchTerm').get((req, res) => {
+  let temp;
+  
+  new Item()
+  .fetchAll({ withRelated: ['users', 'conditions', 'categories', 'sub_categories', 'images'] })
+  .then((results) => {
+    temp = results.toJSON()
+    temp = temp.filter((result) => {
+      return result.name.toLowerCase()
+        .includes(req.params.searchTerm.toLowerCase())});
+    return res.json(temp);
+  });
+});
+
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
     .fetchAll()

@@ -23,17 +23,18 @@ class SearchBar extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.searchItems(this.state.searchTerm).then((body) => {
-      // console.log(body);
-      this.props.history.push('/search-results');
-    });
+    if (this.state.searchTerm.length > 0){
+      this.props.searchItems(this.state.searchTerm).then(() => {
+        this.props.history.push('/search-results');
+      });
+    }
   }
 
   render() {
     return (
       <div id="search-bar-box">
         <form>
-          <input type="text" onChange={this.handleSearchTermChange}/>
+          <input type="text" onChange={this.handleSearchTermChange} placeholder='Item Name'/>
           <button onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>

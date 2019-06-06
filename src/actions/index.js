@@ -49,7 +49,7 @@ export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 // ACTION CREATOR
 export const searchItems = (searchTerm) => {
   return (dispatch) => {
-    return fetch('/api/items')
+    return fetch('/api/items/search/' + searchTerm)
     .then((response) => {
       return response.json();
     })
