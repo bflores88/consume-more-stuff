@@ -10,9 +10,11 @@ router
   .route('/')
   .get(isLoggedInGuard, (req, res) => {
     PaymentCard.where({ user_id: req.user.id })
+      .orderBy('primary', 'DESC')
+      .orderBy('id', 'ASC')
       .fetchAll({ withRelated: ['states'] })
       .then((result) => {
-        // respond with all payment cards
+        // respond with all payment cards, sorted
         return res.json(result);
       })
       .catch((err) => {
@@ -44,8 +46,11 @@ router
         });
       })
       .then(() => {
-        // return all of user's cards (next: send response)
-        return PaymentCard.where({ user_id: req.user.id }).fetchAll({ withRelated: ['states'] });
+        // return all of user's cards, sorted (next: send response)
+        return PaymentCard.where({ user_id: req.user.id })
+          .orderBy('primary', 'DESC')
+          .orderBy('id', 'ASC')
+          .fetchAll({ withRelated: ['states'] });
       })
       .then((result) => {
         // respond with all payment cards
@@ -69,6 +74,10 @@ router.route('/:id').put(isLoggedInGuard, paymentCardGuard, (req, res) => {
       return PaymentCard.where({ user_id: req.user.id, primary: true }).fetch();
     })
     .then((result) => {
+      // if trying to set primary card to primary: exit out.
+      if (result.id === parseInt(req.params.id)) {
+        throw new Error(`This is already the user's primary card`);
+      }
       // return prior primary card to false (next: update requested 'primary' to true)
       return new PaymentCard('id', result.id).save({
         primary: false,
@@ -81,8 +90,11 @@ router.route('/:id').put(isLoggedInGuard, paymentCardGuard, (req, res) => {
       });
     })
     .then(() => {
-      // return all of user's cards (next: send response)
-      return PaymentCard.where({ user_id: req.user.id }).fetchAll({ withRelated: ['states'] });
+      // return all of user's cards, sorted (next: send response)
+      return PaymentCard.where({ user_id: req.user.id })
+        .orderBy('primary', 'DESC')
+        .orderBy('id', 'ASC')
+        .fetchAll({ withRelated: ['states'] });
     })
     .then((result) => {
       // respond with all payment cards
