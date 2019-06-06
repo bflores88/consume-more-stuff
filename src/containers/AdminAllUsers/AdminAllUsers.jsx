@@ -21,16 +21,18 @@ class AdminAllUsers extends Component {
   }
 
   render() {
-    console.log(this.props.userList)
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.user.role_id !== 1) {
       return <Redirect to="/not-authorized" />;
     } else {
 
+      const self = this.props.user.id
+
       const userBoxes = this.props.userList.map((user, idx) => {
         return (
           <AdminUserCard
+            self={self}
             id={user.id}
             username={user.username}
             role_id={user.role_id}
