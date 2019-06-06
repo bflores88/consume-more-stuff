@@ -4,7 +4,7 @@ const ShippingAddress = require('../database/models/ShippingAddress');
 
 module.exports = function(req, res, next) {
   ShippingAddress.where({ id: req.params.id })
-    .fetch({ withRelated: ['users'] })
+    .fetch()
     .then((result) => {
       const shipAddressUserId = result.toJSON().user_id;
       if (shipAddressUserId === req.user.id) {
