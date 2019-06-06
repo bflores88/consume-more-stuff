@@ -42,12 +42,10 @@ router.route('/:category').get((req, res) => {
     .fetch()
     .then((result) => {
       let catID = result.id;
-      console.log('resulID', catID)
 
       return Item.where({ category_id: catID })
         .fetchAll({withRelated: ['users']})
         .then((result) => {
-          console.log(result.toJSON());
           return res.json(result.toJSON());
         
       })

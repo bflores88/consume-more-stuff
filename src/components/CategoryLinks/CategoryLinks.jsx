@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CategoryLinks.scss';
 import { connect } from 'react-redux';
-import { loadCategories } from '../../actions';
+import { loadCategories, loadAllActiveItems } from '../../actions';
 import { Link } from 'react-router-dom';
 
 class CategoryLinks extends Component {
@@ -12,6 +12,7 @@ class CategoryLinks extends Component {
   }
 
   componentDidMount() {
+    this.props.loadAllActiveItems();
     return this.props.loadCategories();
   }
 
@@ -19,8 +20,15 @@ class CategoryLinks extends Component {
     const categories = this.props.categories.map((category, idx) => {
       let category_name = category.category_name;
       let link = `/items/category/${category_name}`;
+      let id = category.id;
 
-      if (category.items.length) {
+      const checkAnyActiveItems = this.props.items
+        .filter((item) => {
+          return item.category_id === id;
+        })
+        .some((item) => item.users.active);
+
+      if (checkAnyActiveItems) {
         return (
           <Link to={link}>
             <button>{category_name}</button>
@@ -36,12 +44,14 @@ class CategoryLinks extends Component {
 const mapStateToProps = (state) => {
   return {
     categories: state.itemReducer.categories,
+    items: state.itemReducer.allActiveItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadCategories: () => dispatch(loadCategories()),
+    loadAllActiveItems: () => dispatch(loadAllActiveItems()),
   };
 };
 

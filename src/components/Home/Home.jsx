@@ -2,9 +2,7 @@ import React from 'react';
 import './Home.scss';
 import { connect } from 'react-redux';
 import { loadAllActiveItems, loadCategories } from '../../actions';
-
 import ItemsBox from '../../containers/ItemsBox';
-import { pathToFileURL } from 'url';
 
 class Home extends React.Component {
   constructor(props) {
