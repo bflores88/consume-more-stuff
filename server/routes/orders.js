@@ -42,6 +42,7 @@ router.route('/').post((req, res) => {
       });
 
       let itemList = [];
+
       orderedItems.forEach((orderedItem, index) => {
         itemList.push({
           id: orderedItem.id,
@@ -60,7 +61,12 @@ router.route('/').post((req, res) => {
       return CartedItem.collection(userCart).invokeThen('destroy');
     })
     .then(() => {
+      console.log('order works');
       return res.send('Order successfully submitted');
+    })
+    .catch((err) => {
+      console.log('error:', err);
+      return res.status(500).send('Server error');
     });
 });
 

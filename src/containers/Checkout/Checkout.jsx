@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import './Checkout.scss';
 import { grabUserCart } from '../../actions';
 import { grabShipping } from '../../actions';
+import { grabShippingPrimary } from '../../actions';
 import { grabPayments } from '../../actions';
+import { postNewOrder } from '../../actions';
 import ThreadBox from '../ThreadBox';
 import { Link } from 'react-router-dom';
+import { tsPropertySignature } from '@babel/types';
 
 class Checkout extends Component {
   constructor(props) {
@@ -18,36 +21,50 @@ class Checkout extends Component {
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
+    this.createOrder = this.createOrder.bind(this);
   }
 
   handleInputOnChange(e) {
     const value = e.target.value;
     const name = e.target.name;
-    // console.log
-    console.log(name, value);
+
     return this.setState({ [name]: value });
   }
 
   componentDidMount() {
     this.props.grabUserCart();
     this.props.grabShipping();
+    this.props.grabShippingPrimary();
     this.props.grabPayments();
   }
 
-  componentDidUpdate(prevProps) {
-    // console.log(this.props.currentUser);
-    // if (this.props.currentUser !== prevProps.currentUser) {
-    //   const user = this.props.currentUser;
-    // }
-    // // this.props.grabUserThreads();
-  }
+  componentDidUpdate(prevProps) {}
 
   deleteCartItem(id) {
     this.props.deleteItemFromCart(id);
     this.props.grabUserCart();
   }
 
+  createOrder() {
+    let cartArray = [];
+
+    this.props.cart_items.map((item, idx) => {
+      let itemObj = {};
+      itemObj.item_id = item.item_id;
+      itemObj.quantity = item.quantity;
+      cartArray.push(itemObj);
+    });
+
+    let data = {};
+    data.shipping_address_id = this.state.shipping_dropdown_id;
+    data.payment_card_id = this.state.payment_dropdown_id;
+    data.orders = cartArray;
+    return this.props.postNewOrder(data);
+  }
+
   render() {
+    console.log(this.props.shipping);
+    // console.log(this.props.shippingPrimary[0].id);
     // item operations below
     let allItemsPrice = 0;
     let totalPrice = 0;
@@ -87,10 +104,6 @@ class Checkout extends Component {
       );
     });
 
-    // payment/shipping below
-    // console.log('shipping', this.props.shipping);
-    console.log('payments', this.props.payments);
-
     let shippingOptions = this.props.shipping.map((address, idx) => {
       return (
         <option className="select-selected" value={address.id}>
@@ -115,14 +128,11 @@ class Checkout extends Component {
     let totalOrderPrice = totalBeforeTax;
     if (this.state.shipping_dropdown_id !== '') {
       let currentAddress = this.props.shipping.filter((ship) => ship.id == this.state.shipping_dropdown_id);
-      // console.log(currentAddress);
+
       let taxRate = parseFloat(currentAddress[0].states.tax_rate);
-      // console.log(taxRate);
+
       totalTax = parseFloat(Number(totalBeforeTax) * taxRate).toFixed(2);
       totalOrderPrice = parseFloat(Number(totalBeforeTax) + Number(totalTax)).toFixed(2);
-      console.log('totaltax', totalTax);
-      console.log('totalbeforetax', totalBeforeTax);
-      console.log('total', totalOrderPrice);
 
       // return images.filter((image) => image.item_id === id);
     } else {
@@ -203,7 +213,11 @@ class Checkout extends Component {
                 </div>
               </div>
               <div id="place-order-button-box">
-                <button id="place-order-button">Place Your Order</button>
+                <Link to="/">
+                  <button onClick={this.createOrder} id="place-order-button">
+                    Place Your Order
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -220,6 +234,7 @@ const mapStateToProps = (state) => {
     cart_items: state.itemReducer.cart_items,
     shipping: state.itemReducer.shipping,
     payments: state.itemReducer.payments,
+    shippingPrimary: state.itemReducer.shippingPrimary,
   };
 };
 
@@ -232,8 +247,14 @@ const mapDispatchToProps = (dispatch) => {
     grabShipping: () => {
       dispatch(grabShipping());
     },
+    grabShippingPrimary: () => {
+      dispatch(grabShippingPrimary());
+    },
     grabPayments: () => {
       dispatch(grabPayments());
+    },
+    postNewOrder: (data) => {
+      dispatch(postNewOrder(data));
     },
   };
 };

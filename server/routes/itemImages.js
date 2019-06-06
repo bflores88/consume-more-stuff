@@ -7,7 +7,7 @@ const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 const upload = require('../services/image-upload');
 const singleUpload = upload.single('image');
 const registeredUser = require('../middleware/isLoggedInGuard');
-const ownershipGuard = require('../middleware/ownershipGuard');
+const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 
 
 router.route('/').get((req, res) => {
@@ -73,7 +73,7 @@ router.route('/item/:itemId').get((req, res) => {
 
 router
   .route('/:id')
-  .get(registeredUser, ownershipGuard, (req, res) => {
+  .get(registeredUser, itemOwnerGuard, (req, res) => {
     // return queried image
     new ItemImage({ id: req.params.id })
       .fetch()
@@ -86,7 +86,7 @@ router
         return res.status(404).send('Item image not found');
       });
   })
-  .delete(registeredUser, ownershipGuard, (req, res) => {
+  .delete(registeredUser, itemOwnerGuard, (req, res) => {
     ItemImage.where({ id: req.params.id })
       .destroy()
       .then((result) => {
