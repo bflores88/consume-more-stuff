@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const PaymentCard = require('../database/models/PaymentCard');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
+const paymentCardGuard = require('../middleware/paymentCardGuard');
 
 router
   .route('/')
@@ -24,7 +25,7 @@ router
     PaymentCard.where({ user_id: req.user.id })
       .fetchAll()
       .then((result) => {
-        // if no cards, set primary = true
+        // if no cards, set primary = true. Otherwise, false
         const primary = result.length > 0 ? false : true;
         // return posted card (next: get all of user's cards)
         return new PaymentCard().save({
@@ -56,7 +57,7 @@ router
       });
   });
 
-router.route('/:id').put((req, res) => {
+router.route('/:id').put(isLoggedInGuard, paymentCardGuard, (req, res) => {
   // get all of user's cards
   PaymentCard.where({ user_id: req.user.id })
     .fetchAll()
@@ -74,7 +75,7 @@ router.route('/:id').put((req, res) => {
       });
     })
     .then(() => {
-      // return requeted card as primrary (next: get all of user's cards)
+      // return requested card as primrary (next: get all of user's cards)
       return new PaymentCard('id', parseInt(req.params.id)).save({
         primary: true,
       });
@@ -92,10 +93,5 @@ router.route('/:id').put((req, res) => {
       return res.status(500).send('Server error');
     });
 });
-
-// new PaymentCard('id', parseInt(req.params.id))
-// .save({
-//   primary: true,
-// })
 
 module.exports = router;
