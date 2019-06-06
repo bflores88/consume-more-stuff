@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const Category = require('../database/models/Category');
 const SubCategory = require('../database/models/SubCategory');
+const Item = require('../database/models/Item');
 
 //POST WILL NEED AN ADMIN GUARD
 router
@@ -36,22 +37,34 @@ router
       });
   });
 
+router.route('/:category').get((req, res) => {
+  new Category({ category_name: req.params.category })
+    .fetch()
+    .then((result) => {
+      let catID = result.id;
+      console.log('resulID', catID)
+
+      return Item.where({ category_id: catID })
+        .fetchAll({withRelated: ['users']})
+        .then((result) => {
+          console.log(result.toJSON());
+          return res.json(result.toJSON());
+        
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+});
+
 router.route('/subcategories').post((req, res) => {
   return SubCategory.collection(req.body.sub_categories)
     .invokeThen('save')
     .then((result) => {
       return res.json(result.toJSON());
-    });
-});
-
-router.route('/:category').get((req, res) => {
-  new Category({ category_name: req.params.category })
-    .fetch({ withRelated: ['items'] })
-    .then((result) => {
-      return res.json(result.toJSON());
-    })
-    .catch((err) => {
-      console.log('error', err);
     });
 });
 
