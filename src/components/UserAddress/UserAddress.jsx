@@ -19,10 +19,6 @@ class UserAddress extends Component {
   }
 
   render() {
-    console.log(this.props.address);
-
-    if (this.props.address.apt_suite) {
-    } else {
       return (
         <div className="address-card">
           <div className="sub-div">
@@ -43,7 +39,7 @@ class UserAddress extends Component {
           </div>
         </div>
       );
-    }
+    
   }
 }
 

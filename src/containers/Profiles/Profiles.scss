@@ -19,12 +19,22 @@
     flex-direction: column;
     justify-content: space-evenly;
     border-bottom: 1px solid orange;
-    padding: 30px;
+    padding: 30px 30px 60px 30px;
+    width: 100%;
+
+    .primary-address-card {
+      width: 300px;
+      line-height: .5;
+      padding-bottom: 20px;
+
+    }
 
     .shipping-addresses {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
       justify-content: space-evenly;
+      width: 100%
     }
 
   }

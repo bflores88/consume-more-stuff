@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './Profiles.scss';
-import { loadSingleUser, grabShipping } from '../../actions';
+import { loadSingleUser, grabShipping, grabPayments } from '../../actions';
 import moment from 'moment';
 import EditProfile from '../../components/EditProfile';
 import UserAddress from '../../components/UserAddress';
@@ -16,6 +16,8 @@ class Profiles extends Component {
       userProfileDisplay: 'display-div',
       editProfileDisplay: 'hide-div',
       editSuccessDisplay: 'hide-div',
+
+      primaryAddress: '',
     };
 
     this.handleClickToEdit = this.handleClickToEdit.bind(this);
@@ -26,7 +28,14 @@ class Profiles extends Component {
   componentDidMount() {
     const user = this.props.match.params.id;
     this.props.loadSingleUser(user);
-    return this.props.grabShipping();
+    this.props.grabPayments().then((result) => {
+      console.log(result.payload)
+    });
+    this.props.grabShipping().then((result) => {
+      const findPrimaryShipping = result.payload.filter((address) => address.primary);
+      const primaryShipping = findPrimaryShipping[0];
+      this.setState({ primaryAddress: primaryShipping });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +75,7 @@ class Profiles extends Component {
   }
 
   render() {
+    console.log(this.props.payments);
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.user.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.user.id) {
@@ -78,7 +88,6 @@ class Profiles extends Component {
           </>
         );
       } else {
-        console.log(this.props.user);
         const user = {
           id: this.props.user.id,
           username: this.props.user.username,
@@ -145,11 +154,58 @@ class Profiles extends Component {
 
             <div className="profile-sub-div">
               <h2>My Addresses</h2>
-              <div className="shipping-addresses">{shippingAddress}</div>
+              <div className="section">
+                <div className="primary-address-card">
+                  <div className="sub-div">
+                    <h5>Your Shipping Preference</h5>
+                  </div>
+
+                  <div className="sub-div">
+                    <p>{this.state.primaryAddress.address_name}</p>
+                    <p>{this.state.primaryAddress.street}</p>
+                    <p>{this.state.primaryAddressapt_suite}</p>
+                    <p>
+                      {this.state.primaryAddress.city}, {this.state.primaryAddress.state}{' '}
+                      {this.state.primaryAddress.zip}
+                    </p>
+                  </div>
+
+                  <div className="sub-div">
+                    <p className="primary">{this.state.primary}</p>
+                  </div>
+                </div>
+                <h3>Manage Shipping Addresses</h3><br />
+                <div className="shipping-addresses">{shippingAddress}</div>
+              </div>
             </div>
 
             <div className="profile-sub-div">
-              <UserPayments />
+              <h2>My Payment Options</h2>
+
+              <div className="section">
+                <div className="primary-address-card">
+                  <div className="sub-div">
+                    <h5>Your Payment Preference</h5>
+                  </div>
+
+                  <div className="sub-div">
+                    <p>{this.state.primaryAddress.address_name}</p>
+                    <p>{this.state.primaryAddress.street}</p>
+                    <p>{this.state.primaryAddressapt_suite}</p>
+                    <p>
+                      {this.state.primaryAddress.city}, {this.state.primaryAddress.state}{' '}
+                      {this.state.primaryAddress.zip}
+                    </p>
+                  </div>
+
+                  <div className="sub-div">
+                    <p className="primary">{this.state.primary}</p>
+                  </div>
+                </div>
+                <h3>Manage Payment Options</h3><br />
+                <div className="shipping-addresses"><UserPayments /></div>
+              </div>
+
             </div>
           </div>
         );
@@ -164,6 +220,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     shipping: state.itemReducer.shipping,
+    payments: state.itemReducer.payments,
   };
 };
 
@@ -171,6 +228,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadSingleUser: (user) => dispatch(loadSingleUser(user)),
     grabShipping: () => dispatch(grabShipping()),
+    grabPayments: () => dispatch(grabPayments()),
   };
 };
 
