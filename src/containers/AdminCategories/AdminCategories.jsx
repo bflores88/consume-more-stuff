@@ -27,14 +27,11 @@ class AdminCategories extends Component {
   }
 
   reloadOnSubmit() {
-    return this.props.loadCategories()
+    return this.props.loadCategories();
   }
 
   displaySubCat(category, allCategories) {
-    console.log(category);
-    console.log(allCategories);
     const currentCategory = allCategories.filter((cat) => cat.category_name === category);
-    console.log('current', currentCategory[0].sub_categories);
     this.setState({
       subCategories: currentCategory[0].sub_categories,
     });
@@ -43,45 +40,40 @@ class AdminCategories extends Component {
   handleSelectCategory(e) {
     e.preventDefault();
     this.setState({
-      selectedCategory: e.currentTarget.value
-    })
+      selectedCategory: e.currentTarget.value,
+    });
     return this.displaySubCat(e.currentTarget.value, this.props.categories);
   }
 
   handleAdd(e) {
     e.preventDefault();
-    console.log(e.currentTarget.name)
-    if (e.currentTarget.name === "displayAddSubcategory") {
-      console.log('skdjfskjfdskjfk')
+    if (e.currentTarget.name === 'displayAddSubcategory') {
       if (this.state.displayAddSubcategory === 'hide-div') {
         this.setState({
           displayAddSubcategory: 'display-div',
-          displayAddCategory: 'hide-div'
-        })
+          displayAddCategory: 'hide-div',
+        });
       } else {
         this.setState({
           displayAddSubcategory: 'hide-div',
-          displayAddCategory: 'hide-div'
-        })
+          displayAddCategory: 'hide-div',
+        });
       }
-      
     } else {
-
       if (this.state.displayAddCategory === 'hide-div') {
         this.setState({
           displayAddSubcategory: 'hide-div',
-          displayAddCategory: 'display-div'
-        })
-      } else 
-      this.setState({
-        displayAddSubcategory: 'hide-div',
-        displayAddCategory: 'hide-div'
-      })
+          displayAddCategory: 'display-div',
+        });
+      } else
+        this.setState({
+          displayAddSubcategory: 'hide-div',
+          displayAddCategory: 'hide-div',
+        });
     }
   }
 
   render() {
-    console.log(this.props.categories)
     const listCategories = this.props.categories.map((category, idx) => {
       return (
         <button value={category.category_name} onClick={this.handleSelectCategory}>
@@ -102,7 +94,22 @@ class AdminCategories extends Component {
       <>
         <div className="category-container">
           <h1> All Categories </h1>
+
           <div className="admin-categories">
+            <div className="sub-div">
+              <button name="displayAddCategory" onClick={this.handleAdd}>
+                <h3>+ Category</h3>
+              </button>
+              <div className={this.state.displayAddCategory}>
+                <AdminAddCategory reload={this.reloadOnSubmit} />
+              </div>
+              <button name="displayAddSubcategory" onClick={this.handleAdd}>
+                <h3>+ Subcategory</h3>
+              </button>
+              <div className={this.state.displayAddSubcategory}>
+                <AdminAddSubcategory categories={this.props.categories} reload={this.reloadOnSubmit} />
+              </div>
+            </div>
             <div className="sub-div">
               <h1>Categories</h1>
               <br />
@@ -112,16 +119,6 @@ class AdminCategories extends Component {
               <h1>{this.state.selectedCategory} Subcategories</h1>
               <br />
               {listSubCategories}
-            </div>
-            <div className="sub-div">
-              <button name="displayAddCategory" onClick={this.handleAdd}><h3>+ Add Category</h3></button>
-              <div className={this.state.displayAddCategory}>
-              <AdminAddCategory reload={this.reloadOnSubmit} />
-              </div>
-              <button name="displayAddSubcategory" onClick={this.handleAdd}><h3>+ Add Subcategory</h3></button>
-              <div className={this.state.displayAddSubcategory}>
-              <AdminAddSubcategory categories={this.props.categories} reload={this.reloadOnSubmit} />
-              </div>
             </div>
           </div>
         </div>
