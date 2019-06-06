@@ -14,6 +14,7 @@ exports.seed = function(knex, Promise) {
           state_id: 12,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 1,
         },
         {
@@ -25,6 +26,7 @@ exports.seed = function(knex, Promise) {
           state_id: 33,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 1,
         },
         {
@@ -36,6 +38,7 @@ exports.seed = function(knex, Promise) {
           state_id: 29,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 2,
         },
         {
@@ -47,6 +50,7 @@ exports.seed = function(knex, Promise) {
           state_id: 34,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 4,
         },
         {
@@ -58,6 +62,7 @@ exports.seed = function(knex, Promise) {
           state_id: 50,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 5,
         },
         {
@@ -69,6 +74,7 @@ exports.seed = function(knex, Promise) {
           state_id: 36,
           country: 'USA',
           zip: '12345',
+          active: true,
           user_id: 6,
         },
       ]);
