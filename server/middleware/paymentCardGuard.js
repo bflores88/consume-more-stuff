@@ -3,8 +3,8 @@
 const PaymentCard = require('../database/models/PaymentCard');
 
 module.export = function(req, res, next) {
-  PaymentCard.where({ user_id: req.user.id })
-    .fetch({ withRelated: ['users'] })
+  PaymentCard.where({ id: req.params.id })
+    .fetch()
     .then((result) => {
       const cardUserId = result.toJSON().user_id;
       if (cardUserId === req.user.id) {

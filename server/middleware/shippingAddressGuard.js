@@ -1,9 +1,9 @@
 'use strict';
 
-const ShippingAddress = require('../database/models/shipping_addresses');
+const ShippingAddress = require('../database/models/ShippingAddress');
 
 module.exports = function(req, res, next) {
-  ShippingAddress.where({ user_id: req.params.id })
+  ShippingAddress.where({ id: req.params.id })
     .fetch({ withRelated: ['users'] })
     .then((result) => {
       const shipAddressUserId = result.toJSON().user_id;
