@@ -6,7 +6,12 @@ module.exports = function(req, res, next) {
   PaymentCard.where({ id: req.params.id })
     .fetch()
     .then((result) => {
-      const cardUserId = result.toJSON().user_id;
+      // only convert to JSON if result not null
+      let cardUserId;
+      if (result) {
+        cardUserId = result.toJSON().user_id;
+      }
+
       if (cardUserId === parseInt(req.user.id)) {
         return next();
       } else {
