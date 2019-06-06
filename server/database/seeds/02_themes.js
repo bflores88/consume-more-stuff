@@ -4,8 +4,6 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('themes').insert([
-        { theme_name: 'filler', background_color: 'filler', font_style: 'filler', border_style: 'filler' },
-      ]);
+      return knex('themes').insert([{ theme_name: 'savannah' }]);
     });
 };

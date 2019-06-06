@@ -6,8 +6,6 @@ const Thread = require('../database/models/Thread');
 const Message = require('../database/models/Message');
 const UserThread = require('../database/models/UserThread');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
-const isModeratorGuard = require('../middleware/isModeratorGuard');
-const isAdminGuard = require('../middleware/isAdminGuard');
 
 const knex = require('../database/knex.js');
 
@@ -33,7 +31,7 @@ router
           ORDER BY max_message_id DESC`,
         [req.user.id],
       )
-      .then((result) => {    
+      .then((result) => {
         // inner most subquery selects threads associated with the user
         // outer subquery selects those threads' attributes (incl list of users sent_to)
         // top level query joins & sorts by most recent message
