@@ -14,7 +14,6 @@ class Home extends React.Component {
       title: 'test',
     };
   }
-  d;
 
   componentDidMount() {
     this.props.loadCategories();
@@ -27,26 +26,15 @@ class Home extends React.Component {
 
   render() {
     const categories = this.props.categories;
-    console.log(this.props.items)
     const filteredItems = this.props.items.filter((item) => item.users.active && item.active);
-    console.log(filteredItems);
-
-    
 
     const filterByCategory = categories.map((category, idx) => {
-
       if (category.items.length) {
         const itemsArray = category.items.filter((item) => item.active);
-        console.log(itemsArray);
-        // console.log(itemsArray.every(item => item.users.active))
-        // console.log(itemsArray.every(this.checkAllActive))
-
       }
 
       return (<ItemsBox items={filteredItems} label={category.category_name} labelID={category.id} /> )
-    
     });
-
 
     return <div className="App">{filterByCategory}</div>;
   }
