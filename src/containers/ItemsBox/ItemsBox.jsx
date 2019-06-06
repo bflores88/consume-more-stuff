@@ -21,9 +21,11 @@ class ItemsBox extends Component {
   filterItems(label, id, items) {
     switch (label) {
       case label:
-        return items.filter((item) => item.inventory > 0 && item.approved && item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
+        return items
+          .filter((item) => item.users.active && item.inventory > 0 && item.approved && item.category_id === parseInt(id))
+          .sort((a, b) => b.view_count - a.view_count);
       default:
-        return items.filter((item) =>  item.inventory > 0 && item.approved && item.category.id === 1);
+        return items.filter((item) => item.inventory > 0 && item.approved && item.category.id === 1);
     }
   }
 
@@ -32,6 +34,7 @@ class ItemsBox extends Component {
   }
 
   render() {
+    console.log(this.props.items)
     const filteredItems = this.filterItems(this.props.label, this.props.labelID, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink;
@@ -60,14 +63,27 @@ class ItemsBox extends Component {
       }
     });
 
-    return (
-      <div className="categoryBox">
-        <div className="item-box-title">
-          <h3 className="title-text">{this.props.label}</h3>
+    if (!itemsBox) {
+      return (
+        <div className="categoryBox">
+          <div className="item-box-title">
+            <h3 className="title-text">{this.props.label}</h3>
+          </div>
+          <div className="itemsBox">
+            <h2>Currently no items available for this category.</h2>
+          </div>
         </div>
-        <div className="itemsBox">{itemsBox}</div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="categoryBox">
+          <div className="item-box-title">
+            <h3 className="title-text">{this.props.label}</h3>
+          </div>
+          <div className="itemsBox">{itemsBox}</div>
+        </div>
+      );
+    }
   }
 }
 

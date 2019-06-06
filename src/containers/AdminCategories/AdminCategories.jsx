@@ -19,10 +19,15 @@ class AdminCategories extends Component {
 
     this.handleSelectCategory = this.handleSelectCategory.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.reloadOnSubmit = this.reloadOnSubmit.bind(this);
   }
 
   componentDidMount() {
     return this.props.loadCategories();
+  }
+
+  reloadOnSubmit() {
+    return this.props.loadCategories()
   }
 
   displaySubCat(category, allCategories) {
@@ -76,6 +81,7 @@ class AdminCategories extends Component {
   }
 
   render() {
+    console.log(this.props.categories)
     const listCategories = this.props.categories.map((category, idx) => {
       return (
         <button value={category.category_name} onClick={this.handleSelectCategory}>
@@ -110,11 +116,11 @@ class AdminCategories extends Component {
             <div className="sub-div">
               <button name="displayAddCategory" onClick={this.handleAdd}><h3>+ Add Category</h3></button>
               <div className={this.state.displayAddCategory}>
-              <AdminAddCategory />
+              <AdminAddCategory reload={this.reloadOnSubmit} />
               </div>
               <button name="displayAddSubcategory" onClick={this.handleAdd}><h3>+ Add Subcategory</h3></button>
               <div className={this.state.displayAddSubcategory}>
-              <AdminAddSubcategory categories={this.props.categories} />
+              <AdminAddSubcategory categories={this.props.categories} reload={this.reloadOnSubmit} />
               </div>
             </div>
           </div>

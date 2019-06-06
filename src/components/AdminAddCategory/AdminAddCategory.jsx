@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './AdminAddCategory.scss';
+import { connect } from 'react-redux';
+import { addCategory } from '../../actions';
 
 class AdminAddCategory extends Component {
   constructor(props) {
@@ -50,9 +52,10 @@ class AdminAddCategory extends Component {
       data.sub_categories = sub_categories
     }
 
-    console.log(data);
+    this.props.addCategory(data);
+    this.props.reload();
 
-    this.setState({
+    return this.setState({
       newCategory: '',
       subCategory1: '',
       subCategory2: '',
@@ -134,5 +137,21 @@ class AdminAddCategory extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addCategory: (data) => dispatch(addCategory(data)),
+  };
+};
+
+AdminAddCategory = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AdminAddCategory);
 
 export default AdminAddCategory;

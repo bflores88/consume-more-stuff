@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './AdminAddSubcategory.scss';
+import { connect } from 'react-redux';
+import { addSubcategory } from '../../actions';
 
 class AdminAddSubcategory extends Component {
   constructor(props) {
@@ -33,16 +35,14 @@ class AdminAddSubcategory extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const data = {
-      id: this.state.category_id
-    }
+    const data = {}
 
     const sub_categories = []
 
     for (let i = 1; i < 6; i++){
       const key = `subCategory${i}`;
       if (this.state.hasOwnProperty(key) && this.state[key]) {
-        sub_categories.push({ sub_category_name: this.state[key] })
+        sub_categories.push({ sub_category_name: this.state[key], category_id: this.state.category_id })
       }
     }
 
@@ -50,9 +50,10 @@ class AdminAddSubcategory extends Component {
       data.sub_categories = sub_categories
     }
 
-    console.log(data);
+    this.props.addSubcategory(data);
+    this.props.reload();
 
-    this.setState({
+    return this.setState({
       category_id: 0,
       subCategory1: '',
       subCategory2: '',
@@ -148,5 +149,21 @@ class AdminAddSubcategory extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addSubcategory: (data) => dispatch(addSubcategory(data)),
+  };
+};
+
+AdminAddSubcategory = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AdminAddSubcategory);
 
 export default AdminAddSubcategory;

@@ -19,6 +19,8 @@ export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 export const LOAD_ITEMS_BY_CATEGORY = 'LOAD_ITEMS_BY_CATEGORY';
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const ADD_SUBCATEGORY = 'ADD_SUBCATEGORY';
 
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
@@ -820,6 +822,51 @@ export const adminItemEdit = (data) => {
       .then((body) => {
         return dispatch({
           type: ADMIN_ITEM_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+};
+
+export const addCategory = (data) => {
+  return (dispatch) => {
+    return fetch('/api/categories', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADD_CATEGORY,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+};
+
+export const addSubcategory = (data) => {
+  return (dispatch) => {
+    return fetch('/api/categories/subcategories', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        console.log(body)
+        return dispatch({
+          type: ADD_SUBCATEGORY,
           payload: body,
         });
       })

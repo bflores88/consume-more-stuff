@@ -19,11 +19,14 @@ class CategoryLinks extends Component {
     const categories = this.props.categories.map((category, idx) => {
       let category_name = category.category_name;
       let link = `/items/category/${category_name}`;
-      return (
-        <Link to={link}>
-          <button>{category_name}</button>
-        </Link>
-      );
+
+      if (category.items.length) {
+        return (
+          <Link to={link}>
+            <button>{category_name}</button>
+          </Link>
+        );
+      }
     });
 
     return categories;
