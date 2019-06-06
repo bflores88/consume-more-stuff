@@ -8,13 +8,13 @@ exports.seed = function(knex, Promise) {
         {
           transaction_id: 3,
           item_id: 1,
-          order_status_id: 4,
+          order_status_id: 1,
           quantity: 1,
         },
         {
           transaction_id: 1,
           item_id: 5,
-          order_status_id: 4,
+          order_status_id: 1,
           quantity: 2,
         },
       ]);
