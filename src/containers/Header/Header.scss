@@ -44,17 +44,14 @@ $header-height: 80px;
     justify-content: flex-end;
     flex-direction: row;
   }
-  .inner-login-box {
-    justify-content: center;
-    display: flex;
-    justify-content: space-around;
-    // flex-direction: row;
-    // background-color: aqua;
-    width: 70%;
-    .shopping-cart-icon {
-      font-size: 1.5em;
-    }
+
+  .shopping-cart-icon {
+    align-self: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.5em;
   }
+  
   .searchBarBox {
     width: 33%;
     justify-content: center;

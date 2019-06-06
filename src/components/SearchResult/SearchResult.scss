@@ -5,6 +5,8 @@
   border-bottom: 1px solid black;
 
   div {
+    display: flex;
+
     img {
       align-self: center;
       
@@ -12,16 +14,22 @@
       height: auto;
       padding-right: 20px;
     }
+  }
 
-    li {
-      display: flex;
-    
-      h4 {
-        margin: 0 0 10px 0;
-      }
+  li {
+    display: flex;
+  
+    h4 {
+      margin: 0 0 10px 0;
     }
   }
 }
 
+
+@media only screen and (max-width: 760px) {
+  .search-result {
+    flex-direction: column;
+  }
+}
 
 

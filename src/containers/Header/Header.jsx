@@ -21,15 +21,13 @@ class Header extends Component {
               <h2 className="title">Savannah</h2>
             </Link>
           </div>
-        <SearchBar/>
-        <div className="login-box">
-          <div className="inner-login-box">
+          <SearchBar/>
+          <div className="login-box">
             <LoginLogoutButton />
-              <div className="shopping-cart-icon">
-                <Link to="/cart">
-                  <i className="fas fa-shopping-cart" />
-                </Link>
-              </div>
+            <div className="shopping-cart-icon">
+              <Link to="/cart">
+                <i className="fas fa-shopping-cart" />
+              </Link>
             </div>
           </div>
         </div>
