@@ -128,6 +128,13 @@ class Profiles extends Component {
           return <UserAddress address={address} />;
         });
 
+        console.log('888', this.props.payments)
+
+        const paymentOptions = this.props.payments.map((card) => {
+          console.log(card);
+          return <UserPayments card={card} lastFour={this.getLast4} />;
+        });
+
         return (
           <div className="user-profile">
             <div className="profile-sub-div">
@@ -209,7 +216,7 @@ class Profiles extends Component {
 
                 </div>
                 <h3>Manage Payment Options</h3><br />
-                <div className="shipping-addresses"><UserPayments /></div>
+                <div className="shipping-addresses">{paymentOptions}</div>
               </div>
 
             </div>
