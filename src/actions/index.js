@@ -90,6 +90,7 @@ export const postNewOrder = (data) => {
 };
 
 export const grabShipping = () => {
+  console.log('sdkfsfjd');
   return (dispatch) => {
     return fetch(`/api/shipping`)
       .then((response) => {
