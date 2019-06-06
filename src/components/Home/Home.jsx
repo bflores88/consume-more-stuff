@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loadAllActiveItems, loadCategories } from '../../actions';
 
 import ItemsBox from '../../containers/ItemsBox';
+import { pathToFileURL } from 'url';
 
 class Home extends React.Component {
   constructor(props) {
@@ -20,14 +21,32 @@ class Home extends React.Component {
     return this.props.loadAllActiveItems();
   }
 
-  componentDidUpdate() {}
+  checkAllActive(item) {
+    return item.users.active === true;
+  }
 
   render() {
     const categories = this.props.categories;
+    console.log(this.props.items)
+    const filteredItems = this.props.items.filter((item) => item.users.active && item.active);
+    console.log(filteredItems);
+
+    
 
     const filterByCategory = categories.map((category, idx) => {
-      return <ItemsBox items={this.props.items} label={category.category_name} labelID={category.id} />;
+
+      if (category.items.length) {
+        const itemsArray = category.items.filter((item) => item.active);
+        console.log(itemsArray);
+        // console.log(itemsArray.every(item => item.users.active))
+        // console.log(itemsArray.every(this.checkAllActive))
+
+      }
+
+      return (<ItemsBox items={filteredItems} label={category.category_name} labelID={category.id} /> )
+    
     });
+
 
     return <div className="App">{filterByCategory}</div>;
   }

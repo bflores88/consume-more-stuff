@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Item from '../Item';
 import './ItemsBox.scss';
 import { connect } from 'react-redux';
-import { grabItemImages, loadCategories } from '../../actions';
+import { grabItemImages } from '../../actions';
 
 class ItemsBox extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class ItemsBox extends Component {
           .filter((item) => item.users.active && item.inventory > 0 && item.approved && item.category_id === parseInt(id))
           .sort((a, b) => b.view_count - a.view_count);
       default:
-        return items.filter((item) => item.inventory > 0 && item.approved && item.category.id === 1);
+        return;
     }
   }
 
@@ -34,7 +34,6 @@ class ItemsBox extends Component {
   }
 
   render() {
-    console.log(this.props.items)
     const filteredItems = this.filterItems(this.props.label, this.props.labelID, this.props.items);
     const itemsBox = filteredItems.map((item, idx) => {
       let itemLink;
@@ -63,7 +62,9 @@ class ItemsBox extends Component {
       }
     });
 
-    if (!itemsBox) {
+    if (!filteredItems.length) {
+      return (<></>)
+    } else if (!itemsBox) {
       return (
         <div className="categoryBox">
           <div className="item-box-title">
@@ -99,7 +100,6 @@ const mapDispatchToProps = (dispatch) => {
     grabItemImages: (item) => {
       dispatch(grabItemImages(item));
     },
-    loadCategories: () => dispatch(loadCategories()),
   };
 };
 
