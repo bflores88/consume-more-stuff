@@ -1,0 +1,32 @@
+.address-card {
+  background-color: lighten(lightgrey, 10%);
+  box-shadow: 4px 5px 3px 2px rgba(109, 109, 111, 0.2);
+  padding: 20px;
+  border-radius: 6px;
+  width: 300px;
+
+  h5 {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin: 0px;
+    line-height: 1.5;
+  }
+
+  .sub-div:last-of-type {
+    margin-top: 20px;
+    border-radius: 6px;
+    padding: 0px 10px;
+    text-align: center;
+    background-color: lighten(orange, 25%);
+    color: darken(orange, 25%);
+  }
+
+  .primary {
+    margin-top: 5px;
+    padding: 3px;
+    font-weight: 600;
+  }
+}

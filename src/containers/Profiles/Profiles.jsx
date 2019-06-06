@@ -84,12 +84,8 @@ class Profiles extends Component {
           username: this.props.user.username,
           name: this.props.user.name,
           email: this.props.user.email,
-
-          // role: this.props.user.roles.role_name,
           image: this.props.user.profile_image_url,
-
           role: this.props.user.roles.role_name,
-
           active: this.props.user.active,
           memberSince: this.props.user.created_at,
         };
@@ -104,6 +100,10 @@ class Profiles extends Component {
         }
 
         const altDetail = `image-user${user.id}`;
+
+        const shippingAddress = this.props.shipping.map((address) => {
+          return <UserAddress address={address} />;
+        });
 
         return (
           <div className="user-profile">
@@ -144,7 +144,8 @@ class Profiles extends Component {
             </div>
 
             <div className="profile-sub-div">
-              <UserAddress shipping={this.props.shipping} />
+              <h2>My Addresses</h2>
+              <div className="shipping-addresses">{shippingAddress}</div>
             </div>
 
             <div className="profile-sub-div">

@@ -5,12 +5,27 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  .profile-sub-div {
+  .profile-sub-div:first-of-type {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     border-bottom: 1px solid orange;
     padding: 30px;
+
+  }
+
+  .profile-sub-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-bottom: 1px solid orange;
+    padding: 30px;
+
+    .shipping-addresses {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
 
   }
 

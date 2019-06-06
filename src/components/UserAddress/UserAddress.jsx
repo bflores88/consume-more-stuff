@@ -7,32 +7,52 @@ class UserAddress extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {};
   }
 
   componentDidMount() {
-
+    if (this.props.address.primary) {
+      this.setState({
+        primary: 'PRIMARY',
+      });
+    }
   }
 
   render() {
-    console.log(this.props.shipping)
-    return (
-      <h1>Imported User Settings Component</h1>
-    )
-  }
+    console.log(this.props.address);
 
+    if (this.props.address.apt_suite) {
+    } else {
+      return (
+        <div className="address-card">
+          <div className="sub-div">
+            <h5>Ship To:</h5>
+          </div>
+
+          <div className="sub-div">
+            <p>{this.props.address.address_name}</p>
+            <p>{this.props.address.street}</p>
+            <p>{this.props.address.apt_suite}</p>
+            <p>
+              {this.props.address.city}, {this.props.address.states.name} {this.props.address.zip}
+            </p>
+          </div>
+
+          <div className="sub-div">
+            <p className="primary">{this.state.primary}</p>
+          </div>
+        </div>
+      );
+    }
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {
-
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-  };
+  return {};
 };
 
 UserAddress = connect(
