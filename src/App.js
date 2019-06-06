@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './components/Home';
 import Header from './containers/Header';
+import SearchResults from './containers/SearchResults';
+
 import Registration from './containers/Registration';
 import LoginPage from './containers/LoginPage';
 
@@ -40,6 +42,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/Register" render={(props) => <Registration {...props} />} />
               <Route path="/login" component={LoginPage} />
+              <Route path="/search-results" component={SearchResults} />
               <Route path="/add-item" component={AddItem} />
               <Route path="/edit-item/:id" component={EditItem} />
               <Route path="/messages/:id" component={Messages} />

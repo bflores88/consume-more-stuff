@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Header.scss';
+import SearchBar from '../SearchBar';
 import LoginLogoutButton from '../LoginLogoutButton';
 import { Link } from 'react-router-dom';
 
@@ -22,16 +23,17 @@ class Header extends Component {
           </Link>
         </div>
 
-        <div className="searchBarBox">
+        <SearchBar/>
+        {/* <div className="searchBarBox">
           <form action="">
-            {/* <label htmlFor="search">Search</label> */}
+            <label htmlFor="search">Search</label>
             <input name="search" type="text" placeholder="Search" />
 
             <button>
               <i className="fas fa-search" />
             </button>
           </form>
-        </div>
+        </div> */}
 
         <div className="login-box">
           <LoginLogoutButton/>

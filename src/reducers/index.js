@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
+  SEARCH_ITEMS,
   LOAD_ITEMS,
   LOAD_ITEMS_BY_CATEGORY,
   LOAD_SINGLE_USER,
@@ -30,13 +31,22 @@ import { UPDATE_CHOSEN_CATEGORY } from '../actions';
 import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
 
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
-import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
+
+import { 
+  REGISTER, 
+  LOGIN_SUCCESS, 
+  LOGIN_FAILURE, 
+  LOGOUT_SUCCESS, 
+  LOGOUT_FAILURE 
+} from '../actions';
+
 import { GRAB_USER_CART } from '../actions';
 import { DELETE_ITEM_FROM_CART } from '../actions';
 import { GRAB_SHIPPING } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
 
 const initialState = {
+  searchResults: [],
   item: {},
   allActiveItems: [],
   items: [],
@@ -67,6 +77,9 @@ const userState = {
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
+    case SEARCH_ITEMS:
+      return Object.assign({}, state, { searchResults: [...action.payload] });
+
     case LOAD_ITEMS:
       return Object.assign({}, state, { items: [...action.payload] });
 
