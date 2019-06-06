@@ -13,9 +13,12 @@ class AdminCategories extends Component {
       selectedCategory: '',
       clicked: 'not-clicked',
       subCategories: '',
+      displayAddCategory: 'hide-div',
+      displayAddSubcategory: 'hide-div',
     };
 
     this.handleSelectCategory = this.handleSelectCategory.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +43,39 @@ class AdminCategories extends Component {
     return this.displaySubCat(e.currentTarget.value, this.props.categories);
   }
 
+  handleAdd(e) {
+    e.preventDefault();
+    console.log(e.currentTarget.name)
+    if (e.currentTarget.name === "displayAddSubcategory") {
+      console.log('skdjfskjfdskjfk')
+      if (this.state.displayAddSubcategory === 'hide-div') {
+        this.setState({
+          displayAddSubcategory: 'display-div',
+          displayAddCategory: 'hide-div'
+        })
+      } else {
+        this.setState({
+          displayAddSubcategory: 'hide-div',
+          displayAddCategory: 'hide-div'
+        })
+      }
+      
+    } else {
+
+      if (this.state.displayAddCategory === 'hide-div') {
+        this.setState({
+          displayAddSubcategory: 'hide-div',
+          displayAddCategory: 'display-div'
+        })
+      } else 
+      this.setState({
+        displayAddSubcategory: 'hide-div',
+        displayAddCategory: 'hide-div'
+      })
+    }
+  }
+
   render() {
-    console.log(this.state.subCategories);
     const listCategories = this.props.categories.map((category, idx) => {
       return (
         <button value={category.category_name} onClick={this.handleSelectCategory}>
@@ -74,10 +108,14 @@ class AdminCategories extends Component {
               {listSubCategories}
             </div>
             <div className="sub-div">
-              <h3>+ Add Category</h3>
+              <button name="displayAddCategory" onClick={this.handleAdd}><h3>+ Add Category</h3></button>
+              <div className={this.state.displayAddCategory}>
               <AdminAddCategory />
-              <h3>+ Add Subcategory</h3>
-              <AdminAddSubcategory />
+              </div>
+              <button name="displayAddSubcategory" onClick={this.handleAdd}><h3>+ Add Subcategory</h3></button>
+              <div className={this.state.displayAddSubcategory}>
+              <AdminAddSubcategory categories={this.props.categories} />
+              </div>
             </div>
           </div>
         </div>

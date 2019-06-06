@@ -41,7 +41,7 @@ class AdminAddCategory extends Component {
 
     for (let i = 1; i < 6; i++){
       const key = `subCategory${i}`;
-      if (this.state.hasOwnProperty(key)) {
+      if (this.state.hasOwnProperty(key) && this.state[key]) {
         sub_categories.push({ sub_category_name: this.state[key] })
       }
     }
@@ -51,22 +51,17 @@ class AdminAddCategory extends Component {
     }
 
     console.log(data);
+
+    this.setState({
+      newCategory: '',
+      subCategory1: '',
+      subCategory2: '',
+      subCategory3: '',
+      subCategory4: '',
+      subCategory5: ''
+    })
   }
 
-// myBody =  {
-//   category_name: 'food',
-//   category_type: 'whatever',
-//   sub_categories:
-//   [
-//     {
-//       category_id: 7,
-//       name: 'potatoes'
-//     },
-//     {
-  
-//     }
-//   ]
-//   }
   render() {
     const isEnabled = this.state.newCategory.length > 2 && this.state.newCategory.length < 21;
 
@@ -90,7 +85,7 @@ class AdminAddCategory extends Component {
           <br />
           <input
             name="subCategory1"
-            value={this.state.value}
+            value={this.state.subCategory1}
             placeholder="subcategory 1"
             onChange={this.handleSubcategoryInput}
             minlength="2"
@@ -98,7 +93,7 @@ class AdminAddCategory extends Component {
           />
           <input
             name="subCategory2"
-            value={this.state.value}
+            value={this.state.subCategory2}
             placeholder="subcategory 2"
             onChange={this.handleSubcategoryInput}
             minlength="2"
@@ -106,7 +101,7 @@ class AdminAddCategory extends Component {
           />
           <input
             name="subCategory3"
-            value={this.state.value}
+            value={this.state.subCategory3}
             placeholder="subcategory 3"
             onChange={this.handleSubcategoryInput}
             minlength="2"
@@ -114,7 +109,7 @@ class AdminAddCategory extends Component {
           />
           <input
             name="subCategory4"
-            value={this.state.value}
+            value={this.state.subCategory4}
             placeholder="subcategory 4"
             onChange={this.handleSubcategoryInput}
             minlength="2"
@@ -122,7 +117,7 @@ class AdminAddCategory extends Component {
           />
           <input
             name="subCategory5"
-            value={this.state.value}
+            value={this.state.subCategory5}
             placeholder="subcategory 5"
             onChange={this.handleSubcategoryInput}
             minlength="2"
