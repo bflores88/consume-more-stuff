@@ -138,6 +138,7 @@ class Profiles extends Component {
         return (
           <div className="user-profile">
             <div className="profile-sub-div">
+              
               <div className="user-img">
                 <img className="prof-img" src={user.image} alt={altDetail} />
               </div>
