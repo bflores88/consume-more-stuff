@@ -34,19 +34,14 @@ import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
 
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
 
-import { 
-  REGISTER, 
-  LOGIN_SUCCESS, 
-  LOGIN_FAILURE, 
-  LOGOUT_SUCCESS, 
-  LOGOUT_FAILURE 
-} from '../actions';
+import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
 
 import { GRAB_USER_CART } from '../actions';
 import { DELETE_ITEM_FROM_CART } from '../actions';
 import { GRAB_SHIPPING } from '../actions';
 import { GRAB_SHIPPING_PRIMARY } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
+import { GRAB_USER_SALES } from '../actions';
 // import { POST_NEW_ORDER } from '../actions';
 
 const initialState = {
@@ -72,6 +67,7 @@ const initialState = {
   shippingPrimary: [],
   newCategory: '',
   newSubcategory: '',
+  sales: [],
 };
 
 const userState = {
@@ -164,6 +160,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_PAYMENTS:
       return Object.assign({}, state, { payments: [...action.payload] });
+
+    case GRAB_USER_SALES:
+      return Object.assign({}, state, { sales: [...action.payload] });
 
     default:
       return state;

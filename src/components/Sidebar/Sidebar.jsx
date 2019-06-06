@@ -53,6 +53,12 @@ const Sidebar = (props) => {
         </div>
 
         <div className="nav-links">
+          <Link to="/sales">
+            <button>My Sales</button>
+          </Link>
+        </div>
+
+        <div className="nav-links">
           <Link to={userItemsLink}>
             <button>My Items</button>
           </Link>
