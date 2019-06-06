@@ -17,8 +17,6 @@ class AdminAllItems extends Component {
   }
 
   render() {
-    console.log(this.props.items);
-    console.log(this.props.user);
     const spreadItems = this.props.items.map((item, idx) => {
       const price = `$ ${item.price}`;
       const shipping = `$ ${item.shipping_cost}`;
@@ -68,7 +66,6 @@ class AdminAllItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // updatedUser: state.userReducer.updatedUser,
     items: state.itemReducer.items,
     user: state.userReducer.user,
   };
@@ -76,7 +73,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // adminUserEdit: (data) => dispatch(adminUserEdit(data)),
     loadItems: () => dispatch(loadItems()),
   };
 };

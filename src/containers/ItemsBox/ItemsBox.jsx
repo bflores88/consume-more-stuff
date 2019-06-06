@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Item from '../Item';
 import './ItemsBox.scss';
 import { connect } from 'react-redux';
-import { grabItemImages, loadCategories } from '../../actions';
+import { grabItemImages } from '../../actions';
 
 class ItemsBox extends Component {
   constructor(props) {
@@ -21,9 +21,11 @@ class ItemsBox extends Component {
   filterItems(label, id, items) {
     switch (label) {
       case label:
-        return items.filter((item) => item.approved && item.category_id === parseInt(id)).sort((a, b) => b.view_count - a.view_count);
+        return items
+          .filter((item) => item.users.active && item.inventory > 0 && item.approved && item.category_id === parseInt(id))
+          .sort((a, b) => b.view_count - a.view_count);
       default:
-        return items.filter((item) => item.category.id === 1);
+        return;
     }
   }
 
@@ -60,14 +62,29 @@ class ItemsBox extends Component {
       }
     });
 
-    return (
-      <div className="categoryBox">
-        <div className="item-box-title">
-          <h3 className="title-text">{this.props.label}</h3>
+    if (!filteredItems.length) {
+      return (<></>)
+    } else if (!itemsBox) {
+      return (
+        <div className="categoryBox">
+          <div className="item-box-title">
+            <h3 className="title-text">{this.props.label}</h3>
+          </div>
+          <div className="itemsBox">
+            <h2>Currently no items available for this category.</h2>
+          </div>
         </div>
-        <div className="itemsBox">{itemsBox}</div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="categoryBox">
+          <div className="item-box-title">
+            <h3 className="title-text">{this.props.label}</h3>
+          </div>
+          <div className="itemsBox">{itemsBox}</div>
+        </div>
+      );
+    }
   }
 }
 
@@ -83,7 +100,6 @@ const mapDispatchToProps = (dispatch) => {
     grabItemImages: (item) => {
       dispatch(grabItemImages(item));
     },
-    loadCategories: () => dispatch(loadCategories()),
   };
 };
 

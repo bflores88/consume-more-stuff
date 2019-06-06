@@ -12,6 +12,8 @@ import {
   LOAD_SPECIFIC_ITEM,
   ADMIN_USER_EDIT,
   ADMIN_ITEM_EDIT,
+  ADD_CATEGORY,
+  ADD_SUBCATEGORY,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -57,7 +59,7 @@ const initialState = {
   threads: [],
   messages: [],
   categories: [],
-  itemsByCategory: {},
+  itemsByCategory: [],
   userList: [],
   activeItems: [],
   inactiveItems: [],
@@ -68,6 +70,8 @@ const initialState = {
   shipping: [],
   payments: [],
   shippingPrimary: [],
+  newCategory: '',
+  newSubcategory: '',
 };
 
 const userState = {
@@ -111,7 +115,13 @@ function itemReducer(state = initialState, action) {
       return Object.assign({}, state, { categories: [...action.payload] });
 
     case LOAD_ITEMS_BY_CATEGORY:
-      return Object.assign({}, state, { itemsByCategory: [action.payload] });
+      return Object.assign({}, state, { itemsByCategory: [...action.payload] });
+
+    case ADD_CATEGORY:
+      return Object.assign({}, state, { newCategory: [action.payload] });
+
+    case ADD_SUBCATEGORY:
+      return Object.assign({}, state, { newSubcategory: [action.payload] });
 
     case INCREMENT_ITEM_VIEWS:
       return Object.assign({}, state, { newestItem: '' });

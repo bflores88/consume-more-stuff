@@ -46,4 +46,10 @@
       padding: 0px;
     }
   }
+
+  button:disabled {
+    color: white;
+    background-color: lightgrey;
+    cursor: not-allowed;
+  }
 }

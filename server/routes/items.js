@@ -24,7 +24,7 @@ router.route('/search/:searchTerm').get((req, res) => {
 
 router.route('/active').get((req, res) => {
   Item.where({ active: true })
-    .fetchAll()
+    .fetchAll({withRelated: ['users']})
     .then((result) => {
       // returns all active items
       return res.json(result);

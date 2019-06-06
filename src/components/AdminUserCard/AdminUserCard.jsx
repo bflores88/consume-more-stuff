@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './AdminUserCard.scss';
 import moment from 'moment';
 import { adminUserEdit } from '../../actions';
+import { thisTypeAnnotation } from '@babel/types';
 
 class AdminUserCard extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class AdminUserCard extends Component {
       active: '',
       imageURL: '',
       activeSince: '',
+      self: 0,
     };
 
     this.roleOptions = this.roleOptions.bind(this);
@@ -35,6 +37,7 @@ class AdminUserCard extends Component {
       role: this.props.role,
       imageURL: this.props.image,
       activeSince: memberSince,
+      self: this.props.self
     }));
 
     if (this.props.active) {
@@ -131,11 +134,12 @@ class AdminUserCard extends Component {
   }
 
   render() {
+    const disableSelf = this.state.id === this.state.self;
     const userLink = `/users/${this.state.id}/items`
     return (
       <div className="admin-user-view">
         <div className="admin-user-box-1">
-          <img className="img" src={this.state.imageURL} />
+          <img className="img" src={this.state.imageURL} alt={this.state.username} />
         </div>
 
         <div className="admin-user-box-2">
@@ -152,14 +156,14 @@ class AdminUserCard extends Component {
               <br />
               {this.roleOptions(this.props.role_id)}
               <br />
-              <button type="submit" onClick={this.handleRoleChange}>
+              <button disabled={disableSelf} type="submit" onClick={this.handleRoleChange}>
                 Submit
               </button>
             </form>
           </div>
 
           <div className="deactivate">
-            <button onClick={this.handleStatusChange}>Activate / Deactivate</button>
+            <button disabled={disableSelf} onClick={this.handleStatusChange}>Activate / Deactivate</button>
           </div>
         </div>
       </div>

@@ -20,6 +20,8 @@ export const INCREMENT_ITEM_VIEWS = 'INCREMENT_ITEM_VIEWS';
 export const LOAD_ITEMS_BY_CATEGORY = 'LOAD_ITEMS_BY_CATEGORY';
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const ADD_SUBCATEGORY = 'ADD_SUBCATEGORY';
 
 export const GRAB_USER_THREADS = 'GRAB_USER_THREADS';
 export const GRAB_THREAD_MESSAGES = 'GRAB_THREADS_MESSAGES';
@@ -292,7 +294,6 @@ export const loadAllActiveItems = () => {
 
 export const updateChosenCategory = (category) => {
   return (dispatch) => {
-    console.log('action update', category);
     return dispatch({
       type: UPDATE_CHOSEN_CATEGORY,
       payload: category,
@@ -302,7 +303,6 @@ export const updateChosenCategory = (category) => {
 
 export const updateChosenSubCategory = (category) => {
   return (dispatch) => {
-    console.log('action update sub', category);
     return dispatch({
       type: UPDATE_CHOSEN_SUBCATEGORY,
       payload: category,
@@ -317,7 +317,6 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
-        console.log('88888', users);
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
@@ -357,7 +356,6 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-        // console.log(messages);
 
         return dispatch({
           type: GRAB_THREAD_MESSAGES,
@@ -375,7 +373,6 @@ export const grabUserThreads = () => {
         return response.json();
       })
       .then((threads) => {
-        console.log(threads);
 
         return dispatch({
           type: GRAB_USER_THREADS,
@@ -397,7 +394,6 @@ export const updateUser = (data) => {
         return response.json();
       })
       .then((body) => {
-        console.log(body);
         return dispatch({
           type: UPDATE_USER,
           payload: body,
@@ -421,7 +417,6 @@ export const deactivateUser = () => {
         return response.json();
       })
       .then((body) => {
-        console.log(body);
         return dispatch({
           type: DEACTIVATE_USER,
           payload: body,
@@ -480,7 +475,6 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
-        console.log('data', data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,
@@ -493,8 +487,6 @@ export const addItem = (data) => {
 };
 
 export const addImage = (id, data) => {
-  console.log('actiomndata', data);
-  console.log('id', id);
   let formData = new FormData();
   formData.append('image', data);
   return (dispatch) => {
@@ -839,6 +831,50 @@ export const adminItemEdit = (data) => {
       .then((body) => {
         return dispatch({
           type: ADMIN_ITEM_EDIT,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+};
+
+export const addCategory = (data) => {
+  return (dispatch) => {
+    return fetch('/api/categories', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADD_CATEGORY,
+          payload: body,
+        });
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+};
+
+export const addSubcategory = (data) => {
+  return (dispatch) => {
+    return fetch('/api/categories/subcategories', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        return dispatch({
+          type: ADD_SUBCATEGORY,
           payload: body,
         });
       })
