@@ -11,7 +11,7 @@ class UserAddress extends Component {
   }
 
   componentDidMount() {
-    return this.props.grabShipping();
+
   }
 
   render() {
@@ -25,13 +25,13 @@ class UserAddress extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    shipping: state.itemReducer.shipping,
+
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    grabShipping: () => dispatch(grabShipping()),
+
   };
 };
 

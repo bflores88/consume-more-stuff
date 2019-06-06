@@ -90,14 +90,12 @@ export const postNewOrder = (data) => {
 };
 
 export const grabShipping = () => {
-  console.log('sdkfsfjd');
   return (dispatch) => {
     return fetch(`/api/shipping`)
       .then((response) => {
         return response.json();
       })
       .then((shipping) => {
-        console.log('shipping', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,

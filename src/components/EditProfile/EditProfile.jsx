@@ -63,7 +63,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log(this.props.id)
     const deactivateUrl = `/profiles/${this.props.id}/deactivate`;
     return (
       <div className="edit-profile-div">

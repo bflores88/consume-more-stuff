@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './Profiles.scss';
-import { loadSingleUser } from '../../actions';
+import { loadSingleUser, grabShipping } from '../../actions';
 import moment from 'moment';
 import EditProfile from '../../components/EditProfile';
 import UserAddress from '../../components/UserAddress';
@@ -26,6 +26,7 @@ class Profiles extends Component {
   componentDidMount() {
     const user = this.props.match.params.id;
     this.props.loadSingleUser(user);
+    return this.props.grabShipping();
   }
 
   componentDidUpdate(prevProps) {
@@ -143,7 +144,7 @@ class Profiles extends Component {
             </div>
 
             <div className="profile-sub-div">
-              <UserAddress />
+              <UserAddress shipping={this.props.shipping} />
             </div>
 
             <div className="profile-sub-div">
@@ -161,12 +162,14 @@ class Profiles extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
+    shipping: state.itemReducer.shipping,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadSingleUser: (user) => dispatch(loadSingleUser(user)),
+    grabShipping: () => dispatch(grabShipping()),
   };
 };
 
