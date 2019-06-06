@@ -12,7 +12,7 @@ router
     ShippingAddress.where({ user_id: req.user.id })
       .orderBy('primary', 'DESC')
       .orderBy('id', 'ASC')
-      .fetchAll({ withRelated: ['states'] })
+      .fetchAll({ withRelated: ['states', 'users'] })
       .then((result) => {
         // respond with all shipping addresses, sorted
         return res.json(result);
