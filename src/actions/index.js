@@ -275,7 +275,6 @@ export const loadAllActiveItems = () => {
 
 export const updateChosenCategory = (category) => {
   return (dispatch) => {
-    console.log('action update', category);
     return dispatch({
       type: UPDATE_CHOSEN_CATEGORY,
       payload: category,
@@ -285,7 +284,6 @@ export const updateChosenCategory = (category) => {
 
 export const updateChosenSubCategory = (category) => {
   return (dispatch) => {
-    console.log('action update sub', category);
     return dispatch({
       type: UPDATE_CHOSEN_SUBCATEGORY,
       payload: category,
@@ -300,7 +298,6 @@ export const grabAllUsers = () => {
         return response.json();
       })
       .then((users) => {
-        console.log('88888', users);
         return dispatch({
           type: GRAB_ALL_USERS,
           payload: users,
@@ -340,7 +337,6 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-        // console.log(messages);
 
         return dispatch({
           type: GRAB_THREAD_MESSAGES,
@@ -358,7 +354,6 @@ export const grabUserThreads = () => {
         return response.json();
       })
       .then((threads) => {
-        console.log(threads);
 
         return dispatch({
           type: GRAB_USER_THREADS,
@@ -380,7 +375,6 @@ export const updateUser = (data) => {
         return response.json();
       })
       .then((body) => {
-        console.log(body);
         return dispatch({
           type: UPDATE_USER,
           payload: body,
@@ -404,7 +398,6 @@ export const deactivateUser = () => {
         return response.json();
       })
       .then((body) => {
-        console.log(body);
         return dispatch({
           type: DEACTIVATE_USER,
           payload: body,
@@ -463,7 +456,6 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
-        console.log('data', data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,
@@ -476,8 +468,6 @@ export const addItem = (data) => {
 };
 
 export const addImage = (id, data) => {
-  console.log('actiomndata', data);
-  console.log('id', id);
   let formData = new FormData();
   formData.append('image', data);
   return (dispatch) => {
@@ -864,7 +854,6 @@ export const addSubcategory = (data) => {
         return response.json();
       })
       .then((body) => {
-        console.log(body)
         return dispatch({
           type: ADD_SUBCATEGORY,
           payload: body,
