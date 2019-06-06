@@ -3,7 +3,7 @@ services:
   consume-more-stuff:
     image: ${DOCKERHUB_NAME}/${IMAGE_NAME}:${IMAGE_VERSION}
     ports:
-      - 80:3000
+      - 80:8080
     env_file: .env
     networks:
       - my-app-network
