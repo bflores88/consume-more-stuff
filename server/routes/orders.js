@@ -6,10 +6,11 @@ const Transaction = require('../database/models/Transaction');
 const Order = require('../database/models/Order');
 const Item = require('../database/models/Item');
 const CartedItem = require('../database/models/CartedItem');
+const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 
-// const knex = require('../database/knex.js');
+const knex = require('../database/knex.js');
 
-router.route('/').post((req, res) => {
+router.route('/').post(isLoggedInGuard, (req, res) => {
   new Transaction()
     .save({
       purchased_by: req.user.id,
@@ -69,5 +70,62 @@ router.route('/').post((req, res) => {
       return res.status(500).send('Server error');
     });
 });
+
+router.route('/sales').get(isLoggedInGuard, (req, res) => {
+  knex
+    .raw(
+      `SELECT
+        orders.id AS id,
+        orders.quantity AS quantity,
+        orders.created_at AS created_at,
+        orders.updated_at AS updated_at,
+        ub.username AS purchased_by,
+        us.username AS sold_by,
+        items.name AS item_name,
+        items.description AS item_description,
+        items.price AS item_price,
+        items.shipping_cost AS shipping_cost,
+        sa.tax_rate AS tax_rate,
+        ship_addr.address_name AS shipping_addr_name,
+        ship_addr.street AS shipping_addr_street,
+        ship_addr.apt_suite AS shipping_addr_apt_suite,
+        ship_addr.city AS shipping_addr_city,
+        ship_addr.country AS shipping_addr_country,
+        ship_addr.zip AS shipping_addr_zip,
+        sa.postal_code AS shipping_addr_state_abbr,
+        sa.name AS shipping_addr_state_name
+      FROM orders
+      INNER JOIN transactions txn ON txn.id = orders.transaction_id
+      INNER JOIN items ON items.id = orders.item_id
+      INNER JOIN order_statuses os ON os.id = orders.order_status_id
+      INNER JOIN users ub ON ub.id = txn.purchased_by
+      INNER JOIN users us ON us.id = items.user_id
+      INNER JOIN shipping_addresses ship_addr ON ship_addr.id = txn.shipping_address_id
+      INNER JOIN states sa ON sa.id = ship_addr.state_id
+      WHERE items.user_id = ?`,
+      [req.user.id],
+    )
+    .then((result) => {
+      // respond with all orders
+      return res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log('error:', err);
+      return res.status(500).send('Server error');
+    });
+});
+
+// router.route('/bs').get((req, res) => {
+//   new Order()
+//     .fetchAll({ withRelated: ['transactions', 'items', 'order_statuses'] })
+//     .then((result) => {
+//       // respond with all orders
+//       return res.json(result);
+//     })
+//     .catch((err) => {
+//       console.log('error:', err);
+//       return res.status(404).send('Order not found');
+//     });
+// });
 
 module.exports = router;
