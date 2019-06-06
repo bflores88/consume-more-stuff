@@ -52,20 +52,20 @@ export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 export const searchItems = (searchTerm) => {
   return (dispatch) => {
     return fetch('/api/items/search/' + searchTerm)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      return dispatch({
-        type: SEARCH_ITEMS,
-        payload: data,
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return dispatch({
+          type: SEARCH_ITEMS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        return { error: error };
       });
-    })
-    .catch((error) => {
-      return {error : error};
-    })
-  }
-}
+  };
+};
 
 export const loadItems = () => {
   return (dispatch) => {
@@ -356,7 +356,6 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-
         return dispatch({
           type: GRAB_THREAD_MESSAGES,
           payload: messages,
@@ -373,7 +372,6 @@ export const grabUserThreads = () => {
         return response.json();
       })
       .then((threads) => {
-
         return dispatch({
           type: GRAB_USER_THREADS,
           payload: threads,
@@ -475,6 +473,7 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,

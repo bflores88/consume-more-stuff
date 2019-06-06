@@ -4,6 +4,7 @@ import './AddItemImage.scss';
 import { addItem } from '../../actions';
 import { resetNewItem } from '../../actions';
 import { addImage } from '../../actions';
+import { Link } from 'react-router-dom';
 
 class AddItemImage extends Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class AddItemImage extends Component {
       return <div />;
     } else {
       console.log('show', this.props.newestItem);
+      const userItemsLink = `/users/${this.props.currentUser.id}/items`;
       return (
         <div id="myModal">
           <div id="modal-content">
@@ -66,7 +68,10 @@ class AddItemImage extends Component {
               <h4>Would you like to add an image to your new item?</h4>
               <form>
                 <input onChange={this.handleInputOnChange} type="file" name="image" />
-                <button onClick={this.handleSubmit}>Submit Item</button>
+
+                <Link to={userItemsLink}>
+                  <button onClick={this.handleSubmit}>Submit Item</button>
+                </Link>
               </form>
             </div>
           </div>
