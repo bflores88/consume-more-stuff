@@ -26,6 +26,7 @@ import AccountDeactivate from './containers/AccountDeactivate/AccountDeactivate'
 import AdminAllItems from './containers/AdminAllItems';
 import UserCart from './containers/UserCart';
 import Checkout from './containers/Checkout';
+import AdminCategories from './containers/AdminCategories';
 
 class App extends Component {
   render() {
@@ -53,6 +54,7 @@ class App extends Component {
               <Route path="/add-thread" component={AddThread} />
               <Route path="/messages" component={Messages} />
               <Route path="/conversation/:id" component={Conversation} />
+              <Route path="/admin-categories" component={AdminCategories} />
               <Route path="/admin-items" component={AdminAllItems} />
               <Route path="/admin-users" component={AdminAllUsers} />
               <Route path="/cart" component={UserCart} />

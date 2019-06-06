@@ -1,0 +1,40 @@
+.category-container {
+  padding: 50px;
+  margin-bottom: 100px;
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    margin: 5px 0px;
+  }
+
+  .admin-categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .sub-div {
+      width: 32%;
+      height: 600px;
+      border: 1px solid orange;
+      padding: 30px;
+      overflow: auto;
+
+    }
+  }
+
+  button {
+    display: block;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+
+    :hover {
+      color: #222f3d;
+    }
+  }
+
+
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.scss';
 import { connect } from 'react-redux';
 import { loadAllActiveItems, loadCategories } from '../../actions';
-
 import ItemsBox from '../../containers/ItemsBox';
 
 class Home extends React.Component {
@@ -13,20 +12,26 @@ class Home extends React.Component {
       title: 'test',
     };
   }
-  d;
 
   componentDidMount() {
     this.props.loadCategories();
     return this.props.loadAllActiveItems();
   }
 
-  componentDidUpdate() {}
+  checkAllActive(item) {
+    return item.users.active === true;
+  }
 
   render() {
     const categories = this.props.categories;
+    const filteredItems = this.props.items.filter((item) => item.users.active && item.active);
 
     const filterByCategory = categories.map((category, idx) => {
-      return <ItemsBox items={this.props.items} label={category.category_name} labelID={category.id} />;
+      if (category.items.length) {
+        const itemsArray = category.items.filter((item) => item.active);
+      }
+
+      return (<ItemsBox items={filteredItems} label={category.category_name} labelID={category.id} /> )
     });
 
     return <div className="App">{filterByCategory}</div>;

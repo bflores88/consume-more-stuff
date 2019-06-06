@@ -23,7 +23,9 @@
 
   @media only screen and (max-width: 950px) {
     flex-direction: column;
+    justify-content: flex-start;
     padding-bottom: 0px;
+    height: 500px;
   }
 
   .break-div {
@@ -45,6 +47,8 @@
       flex-wrap: none;
       flex-direction: column;
       justify-content: flex-start;
+      overflow: auto;
+      max-height: 275px;
       overflow: auto;
 
       .image-div {
@@ -77,6 +81,10 @@
 
   .break-div:last-of-type {
     margin-top: 50px;
+
+    @media only screen and (max-width: 950px) {
+      margin-top: 0px;
+    }
 
     .item-subdiv {
       display: flex;

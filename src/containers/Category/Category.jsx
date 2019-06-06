@@ -8,20 +8,22 @@ class Category extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      category: ''
+    };
   }
 
   componentDidMount() {
-    const category = this.props.match.params.category;
+    this.setState({ category: this.props.match.params.category });
     this.props.grabItemImages();
-    return this.props.loadItemsByCategory(category);
+    return this.props.loadItemsByCategory(this.props.match.params.category);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.category !== prevProps.match.params.category) {
-      const category = this.props.match.params.category;
+      this.setState({ category: this.props.match.params.category });
       this.props.grabItemImages();
-      return this.props.loadItemsByCategory(category);
+      return this.props.loadItemsByCategory(this.props.match.params.category);
     }
   }
 
@@ -30,18 +32,23 @@ class Category extends Component {
   }
 
   render() {
-    const categoryItems = this.props.itemsByCategory[0];
+    const categoryItems = this.props.itemsByCategory;
+   
 
-    if (!categoryItems) {
+    if (categoryItems.length < 1) {
       return <div>Page Loading...</div>;
     } else {
       const category = {
-        name: categoryItems.category_name,
-        items: categoryItems.items,
+        name: this.props.match.params.category,
+        items: categoryItems,
       };
 
-      const items = category.items.filter((img, key) => {
-        return img.active && img.approved;
+      const items = categoryItems.filter((item) => {
+        return item.inventory > 0 && item.active && item.approved && item.users.active
+      })
+        
+        categoryItems.map((item, key) => {
+        return item.inventory > 0 && item.active && item.approved && item.users.active;
       });
 
       const itemsBox = items.map((item, idx) => {
