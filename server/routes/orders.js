@@ -63,6 +63,10 @@ router.route('/').post((req, res) => {
     .then(() => {
       console.log('order works');
       return res.send('Order successfully submitted');
+    })
+    .catch((err) => {
+      console.log('error:', err);
+      return res.status(500).send('Server error');
     });
 });
 
