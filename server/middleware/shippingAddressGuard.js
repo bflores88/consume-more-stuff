@@ -1,6 +1,6 @@
 'use strict';
 
-const ShippingAddress = require('../database/models/shippingAddress');
+const ShippingAddress = require('../database/models/ShippingAddress');
 
 module.exports = function(req, res, next) {
   ShippingAddress.where({ id: req.params.id })
