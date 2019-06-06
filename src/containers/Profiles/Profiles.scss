@@ -2,8 +2,17 @@
   padding: 50px;
   margin-bottom: 100px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .profile-sub-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-bottom: 1px solid orange;
+    padding: 30px;
+
+  }
 
   .user-img {
     max-width: 50%;

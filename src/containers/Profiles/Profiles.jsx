@@ -5,6 +5,8 @@ import './Profiles.scss';
 import { loadSingleUser } from '../../actions';
 import moment from 'moment';
 import EditProfile from '../../components/EditProfile';
+import UserAddress from '../../components/UserAddress';
+import UserPayments from '../../components/UserPayments';
 
 class Profiles extends Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class Profiles extends Component {
       this.setState((prevState) => ({
         userProfileDisplay: 'display-div',
         editProfileDisplay: 'hide-div',
-        editSuccessDisplay: 'hide-div'
+        editSuccessDisplay: 'hide-div',
       }));
     } else {
       this.setState((prevState) => ({
@@ -65,12 +67,7 @@ class Profiles extends Component {
   render() {
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
-    } else if (
-
-      this.props.user.role_id !== 1 &&
-      parseInt(this.props.match.params.id) !== this.props.user.id
-
-    ) {
+    } else if (this.props.user.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.user.id) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.match.params.id !== 'all') {
       if (!this.props.user.roles) {
@@ -109,38 +106,48 @@ class Profiles extends Component {
 
         return (
           <div className="user-profile">
-            <div className="user-img">
-              <img className="prof-img" src={user.image} alt={altDetail} />
+            <div className="profile-sub-div">
+              <div className="user-img">
+                <img className="prof-img" src={user.image} alt={altDetail} />
+              </div>
+
+              <div className="user-details">
+                <div className={this.state.userProfileDisplay}>
+                  <div className={this.state.editSuccessDisplay}>
+                    <h2>Successfully Updated Profile!</h2>
+                  </div>
+
+                  <h2>Username:&nbsp;{user.username}</h2>
+
+                  <p className="user-detail">Name:&nbsp;{user.name}</p>
+                  <p className="user-detail">Email:&nbsp;{user.email}</p>
+                  <p className="user-detail">Role:&nbsp;{user.role}</p>
+                  <p className="user-detail">Status:&nbsp;{status}</p>
+                  <p className="user-detail">Member Since:&nbsp;{memberSince}</p>
+                  <br />
+                  <div className="profile-button">
+                    <button onClick={this.handleClickToEdit}>Edit Profile</button>
+                  </div>
+                </div>
+
+                <div className={this.state.editProfileDisplay}>
+                  <EditProfile
+                    close={this.handleClickToEdit}
+                    name={user.name}
+                    email={user.email}
+                    success={this.editSuccess}
+                    id={user.id}
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="user-details">
-              <div className={this.state.userProfileDisplay}>
-                <div className={this.state.editSuccessDisplay}>
-                  <h2>Successfully Updated Profile!</h2>
-                </div>
+            <div className="profile-sub-div">
+              <UserAddress />
+            </div>
 
-                <h2>Username:&nbsp;{user.username}</h2>
-
-                <p className="user-detail">Name:&nbsp;{user.name}</p>
-                <p className="user-detail">Email:&nbsp;{user.email}</p>
-                <p className="user-detail">Role:&nbsp;{user.role}</p>
-                <p className="user-detail">Status:&nbsp;{status}</p>
-                <p className="user-detail">Member Since:&nbsp;{memberSince}</p>
-                <br />
-                <div className="profile-button">
-                  <button onClick={this.handleClickToEdit}>Edit Profile</button>
-                </div>
-              </div>
-
-              <div className={this.state.editProfileDisplay}>
-                <EditProfile
-                  close={this.handleClickToEdit}
-                  name={user.name}
-                  email={user.email}
-                  success={this.editSuccess}
-                  id={user.id}
-                />
-              </div>
+            <div className="profile-sub-div">
+              <UserPayments />
             </div>
           </div>
         );
