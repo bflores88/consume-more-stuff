@@ -5,6 +5,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
+export const SEARCH_ITEMS = 'SEARCH_ITEMS';
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 export const LOAD_ALL_ACTIVE_ITEMS = 'LOAD_ALL_ACTIVE_ITEMS';
 export const LOAD_ACTIVE_ITEMS = 'LOAD_ACTIVE_ITEMS';
@@ -48,6 +49,24 @@ export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 
 // ACTION CREATOR
+export const searchItems = (searchTerm) => {
+  return (dispatch) => {
+    return fetch('/api/items/search/' + searchTerm)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      return dispatch({
+        type: SEARCH_ITEMS,
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      return {error : error};
+    })
+  }
+}
+
 export const loadItems = () => {
   return (dispatch) => {
     return fetch('/api/items')
