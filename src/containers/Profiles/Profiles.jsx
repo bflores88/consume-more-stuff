@@ -18,6 +18,7 @@ class Profiles extends Component {
       editSuccessDisplay: 'hide-div',
 
       primaryAddress: '',
+      primaryPayment: '',
     };
 
     this.handleClickToEdit = this.handleClickToEdit.bind(this);
@@ -25,11 +26,24 @@ class Profiles extends Component {
     this.editSuccess = this.editSuccess.bind(this);
   }
 
+  getLast4(card) {
+    const cardLength = card.length;
+    const last = card.split('').splice(cardLength - 4).join('')
+    return `****${last}`;
+  }
+
   componentDidMount() {
     const user = this.props.match.params.id;
     this.props.loadSingleUser(user);
     this.props.grabPayments().then((result) => {
-      console.log(result.payload)
+      const findPrimaryPayment = result.payload.filter((card) => card.primary);
+      const primaryPayment = findPrimaryPayment[0];
+      this.setState({
+        primaryPayment: {
+          cardHolder: primaryPayment.card_name,
+          cardNumber: this.getLast4(primaryPayment.card_number)
+        }
+      })
     });
     this.props.grabShipping().then((result) => {
       const findPrimaryShipping = result.payload.filter((address) => address.primary);
@@ -75,7 +89,7 @@ class Profiles extends Component {
   }
 
   render() {
-    console.log(this.props.payments);
+    console.log(this.state);
     if (!this.props.user) {
       return <Redirect to="/not-authorized" />;
     } else if (this.props.user.role_id !== 1 && parseInt(this.props.match.params.id) !== this.props.user.id) {
@@ -189,18 +203,10 @@ class Profiles extends Component {
                   </div>
 
                   <div className="sub-div">
-                    <p>{this.state.primaryAddress.address_name}</p>
-                    <p>{this.state.primaryAddress.street}</p>
-                    <p>{this.state.primaryAddressapt_suite}</p>
-                    <p>
-                      {this.state.primaryAddress.city}, {this.state.primaryAddress.state}{' '}
-                      {this.state.primaryAddress.zip}
-                    </p>
+                    <p>{this.state.primaryPayment.cardHolder}</p>
+                    <p>{this.state.primaryPayment.cardNumber}</p>
                   </div>
 
-                  <div className="sub-div">
-                    <p className="primary">{this.state.primary}</p>
-                  </div>
                 </div>
                 <h3>Manage Payment Options</h3><br />
                 <div className="shipping-addresses"><UserPayments /></div>
