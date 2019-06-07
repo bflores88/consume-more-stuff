@@ -33,6 +33,10 @@
       line-height: .5;
       padding-bottom: 20px;
 
+      .sub-div {
+        width: 100%;
+      }
+
     }
 
     .shipping-addresses {
@@ -60,10 +64,25 @@
 
 }
 
+.sub-div {
+  width: 100%;
+}
+
 .hide-div {
   display: none;
 }
 
 .display-div {
   display: block;
+}
+
+.add-option {
+  background-color: transparent;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: lighten(lightgray, 10%)
+  }
 }

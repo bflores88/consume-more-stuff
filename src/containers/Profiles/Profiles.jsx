@@ -53,7 +53,6 @@ class Profiles extends Component {
     const user = this.props.match.params.id;
     this.props.loadSingleUser(user);
     this.props.grabShipping().then((result) => {
-      console.log('lsdkfsdlkfjsdkjfds', result.payload)
       this.setState({ addressOptions: result.payload });
       const findPrimaryShipping = result.payload.filter((address) => address.primary);
       const primaryShipping = findPrimaryShipping[0];
@@ -73,26 +72,6 @@ class Profiles extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.props.match.params !== prevProps.match.params) {
-    //   const user = this.props.match.params.id;
-    //   this.props.loadSingleUser(user);
-    //   this.props.grabPayments().then((result) => {
-    //     this.setState({ paymentOptions: result.payload})
-    //     const findPrimaryPayment = result.payload.filter((card) => card.primary);
-    //     const primaryPayment = findPrimaryPayment[0];
-    //     this.setState({
-    //       primaryPayment: {
-    //         cardHolder: primaryPayment.card_name,
-    //         cardNumber: this.getLast4(primaryPayment.card_number),
-    //       },
-    //     });
-    //   });
-    //   this.props.grabShipping().then((result) => {
-    //     const findPrimaryShipping = result.payload.filter((address) => address.primary);
-    //     const primaryShipping = findPrimaryShipping[0];
-    //     this.setState({ primaryAddress: primaryShipping });
-    //   });
-    // }
   }
 
   handlePaymentReload(e) {
@@ -269,7 +248,8 @@ class Profiles extends Component {
                 </div>
                 <h3>Manage Shipping Addresses</h3>
                 <br />
-                <div className="shipping-addresses">{shippingAddress}</div>
+                <div className="shipping-addresses">{shippingAddress}</div> <br/><br />
+                <div className="shipping-addresses"><button className="add-option">+ Shipping Option</button></div>
               </div>
             </div>
 
@@ -291,7 +271,8 @@ class Profiles extends Component {
                 <br />
                 <div className="shipping-addresses" id="payment-options">
                   {paymentOptions}
-                </div>
+                </div><br /><br />
+                <div className="shipping-addresses"><button className="add-option">+ Payment Option</button></div>
               </div>
             </div>
           </div>
