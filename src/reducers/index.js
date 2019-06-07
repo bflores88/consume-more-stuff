@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
+  SEARCH_ITEMS,
   LOAD_ITEMS,
   LOAD_ITEMS_BY_CATEGORY,
   LOAD_SINGLE_USER,
@@ -35,15 +36,19 @@ import { UPDATE_CHOSEN_CATEGORY } from '../actions';
 import { UPDATE_CHOSEN_SUBCATEGORY } from '../actions';
 
 import { GRAB_ALL_USERS, GRAB_USERNAME } from '../actions';
+
 import { REGISTER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../actions';
+
 import { GRAB_USER_CART } from '../actions';
 import { DELETE_ITEM_FROM_CART } from '../actions';
 import { GRAB_SHIPPING } from '../actions';
 import { GRAB_SHIPPING_PRIMARY } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
+import { GRAB_USER_SALES } from '../actions';
 // import { POST_NEW_ORDER } from '../actions';
 
 const initialState = {
+  searchResults: [],
   item: {},
   allActiveItems: [],
   items: [],
@@ -65,6 +70,7 @@ const initialState = {
   shippingPrimary: [],
   newCategory: '',
   newSubcategory: '',
+  sales: [],
 };
 
 const userState = {
@@ -77,6 +83,9 @@ const userState = {
 
 function itemReducer(state = initialState, action) {
   switch (action.type) {
+    case SEARCH_ITEMS:
+      return Object.assign({}, state, { searchResults: [...action.payload] });
+
     case LOAD_ITEMS:
       return Object.assign({}, state, { items: [...action.payload] });
 
@@ -160,6 +169,8 @@ function itemReducer(state = initialState, action) {
     
     case UPDATE_PRIMARY_ADDRESS:
       return Object.assign({}, state, { shipping: [action.payload] });
+    case GRAB_USER_SALES:
+      return Object.assign({}, state, { sales: [...action.payload] });
 
     default:
       return state;

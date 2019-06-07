@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AddItem.scss';
 import { addItem } from '../../actions';
-
+import CategoryDropdown from '../CategoryDropdown';
 import AddItemImage from '../AddItemImage';
 
 class AddItem extends Component {
@@ -18,6 +18,7 @@ class AddItem extends Component {
       description: '',
       dimensions: '',
       image: '',
+      shipping_cost: 0,
       showModal: false,
     };
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
@@ -37,13 +38,17 @@ class AddItem extends Component {
     const data = {};
     data.name = this.state.name;
     data.price = this.state.price;
-    data.category_id = this.state.category_id;
+    // data.category_id = this.state.category_id;
+    data.category_id = this.props.chosen_category;
+    data.sub_category_id = this.props.chosen_subcategory;
     data.condition_id = this.state.condition_id;
     data.inventory = this.state.inventory;
     data.description = this.state.description;
     data.user_id = this.props.currentUser.id;
-    data.sub_category_id = 1;
+    // data.sub_category_id = 1;
+    data.shipping_cost = parseInt(this.state.shipping_cost);
     data.dimensions = this.state.dimensions;
+
     data.approved = false;
     data.view_count = 0;
     data.active = true;
@@ -104,23 +109,27 @@ class AddItem extends Component {
                       onChange={this.handleInputOnChange}
                     />
                   </div>
+                  <div className="input-div">
+                    <label className="input-label" htmlFor="shipping_cost">
+                      Shipping Cost
+                    </label>
+                    <input
+                      className="price-input"
+                      className="input"
+                      type="number"
+                      name="shipping_cost"
+                      placeholder="Shipping Cost"
+                      value={this.state.shipping_cost}
+                      onChange={this.handleInputOnChange}
+                    />
+                  </div>
                 </div>
 
                 <div className="input-div">
                   <div className="category">
                     <label className="input-label">Category: </label>
-                    <select
-                      name="category_id"
-                      className="select"
-                      value={this.state.category_id}
-                      onChange={this.handleInputOnChange}
-                      required
-                    >
-                      <option value="">Choose a Category</option>
-                      <option value="1">Electronics</option>
-                      <option value="2">Apparel</option>
-                      <option value="3">Books</option>
-                    </select>
+
+                    <CategoryDropdown />
                   </div>
                 </div>
                 <div className="input-div">
@@ -206,6 +215,8 @@ const mapStateToProps = (state) => {
     images: state.itemReducer.images,
     currentUser: state.userReducer.user,
     newestItem: state.itemReducer.newestItem,
+    chosen_category: state.itemReducer.chosen_category,
+    chosen_subcategory: state.itemReducer.chosen_subcategory,
   };
 };
 

@@ -5,6 +5,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
+export const SEARCH_ITEMS = 'SEARCH_ITEMS';
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 export const LOAD_ALL_ACTIVE_ITEMS = 'LOAD_ALL_ACTIVE_ITEMS';
 export const LOAD_ACTIVE_ITEMS = 'LOAD_ACTIVE_ITEMS';
@@ -42,6 +43,7 @@ export const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART';
 export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
+export const GRAB_USER_SALES = 'GRAB_USER_SALES';
 
 export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
 export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
@@ -51,6 +53,42 @@ export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 
 // ACTION CREATOR
+export const searchItems = (searchTerm) => {
+  return (dispatch) => {
+    return fetch('/api/items/search/' + searchTerm)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return dispatch({
+          type: SEARCH_ITEMS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        return { error: error };
+      });
+  };
+};
+export const grabUserSales = () => {
+  return (dispatch) => {
+    return fetch(`/api/orders/sales`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((sales) => {
+        console.log('sales', sales);
+        return dispatch({
+          type: GRAB_USER_SALES,
+          payload: sales,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const loadItems = () => {
   return (dispatch) => {
     return fetch('/api/items')
@@ -504,6 +542,7 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,
