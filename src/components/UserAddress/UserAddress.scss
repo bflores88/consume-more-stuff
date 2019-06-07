@@ -29,4 +29,17 @@
     padding: 3px;
     font-weight: 600;
   }
+
+  .edit {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    button {
+      width: 100%;
+      padding: 10px 10px;
+      margin-bottom: 10px;
+    }
+  }
 }

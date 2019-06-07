@@ -7,7 +7,9 @@ class UserAddress extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      primary: '',
+    };
   }
 
   componentDidMount() {
@@ -19,6 +21,8 @@ class UserAddress extends Component {
   }
 
   render() {
+
+    if (this.state.primary) {
       return (
         <div className="address-card">
           <div className="sub-div">
@@ -39,6 +43,33 @@ class UserAddress extends Component {
           </div>
         </div>
       );
+
+    } else {
+      return (
+        <div className="address-card">
+          <div className="sub-div">
+            <h5>Ship To:</h5>
+          </div>
+
+          <div className="sub-div">
+            <p>{this.props.address.address_name}</p>
+            <p>{this.props.address.street}</p>
+            <p>{this.props.address.apt_suite}</p>
+            <p>
+              {this.props.address.city}, {this.props.address.states.name} {this.props.address.zip}
+            </p>
+          </div>
+
+          <div className="edit">
+            <button>Set As Primary</button>
+            <button>Remove Address</button>
+          </div>
+
+        </div>
+      );
+
+    }
+
     
   }
 }
