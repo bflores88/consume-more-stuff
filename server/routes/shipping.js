@@ -116,32 +116,24 @@ router
         console.log('to delete.primary:', addressToDelete.primary);
         console.log('new primary:', addressToPrimary);
 
-        // let isPrim;
-        // addresses.find((address) => {
-        //   if (address.id === parseInt(req.params.id)) {
-        //     isPrim = address.primary;
-        //   }
-        // });
-        // console.log('isPrim:', isPrim);
-
-        // const isPrimary = addresses
-        //   .filter((address) => address.id === parseInt(req.params.id))
-        //   .map((address) => address.primary);
-
-        // console.log('isPrimary:', isPrimary);
-
-        // if address is only one or non-primary, defer deletion to next promise
+        // if address-to-delete is the only address or is not the primary address...
         if (result.length === 1 || !addressToDelete.primary) {
+          // defer (next: set orig address to inactive & nonprimary)
           return;
-          // return ShippingAddress.where({ id: parseInt(req.params.id) }).destroy();
+          // if multiple addresses & trying to delete primary...
         } else {
+          // convert a secondary address to primary (next: set orig address to inactive & nonprimary)
+          return new ShippingAddress('id', addressToPrimary.id).save({
+            primary: true,
+          });
         }
-        // return primary address (next: update 'primary' to false)
-        return ShippingAddress.where({ user_id: req.user.id, primary: true }).fetch();
       })
       .then((result) => {
         // return res.json(result);
-        return ShippingAddress.where({ id: parseInt(req.params.id) }).destroy();
+        return new ShippingAddress('id', parseInt(req.params.id)).save({
+          primary: false,
+          // active: false,
+        });
       })
       .then(() => {
         return res.send('Successful delete');
