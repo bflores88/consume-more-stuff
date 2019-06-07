@@ -32,6 +32,7 @@ router
         // return posted card (next: get all of user's cards)
         return new PaymentCard().save({
           primary: primary,
+          active: true,
           card_name: req.body.card_name,
           card_number: req.body.card_number,
           expiration: req.body.expiration,
