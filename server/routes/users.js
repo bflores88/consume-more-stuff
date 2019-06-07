@@ -102,7 +102,7 @@ router.route('/admin').put(isLoggedInGuard, isAdminGuard, (req, res) => {
     });
 });
 
-router.put('/profile', isLoggedInGuard, isAdminGuard, (req, res) => {
+router.put('/profile', isLoggedInGuard, (req, res) => {
   new User('id', req.user.id)
     .save({
       name: req.body.name,

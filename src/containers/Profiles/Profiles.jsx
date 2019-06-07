@@ -17,6 +17,7 @@ class Profiles extends Component {
       userProfileDisplay: 'display-div',
       editProfileDisplay: 'hide-div',
       editSuccessDisplay: 'hide-div',
+      user: '',
 
       paymentOptions: '',
 
@@ -50,7 +51,7 @@ class Profiles extends Component {
 
   componentDidMount() {
     const user = this.props.match.params.id;
-    this.props.loadSingleUser(user);
+    this.props.loadSingleUser(user)
     this.props.grabPayments().then((result) => {
       this.setState({ paymentOptions: result.payload})
       const findPrimaryPayment = result.payload.filter((card) => card.primary);
@@ -135,7 +136,9 @@ class Profiles extends Component {
       editSuccessDisplay: 'display-div',
     }));
     const user = this.props.match.params.id;
-    this.props.loadSingleUser(user);
+    this.props.loadSingleUser(user).then((result) => {
+      this.setState({ user: result.payload})
+    })
   }
 
   render() {
@@ -154,17 +157,19 @@ class Profiles extends Component {
           </>
         );
       } else {
-        const user = {
-          id: this.props.user.id,
-          username: this.props.user.username,
-          name: this.props.user.name,
-          email: this.props.user.email,
-          image: this.props.user.profile_image_url,
-          role: this.props.user.roles.role_name,
-          active: this.props.user.active,
-          memberSince: this.props.user.created_at,
-        };
-
+       
+         const user = {
+            id: this.props.user.id,
+            username: this.props.user.username,
+            name: this.props.user.name,
+            email: this.props.user.email,
+            image: this.props.user.profile_image_url,
+            role: this.props.user.roles.role_name,
+            active: this.props.user.active,
+            memberSince: this.props.user.created_at,
+          };
+          
+        
         let memberSince = moment(new Date(user.memberSince)).format('MMM DD YYYY');
 
         let status;
