@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './UserPayments.scss';
+import { updatePrimaryPayment } from '../../actions';
+import { connect } from 'react-redux';
 
 class UserPayments extends Component {
   constructor(props) {
@@ -8,12 +10,22 @@ class UserPayments extends Component {
     this.state = {
       primary: '',
     };
+
+    this.handlePaymentUpdate = this.handlePaymentUpdate.bind(this);
   }
 
   componentDidMount() {
     if (this.props.card.primary) {
       this.setState({ primary: 'PRIMARY' });
     }
+  }
+
+  handlePaymentUpdate(e) {
+    e.preventDefault();
+    this.setState({primary: 'PRIMARY'})
+    this.props.updatePrimaryPayment(this.props.card.id).then((result) => {
+      return this.props.reload(e);
+    })
   }
 
   render() {
@@ -46,7 +58,7 @@ class UserPayments extends Component {
           </div>
   
           <div className="edit">
-            <button>Set As Primary</button>
+            <button onClick={this.handlePaymentUpdate}>Set As Primary</button>
             <button>Remove Payment Option</button>
           </div>
   
@@ -59,5 +71,20 @@ class UserPayments extends Component {
     
   }
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatePrimaryPayment: (id) => dispatch(updatePrimaryPayment(id)),
+  };
+};
+
+UserPayments = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(UserPayments);
 
 export default UserPayments;

@@ -43,6 +43,9 @@ export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 
+export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
+export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
+
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
@@ -138,6 +141,29 @@ export const grabPayments = () => {
         return dispatch({
           type: GRAB_PAYMENTS,
           payload: payments,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const updatePrimaryPayment = (pmtId) => {
+  return (dispatch) => {
+    return fetch(`/api/payments/${pmtId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((pmt) => {
+        return dispatch({
+          type: UPDATE_PRIMARY_PAYMENT,
+          payload: pmt,
         });
       })
       .catch((err) => {
@@ -336,7 +362,6 @@ export const grabThreadMessages = (threadId) => {
         return response.json();
       })
       .then((messages) => {
-
         return dispatch({
           type: GRAB_THREAD_MESSAGES,
           payload: messages,
@@ -353,7 +378,6 @@ export const grabUserThreads = () => {
         return response.json();
       })
       .then((threads) => {
-
         return dispatch({
           type: GRAB_USER_THREADS,
           payload: threads,

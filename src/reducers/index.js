@@ -14,6 +14,7 @@ import {
   ADD_CATEGORY,
   ADD_SUBCATEGORY,
   GRAB_ALL_PAYMENTS,
+  UPDATE_PRIMARY_PAYMENT,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -152,6 +153,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_PAYMENTS:
       return Object.assign({}, state, { payments: [...action.payload] });
+
+    case UPDATE_PRIMARY_PAYMENT:
+      return Object.assign({}, state, { payments: [action.payload] });
 
     default:
       return state;
