@@ -17,6 +17,7 @@ const payments = require('./routes/payments');
 const shipping = require('./routes/shipping');
 const orders = require('./routes/orders');
 const states = require('./routes/states');
+const orderStatuses = require('./routes/orderStatuses');
 
 require('dotenv').config();
 
@@ -120,6 +121,7 @@ app.use('/api/payments', payments);
 app.use('/api/shipping', shipping);
 app.use('/api/orders', orders);
 app.use('/api/states', states);
+app.use('/api/orderStatuses', orderStatuses);
 
 app.listen(port, () => {
   console.log('Server listening on Port ', port);
