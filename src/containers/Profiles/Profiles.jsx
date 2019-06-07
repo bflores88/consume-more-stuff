@@ -7,7 +7,6 @@ import moment from 'moment';
 import EditProfile from '../../components/EditProfile';
 import UserAddress from '../../components/UserAddress';
 import UserPayments from '../../components/UserPayments';
-import { get } from 'http';
 
 class Profiles extends Component {
   constructor(props) {
@@ -20,6 +19,7 @@ class Profiles extends Component {
       user: '',
 
       paymentOptions: '',
+      addressOptions: this.props.shipping,
 
       primaryAddress: '',
       primaryPayment: '',
@@ -30,7 +30,7 @@ class Profiles extends Component {
     this.handleClickToEdit = this.handleClickToEdit.bind(this);
     this.editSuccess = this.editSuccess.bind(this);
     this.handlePaymentReload = this.handlePaymentReload.bind(this);
-
+    this.handleAddressReload = this.handleAddressReload.bind(this);
   }
 
   getLast4(card) {
@@ -46,14 +46,21 @@ class Profiles extends Component {
   }
 
   successUpdate() {
-    this.setState({ redirectSuccess: true})
+    this.setState({ redirectSuccess: true });
   }
 
   componentDidMount() {
     const user = this.props.match.params.id;
-    this.props.loadSingleUser(user)
+    this.props.loadSingleUser(user);
+    this.props.grabShipping().then((result) => {
+      console.log('lsdkfsdlkfjsdkjfds', result.payload)
+      this.setState({ addressOptions: result.payload });
+      const findPrimaryShipping = result.payload.filter((address) => address.primary);
+      const primaryShipping = findPrimaryShipping[0];
+      this.setState({ primaryAddress: primaryShipping });
+    });
     this.props.grabPayments().then((result) => {
-      this.setState({ paymentOptions: result.payload})
+      this.setState({ paymentOptions: result.payload });
       const findPrimaryPayment = result.payload.filter((card) => card.primary);
       const primaryPayment = findPrimaryPayment[0];
       this.setState({
@@ -63,41 +70,36 @@ class Profiles extends Component {
         },
       });
     });
-    this.props.grabShipping().then((result) => {
-      const findPrimaryShipping = result.payload.filter((address) => address.primary);
-      const primaryShipping = findPrimaryShipping[0];
-      this.setState({ primaryAddress: primaryShipping });
-    });
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      const user = this.props.match.params.id;
-      this.props.loadSingleUser(user);
-      this.props.grabPayments().then((result) => {
-        this.setState({ paymentOptions: result.payload})
-        const findPrimaryPayment = result.payload.filter((card) => card.primary);
-        const primaryPayment = findPrimaryPayment[0];
-        this.setState({
-          primaryPayment: {
-            cardHolder: primaryPayment.card_name,
-            cardNumber: this.getLast4(primaryPayment.card_number),
-          },
-        });
-      });
-      this.props.grabShipping().then((result) => {
-        const findPrimaryShipping = result.payload.filter((address) => address.primary);
-        const primaryShipping = findPrimaryShipping[0];
-        this.setState({ primaryAddress: primaryShipping });
-      });
-    } 
+    // if (this.props.match.params !== prevProps.match.params) {
+    //   const user = this.props.match.params.id;
+    //   this.props.loadSingleUser(user);
+    //   this.props.grabPayments().then((result) => {
+    //     this.setState({ paymentOptions: result.payload})
+    //     const findPrimaryPayment = result.payload.filter((card) => card.primary);
+    //     const primaryPayment = findPrimaryPayment[0];
+    //     this.setState({
+    //       primaryPayment: {
+    //         cardHolder: primaryPayment.card_name,
+    //         cardNumber: this.getLast4(primaryPayment.card_number),
+    //       },
+    //     });
+    //   });
+    //   this.props.grabShipping().then((result) => {
+    //     const findPrimaryShipping = result.payload.filter((address) => address.primary);
+    //     const primaryShipping = findPrimaryShipping[0];
+    //     this.setState({ primaryAddress: primaryShipping });
+    //   });
+    // }
   }
 
   handlePaymentReload(e) {
     e.preventDefault();
     this.setState({ primaryPayment: '', paymentOptions: '' });
     this.props.grabPayments().then((result) => {
-      this.setState({ paymentOptions: result.payload})
+      this.setState({ paymentOptions: result.payload });
       const findPrimaryPayment = result.payload.filter((card) => card.primary);
       const primaryPayment = findPrimaryPayment[0];
       this.setState({
@@ -109,6 +111,17 @@ class Profiles extends Component {
     });
   }
 
+  handleAddressReload(e) {
+    e.preventDefault();
+    this.setState({ primaryAddress: '', addressOptions: '' });
+    this.props.grabShipping().then((result) => {
+      this.setState({ addressOptions: result.payload });
+      const findPrimaryShipping = result.payload.filter((address) => address.primary);
+      const primaryShipping = findPrimaryShipping[0];
+      this.setState({ primaryAddress: primaryShipping });
+      return result;
+    });
+  }
 
   handleClickToEdit(e) {
     e.preventDefault();
@@ -137,8 +150,8 @@ class Profiles extends Component {
     }));
     const user = this.props.match.params.id;
     this.props.loadSingleUser(user).then((result) => {
-      this.setState({ user: result.payload})
-    })
+      this.setState({ user: result.payload });
+    });
   }
 
   render() {
@@ -157,19 +170,17 @@ class Profiles extends Component {
           </>
         );
       } else {
-       
-         const user = {
-            id: this.props.user.id,
-            username: this.props.user.username,
-            name: this.props.user.name,
-            email: this.props.user.email,
-            image: this.props.user.profile_image_url,
-            role: this.props.user.roles.role_name,
-            active: this.props.user.active,
-            memberSince: this.props.user.created_at,
-          };
-          
-        
+        const user = {
+          id: this.props.user.id,
+          username: this.props.user.username,
+          name: this.props.user.name,
+          email: this.props.user.email,
+          image: this.props.user.profile_image_url,
+          role: this.props.user.roles.role_name,
+          active: this.props.user.active,
+          memberSince: this.props.user.created_at,
+        };
+
         let memberSince = moment(new Date(user.memberSince)).format('MMM DD YYYY');
 
         let status;
@@ -181,21 +192,20 @@ class Profiles extends Component {
 
         const altDetail = `image-user${user.id}`;
 
-        const shippingAddress = this.props.shipping.map((address) => {
-          return <UserAddress address={address} />;
-        });
-
-        console.log('888', this.props.payments);
+        let shippingAddress = '';
+        if (this.state.addressOptions) {
+          shippingAddress = this.state.addressOptions.map((address) => {
+            return <UserAddress address={address} reload={this.handleAddressReload} />;
+          });
+        }
 
         let paymentOptions = '';
         if (this.state.paymentOptions) {
-           paymentOptions = this.state.paymentOptions.map((card) => {
+          paymentOptions = this.state.paymentOptions.map((card) => {
             console.log(card);
             return <UserPayments card={card} lastFour={this.getLast4} reload={this.handlePaymentReload} />;
           });
-
         }
-
 
         return (
           <div className="user-profile">
@@ -279,7 +289,9 @@ class Profiles extends Component {
                 </div>
                 <h3>Manage Payment Options</h3>
                 <br />
-                <div className="shipping-addresses" id="payment-options">{paymentOptions}</div>
+                <div className="shipping-addresses" id="payment-options">
+                  {paymentOptions}
+                </div>
               </div>
             </div>
           </div>

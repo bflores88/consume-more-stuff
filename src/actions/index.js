@@ -99,6 +99,7 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
+        console.log('action returns shipping', shipping)
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
@@ -164,6 +165,30 @@ export const updatePrimaryPayment = (pmtId) => {
         return dispatch({
           type: UPDATE_PRIMARY_PAYMENT,
           payload: pmt,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const updatePrimaryAdress = (addressId) => {
+  return (dispatch) => {
+    return fetch(`/api/shipping/${addressId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((address) => {
+        console.log('****', address)
+        return dispatch({
+          type: UPDATE_PRIMARY_ADDRESS,
+          payload: address,
         });
       })
       .catch((err) => {
