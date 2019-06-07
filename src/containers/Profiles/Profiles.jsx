@@ -22,8 +22,8 @@ class Profiles extends Component {
   }
 
   componentDidMount() {
-    const user = this.props.match.params.id;
-    this.props.loadSingleUser(user);
+    console.log('Profiles ', this.props.user);
+    this.props.loadSingleUser(this.props.user.id);
   }
 
   componentDidUpdate(prevProps) {
