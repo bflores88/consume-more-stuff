@@ -22,8 +22,8 @@ class Profiles extends Component {
   }
 
   componentDidMount() {
-    const user = this.props.match.params.id;
-    this.props.loadSingleUser(user);
+    console.log('Profiles ', this.props.user);
+    this.props.loadSingleUser(this.props.user.id);
   }
 
   componentDidUpdate(prevProps) {
@@ -87,7 +87,6 @@ class Profiles extends Component {
           name: this.props.user.name,
           email: this.props.user.email,
 
-          // role: this.props.user.roles.role_name,
           image: this.props.user.profile_image_url,
 
           role: this.props.user.roles.role_name,
