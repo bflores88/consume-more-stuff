@@ -79,6 +79,7 @@ router.route('/sales').get(isLoggedInGuard, (req, res) => {
         orders.quantity AS quantity,
         orders.created_at AS created_at,
         orders.updated_at AS updated_at,
+        os.status_name AS status,
         ub.username AS purchased_by,
         us.username AS sold_by,
         items.name AS item_name,
