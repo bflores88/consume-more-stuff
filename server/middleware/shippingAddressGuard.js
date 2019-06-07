@@ -3,7 +3,7 @@
 const ShippingAddress = require('../database/models/ShippingAddress');
 
 module.exports = function(req, res, next) {
-  ShippingAddress.where({ id: req.params.id })
+  ShippingAddress.where({ id: req.params.id, active: true })
     .fetch()
     .then((result) => {
       // only convert to JSON if result not null
