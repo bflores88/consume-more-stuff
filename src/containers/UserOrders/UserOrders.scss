@@ -1,0 +1,28 @@
+.transaction-item-box {
+  border: 1px solid orange;
+  margin: 1em;
+  padding: 1em;
+}
+.order-item-box {
+  background-color: rgb(255, 244, 225);
+  margin: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  display: flex;
+  .order-item-info-box {
+    width: 50%;
+    // margin: 1em;
+    padding: 1em;
+    border-right: 1px dotted orange;
+  }
+  .order-details-box {
+    width: 50%;
+    padding: 1em;
+    height: 100%;
+    // border-left: 1px dotted orange;
+  }
+}
+
+.processing-order {
+  color: rgb(228, 192, 32);
+}
