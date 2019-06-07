@@ -42,6 +42,7 @@ import { GRAB_SHIPPING } from '../actions';
 import { GRAB_SHIPPING_PRIMARY } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
 import { GRAB_USER_SALES } from '../actions';
+import { GRAB_USER_ORDERS } from '../actions';
 // import { POST_NEW_ORDER } from '../actions';
 
 const initialState = {
@@ -68,6 +69,7 @@ const initialState = {
   newCategory: '',
   newSubcategory: '',
   sales: [],
+  orders: [],
 };
 
 const userState = {
@@ -163,6 +165,9 @@ function itemReducer(state = initialState, action) {
 
     case GRAB_USER_SALES:
       return Object.assign({}, state, { sales: [...action.payload] });
+
+    case GRAB_USER_ORDERS:
+      return Object.assign({}, state, { orders: [...action.payload] });
 
     default:
       return state;

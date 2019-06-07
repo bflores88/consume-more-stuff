@@ -44,6 +44,7 @@ export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 export const GRAB_USER_SALES = 'GRAB_USER_SALES';
+export const GRAB_USER_ORDERS = 'GRAB_USER_ORDERS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
@@ -74,10 +75,29 @@ export const grabUserSales = () => {
         return response.json();
       })
       .then((sales) => {
-        console.log('sales', sales);
+        // console.log('sales', sales);
         return dispatch({
           type: GRAB_USER_SALES,
           payload: sales,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabUserOrders = () => {
+  return (dispatch) => {
+    return fetch(`/api/orders/purchases`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((orders) => {
+        // console.log('orders', orders);
+        return dispatch({
+          type: GRAB_USER_ORDERS,
+          payload: orders,
         });
       })
       .catch((err) => {
