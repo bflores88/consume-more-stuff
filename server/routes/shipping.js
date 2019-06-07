@@ -32,6 +32,7 @@ router
         // return posted address (next: get all of user's addresses)
         return new ShippingAddress().save({
           primary: primary,
+          active: true,
           address_name: req.body.address_name,
           street: req.body.street,
           apt_suite: req.body.apt_suite,
@@ -66,8 +67,8 @@ router
     ShippingAddress.where({ user_id: req.user.id })
       .fetchAll()
       .then((result) => {
-        if (result.length < 2) {
-          throw new Error('Must have at least two addresses to change primary address.');
+        if (result.length < 1) {
+          throw new Error('Must have at least one address.');
         }
         // return primary address (next: update 'primary' to false)
         return ShippingAddress.where({ user_id: req.user.id, primary: true }).fetch();
@@ -132,7 +133,7 @@ router
         // return res.json(result);
         return new ShippingAddress('id', parseInt(req.params.id)).save({
           primary: false,
-          // active: false,
+          active: false,
         });
       })
       .then(() => {
