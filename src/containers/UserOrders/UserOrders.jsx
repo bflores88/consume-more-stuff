@@ -31,8 +31,12 @@ class UserOrders extends Component {
       let TransactionOrders = transaction.txn_orders.map((item, idx) => {
         totalSpent += Number(parseFloat(item.item_price).toFixed(2));
         let orderStatus;
-        if (item.order_status == 'Processing') {
+        if (item.order_status == 'Submitted') {
           orderStatus = <div className="processing-order">{item.order_status}</div>;
+        } else if (item.order_status == 'Shipped') {
+          orderStatus = <div className="shipped-order">{item.order_status}</div>;
+        } else if (item.order_status == 'Delivered') {
+          orderStatus = <div className="delivered-order">{item.order_status}</div>;
         }
         return (
           <div className="order-item-box">
