@@ -10,6 +10,7 @@ router
   .route('/')
   .get(isLoggedInGuard, (req, res) => {
     ShippingAddress.where({ user_id: req.user.id })
+      .orderBy('active', 'DESC')
       .orderBy('primary', 'DESC')
       .orderBy('id', 'ASC')
       .fetchAll({ withRelated: ['states'] })
@@ -24,10 +25,10 @@ router
   })
   .post(isLoggedInGuard, (req, res) => {
     // get all of user's addresses
-    ShippingAddress.where({ user_id: req.user.id })
+    ShippingAddress.where({ user_id: req.user.id, active: true })
       .fetchAll()
       .then((result) => {
-        // if no addresses, set primary = true. Otherwise, false
+        // if no active addresses, set primary = true. Otherwise, false
         const primary = result.length > 0 ? false : true;
         // return posted address (next: get all of user's addresses)
         return new ShippingAddress().save({
@@ -46,6 +47,7 @@ router
       .then(() => {
         // return all of user's addresses, sorted (next: send response)
         return ShippingAddress.where({ user_id: req.user.id })
+          .orderBy('active', 'DESC')
           .orderBy('primary', 'DESC')
           .orderBy('id', 'ASC')
           .fetchAll({ withRelated: ['states'] });
@@ -92,6 +94,7 @@ router
       .then(() => {
         // return all of user's addresses, sorted (next: send response)
         return ShippingAddress.where({ user_id: req.user.id })
+          .orderBy('active', 'DESC')
           .orderBy('primary', 'DESC')
           .orderBy('id', 'ASC')
           .fetchAll({ withRelated: ['states'] });
@@ -106,8 +109,8 @@ router
       });
   })
   .delete(isLoggedInGuard, shippingAddressGuard, (req, res) => {
-    // get all of user's addresses
-    ShippingAddress.where({ user_id: req.user.id })
+    // get all of user's active addresses
+    ShippingAddress.where({ user_id: req.user.id, active: true })
       .fetchAll()
       .then((result) => {
         console.log(result.toJSON());
@@ -117,13 +120,13 @@ router
         console.log('to delete.primary:', addressToDelete.primary);
         console.log('new primary:', addressToPrimary);
 
-        // if address-to-delete is the only address or is not the primary address...
+        // if address-to-delete is the only active address or is not the primary address...
         if (result.length === 1 || !addressToDelete.primary) {
           // defer (next: set orig address to inactive & nonprimary)
           return;
-          // if multiple addresses & trying to delete primary...
+          // if multiple active addresses & trying to delete primary...
         } else {
-          // convert a secondary address to primary (next: set orig address to inactive & nonprimary)
+          // convert an active secondary address to primary (next: set orig address to inactive & nonprimary)
           return new ShippingAddress('id', addressToPrimary.id).save({
             primary: true,
           });
