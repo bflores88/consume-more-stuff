@@ -5,7 +5,7 @@ const router = express.Router();
 const Order = require('../database/models/Order');
 const isLoggedInGuard = require('../middleware/isLoggedInGuard');
 
-router.route('shipped/:orderId').put(isLoggedInGuard, (req, res) => {
+router.route('/shipped/:orderId').put(isLoggedInGuard, (req, res) => {
   new Order('id', parseInt(req.params.orderId))
     .save({
       order_status_id: 3,
