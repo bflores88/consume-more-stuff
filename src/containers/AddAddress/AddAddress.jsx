@@ -82,7 +82,7 @@ class AddAddress extends Component {
       });
     }
 
-    const linkBack = `/profiles/${this.props.user.id}`;
+    const linkBack = `/`;
 
     const checkFormFilled = this.state.address_name.length > 0 && this.state.street.length > 0 && this.state.state_id > 0 && this.state.zip.length > 0 && this.state.city.length > 0;
 
@@ -217,7 +217,7 @@ class AddAddress extends Component {
 
         </form>
         <div className={this.state.success}><h1>Address Successfully Added!</h1>
-        <p><Link to={linkBack}>Back To Profile</Link></p></div>
+        <p><Link to={linkBack}>Back To Home Page</Link></p></div>
       </div>
     );
   }
