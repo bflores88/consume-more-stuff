@@ -9,7 +9,7 @@ const shippingAddressGuard = require('../middleware/shippingAddressGuard');
 router
   .route('/')
   .get(isLoggedInGuard, (req, res) => {
-    ShippingAddress.where({ user_id: req.user.id })
+    ShippingAddress.where({ user_id: req.user.id, active: true })
       .orderBy('active', 'DESC')
       .orderBy('primary', 'DESC')
       .orderBy('id', 'ASC')

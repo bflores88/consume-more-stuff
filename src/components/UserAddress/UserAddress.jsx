@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserAddress.scss';
-import { updatePrimaryAdress } from '../../actions';
+import { updatePrimaryAdress, removeAddress } from '../../actions';
 
 class UserAddress extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class UserAddress extends Component {
     };
 
     this.handleAddressUpdate = this.handleAddressUpdate.bind(this);
+    this.handleRemoveAddress = this.handleRemoveAddress.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,14 @@ class UserAddress extends Component {
     this.props.updatePrimaryAdress(this.props.address.id).then((result) => {
       return this.props.reload(e);
     });
+  }
+
+  handleRemoveAddress(e) {
+    e.preventDefault();
+    this.setState({
+      address: '',
+    });
+    this.props.removeAddress(this.props.address.id)
   }
 
   render() {
@@ -77,7 +86,7 @@ class UserAddress extends Component {
 
             <div className="edit">
               <button onClick={this.handleAddressUpdate}>Set As Primary</button>
-              <button>Remove Address</button>
+              <button onClick={this.handleRemoveAddress}>Remove Address</button>
             </div>
           </div>
         );
@@ -95,6 +104,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updatePrimaryAdress: (id) => dispatch(updatePrimaryAdress(id)),
+    removeAddress: (id) => dispatch(removeAddress(id)),
   };
 };
 

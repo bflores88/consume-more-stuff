@@ -17,6 +17,9 @@ import {
   GRAB_ALL_PAYMENTS,
   UPDATE_PRIMARY_PAYMENT,
   UPDATE_PRIMARY_ADDRESS,
+  REMOVE_ADDRESS,
+  GRAB_STATES,
+  ADD_ADDRESS,
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -71,6 +74,8 @@ const initialState = {
   newCategory: '',
   newSubcategory: '',
   sales: [],
+  removedAddress: '',
+  states: [],
 };
 
 const userState = {
@@ -166,11 +171,21 @@ function itemReducer(state = initialState, action) {
 
     case UPDATE_PRIMARY_PAYMENT:
       return Object.assign({}, state, { payments: [action.payload] });
-    
+
     case UPDATE_PRIMARY_ADDRESS:
       return Object.assign({}, state, { shipping: [action.payload] });
+
+    case REMOVE_ADDRESS:
+      return Object.assign({}, state, { removedAddress: action.payload });
+
     case GRAB_USER_SALES:
       return Object.assign({}, state, { sales: [...action.payload] });
+
+    case GRAB_STATES:
+      return Object.assign({}, state, { states: [action.payload] });
+
+    case ADD_ADDRESS:
+      return Object.assign({}, state, { shipping: [action.payload] });
 
     default:
       return state;

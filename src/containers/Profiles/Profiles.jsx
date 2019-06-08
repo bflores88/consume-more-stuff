@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './Profiles.scss';
 import { loadSingleUser, grabShipping, grabPayments } from '../../actions';
 import moment from 'moment';
@@ -181,7 +181,6 @@ class Profiles extends Component {
         let paymentOptions = '';
         if (this.state.paymentOptions) {
           paymentOptions = this.state.paymentOptions.map((card) => {
-            console.log(card);
             return <UserPayments card={card} lastFour={this.getLast4} reload={this.handlePaymentReload} />;
           });
         }
@@ -249,7 +248,7 @@ class Profiles extends Component {
                 <h3>Manage Shipping Addresses</h3>
                 <br />
                 <div className="shipping-addresses">{shippingAddress}</div> <br/><br />
-                <div className="shipping-addresses"><button className="add-option">+ Shipping Option</button></div>
+                <div className="shipping-addresses"><Link to="/add-address"><button className="add-option">+ Shipping Option</button></Link></div>
               </div>
             </div>
 

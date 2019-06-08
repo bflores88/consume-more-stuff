@@ -47,10 +47,14 @@ export const GRAB_USER_SALES = 'GRAB_USER_SALES';
 
 export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
 export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
+export const REMOVE_ADDRESS = 'REMOVE_ADDRESS';
+export const ADD_ADDRESS = 'ADD_ADDRESS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
+
+export const GRAB_STATES = 'GRAB_STATES';
 
 // ACTION CREATOR
 export const searchItems = (searchTerm) => {
@@ -70,6 +74,7 @@ export const searchItems = (searchTerm) => {
       });
   };
 };
+
 export const grabUserSales = () => {
   return (dispatch) => {
     return fetch(`/api/orders/sales`)
@@ -137,7 +142,7 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
-        console.log('action returns shipping', shipping)
+        console.log('action returns shipping', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
@@ -223,9 +228,59 @@ export const updatePrimaryAdress = (addressId) => {
         return response.json();
       })
       .then((address) => {
-        console.log('****', address)
         return dispatch({
           type: UPDATE_PRIMARY_ADDRESS,
+          payload: address,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const addAddress = (data) => {
+  return (dispatch) => {
+    return fetch('/api/shipping', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        return dispatch({
+          type: ADD_ADDRESS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
+export const removeAddress = (addressId) => {
+  console.log('action id', addressId);
+  return (dispatch) => {
+    return fetch(`/api/shipping/${addressId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.group('action repsonse', response);
+        return response.json();
+      })
+      .then((address) => {
+        console.log('****', address);
+        return dispatch({
+          type: REMOVE_ADDRESS,
           payload: address,
         });
       })
@@ -948,6 +1003,25 @@ export const addSubcategory = (data) => {
       })
       .catch((error) => {
         console.log('error', error);
+      });
+  };
+};
+
+export const grabStates = () => {
+  return (dispatch) => {
+    return fetch(`/api/states`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((states) => {
+        console.log('states', states);
+        return dispatch({
+          type: GRAB_STATES,
+          payload: states,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
