@@ -266,7 +266,7 @@ export const updatePrimaryPayment = (pmtId) => {
 export const removePayment = (paymentId) => {
   console.log('paymn', paymentId)
   return (dispatch) => {
-    return fetch(`/api/shipping/${paymentId}`, {
+    return fetch(`/api/payments/${paymentId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
