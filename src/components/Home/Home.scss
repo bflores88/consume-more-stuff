@@ -1,5 +1,19 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+#root {
+  height: 100%;
+}
 .App {
   text-align: center;
+  height: 100%;
+  margin: 0;
 }
 
 .App-logo {
@@ -9,7 +23,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: blue;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

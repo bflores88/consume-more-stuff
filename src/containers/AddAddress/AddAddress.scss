@@ -1,0 +1,47 @@
+.add-address {
+  padding: 50px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 100px;
+
+  .input-div {
+    margin: 20px 0px;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 3px;
+    border: 2px solid orange;
+  }
+
+  select {
+    height: 35px;
+    width: 100%;
+    font-size: 14px;
+    background-color: orange;
+  }
+
+  .submit-item-button {
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+
+    &:hover {
+      background-color: lighten(lightgrey, 10%);
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .submit-item-button:disabled {
+    cursor: not-allowed;
+    background-color: lighten(lightgrey, 10%);
+
+    button:disabled {
+      cursor: not-allowed;
+      background-color: lighten(lightgrey, 10%);
+    }
+  }
+}

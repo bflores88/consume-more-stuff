@@ -1,0 +1,17 @@
+.login-logout-button {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  text-align: right;
+  padding-right: 2px;
+  color: gold;
+
+  p {
+    padding-right: 20px;
+    margin: 0;
+  }
+
+  button {
+    height: 30px;
+  }
+}

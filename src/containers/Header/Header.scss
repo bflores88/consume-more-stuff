@@ -1,0 +1,81 @@
+$header-height: 80px;
+
+.header {
+  position: relative;
+  height: $header-height;
+  width: 100%;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #222f3d;
+  padding: 10px;
+
+  .logoBox {
+    width: 33%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      display: flex;
+    }
+
+    .fas.fa-sun {
+      padding: 20px 0 15px 0;
+      font-size: 30px;
+    }
+    .sunLogo {
+      // width: 30%;
+      // width: auto;
+      color: #fd5e53;
+    }
+    .title {
+      color: #222f3d;
+      // color: #f5bc69;
+      color: orange;
+    }
+  }
+  .login-box {
+    display: flex;
+    width: 33%;
+    justify-content: center;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+
+  .shopping-cart-icon {
+    align-self: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.5em;
+  }
+  
+  .searchBarBox {
+    width: 33%;
+    justify-content: center;
+  }
+}
+
+input[type='text'],
+input[type='password'] {
+  border: 2px solid orange;
+  border-radius: 4px;
+  width: 90%;
+  // height: 50%;
+}
+button {
+  // background-color: #4caf50; /* Green */
+  border: solid 1px orange;
+  border-radius: 4px;
+  color: orange;
+  // padding: 15px 32px;
+  background-color: #222f3d;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
