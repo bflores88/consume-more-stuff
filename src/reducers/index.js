@@ -20,6 +20,7 @@ import {
   REMOVE_ADDRESS,
   GRAB_STATES,
   ADD_ADDRESS,
+  REMOVE_PAYMENT
 } from '../actions';
 
 import { GRAB_ITEM_IMAGES } from '../actions';
@@ -78,6 +79,7 @@ const initialState = {
   removedAddress: '',
   states: [],
   orders: [],
+  removedPayment: '',
 };
 
 const userState = {
@@ -179,6 +181,9 @@ function itemReducer(state = initialState, action) {
 
     case REMOVE_ADDRESS:
       return Object.assign({}, state, { removedAddress: action.payload });
+    
+    case REMOVE_PAYMENT:
+      return Object.assign({}, state, { removedPayment: action.payload });
 
     case GRAB_USER_SALES:
       return Object.assign({}, state, { sales: [...action.payload] });

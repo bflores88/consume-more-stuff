@@ -49,6 +49,7 @@ export const GRAB_USER_ORDERS = 'GRAB_USER_ORDERS';
 export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
 export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
 export const REMOVE_ADDRESS = 'REMOVE_ADDRESS';
+export const REMOVE_PAYMENT = 'REMOVE_PAYMENT';
 export const ADD_ADDRESS = 'ADD_ADDRESS';
 
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
@@ -262,6 +263,29 @@ export const updatePrimaryPayment = (pmtId) => {
   };
 };
 
+export const removePayment = (paymentId) => {
+  return (dispatch) => {
+    return fetch(`/api/shipping/${paymentId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((payment) => {
+        return dispatch({
+          type: REMOVE_PAYMENT,
+          payload: payment,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const updatePrimaryAdress = (addressId) => {
   return (dispatch) => {
     return fetch(`/api/shipping/${addressId}`, {
@@ -298,7 +322,6 @@ export const addAddress = (data) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         return dispatch({
           type: ADD_ADDRESS,
           payload: data,
@@ -311,7 +334,6 @@ export const addAddress = (data) => {
 };
 
 export const removeAddress = (addressId) => {
-  console.log('action id', addressId);
   return (dispatch) => {
     return fetch(`/api/shipping/${addressId}`, {
       method: 'DELETE',
@@ -324,7 +346,6 @@ export const removeAddress = (addressId) => {
         return response.json();
       })
       .then((address) => {
-        console.log('****', address);
         return dispatch({
           type: REMOVE_ADDRESS,
           payload: address,
@@ -441,7 +462,6 @@ export const editItem = (id, data) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
       });
   };
 };
@@ -643,7 +663,6 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,
@@ -1060,7 +1079,6 @@ export const grabStates = () => {
         return response.json();
       })
       .then((states) => {
-        console.log('states', states);
         return dispatch({
           type: GRAB_STATES,
           payload: states,
