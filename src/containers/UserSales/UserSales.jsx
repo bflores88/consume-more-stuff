@@ -5,6 +5,7 @@ import ActiveItems from '../../components/ActiveItems';
 import { connect } from 'react-redux';
 import { grabUsername } from '../../actions';
 import { grabUserSales } from '../../actions';
+import { updateShippingStatus } from '../../actions';
 
 class UserSales extends Component {
   constructor(props) {
@@ -20,6 +21,12 @@ class UserSales extends Component {
   }
 
   componentDidUpdate(prevProps) {}
+
+  updateStatus(id) {
+    this.props.updateShippingStatus(id);
+    this.setState({ userID: 'banana' });
+    return this.props.grabUserSales();
+  }
 
   render() {
     console.log(this.props.sales);
@@ -37,21 +44,39 @@ class UserSales extends Component {
         <div className="sale-item-box">
           {/* <div className="sale-item-name">{sale.item_name}</div>
            */}
-          <div className="sale-item-info-box">
-            <h4 className="sale-item-tag">Item</h4>
-            <div className="sale-item-info">{item.item_name}</div>
+          <img className="sale-item-image" src={item.image_link} alt="" />
+          <div className="sale-item-text-box">
+            <div className="sale-item-info-box">
+              <h4 className="sale-item-tag">Item</h4>
+              <div className="sale-item-info">{item.item_name}</div>
 
-            <div className="sale-item-info">Quantity: {item.quantity}</div>
-            <div className="sale-item-info">Item Price: $ {totalSalePrice}</div>
-            <div className="sale-item-info">Shipping Cost: $ {item.shipping_cost}</div>
-          </div>
-          <div className="sale-shipping-info-box">
-            <div children="sale-shipping-info-inner-box">
-              <h4 className="sale-shipping-tag">Shipping</h4>
-              <div className="sale-shipping-address">{item.purchased_by}</div>
-              <div className="sale-shipping-address">{item.shipping_addr_street}</div>
-              <div className="sale-shipping-address">
-                {item.shipping_addr_city}, {item.shipping_addr_state_abbr} {item.shipping_addr_zip}
+              <div className="sale-item-info">Quantity: {item.quantity}</div>
+              <div className="sale-item-info">Item Price: $ {totalSalePrice}</div>
+              <div className="sale-item-info">Shipping Cost: $ {item.shipping_cost}</div>
+            </div>
+            <div className="sale-shipping-info-box">
+              <div children="sale-shipping-info-inner-box">
+                <h4 className="sale-shipping-tag">Shipping</h4>
+                <div className="sale-shipping-address">{item.purchased_by}</div>
+                <div className="sale-shipping-address">{item.shipping_addr_street}</div>
+                <div className="sale-shipping-address">
+                  {item.shipping_addr_city}, {item.shipping_addr_state_abbr} {item.shipping_addr_zip}
+                </div>
+                <div className="sale-status-box">
+                  <div className="current-status">Shipping Status: {item.status}</div>
+                  {/* <select name="" id="">
+                    <option value="1">Submitted</option>
+                    <option value="3">Shipped</option>
+                    <option value="4">Delivered</option>
+                  </select> */}
+                  <button
+                    onClick={() => {
+                      this.updateStatus(item.id);
+                    }}
+                  >
+                    Update Status
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -92,6 +117,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     grabUserSales: () => dispatch(grabUserSales()),
+    updateShippingStatus: (id, data) => dispatch(updateShippingStatus(id, data)),
   };
 };
 

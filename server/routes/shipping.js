@@ -15,7 +15,7 @@ router
       .orderBy('id', 'ASC')
       .fetchAll({ withRelated: ['states', 'users'] })
       .then((result) => {
-        // respond with all shipping addresses, sorted
+        // respond with all active shipping addresses, sorted
         return res.json(result);
       })
       .catch((err) => {
@@ -24,7 +24,7 @@ router
       });
   })
   .post(isLoggedInGuard, (req, res) => {
-    // get all of user's addresses
+    // get all of user's active addresses
     ShippingAddress.where({ user_id: req.user.id, active: true })
       .fetchAll()
       .then((result) => {
@@ -45,15 +45,15 @@ router
         });
       })
       .then(() => {
-        // return all of user's addresses, sorted (next: send response)
-        return ShippingAddress.where({ user_id: req.user.id })
+        // return all of user's active addresses, sorted (next: send response)
+        return ShippingAddress.where({ user_id: req.user.id, active: true })
           .orderBy('active', 'DESC')
           .orderBy('primary', 'DESC')
           .orderBy('id', 'ASC')
           .fetchAll({ withRelated: ['states'] });
       })
       .then((result) => {
-        // respond with all addresses
+        // respond with all active addresses
         return res.json(result);
       })
       .catch((err) => {
@@ -65,12 +65,12 @@ router
 router
   .route('/:id')
   .put(isLoggedInGuard, shippingAddressGuard, (req, res) => {
-    // get all of user's addresses
-    ShippingAddress.where({ user_id: req.user.id })
+    // get all of user's active addresses
+    ShippingAddress.where({ user_id: req.user.id, active: true })
       .fetchAll()
       .then((result) => {
         if (result.length < 1) {
-          throw new Error('Must have at least one address.');
+          throw new Error('Must have at least one active address to toggle primary.');
         }
         // return primary address (next: update 'primary' to false)
         return ShippingAddress.where({ user_id: req.user.id, primary: true }).fetch();
@@ -92,8 +92,8 @@ router
         });
       })
       .then(() => {
-        // return all of user's addresses, sorted (next: send response)
-        return ShippingAddress.where({ user_id: req.user.id })
+        // return all of user's active addresses, sorted (next: send response)
+        return ShippingAddress.where({ user_id: req.user.id, active: true })
           .orderBy('active', 'DESC')
           .orderBy('primary', 'DESC')
           .orderBy('id', 'ASC')
@@ -113,12 +113,9 @@ router
     ShippingAddress.where({ user_id: req.user.id, active: true })
       .fetchAll()
       .then((result) => {
-        console.log(result.toJSON());
         const addresses = result.toJSON();
         const addressToDelete = addresses.find((address) => address.id === parseInt(req.params.id));
         const addressToPrimary = addresses.find((address) => address.id !== parseInt(req.params.id));
-        console.log('to delete.primary:', addressToDelete.primary);
-        console.log('new primary:', addressToPrimary);
 
         // if address-to-delete is the only active address or is not the primary address...
         if (result.length === 1 || !addressToDelete.primary) {
@@ -126,14 +123,14 @@ router
           return;
           // if multiple active addresses & trying to delete primary...
         } else {
-          // convert an active secondary address to primary (next: set orig address to inactive & nonprimary)
+          // return conversion of active secondary address to primary (next: set orig address to inactive & nonprimary)
           return new ShippingAddress('id', addressToPrimary.id).save({
             primary: true,
           });
         }
       })
-      .then((result) => {
-        // return res.json(result);
+      .then(() => {
+        // return conversion of orig address to inactive/secondary (next: send response)
         return new ShippingAddress('id', parseInt(req.params.id)).save({
           primary: false,
           active: false,

@@ -32,6 +32,7 @@ import Checkout from './containers/Checkout';
 import AdminCategories from './containers/AdminCategories';
 import UserSales from './containers/UserSales';
 import AddAddress from './containers/AddAddress';
+import UserOrders from './containers/UserOrders';
 
 class App extends Component {
   render() {
@@ -67,6 +68,7 @@ class App extends Component {
               <Route path="/checkout" component={Checkout} />
               <Route path="/sales" component={UserSales} />
               <Route path="/add-address" component={AddAddress} />
+              <Route path="/orders" component={UserOrders} />
             </Switch>
           </div>
         </div>

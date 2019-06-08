@@ -72,6 +72,16 @@
     }
   }
 }
+.sale-item-image {
+  max-height: 300px;
+  // max-width: 30%;
+  // height: auto;
+  // width: auto;
+}
+.sale-item-text-box {
+  width: 50%;
+  display: flex;
+}
 .sale-shipping-tag {
   display: flex;
   width: 100%;
@@ -82,4 +92,10 @@
 }
 .sale-shipping-address {
   margin: 1em;
+}
+
+.sale-status-box {
+  border: 1px dotted orange;
+  margin: 1em;
+  padding: 1em;
 }

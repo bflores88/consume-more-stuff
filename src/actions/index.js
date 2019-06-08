@@ -44,6 +44,7 @@ export const GRAB_SHIPPING = 'GRAB_SHIPPING';
 export const GRAB_PAYMENTS = 'GRAB_PAYMENTS';
 export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 export const GRAB_USER_SALES = 'GRAB_USER_SALES';
+export const GRAB_USER_ORDERS = 'GRAB_USER_ORDERS';
 
 export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
 export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
@@ -53,6 +54,7 @@ export const ADD_ADDRESS = 'ADD_ADDRESS';
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
+export const UPDATE_SHIPPING_STATUS = 'UPDATE_SHIPPING_STATUS';
 
 export const GRAB_STATES = 'GRAB_STATES';
 
@@ -75,6 +77,31 @@ export const searchItems = (searchTerm) => {
   };
 };
 
+export const updateShippingStatus = (id) => {
+  return (dispatch) => {
+    return (
+      fetch(`/api/orderStatuses/shipped/${id}`, {
+        method: 'PUT',
+        // body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        // .then((response) => {
+        //   return (dispatch) => {
+        //     dispatch({
+        //       type: ADD_ITEM_TO_CART,
+        //       payload: response,
+        //     });
+        //   };
+        // })
+        .catch((error) => {
+          console.log('Error in logout: ', error);
+        })
+    );
+  };
+};
+
 export const grabUserSales = () => {
   return (dispatch) => {
     return fetch(`/api/orders/sales`)
@@ -82,10 +109,29 @@ export const grabUserSales = () => {
         return response.json();
       })
       .then((sales) => {
-        console.log('sales', sales);
+        // console.log('sales', sales);
         return dispatch({
           type: GRAB_USER_SALES,
           payload: sales,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const grabUserOrders = () => {
+  return (dispatch) => {
+    return fetch(`/api/orders/purchases`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((orders) => {
+        // console.log('orders', orders);
+        return dispatch({
+          type: GRAB_USER_ORDERS,
+          payload: orders,
         });
       })
       .catch((err) => {

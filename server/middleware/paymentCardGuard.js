@@ -3,7 +3,7 @@
 const PaymentCard = require('../database/models/PaymentCard');
 
 module.exports = function(req, res, next) {
-  PaymentCard.where({ id: req.params.id })
+  PaymentCard.where({ id: req.params.id, active: true })
     .fetch()
     .then((result) => {
       // only convert to JSON if result not null

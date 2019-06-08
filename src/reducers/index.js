@@ -48,6 +48,7 @@ import { GRAB_SHIPPING } from '../actions';
 import { GRAB_SHIPPING_PRIMARY } from '../actions';
 import { GRAB_PAYMENTS } from '../actions';
 import { GRAB_USER_SALES } from '../actions';
+import { GRAB_USER_ORDERS } from '../actions';
 // import { POST_NEW_ORDER } from '../actions';
 
 const initialState = {
@@ -76,6 +77,7 @@ const initialState = {
   sales: [],
   removedAddress: '',
   states: [],
+  orders: [],
 };
 
 const userState = {
@@ -186,6 +188,8 @@ function itemReducer(state = initialState, action) {
 
     case ADD_ADDRESS:
       return Object.assign({}, state, { shipping: [action.payload] });
+    case GRAB_USER_ORDERS:
+      return Object.assign({}, state, { orders: [...action.payload] });
 
     default:
       return state;

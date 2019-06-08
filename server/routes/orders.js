@@ -74,17 +74,19 @@ router.route('/').post(isLoggedInGuard, (req, res) => {
 router.route('/sales').get(isLoggedInGuard, (req, res) => {
   knex
     .raw(
-      `SELECT
+      `SELECT DISTINCT ON (orders.id)
         orders.id AS id,
         orders.quantity AS quantity,
         orders.created_at AS created_at,
         orders.updated_at AS updated_at,
+        os.status_name AS status,
         ub.username AS purchased_by,
         us.username AS sold_by,
         items.name AS item_name,
         items.description AS item_description,
         items.price AS item_price,
         items.shipping_cost AS shipping_cost,
+        item_images.image_link AS image_link,
         sa.tax_rate AS tax_rate,
         ship_addr.address_name AS shipping_addr_name,
         ship_addr.street AS shipping_addr_street,
@@ -97,6 +99,7 @@ router.route('/sales').get(isLoggedInGuard, (req, res) => {
       FROM orders
       INNER JOIN transactions txn ON txn.id = orders.transaction_id
       INNER JOIN items ON items.id = orders.item_id
+      INNER JOIN item_images ON item_images.item_id = items.id
       INNER JOIN order_statuses os ON os.id = orders.order_status_id
       INNER JOIN users ub ON ub.id = txn.purchased_by
       INNER JOIN users us ON us.id = items.user_id

@@ -22,7 +22,9 @@ class ItemsBox extends Component {
     switch (label) {
       case label:
         return items
-          .filter((item) => item.users.active && item.inventory > 0 && item.approved && item.category_id === parseInt(id))
+          .filter(
+            (item) => item.users.active && item.inventory > 0 && item.approved && item.category_id === parseInt(id),
+          )
           .sort((a, b) => b.view_count - a.view_count);
       default:
         return;
@@ -63,7 +65,7 @@ class ItemsBox extends Component {
     });
 
     if (!filteredItems.length) {
-      return (<></>)
+      return <></>;
     } else if (!itemsBox) {
       return (
         <div className="categoryBox">

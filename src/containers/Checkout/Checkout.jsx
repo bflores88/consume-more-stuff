@@ -91,13 +91,13 @@ class Checkout extends Component {
               <div className="checkout-item-info">Item Price: $ {item.price}</div>
               <div className="checkout-item-info">Shipping Cost: $ {item.shipping_cost}</div>
               <div className="checkout-item-total-price">Total Cost for Item: $ {totalItemPrice}</div>
-              <button
+              {/* <button
                 // onMouseOver={this.changeHover(item.id)}
 
                 className="delete-item-button"
               >
                 Delete Item From Cart
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
