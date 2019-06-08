@@ -24,6 +24,7 @@ class UserSales extends Component {
 
   updateStatus(id) {
     this.props.updateShippingStatus(id);
+    this.setState({ userID: 'banana' });
     return this.props.grabUserSales();
   }
 
