@@ -73,8 +73,6 @@ class AddAddress extends Component {
   }
 
   render() {
-    console.log(this.state)
-
     const allStates = this.props.states
 
     let stateDropdown = '';
