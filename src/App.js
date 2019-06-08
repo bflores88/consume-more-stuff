@@ -31,6 +31,7 @@ import UserCart from './containers/UserCart';
 import Checkout from './containers/Checkout';
 import AdminCategories from './containers/AdminCategories';
 import UserSales from './containers/UserSales';
+import AddAddress from './containers/AddAddress';
 import UserOrders from './containers/UserOrders';
 
 class App extends Component {
@@ -66,6 +67,7 @@ class App extends Component {
               <Route path="/cart" component={UserCart} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/sales" component={UserSales} />
+              <Route path="/add-address" component={AddAddress} />
               <Route path="/orders" component={UserOrders} />
             </Switch>
           </div>

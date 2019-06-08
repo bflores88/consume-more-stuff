@@ -13,7 +13,7 @@ router
       .orderBy('active', 'DESC')
       .orderBy('primary', 'DESC')
       .orderBy('id', 'ASC')
-      .fetchAll({ withRelated: ['states'] })
+      .fetchAll({ withRelated: ['states', 'users'] })
       .then((result) => {
         // respond with all active shipping addresses, sorted
         return res.json(result);

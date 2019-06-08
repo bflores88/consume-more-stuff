@@ -46,10 +46,18 @@ export const GRAB_SHIPPING_PRIMARY = 'GRAB_SHIPPING_PRIMARY';
 export const GRAB_USER_SALES = 'GRAB_USER_SALES';
 export const GRAB_USER_ORDERS = 'GRAB_USER_ORDERS';
 
+export const UPDATE_PRIMARY_ADDRESS = 'UPDATE_PRIMARY_ADDRESS';
+export const UPDATE_PRIMARY_PAYMENT = 'UPDATE_PRIMARY_PAYMENT';
+export const REMOVE_ADDRESS = 'REMOVE_ADDRESS';
+export const REMOVE_PAYMENT = 'REMOVE_PAYMENT';
+export const ADD_ADDRESS = 'ADD_ADDRESS';
+
 export const ADMIN_USER_EDIT = 'ADMIN_USER_EDIT';
 export const ADMIN_ITEM_EDIT = 'ADMIN_ITEM_EDIT';
 export const POST_NEW_ORDER = 'POST_NEW_ORDER';
 export const UPDATE_SHIPPING_STATUS = 'UPDATE_SHIPPING_STATUS';
+
+export const GRAB_STATES = 'GRAB_STATES';
 
 // ACTION CREATOR
 export const searchItems = (searchTerm) => {
@@ -181,7 +189,7 @@ export const grabShipping = () => {
         return response.json();
       })
       .then((shipping) => {
-        console.log('shipping', shipping);
+        console.log('action returns shipping', shipping);
         return dispatch({
           type: GRAB_SHIPPING,
           payload: shipping,
@@ -224,6 +232,125 @@ export const grabPayments = () => {
         return dispatch({
           type: GRAB_PAYMENTS,
           payload: payments,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const updatePrimaryPayment = (pmtId) => {
+  return (dispatch) => {
+    return fetch(`/api/payments/${pmtId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((pmt) => {
+        return dispatch({
+          type: UPDATE_PRIMARY_PAYMENT,
+          payload: pmt,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const removePayment = (paymentId) => {
+  console.log('paymn', paymentId)
+  return (dispatch) => {
+    return fetch(`/api/shipping/${paymentId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((payment) => {
+        return dispatch({
+          type: REMOVE_PAYMENT,
+          payload: payment,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const updatePrimaryAdress = (addressId) => {
+  return (dispatch) => {
+    return fetch(`/api/shipping/${addressId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((address) => {
+        return dispatch({
+          type: UPDATE_PRIMARY_ADDRESS,
+          payload: address,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const addAddress = (data) => {
+  return (dispatch) => {
+    return fetch('/api/shipping', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return dispatch({
+          type: ADD_ADDRESS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        console.log('Error in logout: ', error);
+      });
+  };
+};
+
+export const removeAddress = (addressId) => {
+  return (dispatch) => {
+    return fetch(`/api/shipping/${addressId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.group('action repsonse', response);
+        return response.json();
+      })
+      .then((address) => {
+        return dispatch({
+          type: REMOVE_ADDRESS,
+          payload: address,
         });
       })
       .catch((err) => {
@@ -337,7 +464,6 @@ export const editItem = (id, data) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
       });
   };
 };
@@ -539,7 +665,6 @@ export const addItem = (data) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         return dispatch({
           type: ADD_ITEM,
           payload: data,
@@ -945,6 +1070,24 @@ export const addSubcategory = (data) => {
       })
       .catch((error) => {
         console.log('error', error);
+      });
+  };
+};
+
+export const grabStates = () => {
+  return (dispatch) => {
+    return fetch(`/api/states`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((states) => {
+        return dispatch({
+          type: GRAB_STATES,
+          payload: states,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 };

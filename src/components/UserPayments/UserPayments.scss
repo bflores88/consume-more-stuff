@@ -1,0 +1,49 @@
+.payment-card {
+  background-color: lighten(lightgrey, 8%);
+  padding: 20px;
+  border-radius: 6px;
+  width: 300px;
+  margin-bottom: 10px;
+
+  h5 {
+    margin: 0px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin: 0px;
+    line-height: 1.5;
+  }
+
+  .sub-div:last-of-type {
+    margin-top: 20px;
+    border-radius: 6px;
+    padding: 0px 10px;
+    text-align: center;
+    background-color: lighten(orange, 25%);
+    color: darken(orange, 25%);
+  }
+
+  .primary {
+    margin-top: 5px;
+    padding: 3px;
+    font-weight: 600;
+  }
+
+  .edit {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+
+    button {
+      width: 100%;
+      padding: 10px 10px;
+      margin-bottom: 10px;
+
+      &:hover {
+        background-color: lighten(orange, 40%);
+      }
+    }
+  }
+}

@@ -52,7 +52,6 @@ class AddItem extends Component {
     data.approved = false;
     data.view_count = 0;
     data.active = true;
-    console.log('data', data);
     // const postEm = (inputData) =>{
     //   return () =>{
     //     return this.props.addItem(inputData)
@@ -60,7 +59,6 @@ class AddItem extends Component {
     // }
     this.props.addItem(data);
     // console.log(this.props)
-    console.log('newest', this.props.newestItem);
   }
   componentDidMount() {
     // return console.log('94it93it349ti3', this.props.newestItem);
