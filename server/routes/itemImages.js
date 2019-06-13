@@ -9,6 +9,14 @@ const singleUpload = upload.single('image');
 const registeredUser = require('../middleware/isLoggedInGuard');
 const itemOwnerGuard = require('../middleware/itemOwnerGuard');
 
+const aws = require('aws-sdk');
+require('dotenv').config();
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  region: 'us-west-2',
+});
+const s3 = new aws.S3();
 
 router.route('/').get((req, res) => {
   new ItemImage()
@@ -73,9 +81,9 @@ router.route('/item/:itemId').get((req, res) => {
 
 router
   .route('/:id')
-  .get(registeredUser, itemOwnerGuard, (req, res) => {
+  .get(registeredUser, (req, res) => {
     // return queried image
-    new ItemImage({ id: req.params.id })
+    new ItemImage({ id: parseInt(req.params.id) })
       .fetch()
       .then((result) => {
         // returns a single image based on its ID
@@ -86,22 +94,54 @@ router
         return res.status(404).send('Item image not found');
       });
   })
-  .delete(registeredUser, itemOwnerGuard, (req, res) => {
-    ItemImage.where({ id: req.params.id })
-      .destroy()
+  .delete(registeredUser, (req, res) => {
+    new ItemImage({ id: req.params.id })
+      .fetch()
       .then((result) => {
-        new ItemImage()
-          .fetchAll({ columns: ['image_link'] })
-          .then((result) => {
-            // respond with all remaining images
-            // BETTER would be to reply with all remaining images tied to item
-            return res.json(result);
-          })
-          .catch((err) => {
-            console.log('error:', err);
-            return res.status(404).send('Item not found');
-          });
+        const imageLink = result.toJSON().image_link;
+        const awsStartIndex = imageLink.lastIndexOf('/');
+        var awsObjectKey = imageLink.substring(awsStartIndex + 1);
+        const params = {
+          Bucket: 'savannah-images',
+          Key: awsObjectKey,
+        };
+        return s3.deleteObject(params, (err, data) => {
+          //error
+          if (err) {
+            console.log(err, err.stack); // an error occurred
+            //success
+          } else {
+            console.log(data);
+          }
+        });
+      })
+      .then(() => {
+        return ItemImage.where({ id: parseInt(req.params.id) }).destroy();
+      })
+      .then(() => {
+        return res.send('Successful Delete');
+      })
+      .catch((err) => {
+        console.log('error:', err);
+        return res.status(500).send('Server error');
       });
   });
+// .delete(registeredUser, itemOwnerGuard, (req, res) => {
+//   ItemImage.where({ id: req.params.id })
+//     .destroy()
+//     .then((result) => {
+//       new ItemImage()
+//         .fetchAll({ columns: ['image_link'] })
+//         .then((result) => {
+//           // respond with all remaining images
+//           // BETTER would be to reply with all remaining images tied to item
+//           return res.json(result);
+//         })
+//         .catch((err) => {
+//           console.log('error:', err);
+//           return res.status(404).send('Item not found');
+//         });
+//     });
+// });
 
 module.exports = router;
