@@ -26,6 +26,8 @@ This project was created by DevLeague Cohort 28 team members [Frank Heggeness](h
 
 ![home](./screenshots/main.png 'homescreen')
 
+![register](./screenshots/register.png 'registration-page')
+
 ![update-profile-success](./screenshots/updated-profile.png 'update profile success')
 
 ![cart](./screenshots/cart.png 'my-cart')
